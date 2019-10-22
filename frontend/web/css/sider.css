@@ -14,6 +14,7 @@
 }
 #asideApp.active{
     width: 0;
+    display: none;
 }
 
 /*.aside-lists{
