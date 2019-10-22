@@ -31,7 +31,7 @@ $this->title = '审计日志';
                 <img src="/images/report/time.png" class="time_icon" alt="">
                 <input type="text" class="log_input " readonly id="timerange">
                 <input type="text" class="log_input" placeholder="用户名" ng-model="parmas_data.username">
-                <select class="log_input" ng-model="select_name"
+                <select class="log_input" ng-model="select_name" style="width:190px;"
                     ng-options="x.num as x.type for x in select_type"></select>
                 <button class="top_btn" ng-click="get_page_list()">搜索</button>
             </div>

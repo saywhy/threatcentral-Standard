@@ -92,6 +92,7 @@ function getPath($path)
   <link rel="stylesheet" href="/plugins/iCheck/minimal/_all.css">
 
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/sider.css">
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/plugins/ztree/zTreeStyle.css">
    <!-- <link rel="stylesheet" href="/plugins/switch/bootstrap-switch.css"> -->
@@ -105,7 +106,7 @@ function getPath($path)
     <a href="/" class="logo" style="background-color: #374051;height:64px">
       <span class="logo-lg" style="line-height: 62px;"><img src="/images/shangqi_logo.png" style="height: 38px;width:112px"></span>
     </a>
-    <nav class="navbar navbar-static-top" style=" background-color: #374051; ">
+    <nav class="navbar navbar-static-top" style="background-color: #374051; ">
       <div class="navbar-custom-menu" style="float: left;  ">
         <ul class="nav navbar-nav">
           <?php include 'nav.php';?>
@@ -120,87 +121,87 @@ function getPath($path)
       </div>
     </nav>
   </header>
+ <div class="content-container">
+   <aside class="content-aside">
+     <?php include 'aside.php';?>
+   </aside>
+
+   <div class="content-wrapper">
+     <!-- Content Header (Page header) -->
+     <section class="content-header" style="height: 72px;background-color: #fff;padding:0;">
+       <h1 style="font-size: 20px;color:#333;line-height:72px;padding-left:48px;">
+         <?=$this->title?>
+         <small></small>
+       </h1>
+       <ol class="breadcrumb" style="padding:0;padding-right:48px;top:0; font-size: 16px;color: #999999; line-height: 72px;">
+         <?php if (isActive(['/site/index']) == 'active') {?>
+         <li><a href="/site/index"><i class="fa fa-home"></i>首页</a></li>
+         <?php }?>
+         <?php if (isActive(['/search/index']) == 'active') {?>
+         <li><a href="/search/index'"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+         <?php if (isActive(['/agent/index']) == 'active') {?>
+         <li><a href="/agent/index"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+         <?php if (isActive(['/share/index']) == 'active') {?>
+         <li><a href="/share/index"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+         <?php if (isActive(['/intelligence/source-management']) == 'active') {?>
+         <li><a href="/intelligence/source-management"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+         <?php if (isActive(['/search/apt-lib']) == 'active') {?>
+         <li><a href="/search/apt-lib"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+         <?php if (isActive(['/assets/asset-management']) == 'active') {?>
+         <li><a href="/assets/asset-management"><i class="fa fa-database"></i>资产</a></li>
+         <?php }?>
+         <?php if (isActive(['/assets/asset-risky']) == 'active') {?>
+         <li><a href="/assets/asset-risky"><i class="fa fa-database"></i>资产</a></li>
+         <?php }?>
+         <?php if (isActive(['/alert/index']) == 'active') {?>
+         <li><a href="/alert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
+         <?php }?>
+         <?php if (isActive(['/alert/loophole']) == 'active') {?>
+         <li><a href="/alert/loophole"><i class="fa fa-heartbeat"></i>预警</a></li>
+         <?php }?>
+         <?php if (isActive(['/alert/darknet']) == 'active') {?>
+         <li><a href="/alert/darknet"><i class="fa fa-heartbeat"></i>预警</a></li>
+         <?php }?>
+         <?php if (isActive(['/report/index']) == 'active') {?>
+         <li><a href="/report/index"><i class="fa fa-area-chart"></i>报表</a></li>
+         <?php }?>
+         <?php if (isActive(['/report/send']) == 'active') {?>
+         <li><a href="/report/send"><i class="fa fa-area-chart"></i>报表</a></li>
+         <?php }?>
+         <?php if (isActive(['/seting/network']) == 'active') {?>
+         <li><a href="/seting/network"><i class="fa fa-cog"></i>设置</a></li>
+         <?php }?>
+         <?php if (isActive(['/seting/systemnotice']) == 'active') {?>
+         <li><a href="/seting/systemnotice"><i class="fa fa-cog"></i>设置</a></li>
+         <?php }?>
+         <?php if (isActive(['/seting/centralmanager']) == 'active') {?>
+         <li><a href="/seting/centralmanager"><i class="fa fa-cog"></i>设置</a></li>
+         <?php }?>
+         <?php if (isActive(['/seting/user']) == 'active') {?>
+         <li><a href="/seting/user"><i class="fa fa-cog"></i>设置</a></li>
+         <?php }?>
+         <?php if (isActive(['/seting/log']) == 'active') {?>
+         <li><a href="/seting/log"><i class="fa fa-cog"></i>设置</a></li>
+         <?php }?>
+         <li class="active"><?=$this->title?></li>
+       </ol>
+     </section>
+
+     <!-- Main content -->
+     <?=$content?>
+     <!-- /.content -->
+     <!-- Content Wrapper. Contains page content -->
+   </div>
 
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="background: #F8F8F8;">
-    <!-- Content Header (Page header) -->
-    <section class="content-header" style="height: 72px;background-color: #fff;padding:0;">
-      <h1 style="font-size: 20px;color:#333;line-height:72px;padding-left:48px;">
-        <?=$this->title?>
-        <small></small>
-      </h1>
-      <ol class="breadcrumb" style="padding:0;padding-right:48px;top:0; font-size: 16px;color: #999999; line-height: 72px;">
-        <?php if (isActive(['/site/index']) == 'active') {?>
-        <li><a href="/site/index"><i class="fa fa-home"></i>首页</a></li>
-        <?php }?>
-        <?php if (isActive(['/search/index']) == 'active') {?>
-        <li><a href="/search/index'"><i class="fa fa-podcast"></i>情报</a></li>
-        <?php }?>
-        <?php if (isActive(['/agent/index']) == 'active') {?>
-        <li><a href="/agent/index"><i class="fa fa-podcast"></i>情报</a></li>
-        <?php }?>
-        <?php if (isActive(['/share/index']) == 'active') {?>
-        <li><a href="/share/index"><i class="fa fa-podcast"></i>情报</a></li>
-        <?php }?>
-        <?php if (isActive(['/intelligence/source-management']) == 'active') {?>
-        <li><a href="/intelligence/source-management"><i class="fa fa-podcast"></i>情报</a></li>
-        <?php }?>
-        <?php if (isActive(['/search/apt-lib']) == 'active') {?>
-        <li><a href="/search/apt-lib"><i class="fa fa-podcast"></i>情报</a></li>
-        <?php }?>
-        <?php if (isActive(['/assets/asset-management']) == 'active') {?>
-        <li><a href="/assets/asset-management"><i class="fa fa-database"></i>资产</a></li>
-        <?php }?>
-        <?php if (isActive(['/assets/asset-risky']) == 'active') {?>
-        <li><a href="/assets/asset-risky"><i class="fa fa-database"></i>资产</a></li>
-        <?php }?>
-        <?php if (isActive(['/alert/index']) == 'active') {?>
-        <li><a href="/alert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
-        <?php }?>
-        <?php if (isActive(['/alert/loophole']) == 'active') {?>
-        <li><a href="/alert/loophole"><i class="fa fa-heartbeat"></i>预警</a></li>
-        <?php }?>
-        <?php if (isActive(['/alert/darknet']) == 'active') {?>
-        <li><a href="/alert/darknet"><i class="fa fa-heartbeat"></i>预警</a></li>
-        <?php }?>
-        <?php if (isActive(['/report/index']) == 'active') {?>
-        <li><a href="/report/index"><i class="fa fa-area-chart"></i>报表</a></li>
-        <?php }?>
-        <?php if (isActive(['/report/send']) == 'active') {?>
-        <li><a href="/report/send"><i class="fa fa-area-chart"></i>报表</a></li>
-        <?php }?>
-        <?php if (isActive(['/seting/network']) == 'active') {?>
-        <li><a href="/seting/network"><i class="fa fa-cog"></i>设置</a></li>
-        <?php }?>
-        <?php if (isActive(['/seting/systemnotice']) == 'active') {?>
-        <li><a href="/seting/systemnotice"><i class="fa fa-cog"></i>设置</a></li>
-        <?php }?>
-        <?php if (isActive(['/seting/centralmanager']) == 'active') {?>
-        <li><a href="/seting/centralmanager"><i class="fa fa-cog"></i>设置</a></li>
-        <?php }?>
-        <?php if (isActive(['/seting/user']) == 'active') {?>
-        <li><a href="/seting/user"><i class="fa fa-cog"></i>设置</a></li>
-        <?php }?>
-        <?php if (isActive(['/seting/log']) == 'active') {?>
-        <li><a href="/seting/log"><i class="fa fa-cog"></i>设置</a></li>
-        <?php }?>
 
-
-
-
-        <li class="active"><?=$this->title?></li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <?=$content?>
-    <!-- /.content -->
-    <div class="hoohoolab-footer">
-      <!-- <span>&copy; 2017 虎特信息科技(上海)有限公司 版权所有</span> -->
-      <span></span>
-    </div>
   <!-- /.content-wrapper -->
+
   <!--
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -210,14 +211,17 @@ function getPath($path)
     reserved.
   </footer>
   -->
-
-
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <!-- <div class="control-sidebar-bg"></div> -->
 </div>
+<div class="hoohoolab-footer">
+  <!-- <span>&copy; 2017 虎特信息科技(上海)有限公司 版权所有</span> -->
+  <span></span>
+</div>
 <!-- ./wrapper -->
+<!-- <script src="/js/controllers/main.js"></script>-->
 
 <!-- jQuery 2.2.3 -->
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -279,6 +283,8 @@ function getPath($path)
 <script src="/plugins/angular-sanitize/angular-sanitize.min.js"></script>
 <script src="/plugins/ztree/jquery.ztree.all.js"></script>
 <script src="/plugins/ztree/jquery.ztree.exhide.js"></script>
+
+
 
 <!-- <script src="/plugins/pdf/html2canvas.js"></script> -->
 <!-- <script src="/plugins/pdf/jspdf_debug.js"></script> -->

@@ -1,5 +1,3 @@
-console.log("12312");
-
 var rootScope;
 var navApp = angular.module("navApp", []);
 navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
@@ -41,6 +39,7 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
     };
     $scope.get_menu();
   };
+
   $scope.get_menu = function() {
     $http.get("/site/menu").then(
       function success(data) {
@@ -49,19 +48,19 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
             // 首页
             if (item.permissions_id == "1") {
               $scope.menu_list.index = true;
-              angular.forEach(item.child_menu, function(child) {
+              /*angular.forEach(item.child_menu, function(child) {
                 if (child.permissions_id == "2") {
                   $scope.menu_list.index_overview = true;
                 }
                 if (child.permissions_id == "14") {
                   $scope.menu_list.index_BigScreen = true;
                 }
-              });
+              });*/
             }
             // 情报
             if (item.permissions_id == "15") {
               $scope.menu_list.intelligence = true;
-              angular.forEach(item.child_menu, function(child) {
+              /*angular.forEach(item.child_menu, function(child) {
                 if (child.permissions_id == "16") {
                   $scope.menu_list.intelligence_query = true;
                 }
@@ -77,24 +76,24 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
                 if (child.permissions_id == "50") {
                   $scope.menu_list.intelligence_apt = true;
                 }
-              });
+              });*/
             }
             // 资产
             if (item.permissions_id == "54") {
               $scope.menu_list.assets = true;
-              angular.forEach(item.child_menu, function(child) {
+             /* angular.forEach(item.child_menu, function(child) {
                 if (child.permissions_id == "55") {
                   $scope.menu_list.assets_admin = true;
                 }
                 if (child.permissions_id == "72") {
                   $scope.menu_list.assets_risk = true;
                 }
-              });
+              });*/
             }
             // 预警
             if (item.permissions_id == "77") {
               $scope.menu_list.warning = true;
-              angular.forEach(item.child_menu, function(child) {
+              /*angular.forEach(item.child_menu, function(child) {
                 if (child.permissions_id == "78") {
                   $scope.menu_list.warning_threat = true;
                 }
@@ -104,24 +103,24 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
                 if (child.permissions_id == "90") {
                   $scope.menu_list.warning_drakNet = true;
                 }
-              });
+              });*/
             }
             // 报表
             if (item.permissions_id == "127") {
               $scope.menu_list.report = true;
-              angular.forEach(item.child_menu, function(child) {
+              /*angular.forEach(item.child_menu, function(child) {
                 if (child.permissions_id == "128") {
                   $scope.menu_list.report_creat = true;
                 }
                 if (child.permissions_id == "129") {
                   $scope.menu_list.report_send = true;
                 }
-              });
+              });*/
             }
             // 设置
             if (item.permissions_id == "93") {
               $scope.menu_list.set = true;
-              angular.forEach(item.child_menu, function(child) {
+             /* angular.forEach(item.child_menu, function(child) {
                 if (child.permissions_id == "94") {
                   $scope.menu_list.set_sys = true;
                 }
@@ -143,7 +142,7 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
                 if (child.permissions_id == "151") {
                   $scope.menu_list.api = true;
                 }
-              });
+              });*/
             }
           });
         }

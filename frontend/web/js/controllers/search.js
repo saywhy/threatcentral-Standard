@@ -36,6 +36,7 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
         $scope.loophole_get(1);
         $scope.enter();
         $scope.get_centralmanage_self();
+
     };
 
     $scope.enter = function () {

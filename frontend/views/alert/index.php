@@ -170,14 +170,14 @@ $this->title = '威胁预警';
     }
 
     .alert_box_top {
-        padding-left: 36px;
+        padding-left: 18px;
     }
 
     .alert_search_input {
         border: 1px solid #ECECEC;
         border-radius: 4px;
         height: 42px;
-        width: 210px;
+        width: 160px;
         padding-left: 34px;
         margin-right: 16px;
     }
@@ -193,7 +193,7 @@ $this->title = '威胁预警';
         background: #0070FF;
         border-radius: 4px;
         height: 42px;
-        width: 124px;
+        width: 94px;
         color: #fff;
         margin: 0 24px;
     }
@@ -402,7 +402,7 @@ border: 1px solid #0070FF;
     }
 
     .container_ul {
-        width: 210px;
+        width: 160px;
         height: 100px;
         overflow-y: auto;
         position: absolute;
@@ -426,9 +426,9 @@ border: 1px solid #0070FF;
         border-radius: 3px;
     }
     .alert_search_input::-webkit-input-placeholder{
-font-size: 14px;
-color: #BBBBBB;
-}
+        font-size: 14px;
+        color: #BBBBBB;
+    }
 </style>
 <section class="content" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
     <div class="echarts_box">

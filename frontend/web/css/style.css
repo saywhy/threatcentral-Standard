@@ -276,7 +276,7 @@
   color: #fff;
   width: 45px;
   border-radius: 50%;
-  transition: all 0.3s;  
+  transition: all 0.3s;
 
 }
 .user-text{
@@ -374,7 +374,7 @@
   line-height: 30px;
   font-size: 16px;
   width: 30px;
-  transition: all 0.3s;  
+  transition: all 0.3s;
 }
 .seting-section{
   max-width: 800px;
@@ -414,7 +414,7 @@
   color: #333;
   font-size: 14px;
   margin-bottom: 3px;
-  margin-left: 35px; 
+  margin-left: 35px;
 }
 
 .user-block .text {
@@ -435,8 +435,8 @@
 
 
 /*.img-bordered-sm {
-    border: 0px solid #d2d6de; 
-    padding: 0px; 
+    border: 0px solid #d2d6de;
+    padding: 0px;
     border-radius: 0px;
 }*/
 
@@ -594,7 +594,7 @@
   }
 }
 .share-search{
-    min-width:80px; 
+    min-width:80px;
     min-height:42px;
     font-size:18px;
     line-height: 28px;
@@ -620,7 +620,7 @@
 .upload-icon div{
   width:70px;
   height:28px;
-  margin-top: 7px;  
+  margin-top: 7px;
   border-left:1px solid #d2d6de;
 }
 
@@ -693,7 +693,7 @@
 }
 .no-message-ul{
   margin:39px 0 0 418px;
-} 
+}
 .no-message-ul>li{
   color:#777;
   margin-bottom:15px;
@@ -724,11 +724,11 @@
   font-size: 14px;
 }
 
-
-
 .code .string { color: #d14; }
 .code .number { color: #099; }
 .code .boolean { color: #00d; }
 .code .null { color: #333; font-weight: bold;}
 .code .key { color: #333; }
 .highlight{background-color: #FF0;}
+
+

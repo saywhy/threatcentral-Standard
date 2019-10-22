@@ -23,8 +23,8 @@ $this->title = '账号管理';
                         <button class="user_btn" ng-click="add_user()">添加用户</button>
                     </div>
                 </div>
-                <div class="user_table">
-                    <table class="table  domain_table ng-cloak">
+                <div class="user_table" >
+                    <table class="table  domain_table ng-cloak" style="width:auto;">
                         <tr style="text-algin:center">
                             <th style="width:80px;">序号</th>
                             <th style="width:200px;">用户名</th>

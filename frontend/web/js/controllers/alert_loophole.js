@@ -412,8 +412,8 @@ myApp.controller("AlertLoopholeCtrl", function($scope, $http, $filter, $sce) {
               },
               labelLine: {
                 show: true,
-                length: 12,
-                length2: 24,
+                length: 6,
+                length2: 12,
                 lineStyle: {
                   color: "#bbb"
                 }
@@ -547,8 +547,8 @@ myApp.controller("AlertLoopholeCtrl", function($scope, $http, $filter, $sce) {
               },
               labelLine: {
                 show: true,
-                length: 12,
-                length2: 24,
+                length: 6,
+                length2: 12,
                 lineStyle: {
                   color: "#bbb"
                 }
@@ -678,8 +678,8 @@ myApp.controller("AlertLoopholeCtrl", function($scope, $http, $filter, $sce) {
               },
               labelLine: {
                 show: true,
-                length: 12,
-                length2: 24,
+                length: 6,
+                length2: 12,
                 lineStyle: {
                   color: "#bbb"
                 }

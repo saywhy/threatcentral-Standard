@@ -250,14 +250,14 @@ $this->title = '漏洞预警';
     }
 
     .alert_box_top {
-        padding-left: 36px;
+        padding-left: 18px;
     }
 
     .alert_search_input {
         border: 1px solid #ECECEC;
         border-radius: 4px;
         height: 42px;
-        width: 180px;
+        width: 160px;
         padding-left: 34px;
         margin-right: 16px;
     }

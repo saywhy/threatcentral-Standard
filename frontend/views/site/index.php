@@ -295,7 +295,7 @@ $this->title = '概览';
     .height_color {
         display: inline-block;
         background: #FF5F5C;
-        margin-left: 10px;
+        margin-left: 6px;
         width: 16px;
         border-radius: 2px;
         height: 10px;
