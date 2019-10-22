@@ -184,6 +184,7 @@ $this->title = '情报源管理';
                                     <input class="tgl tgl-ios" type="checkbox" id="{{item.name}}"
                                         ng-checked="item.choose" ng-click="choose_open(item)">
                                     <label class="tgl-btn" for="{{item.name}}"
+                                        ng-click="aaa();$event.stopPropagation();"
                                         style="margin-top: 16px;margin-right: 10px; float: left;"></label>
                                     <span style="float:left;" ng-if="item.choose">启用</span>
                                     <span style="float:left;" ng-if="!item.choose">禁用</span>
@@ -220,6 +221,7 @@ $this->title = '情报源管理';
                                         ng-checked="item.choose" ng-click="choose_open(item)" id="{{item.name}}">
                                     <!-- ng-click="item.choose !=item.choose"> -->
                                     <label class="tgl-btn" for="{{item.name}}"
+                                     ng-click="aaa();$event.stopPropagation();"
                                         style="margin-top: 16px;margin-right: 10px; float: left;"></label>
                                     <span style="float:left;" ng-if="item.choose">启用</span>
                                     <span style="float:left;" ng-if="!item.choose">禁用</span>

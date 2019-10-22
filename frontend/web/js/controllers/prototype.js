@@ -289,6 +289,9 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                 );
         }
     };
+    $scope.aaa = function () {
+        console.log('aaa');
+    }
     // 卡片详情
     $scope.detail = function (item) {
         console.log(item);
