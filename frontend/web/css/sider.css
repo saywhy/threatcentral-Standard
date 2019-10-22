@@ -41,20 +41,20 @@
 #asideApp .aside-lists .aside-item .caret{
     position: absolute;
     right: 20px;
-    top: 17px;
+    top: 18px;
     font-size: 16px;
     color: rgb(0,112,255);
-    border-top: 6px dashed;
-    border-right: 6px solid transparent;
-    border-left: 6px solid transparent;
+    border-top: 5px dashed;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
 
 }
 #asideApp .aside-lists .aside-item .caret.active{
-    top: 14px;
+    top: 15px;
     right: 17px;
-    border-left: 6px dashed;
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
+    border-left: 5px dashed;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
 }
 
 .aside-lists-second{
