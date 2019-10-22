@@ -3,6 +3,7 @@ var myApp = angular.module("asideApp", []);
 myApp.controller("asideCtrl", function($scope,$http) {
 
     $scope.indexCode = 0;
+    $scope.alertDetail = false;
     $scope.menu_aside = {
         site: {
             system: true,
@@ -67,8 +68,19 @@ myApp.controller("asideCtrl", function($scope,$http) {
     };
 
     $scope.getProjectName = function(){
+
         //获取主机地址之后的目录
         var pathName = window.document.location.pathname;
+
+        console.log(pathName)
+
+        if(pathName === '/alert/detail' || pathName === '/alert/loophole-detail'
+        || pathName === '/alert/darknet-detail'){
+            $scope.alertDetail = true;
+            return false;
+        }else {
+            $scope.alertDetail = false;
+        }
         var projectName = pathName.substring(1, pathName.substr(1).indexOf('/')+1);
         return projectName;
     }

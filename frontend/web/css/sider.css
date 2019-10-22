@@ -4,16 +4,21 @@
     display: flex;
 }
 .content-container .content-aside{
-    width: 180px;
+    width: auto;
     background-color: rgb(248,248,248);
 }
 
 #asideApp{
     padding: 20px 0;
+    width: 180px;
 }
-.aside-lists{
+#asideApp.active{
+    width: 0;
+}
 
-}
+/*.aside-lists{
+}*/
+
 #asideApp .aside-lists .aside-item{
     height: auto;
     line-height: 40px;
@@ -57,10 +62,8 @@
     border-bottom: 5px solid transparent;
 }
 
-.aside-lists-second{
-
-
-}
+/*.aside-lists-second{
+}*/
 
 .aside-lists-second .aside-item-second{
     height: 40px;

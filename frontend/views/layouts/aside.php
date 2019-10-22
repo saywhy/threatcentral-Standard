@@ -1,6 +1,6 @@
 <!--侧边栏 ycl20191021-->
 
-<div id="asideApp" ng-controller="asideCtrl" ng-cloak>
+<div id="asideApp" ng-class="{'active':alertDetail}" ng-controller="asideCtrl" ng-cloak>
 
     <!--首页-->
     <ul class="aside-lists" ng-show="indexCode === 0">
