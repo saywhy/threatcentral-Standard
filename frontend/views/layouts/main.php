@@ -174,19 +174,19 @@ function getPath($path)
          <li><a href="/report/send"><i class="fa fa-area-chart"></i>报表</a></li>
          <?php }?>
          <?php if (isActive(['/seting/network']) == 'active') {?>
-         <li><a href="/seting/network"><i class="fa fa-cog"></i>设置</a></li>
+         <li><a href="/seting/network"><i class="fa fa-cog"></i>配置</a></li>
          <?php }?>
          <?php if (isActive(['/seting/systemnotice']) == 'active') {?>
-         <li><a href="/seting/systemnotice"><i class="fa fa-cog"></i>设置</a></li>
+         <li><a href="/seting/systemnotice"><i class="fa fa-cog"></i>配置</a></li>
          <?php }?>
          <?php if (isActive(['/seting/centralmanager']) == 'active') {?>
-         <li><a href="/seting/centralmanager"><i class="fa fa-cog"></i>设置</a></li>
+         <li><a href="/seting/centralmanager"><i class="fa fa-cog"></i>配置</a></li>
          <?php }?>
          <?php if (isActive(['/seting/user']) == 'active') {?>
-         <li><a href="/seting/user"><i class="fa fa-cog"></i>设置</a></li>
+         <li><a href="/seting/user"><i class="fa fa-cog"></i>配置</a></li>
          <?php }?>
          <?php if (isActive(['/seting/log']) == 'active') {?>
-         <li><a href="/seting/log"><i class="fa fa-cog"></i>设置</a></li>
+         <li><a href="/seting/log"><i class="fa fa-cog"></i>配置</a></li>
          <?php }?>
          <li class="active"><?=$this->title?></li>
        </ol>
@@ -197,8 +197,6 @@ function getPath($path)
      <!-- /.content -->
      <!-- Content Wrapper. Contains page content -->
    </div>
-
-
 
   <!-- /.content-wrapper -->
 
@@ -216,10 +214,10 @@ function getPath($path)
        immediately after the control sidebar -->
   <!-- <div class="control-sidebar-bg"></div> -->
 </div>
-<div class="hoohoolab-footer">
-  <!-- <span>&copy; 2017 虎特信息科技(上海)有限公司 版权所有</span> -->
+<!--<div class="hoohoolab-footer">
+  <!-- <span>&copy; 2017 虎特信息科技(上海)有限公司 版权所有</span>
   <span></span>
-</div>
+</div>-->
 <!-- ./wrapper -->
 <!-- <script src="/js/controllers/main.js"></script>-->
 

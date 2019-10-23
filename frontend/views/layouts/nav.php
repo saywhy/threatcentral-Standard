@@ -118,7 +118,7 @@ border-top-color:transparent;
         <!-- 设置 -->
         <li role="presentation" class="dropdown hover_li_title <?=isActive(['/seting/network', '/seting/systemnotice', '/seting/custom-information-search', '/seting/centralmanager', '/seting/user', '/seting/log', '/api/index'])?> " ng-if="menu_list.set">
             <a class="dropdown-toggle nav_li_a"  href="<?=getPath('/seting/network')?>" >
-                <i class="fa fa-cog"></i> 设置
+                <i class="fa fa-cog"></i> 配置
             </a>
 
         </li>

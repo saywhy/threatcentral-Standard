@@ -5,12 +5,12 @@
 }
 .content-container .content-aside{
     width: auto;
-    background-color: rgb(248,248,248);
+    background-color: #F8F8F8;
 }
 
 #asideApp{
     padding: 20px 0;
-    width: 180px;
+    width: 186px;
     display: block;
 }
 #asideApp.active{
@@ -28,21 +28,20 @@
 }
 
 #asideApp .aside-lists .aside-item .fa{
-    padding-right: 5px;
+    padding-right: 2px;
 }
 
 #asideApp .aside-lists .aside-item > a.aside-item-a{
-    color: #333;
+    color: #555;
     padding-left: 20px;
     text-decoration: none;
     display: block;
     position: relative;
     cursor: pointer;
-    font-size: 15px;
 }
 
 #asideApp .aside-lists .aside-item .fa{
-    color: rgb(0,112,255);
+    color: #0070FF;
 }
 
 #asideApp .aside-lists .aside-item .caret{
@@ -50,7 +49,7 @@
     right: 20px;
     top: 18px;
     font-size: 16px;
-    color: rgb(0,112,255);
+    color: #0070FF;
     border-top: 5px dashed;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
@@ -74,14 +73,15 @@
 }
 
 .aside-lists-second .aside-item-second-a{
-    padding-left: 40px;
+    padding-left: 45px;
     text-decoration: none;
     display: block;
-    color: #333;
+    color: #555;
+    cursor: pointer;
 }
 
 .aside-lists-second .aside-item-second.active{
-    background-color: rgb(0,112,255);
+    background-color: #0070FF;
 }
 
 .aside-lists-second .aside-item-second.active:after{
@@ -90,7 +90,7 @@
     height: 0px;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 8px solid rgb(0,112,255);
+    border-left: 8px solid #0070FF;
     position: absolute;
     top: 12px;
     right: -8px;
@@ -98,6 +98,23 @@
 }
 .aside-lists-second .aside-item-second.active > a.aside-item-second-a{
     color: #fff;
+}
+
+.aside-lists-three{
+}
+
+.aside-lists-second .aside-lists-three .aside-item-three{
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+
+.aside-lists-second .aside-lists-three .aside-item-three-a{
+    padding-left: 60px;
+    text-decoration: none;
+    display: block;
+    color: #555;
+    cursor: pointer;
 }
 
 .content-container .content-wrapper{

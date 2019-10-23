@@ -27,12 +27,15 @@ myApp.controller("asideCtrl", function($scope,$http) {
         },
         seting: {
             system: true,
-            vehicle: false
+            vehicle: false,
+            manage:{
+                set:false
+            }
         }
     };
 
     $scope.menu_list = {
-        //   首页
+        //首页
         index: false,
         index_overview: false,
         index_BigScreen: false,
@@ -74,6 +77,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
 
         console.log(pathName)
 
+        //预警详情去掉侧边栏
         if(pathName === '/alert/detail' || pathName === '/alert/loophole-detail'
         || pathName === '/alert/darknet-detail'){
             $scope.alertDetail = true;
@@ -82,12 +86,14 @@ myApp.controller("asideCtrl", function($scope,$http) {
             $scope.alertDetail = false;
         }
         var projectName = pathName.substring(1, pathName.substr(1).indexOf('/')+1);
+
         return projectName;
     }
 
     $scope.init_code = function(){
 
         let names = $scope.getProjectName();
+
         if(names === 'site' || names == null || names== '/'){
             $scope.indexCode = 0;
         }else if(names === 'search' || names === 'agent' || names === 'share' || names === 'intelligence'){
@@ -216,11 +222,10 @@ myApp.controller("asideCtrl", function($scope,$http) {
 
     $scope.init = function() {
 
-        //左侧栏显示判定
+        //左侧栏显示设置
         $scope.init_code();
         //左侧栏权限设置
         $scope.get_menu();
-
 
     };
 
