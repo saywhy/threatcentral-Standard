@@ -152,12 +152,29 @@ function getPath($path)
          <?php if (isActive(['/search/apt-lib']) == 'active') {?>
          <li><a href="/search/apt-lib"><i class="fa fa-podcast"></i>情报</a></li>
          <?php }?>
+
+         <?php if (isActive(['/vehicleintelligence/special']) == 'active') {?>
+              <li><a href="/vehicleintelligence/special"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+         <?php if (isActive(['/vehicleintelligence/loophole']) == 'active') {?>
+              <li><a href="/vehicleintelligence/loophole"><i class="fa fa-podcast"></i>情报</a></li>
+         <?php }?>
+
          <?php if (isActive(['/assets/asset-management']) == 'active') {?>
          <li><a href="/assets/asset-management"><i class="fa fa-database"></i>资产</a></li>
          <?php }?>
          <?php if (isActive(['/assets/asset-risky']) == 'active') {?>
          <li><a href="/assets/asset-risky"><i class="fa fa-database"></i>资产</a></li>
          <?php }?>
+
+         <?php if (isActive(['/assets/vehicle']) == 'active') {?>
+             <li><a href="/assets/vehicle"><i class="fa fa-database"></i>资产</a></li>
+         <?php }?>
+         <?php if (isActive(['/assets/accessory']) == 'active') {?>
+             <li><a href="/assets/accessory"><i class="fa fa-database"></i>资产</a></li>
+         <?php }?>
+
+
          <?php if (isActive(['/alert/index']) == 'active') {?>
          <li><a href="/alert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
          <?php }?>
@@ -188,6 +205,17 @@ function getPath($path)
          <?php if (isActive(['/seting/log']) == 'active') {?>
          <li><a href="/seting/log"><i class="fa fa-cog"></i>配置</a></li>
          <?php }?>
+
+         <?php if (isActive(['/seting/label-manage']) == 'active') {?>
+             <li><a href="/seting/label-manage"><i class="fa fa-cog"></i>配置</a></li>
+          <?php }?>
+          <?php if (isActive(['/seting/special-intelligence']) == 'active') {?>
+             <li><a href="/seting/special-intelligence"><i class="fa fa-cog"></i>配置</a></li>
+          <?php }?>
+          <?php if (isActive(['/seting/loophole-intelligence']) == 'active') {?>
+              <li><a href="/seting/loophole-intelligence"><i class="fa fa-cog"></i>配置</a></li>
+          <?php }?>
+
          <li class="active"><?=$this->title?></li>
        </ol>
      </section>

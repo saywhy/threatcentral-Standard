@@ -6,34 +6,33 @@ myApp.controller("asideCtrl", function($scope,$http) {
     $scope.alertDetail = false;
     $scope.menu_aside = {
         site: {
-            system: true,
+            system: false,
             vehicle: false
         },
         search: {
-            system: true,
+            system: false,
             vehicle: false
         },
         assets: {
-            system: true,
+            system: false,
             vehicle: false
         },
         alert: {
-            system: true,
+            system: false,
             vehicle: false
         },
         report: {
-            system: true,
+            system: false,
             vehicle: false
         },
         seting: {
-            system: true,
+            system: false,
             vehicle: false,
             manage:{
-                set:false
+                set: false
             }
         }
     };
-
     $scope.menu_list = {
         //首页
         index: false,
@@ -70,33 +69,87 @@ myApp.controller("asideCtrl", function($scope,$http) {
         api: false
     };
 
-    $scope.getProjectName = function(){
+    $scope.get_status = function(){
+        var name = window.document.location.pathname;
+
+        switch (name) {
+            case '':
+            case '/':
+            case '/site/index':
+            case '/map.html':
+                $scope.menu_aside.site.system = true;
+                break;
+            case '/search/index':
+            case '/agent/index':
+            case '/share/index':
+            case '/intelligence/source-management':
+            case '/search/apt-lib':
+                $scope.menu_aside.search.system = true;
+                break;
+            case '/vehicleintelligence/special':
+            case '/vehicleintelligence/loophole':
+                $scope.menu_aside.search.vehicle = true;
+                break;
+
+            case '/assets/asset-management':
+            case '/assets/asset-risky':
+                $scope.menu_aside.assets.system = true;
+                break;
+            case '/assets/vehicle':
+            case '/assets/accessory':
+                $scope.menu_aside.assets.vehicle = true;
+                break;
+
+            case '/alert/index':
+            case '/alert/loophole':
+            case '/alert/darknet':
+                $scope.menu_aside.alert.system = true;
+                break;
+
+            case '/report/index':
+            case '/report/send':
+                $scope.menu_aside.report.system = true;
+                break;
+            /*配置*/
+            case '/seting/network':
+            case '/seting/systemnotice':
+            case '/seting/custom-information-search':
+            case '/seting/centralmanager':
+            case '/seting/user':
+            case '/seting/log':
+            case '/api/index':
+                $scope.menu_aside.seting.system = true;
+                break;
+            case '/seting/label-manage':
+                $scope.menu_aside.seting.vehicle = true;
+                break;
+            case '/seting/special-intelligence':
+            case '/seting/loophole-intelligence':
+                $scope.menu_aside.seting.vehicle = true;
+                $scope.menu_aside.seting.manage.set = true;
+                break;
+        }
+    }
+
+    $scope.init_code = function(){
 
         //获取主机地址之后的目录
         var pathName = window.document.location.pathname;
 
-        console.log(pathName)
-
         //预警详情去掉侧边栏
         if(pathName === '/alert/detail' || pathName === '/alert/loophole-detail'
-        || pathName === '/alert/darknet-detail'){
+            || pathName === '/alert/darknet-detail'){
             $scope.alertDetail = true;
             return false;
         }else {
             $scope.alertDetail = false;
         }
-        var projectName = pathName.substring(1, pathName.substr(1).indexOf('/')+1);
-
-        return projectName;
-    }
-
-    $scope.init_code = function(){
-
-        let names = $scope.getProjectName();
+        var names = pathName.substring(1, pathName.substr(1).indexOf('/')+1);
 
         if(names === 'site' || names == null || names== '/'){
             $scope.indexCode = 0;
-        }else if(names === 'search' || names === 'agent' || names === 'share' || names === 'intelligence'){
+        }else if(names === 'search' || names === 'agent' || names === 'share'
+            || names === 'intelligence'|| names === 'vehicleintelligence'){
             $scope.indexCode = 1;
         }else if(names === 'assets'){
             $scope.indexCode = 2;
@@ -226,13 +279,14 @@ myApp.controller("asideCtrl", function($scope,$http) {
         $scope.init_code();
         //左侧栏权限设置
         $scope.get_menu();
+        //左侧栏状态
+        $scope.get_status();
 
     };
 
     $scope.init();
 
 });
-
 
 angular.element(document).ready(function() {
     angular.bootstrap(document.getElementById("asideApp"), ['asideApp']);

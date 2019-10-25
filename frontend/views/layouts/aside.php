@@ -24,13 +24,13 @@
             </ul>
         </li>
 
-        <li class="aside-item">
+        <!--<li class="aside-item">
              <a class="aside-item-a" href="javascript:void(0);">
                 <i class="fa fa-home"></i>
                 <span class="name">车联网首页</span>
-                <!--<span class="caret"></span>-->
+                <span class="caret"></span>
              </a>
-        </li>
+        </li>-->
     </ul>
 
     <!--情报-->
@@ -82,13 +82,13 @@
                 <span class="caret" ng-class="{'active':!menu_aside.search.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.search.vehicle">
-               <li class="aside-item-second <?=isActive(['/intelligence/1'])?>">
-                 <a class="aside-item-second-a" href="<?=getPath('/intelligence/1')?>">
+               <li class="aside-item-second <?=isActive(['/vehicleintelligence/special'])?>">
+                 <a class="aside-item-second-a" href="<?=getPath('/vehicleintelligence/special')?>">
                      <span>行业情报</span>
                  </a>
                </li>
-               <li class="aside-item-second <?=isActive(['/search/2'])?>">
-                 <a class="aside-item-second-a" href="<?=getPath('/search/2')?>">
+               <li class="aside-item-second <?=isActive(['/vehicleintelligence/loophole'])?>">
+                 <a class="aside-item-second-a" href="<?=getPath('/vehicleintelligence/loophole')?>">
                      <span>漏洞情报</span>
                  </a>
                </li>
@@ -127,13 +127,13 @@
                 <span class="caret" ng-class="{'active':!menu_aside.assets.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.assets.vehicle">
-                <li class="aside-item-second <?=isActive(['/assets/1'])?>">
-                    <a class="aside-item-second-a" href="<?=getPath('/assets/1')?>" >
+                <li class="aside-item-second <?=isActive(['/assets/vehicle'])?>">
+                    <a class="aside-item-second-a" href="<?=getPath('/assets/vehicle')?>" >
                         <span>车辆资产</span>
                     </a>
                 </li>
-                <li class="aside-item-second <?=isActive(['/assets/2'])?>">
-                    <a class="aside-item-second-a" href="<?=getPath('/assets/2')?>" >
+                <li class="aside-item-second <?=isActive(['/assets/accessory'])?>">
+                    <a class="aside-item-second-a" href="<?=getPath('/assets/accessory')?>" >
                         <span>零配件资产</span>
                     </a>
                 </li>
@@ -203,13 +203,13 @@
             </ul>
         </li>
 
-        <li class="aside-item">
+        <!--<li class="aside-item">
              <a class="aside-item-a" href="javascript:void(0);">
                 <i class="fa fa-area-chart"></i>
                 <span class="name">车联网报表</span>
-                <!--<span class="caret"></span>-->
+                <span class="caret"></span>
              </a>
-        </li>
+        </li>-->
     </ul>
 
     <!--配置-->
@@ -269,26 +269,25 @@
                 <span class="caret" ng-class="{'active':!menu_aside.seting.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.seting.vehicle">
-                <li class="aside-item-second <?=isActive(['/seting/1'])?>" >
-                    <a class="aside-item-second-a" href="<?=getPath('/seting/1')?>" >
+                <li class="aside-item-second <?=isActive(['/seting/label-manage'])?>" >
+                    <a class="aside-item-second-a" href="<?=getPath('/seting/label-manage')?>" >
                         <span>标签管理</span>
                     </a>
                 </li>
-                <li class="aside-item-second <?=isActive(['/seting/2'])?>"
-                    ng-if="menu_list.set_notice">
+                <li class="aside-item-second">
                     <a class="aside-item-second-a"
                      ng-click="menu_aside.seting.manage.set = !menu_aside.seting.manage.set">
                         <span>情报管理</span>
                         <span class="caret" ng-class="{'active':!menu_aside.seting.manage.set}"></span>
                     </a>
                     <ul class="aside-lists-three" ng-show="menu_aside.seting.manage.set">
-                       <li class="aside-item-three <?=isActive(['/seting/3'])?>">
-                            <a class="aside-item-three-a" href="<?=getPath('/seting/3')?>" >
+                       <li class="aside-item-three <?=isActive(['/seting/special-intelligence'])?>">
+                            <a class="aside-item-three-a" href="<?=getPath('/seting/special-intelligence')?>" >
                                 <span>行业情报管理</span>
                             </a>
                         </li>
-                        <li class="aside-item-three <?=isActive(['/seting/4'])?>">
-                            <a class="aside-item-three-a" href="<?=getPath('/seting/4')?>" >
+                        <li class="aside-item-three <?=isActive(['/seting/loophole-intelligence'])?>">
+                            <a class="aside-item-three-a" href="<?=getPath('/seting/loophole-intelligence')?>" >
                                 <span>漏洞情报管理</span>
                             </a>
                         </li>
