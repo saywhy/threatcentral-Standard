@@ -45,10 +45,16 @@ myApp.controller("asideCtrl", function($scope,$http) {
         intelligence_share: false,
         intelligence_sourceAdmin: false,
         intelligence_apt: false,
+        intelligence_special: false,
+        intelligence_loophole: false,
+
         // 资产
         assets: false,
         assets_admin: false,
         assets_risk: false,
+        assets_vehicle: false,
+        assets_accessory: false,
+
         // 预警
         warning: false,
         warning_threat: false,
@@ -66,12 +72,14 @@ myApp.controller("asideCtrl", function($scope,$http) {
         set_admin: false,
         set_user: false,
         set_log: false,
-        api: false
+        api: false,
+        set_label:false,
+        set_special:false,
+        set_loophole:false
     };
 
-    $scope.get_status = function(){
+    $scope.get_status = function() {
         var name = window.document.location.pathname;
-
         switch (name) {
             case '':
             case '/':
@@ -164,12 +172,13 @@ myApp.controller("asideCtrl", function($scope,$http) {
 
     $scope.get_menu = function() {
         $http.get("/site/menu").then(
+
             function success(data) {
                 if (data.data.status == "success") {
                     angular.forEach(data.data.data, function(item) {
                         // 首页
                         if (item.permissions_id == "1") {
-                            $scope.menu_list.index = true;
+                            //$scope.menu_list.index = true;
                             angular.forEach(item.child_menu, function(child) {
                                 if (child.permissions_id == "2") {
                                     $scope.menu_list.index_overview = true;
@@ -181,7 +190,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
                         }
                         // 情报
                         if (item.permissions_id == "15") {
-                            $scope.menu_list.intelligence = true;
+                            //$scope.menu_list.intelligence = true;
                             angular.forEach(item.child_menu, function(child) {
                                 if (child.permissions_id == "16") {
                                     $scope.menu_list.intelligence_query = true;
@@ -198,11 +207,17 @@ myApp.controller("asideCtrl", function($scope,$http) {
                                 if (child.permissions_id == "50") {
                                     $scope.menu_list.intelligence_apt = true;
                                 }
+                                if (child.permissions_id == "186") {
+                                    $scope.menu_list.intelligence_special = true;
+                                }
+                                if (child.permissions_id == "187") {
+                                    $scope.menu_list.intelligence_loophole = true;
+                                }
                             });
                         }
                         // 资产
                         if (item.permissions_id == "54") {
-                            $scope.menu_list.assets = true;
+                            //$scope.menu_list.assets = true;
                             angular.forEach(item.child_menu, function(child) {
                                 if (child.permissions_id == "55") {
                                     $scope.menu_list.assets_admin = true;
@@ -210,11 +225,18 @@ myApp.controller("asideCtrl", function($scope,$http) {
                                 if (child.permissions_id == "72") {
                                     $scope.menu_list.assets_risk = true;
                                 }
+
+                                if (child.permissions_id == "184") {
+                                    $scope.menu_list.assets_vehicle = true;
+                                }
+                                if (child.permissions_id == "185") {
+                                    $scope.menu_list.assets_accessory = true;
+                                }
                             });
                         }
                         // 预警
                         if (item.permissions_id == "77") {
-                            $scope.menu_list.warning = true;
+                            //$scope.menu_list.warning = true;
                             angular.forEach(item.child_menu, function(child) {
                                 if (child.permissions_id == "78") {
                                     $scope.menu_list.warning_threat = true;
@@ -229,7 +251,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
                         }
                         // 报表
                         if (item.permissions_id == "127") {
-                            $scope.menu_list.report = true;
+                            //$scope.menu_list.report = true;
                             angular.forEach(item.child_menu, function(child) {
                                 if (child.permissions_id == "128") {
                                     $scope.menu_list.report_creat = true;
@@ -241,7 +263,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
                         }
                         // 设置
                         if (item.permissions_id == "93") {
-                            $scope.menu_list.set = true;
+                            //$scope.menu_list.set = true;
                             angular.forEach(item.child_menu, function(child) {
                                 if (child.permissions_id == "94") {
                                     $scope.menu_list.set_sys = true;
@@ -264,6 +286,16 @@ myApp.controller("asideCtrl", function($scope,$http) {
                                 if (child.permissions_id == "151") {
                                     $scope.menu_list.api = true;
                                 }
+
+                                if (child.permissions_id == "181") {
+                                    $scope.menu_list.set_label = true;
+                                }
+                                if (child.permissions_id == "182") {
+                                    $scope.menu_list.set_special = true;
+                                }
+                                if (child.permissions_id == "183") {
+                                    $scope.menu_list.set_loophole = true;
+                                }
                             });
                         }
                     });
@@ -279,7 +311,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
         $scope.init_code();
         //左侧栏权限设置
         $scope.get_menu();
-        //左侧栏状态
+        //左侧栏三角状态
         $scope.get_status();
 
     };

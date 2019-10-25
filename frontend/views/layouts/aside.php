@@ -82,12 +82,14 @@
                 <span class="caret" ng-class="{'active':!menu_aside.search.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.search.vehicle">
-               <li class="aside-item-second <?=isActive(['/vehicleintelligence/special'])?>">
+               <li class="aside-item-second <?=isActive(['/vehicleintelligence/special'])?>"
+               ng-if="menu_list.intelligence_special">
                  <a class="aside-item-second-a" href="<?=getPath('/vehicleintelligence/special')?>">
                      <span>行业情报</span>
                  </a>
                </li>
-               <li class="aside-item-second <?=isActive(['/vehicleintelligence/loophole'])?>">
+               <li class="aside-item-second <?=isActive(['/vehicleintelligence/loophole'])?>"
+               ng-if="menu_list.intelligence_loophole">
                  <a class="aside-item-second-a" href="<?=getPath('/vehicleintelligence/loophole')?>">
                      <span>漏洞情报</span>
                  </a>
@@ -127,12 +129,14 @@
                 <span class="caret" ng-class="{'active':!menu_aside.assets.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.assets.vehicle">
-                <li class="aside-item-second <?=isActive(['/assets/vehicle'])?>">
+                <li class="aside-item-second <?=isActive(['/assets/vehicle'])?>"
+                ng-if="menu_list.assets_vehicle">
                     <a class="aside-item-second-a" href="<?=getPath('/assets/vehicle')?>" >
                         <span>车辆资产</span>
                     </a>
                 </li>
-                <li class="aside-item-second <?=isActive(['/assets/accessory'])?>">
+                <li class="aside-item-second <?=isActive(['/assets/accessory'])?>"
+                ng-if="menu_list.assets_accessory">
                     <a class="aside-item-second-a" href="<?=getPath('/assets/accessory')?>" >
                         <span>零配件资产</span>
                     </a>
@@ -269,7 +273,8 @@
                 <span class="caret" ng-class="{'active':!menu_aside.seting.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.seting.vehicle">
-                <li class="aside-item-second <?=isActive(['/seting/label-manage'])?>" >
+                <li class="aside-item-second <?=isActive(['/seting/label-manage'])?>"
+                ng-if="menu_list.set_label">
                     <a class="aside-item-second-a" href="<?=getPath('/seting/label-manage')?>" >
                         <span>标签管理</span>
                     </a>
@@ -281,12 +286,14 @@
                         <span class="caret" ng-class="{'active':!menu_aside.seting.manage.set}"></span>
                     </a>
                     <ul class="aside-lists-three" ng-show="menu_aside.seting.manage.set">
-                       <li class="aside-item-three <?=isActive(['/seting/special-intelligence'])?>">
+                       <li class="aside-item-three <?=isActive(['/seting/special-intelligence'])?>"
+                       ng-if="menu_list.set_special">
                             <a class="aside-item-three-a" href="<?=getPath('/seting/special-intelligence')?>" >
                                 <span>行业情报管理</span>
                             </a>
                         </li>
-                        <li class="aside-item-three <?=isActive(['/seting/loophole-intelligence'])?>">
+                        <li class="aside-item-three <?=isActive(['/seting/loophole-intelligence'])?>"
+                        ng-if="menu_list.set_loophole">
                             <a class="aside-item-three-a" href="<?=getPath('/seting/loophole-intelligence')?>" >
                                 <span>漏洞情报管理</span>
                             </a>
