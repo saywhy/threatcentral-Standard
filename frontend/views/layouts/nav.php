@@ -98,7 +98,7 @@ border-top-color:transparent;
             </a>
         </li>
         <!-- 资产 -->
-        <li role="presentation" class="dropdown hover_li_title <?=isActive(['/assets/asset-management', '/assets/asset-risky', '/assets/details', 'assets/vehicle', 'assets/accessory', '/assets/vehicle', '/assets/accessory'])?>" ng-if="menu_list.assets">
+        <li role="presentation" class="dropdown hover_li_title <?=isActive(['/assets/asset-management', '/assets/asset-risky', '/assets/details', '/assets/vehicle', '/assets/accessory'])?>" ng-if="menu_list.assets">
             <a class="dropdown-toggle nav_li_a" href="<?=getPath('/assets/asset-management')?>">
             <i class="fa fa-database"></i>
                  资产
@@ -117,7 +117,7 @@ border-top-color:transparent;
             </a>
         </li>
         <!-- 设置 -->
-        <li role="presentation" class="dropdown hover_li_title <?=isActive(['/seting/network', '/seting/systemnotice', '/seting/custom-information-search', '/seting/centralmanager', 'seting/label-manage', 'seting/special-intelligence', 'seting/loophole-intelligence', '/seting/user', '/seting/log', '/api/index', '/seting/special-intelligence', '/seting/loophole-intelligence'])?> " ng-if="menu_list.set">
+        <li role="presentation" class="dropdown hover_li_title <?=isActive(['/seting/network', '/seting/systemnotice', '/seting/custom-information-search', '/seting/centralmanager', 'seting/label-manage', '/seting/user', '/seting/log', '/api/index', '/seting/special-intelligence', '/seting/loophole-intelligence'])?> " ng-if="menu_list.set">
             <a class="dropdown-toggle nav_li_a"  href="<?=getPath('/seting/network')?>" >
                 <i class="fa fa-cog"></i> 配置
             </a>
