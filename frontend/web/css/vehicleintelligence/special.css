@@ -1,0 +1,274 @@
+.vehicle_special_container{
+    padding: 5px 48px 16px;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    outline-offset: 0;
+    border: 1px solid #0070FF;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    outline: none;
+}
+
+.vehicle_box_top {
+    margin-bottom: 24px;
+}
+
+.vehicle_icon_box {
+    position: relative;
+    height: 42px;
+    display: inline-block;
+}
+.search_icon {
+    position: absolute;
+    top: 14px;
+    left: 10px;
+}
+
+.vehicle_search_input {
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 160px;
+    padding-left: 34px;
+    margin-right: 12px;
+}
+.vehicle_search_time{
+    height: 82px;
+    position: relative;
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.input_box {
+    width: 172px;
+    height: 42px;
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    margin-top: 26px;
+    text-align: left;
+    padding-left: 34px;
+}
+
+
+
+
+.container_ul {
+    width: 160px;
+    height: 100px;
+    overflow-y: auto;
+    position: absolute;
+    top: 45px;
+    border: 1px solid #ECECEC;
+    z-index: 999;
+    background: #fff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.li_hover {
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.button_search {
+    background: #0070FF;
+    border-radius: 4px;
+    height: 42px;
+    width: 124px;
+    color: #fff;
+    margin: 0 0 0 34px;
+}
+.daterangepicker{
+    right: auto;
+    width: 260px;
+    padding-top: 10px;
+    transform: translateX(0);
+}
+
+.daterangepicker td, .daterangepicker th{
+    padding: 1px!important;
+}
+
+
+.time_icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 37px;
+    left: 8px;
+}
+
+/**************/
+.vehicle_search_country{
+    margin-left: -48px;
+    margin-right: -48px;
+    background: #EEF6FF;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.search_country{
+    flex: 1;
+    padding-left: 48px;
+}
+.search_country .search_country_item{
+    height: 44px;
+    line-height: 44px;
+    border-bottom: 1px solid #fff;
+}
+.search_country .search_country_item:last-child{
+    border-width: 0px;
+}
+
+.search_country .search_country_item .title{
+    width: 200px;
+    color: #999;
+    font-size: 14px;
+    display: inline-block;
+    font-family: 'PingFangSC-Regular';
+}
+
+.search_country .search_country_item .lists .item{
+    color: #333;
+    font-size: 14px;
+    margin-right: 20px;
+    font-family: 'PingFangSC-Regular';
+}
+
+.search_country .search_country_item .lists .item.active{
+    color: #0070FF;
+}
+
+.search_toggle{
+    width: 126px;
+    border-left: 2px solid #fff;
+    position: relative;
+}
+
+.search_toggle .toggle{
+    color: #0070FF;
+    font-size: 12px;
+    text-decoration: none;
+    position: absolute;
+    top: 100px;
+    left: 15px;
+    font-family: 'PingFangSC-Regular';
+}
+
+.search_toggle .toggle .caret{
+    border-left: 4px dashed;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+.search_toggle .toggle.active{
+    top: auto;
+    bottom: 15px;
+}
+
+.search_toggle .toggle.active .caret{
+    border-bottom: 4px dashed;
+    border-top: 0;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.vehicle_search_covenant{
+    margin-bottom: 20px;
+}
+
+.covenant_tack .tack {
+    font-size: 14px;
+    color: #bbb;
+}
+.covenant_lists .covenant_lists_item{
+    border-bottom: 1px solid #ECECEC;
+    padding: 0 0 30px;
+}
+.covenant_lists .covenant_lists_item:last-child{
+    border-width: 0;
+}
+.covenant_1{
+    height: 50px;
+    line-height: 50px;
+}
+.covenant_1 .status{
+    border: 1px solid red;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: 1px 2px;
+    vertical-align:top;
+    background-color:#FF5F5C;
+}
+.covenant_1 .name{
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    font-family: 'PingFangSC-Medium';
+}
+.covenant_2 {
+    height: 40px;
+    line-height: 40px;
+}
+
+.covenant_2 .item{
+    margin-right: 50px;
+}
+
+.covenant_2 .covenant_img{
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+.covenant_2 .fa{
+    color: #649EE9;
+}
+.covenant_2 .ct{
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+    font-family: 'PingFangSC-Medium';
+}
+.covenant_3{
+    margin-top: 10px;
+    line-height: 24px;
+    text-align: justify;
+}
+.covenant_4 {
+    height: 40px;
+    line-height: 40px;
+}
+.covenant_4 .covenant_btn{
+    width: 75px;
+    height: 28px;
+    color: #0070ff;
+    font-size: 12px;
+    line-height: 26px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid #0070ff;
+}
+
+
+
+
+
+

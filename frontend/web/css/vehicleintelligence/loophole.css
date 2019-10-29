@@ -1,0 +1,176 @@
+.vehicle_loophole_container{
+    padding: 5px 48px 16px;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    outline-offset: 0px;
+    border: 1px solid #0070FF;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    outline: none;
+}
+
+.vehicle_icon_box {
+    position: relative;
+    height: 42px;
+    display: inline-block;
+}
+.search_icon {
+    position: absolute;
+    top: 14px;
+    left: 10px;
+}
+
+.vehicle_search_input {
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 160px;
+    padding-left: 34px;
+    margin-right: 12px;
+}
+
+.vehicle_search_time{
+    height: 82px;
+    position: relative;
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.input_box {
+    width: 172px;
+    height: 42px;
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    margin-top: 26px;
+    text-align: left;
+    padding-left: 34px;
+
+}
+
+
+.container_ul {
+    width: 160px;
+    height: 100px;
+    overflow-y: auto;
+    position: absolute;
+    top: 45px;
+    border: 1px solid #ECECEC;
+    z-index: 999;
+    background: #fff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.li_hover {
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.button_search {
+    background: #0070FF;
+    border-radius: 4px;
+    height: 42px;
+    width: 124px;
+    color: #fff;
+    margin: 0 0 0 34px;
+}
+.daterangepicker{
+    right: auto;
+    width: 260px;
+    padding-top: 10px;
+    transform: translateX(0);
+}
+
+.daterangepicker td, .daterangepicker th{
+    padding: 1px!important;
+}
+
+.time_icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 37px;
+    left: 8px;
+}
+.loophole_table_content{
+    margin:0;
+    padding:24px 0;
+}
+.loophole_table_tr > th, .loophole_table_tr > td{
+    text-align: left;
+    height: 48px;
+    line-height: 30px!important;
+}
+
+.loophole_table_tr > td{
+    color: #333;
+}
+
+.loophole_table_tr{
+    display: flex;
+}
+.loophole_table_tr th:nth-child(1),.loophole_table_tr td:nth-child(1){
+    width: 100px;
+    padding-left: 24px;
+}
+.loophole_table_tr th:nth-child(2),.loophole_table_tr td:nth-child(2){
+    width: 200px;
+    overflow: hidden;
+    padding-right: 20px;
+}
+.loophole_table_tr th:nth-child(3),.loophole_table_tr td:nth-child(3){
+    width: 300px;
+    padding-right: 20px;
+}
+.loophole_table_tr th:nth-child(4),.loophole_table_tr td:nth-child(4){
+    width: 100px;
+}
+.loophole_table_tr th:nth-child(5),.loophole_table_tr td:nth-child(5){
+    flex: 1;
+}
+
+.loophole_result_length{
+    font-size: 14px;
+    color: #BBBBBB;
+}
+
+.loophole_table_tr .btn_loophole{
+    border: 1px solid #DDDDDD;
+    border-radius: 2px;
+    color: #333;
+    font-size: 12px;
+    height: 28px;
+    width: 72px;
+    margin: 1px 8px 0 0;
+    line-height: 0;
+    vertical-align: top;
+    font-family: "PingFangSC-Regular";
+}
+
+.loophole_table_tr .btn_loophole.active{
+    border: 1px solid #0070FF;
+    color: #0070FF;
+    position: relative;
+}
+
+.loophole_table_tr .btn_loophole.active .loop_img{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 0;
+    bottom: 0;
+    background: #0070FF;
+    border-radius: 2px 0 2px 0;
+}
+

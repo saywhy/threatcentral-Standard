@@ -1,0 +1,93 @@
+.label_container{
+    padding: 0 48px;
+}
+.label_search_box {
+    position: relative;
+    height: 42px;
+}
+.label_box_mid_input {
+    padding-left: 36px;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ececec;
+    border-radius: 4px;
+    width: 480px;
+    height: 42px;
+}
+.search_icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.label_box_mid_button_left {
+    margin-left: 36px;
+    color: #fff;
+    font-size: 16px;
+    width: 124px;
+    height: 42px;
+    background: #0070ff;
+    border-radius: 4px;
+}
+.label_box_mid_button_right {
+    float: right;
+    color: #0070ff;
+    font-size: 16px;
+    width: 124px;
+    height: 42px;
+    border: 1px solid #0070ff;
+    border-radius: 4px;
+}
+
+.label_sort_box{
+    padding: 28px 0;
+}
+
+.label-lists .item{
+    border-bottom: 1px solid #ECECEC;
+    padding-top: 12px;
+}
+
+.label-lists .toggle .name{
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #333333;
+    line-height: 18px;
+}
+
+.label-lists .toggle_content{
+    padding: 15px 0;
+}
+
+.toggle_content .btn_label{
+    width: 148px;
+    height: 36px;
+    line-height: 32px;
+    background-color: #EEF6FF;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.toggle_content .btn_label .btn_img{
+    vertical-align: text-top;
+
+}
+.toggle_content .btn_label .btn_span{
+    margin-left: 5px;
+}
+
+/*.toggle_content .btn_label_edit{
+    background-position: 16px 11px;
+    background-image: url("../../images/set/edit_label.png");
+}
+
+.toggle_content .btn_label_add{
+    background-position: 26px 11px;
+    background-image: url("../../images/set/add_label.png");
+}*/
+
+
+
