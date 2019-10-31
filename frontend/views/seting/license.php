@@ -1,14 +1,9 @@
 <?php
-use yii\helpers\Url;
-use yii\grid\GridView;
-use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 
 $this->title = '许可证';
 ?>
-<!-- Main content -->
 <section class="content" ng-app="myApp" >
-
   <style type="text/css">
     .nav-tabs-custom {
       overflow: visible;
@@ -17,12 +12,8 @@ $this->title = '许可证';
   <div class="row">
     <div class="col-xs-12">
       <div class="nav-tabs-custom">
-
         <?php include 'nav.php';?>
-
         <div class="tab-content">
-          <!-- License-->
-
           <div class="tab-pane active" id="License" ng-controller="LicenseCtrl">
             <section class="ng-cloak" ng-show="License.list">
               <h4 class="seting-header" style="margin-bottom: -1px;">
@@ -84,23 +75,12 @@ $this->title = '许可证';
                 </div>
               </div>
             </section>
-
           </div>
-          <!-- ./ProFile -->
-
         </div>
-        <!-- /.tab-content -->
       </div>
-      <!-- /.nav-tabs-custom -->
     </div>
-    <!-- /.col -->
   </div>
-
 </section>
-
-<!-- /.content -->
-
-
 <script type="text/javascript" src="/js/controllers/License.js"></script>
 
 

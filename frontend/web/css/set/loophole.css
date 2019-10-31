@@ -1,0 +1,417 @@
+.loophole_intel_container {
+    padding: 5px 48px 16px;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #bbb;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    outline-offset: 0px;
+    border: 1px solid #0070FF;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    outline: none;
+}
+
+.intel_icon_box {
+    position: relative;
+    height: 42px;
+    display: inline-block;
+}
+
+.search_icon {
+    position: absolute;
+    top: 14px;
+    left: 10px;
+}
+
+.intel_search_input {
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 148px;
+    padding-left: 34px;
+    margin-right: 12px;
+}
+
+.intel_search_time {
+    height: 82px;
+    position: relative;
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.input_box {
+    width: 290px;
+    height: 42px;
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    margin-top: 26px;
+    text-align: left;
+    padding-left: 15px;
+
+}
+
+
+.container_ul {
+    width: 160px;
+    height: 100px;
+    overflow-y: auto;
+    position: absolute;
+    top: 45px;
+    border: 1px solid #ECECEC;
+    z-index: 999;
+    background: #fff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.li_hover {
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.button_search {
+    background: #0070FF;
+    border-radius: 4px;
+    height: 42px;
+    width: 124px;
+    font-size: 16px;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.daterangepicker {
+    right: auto;
+    width: 260px;
+    padding-top: 10px;
+    transform: translateX(0);
+}
+
+.daterangepicker td,
+.daterangepicker th {
+    padding: 1px !important;
+}
+
+.time_icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 25px;
+    right: 10px;
+}
+
+.time_icon_search {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+}
+
+.loophole_table_content {
+    margin: 0;
+    padding: 24px 0;
+}
+
+.loophole_table_tr>th,
+.loophole_table_tr>td {
+    text-align: left;
+    height: 48px;
+    line-height: 30px !important;
+}
+
+.loophole_table_tr>td {
+    color: #333;
+}
+
+.loophole_table_tr {
+    display: flex;
+}
+
+.loophole_table_tr th:nth-child(1),
+.loophole_table_tr td:nth-child(1) {
+    width: 100px;
+    padding-left: 24px;
+}
+
+.loophole_table_tr th:nth-child(2),
+.loophole_table_tr td:nth-child(2) {
+    width: 200px;
+    overflow: hidden;
+    padding-right: 20px;
+}
+
+.loophole_table_tr th:nth-child(3),
+.loophole_table_tr td:nth-child(3) {
+    width: 300px;
+    padding-right: 20px;
+}
+
+.loophole_table_tr th:nth-child(4),
+.loophole_table_tr td:nth-child(4) {
+    width: 100px;
+}
+
+.loophole_table_tr th:nth-child(5),
+.loophole_table_tr td:nth-child(5) {
+    flex: 1;
+}
+
+.loophole_result_length {
+    font-size: 14px;
+    color: #BBBBBB;
+}
+
+.loophole_table_tr .btn_loophole {
+    border: 1px solid #DDDDDD;
+    border-radius: 2px;
+    color: #333;
+    font-size: 12px;
+    height: 28px;
+    width: 72px;
+    margin: 1px 8px 0 0;
+    line-height: 0;
+    vertical-align: top;
+    font-family: "PingFangSC-Regular";
+}
+
+.loophole_table_tr .btn_loophole.active {
+    border: 1px solid #0070FF;
+    color: #0070FF;
+    position: relative;
+}
+
+.loophole_table_tr .btn_loophole.active .loop_img {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 0;
+    bottom: 0;
+    background: #0070FF;
+    border-radius: 2px 0 2px 0;
+}
+
+.button_add {
+    border: 1px solid #0070FF;
+    color: #0070FF;
+    border-radius: 4px;
+    font-size: 16px;
+    height: 42px;
+    width: 124px;
+    margin-left: 24px;
+}
+
+.zeromodal-container {
+    border-radius: 8px;
+    padding: 36px;
+}
+
+.alert_name {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.alert_input_box {
+    width: 100%;
+    border: none;
+    height: 30px;
+    border-radius: 0;
+    border-bottom: 1px solid #DDDDDD;
+    font-size: 14px;
+}
+
+.loop_select_box:focus {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #0070FF;
+    outline: none;
+    outline-offset: 0px;
+}
+
+.loop_select_box {
+    width: 100%;
+    border: none;
+    height: 30px;
+    border-bottom: 1px solid #DDDDDD;
+    font-size: 14px;
+}
+
+select {
+    border-radius: 0;
+}
+
+.alert_input_box:focus {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #0070FF;
+}
+
+.textarea_box {
+    width: 100%;
+    border: none;
+    height: 88px;
+    border: 1px solid #DDDDDD;
+    font-size: 14px;
+}
+
+.alert_item_box {
+    margin-bottom: 24px;
+}
+
+.time_select_box {
+    display: flex;
+}
+
+.flex_item {
+    flex: 1;
+    margin-right: 36px;
+    position: relative;
+}
+
+.alert_btn_box {
+    text-align: center;
+    height: 40px;
+}
+
+.alert_btn_ok {
+    width: 124px;
+    height: 40px;
+    background: #0070FF;
+    border-radius: 4px;
+    color: #fff;
+    margin-right: 36px;
+}
+
+.alert_btn_cancel {
+    width: 124px;
+    height: 40px;
+    border: 1px solid #0070FF;
+    color: #0070FF;
+    border-radius: 4px;
+}
+
+.daterangepicker.dropdown-menu {
+    z-index: 99999;
+}
+
+
+.daterangepicker {
+    width: auto;
+    padding-top: 10px;
+    transform: translateX(0);
+}
+
+.daterangepicker .calendar th,
+.daterangepicker .calendar td {
+    width: auto;
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+    background-color: #0070ff;
+}
+
+.btn-success,
+.btn-success:active:focus {
+    background-color: #0070ff;
+    border-color: #0070ff;
+}
+
+.btn-default.focus,
+.btn-default:active:focus,
+.btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #DDDDDD;
+}
+
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.hover {
+    background-color: #0070ff;
+}
+
+.source_input {
+    width: 100px;
+}
+
+.daterangepicker .input-mini.active {
+    border: 1px solid #0070ff;
+    border-radius: 4px;
+}
+
+.tag_list_box {
+    position: absolute;
+    height: 156px;
+    background: #fff;
+    width: 755px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    margin-top: 2px;
+    overflow-y: auto;
+}
+
+.tag_list_box li {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #666666;
+    cursor: pointer;
+}
+
+.tag_list_box li:nth-child(even) {
+    background: #E0EEFF;
+}
+
+.tag_add_box {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #DDDDDD;
+    font-size: 14px;
+}
+
+.tag_box_ul {
+    display: inline-block;
+    height: 30px;
+    font-size: 14px;
+}
+
+.tag_box_ul li {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 8px;
+    display: inline-block;
+    margin-right: 6px;
+    background: #E0EEFF;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #0070FF;
+}
+
+.tag_input {
+    display: inline-block;
+    margin-left: 10px;
+    border: none;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 0;
+    font-size: 14px;
+}
+
+.tag_input:focus {
+    border: none;
+}
