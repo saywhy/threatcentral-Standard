@@ -3,7 +3,7 @@ var myApp = angular.module("myApp", []);
 myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
     $scope.init = function () {
         $scope.set_true = true;
-        console.log("123123");
+
         $scope.outTime = {
             startDate: moment()
                 .subtract(90, "days")
@@ -235,7 +235,7 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
         );
     };
 
-    //   生成token
+    //生成token
     $scope.token_save = function () {
         $scope.add_token_data.start_time = $scope.outTime.startDate;
         $scope.add_token_data.end_time = $scope.outTime.endDate;

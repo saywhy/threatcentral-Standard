@@ -47,6 +47,19 @@
 .label-lists .item{
     border-bottom: 1px solid #ECECEC;
     padding-top: 12px;
+    min-height: 50px;
+}
+
+.label-lists .toggle{
+    text-decoration: none;
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: 0px 2px;
+    background-image: url("../../images/set/label_right.png");
+}
+
+.label-lists .toggle.active{
+    background-image: url("../../images/set/label_down.png");
 }
 
 .label-lists .toggle .name{
@@ -54,14 +67,15 @@
     font-size: 14px;
     color: #333333;
     line-height: 18px;
+    margin-left: 15px;
 }
 
 .label-lists .toggle_content{
-    padding: 15px 0;
+    padding: 10px 0 15px;
 }
 
 .toggle_content .btn_label{
-    width: 148px;
+    width: 144px;
     height: 36px;
     line-height: 32px;
     background-color: #EEF6FF;
@@ -69,6 +83,11 @@
     font-size: 14px;
     text-align: center;
     margin-right: 5px;
+    margin-top: 5px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .toggle_content .btn_label .btn_img{
@@ -79,15 +98,174 @@
     margin-left: 5px;
 }
 
-/*.toggle_content .btn_label_edit{
-    background-position: 16px 11px;
-    background-image: url("../../images/set/edit_label.png");
+/************/
+
+ .lab_top, .lab_mid, .lab_bom{
+    margin-bottom: 15px;
 }
 
-.toggle_content .btn_label_add{
-    background-position: 26px 11px;
-    background-image: url("../../images/set/add_label.png");
-}*/
+ .lab_name{
+    font-size: 12px;
+    color: #666;
+}
+
+ .lab_name .lab_tab{
+    color: #FF5F5C;
+    vertical-align: top;
+}
+
+ .lab_item{
+    position: relative;
+    margin: 10px 0;
+}
+
+ .token_top_select, .token_top_select:focus{
+    border-top-width:0;
+    border-left-width:0;
+    border-right-width:0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: #fff;
+    outline: none;
+    font-size: 16px;
+}
+
+ .f_select_opt{
+     font-size: 16px;
+     color: red;
+ }
+
+ .lab_item .lab_item_icon{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+ .lab_mid_name,.lab_mid_name:focus{
+    height: 32px;
+    width: 100%;
+    font-size: 16px;
+    color: #333;
+    border-top-width:0;
+    border-left-width:0;
+    border-right-width:0;
+    border-bottom: 1px solid #ddd;
+    outline:none;
+}
+
+ .lab_mid_name.disabled{
+     cursor: not-allowed;
+     color: #ccc;
+     background-color: #ddd;
+ }
+
+ .lab_top_list{
+     position: absolute;
+     z-index: 999;
+     background-color: #f9f9f9;
+     width: 100%;
+     max-height: 192px;
+     overflow-y: auto;
+     border-bottom: 1px solid #ddd;
+ }
+
+.lab_top_list::-webkit-scrollbar {
+    width: 3px;
+    height: 1px;
+}
+
+.lab_top_list::-webkit-scrollbar-thumb {
+    background: #0070FF;
+    border-radius: 2px;
+}
+
+.lab_top_list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #f9f9f9;
+    border-radius: 2px;
+}
+
+
+.lab_top_list .item{
+    height: 32px;
+    line-height: 32px;
+    padding: 0 20px;
+    cursor: pointer;
+    color: #666;
+    border-top: 1px solid #ddd;
+}
+
+.lab_top_list .item:hover{
+    background-color: #E0EEFF;
+}
+
+.lab_top_list .item:first-child{
+   border-top-width: 0;
+}
+
+ .token_bom_content{
+    width: 100%;
+    height: 120px;
+    margin: 10px 0;
+    padding: 5px 0;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ddd;
+    resize:none;
+}
+
+ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
+    font-size: 16px;
+    color: #BBBBBB;
+}
+
+ .lab_btn_box {
+    height: 40px;
+    text-align: center;
+}
+
+ .lab_btn_ok {
+    width: 124px;
+    height: 40px;
+    background: #0070ff;
+    border-radius: 4px;
+    color: #fff;
+}
+
+ .lab_btn_cancel{
+    border: 1px solid #0070ff;
+    color: #0070ff;
+    border-radius: 4px;
+    width: 124px;
+    height: 40px;
+    margin-left: 16px;
+}
+ .lab_btn_delete{
+     border: 1px solid #0070ff;
+     color: #0070ff;
+     border-radius: 4px;
+     width: 124px;
+     height: 40px;
+     margin-left: 16px;
+ }
+
+ .lab_content{
+     height: 80px;
+     line-height: 80px;
+     margin-bottom: 20px;
+     text-align: center;
+ }
+
+.lab_content .lab_tip{
+    color: #333;
+    font-size: 16px;
+}
+
+
+
 
 
 
