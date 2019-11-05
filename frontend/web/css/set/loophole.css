@@ -38,7 +38,7 @@ button:active {
     border: 1px solid #ECECEC;
     border-radius: 4px;
     height: 42px;
-    width: 148px;
+    width: 115px;
     padding-left: 34px;
     margin-right: 12px;
 }
@@ -127,44 +127,46 @@ button:active {
 .loophole_table_tr>td {
     text-align: left;
     height: 48px;
-    line-height: 30px !important;
 }
 
 .loophole_table_tr>td {
     color: #333;
 }
 
-.loophole_table_tr {
+/* .loophole_table_tr {
     display: flex;
-}
+} */
 
-.loophole_table_tr th:nth-child(1),
+/* .loophole_table_tr th:nth-child(1),
 .loophole_table_tr td:nth-child(1) {
     width: 100px;
     padding-left: 24px;
-}
+} */
 
-.loophole_table_tr th:nth-child(2),
+/* .loophole_table_tr th:nth-child(2),
 .loophole_table_tr td:nth-child(2) {
     width: 200px;
     overflow: hidden;
     padding-right: 20px;
-}
+} */
 
-.loophole_table_tr th:nth-child(3),
+/* .loophole_table_tr th:nth-child(3),
 .loophole_table_tr td:nth-child(3) {
     width: 300px;
     padding-right: 20px;
-}
+} */
 
-.loophole_table_tr th:nth-child(4),
+/* .loophole_table_tr th:nth-child(4),
 .loophole_table_tr td:nth-child(4) {
     width: 100px;
-}
+} */
 
-.loophole_table_tr th:nth-child(5),
+/* .loophole_table_tr th:nth-child(5),
 .loophole_table_tr td:nth-child(5) {
     flex: 1;
+} */
+.tag_th {
+    width: 260px;
 }
 
 .loophole_result_length {
@@ -177,8 +179,8 @@ button:active {
     border-radius: 2px;
     color: #333;
     font-size: 12px;
-    height: 28px;
-    width: 72px;
+    height: 24px;
+    padding: 0 8px;
     margin: 1px 8px 0 0;
     line-height: 0;
     vertical-align: top;
@@ -208,7 +210,7 @@ button:active {
     font-size: 16px;
     height: 42px;
     width: 124px;
-    margin-left: 24px;
+    margin-left: 15px;
 }
 
 .zeromodal-container {
@@ -400,6 +402,7 @@ select {
     border-radius: 2px;
     font-size: 12px;
     color: #0070FF;
+    margin-bottom: 5px;
 }
 
 .tag_input {
@@ -410,8 +413,48 @@ select {
     line-height: 24px;
     border-radius: 0;
     font-size: 14px;
+    width: 230px;
 }
 
 .tag_input:focus {
     border: none;
+}
+
+.tag_icon {
+    width: 12px;
+    vertical-align: text-bottom;
+}
+
+.btn_operation {
+    background: #64A8FF;
+    border-radius: 4px;
+    height: 28px;
+    width: 56px;
+    margin-right: 8px;
+    color: #fff;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+.btn_unoperation {
+    background: #F2F2F2;
+    border-radius: 4px;
+    height: 28px;
+    width: 56px;
+    margin-right: 8px;
+    color: #BBBB;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+.td_operation {
+    width: 220px;
+}
+
+.th_id {
+    text-align: center !important;
+}
+
+.th_time {
+    width: 140px;
 }
