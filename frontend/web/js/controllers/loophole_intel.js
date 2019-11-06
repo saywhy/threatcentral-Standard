@@ -105,7 +105,27 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             },
             function (start, end, label) {
                 $scope.seach_data.startDate = start.unix();
-                $scope.seach_data.endDate = endDate.unix();
+                $scope.seach_data.endDate = end.unix();
+            }
+        );
+    };
+    $scope.picker_edit = function (startDate) {
+        $("#picker_edit").daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                timePicker: true,
+                timePicker24Hour: true,
+                drops: "down",
+                opens: "center",
+                startDate: startDate,
+                locale: {
+                    applyLabel: "确定",
+                    cancelLabel: "取消",
+                    format: "YYYY-MM-DD HH:mm:ss"
+                }
+            },
+            function (start, end, label) {
+                $scope.edit_time = start.unix()
             }
         );
     };
@@ -215,7 +235,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             tag_list_str: '',
         }
         var W = 828;
-        var H = 600;
+        var H = 620;
         zeroModal.show({
             title: "情报录入",
             content: alert_time,
@@ -383,8 +403,105 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
+    // 打开编辑框
+    $scope.edit_loop_box = function (item) {
+        $scope.picker_edit(moment(new Date(item.first_seen_time * 1000)));
+        console.log(item);
+        $scope.edit_time = item.first_seen_time;
+        $scope.edit_item = {
+            id: item.id,
+            title: item.title,
+            level: item.level,
+            first_seen_time: item.first_seen_time,
+            sourse: item.sourse,
+            detail: item.detail,
+            label_name: item.label_name,
+            tag_list: item.label_name,
+            tag_list_str: '',
+            status: item.status
+        }
+        var W = 828;
+        var H = 620;
+        zeroModal.show({
+            title: "情报编辑",
+            content: edit,
+            width: W + "px",
+            height: H + "px",
+            ok: false,
+            cancel: false,
+            okFn: function () {},
+            onCleanup: function () {
+                edit_box.appendChild(edit);
+            }
+        });
+    };
+    // 触发标签选择
+    $scope.edit_tag_focus = function () {
+        $scope.edit_tag_list_if = true;
+        $scope.get_tag_list($scope.edit_item.tag_list_str);
+    }
+    $scope.edit_tag_blur = function () {
+        if ($scope.edit_item.tag_list_str == '') {
+            return false;
+        }
+        $scope.edit_item.tag_list_str = '';
+    }
+    // 编辑选择标签
+    $scope.edit_tag_list_item = function (item) {
+        $scope.edit_item.tag_list.push(item.label_name);
+        $scope.edit_tag_list_if = false;
+    }
+    $scope.edit_mykey = function (e) {
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            if ($scope.edit_item.tag_list_str == '') {
+                $scope.edit_tag_list_if = false;
+                setTimeout("$('.tag_input')[0].blur()", 500);
+                return false;
+            }
+            $scope.edit_item.tag_list.push($scope.edit_item.tag_list_str);
+            $scope.edit_item.tag_list_str = '';
+            $scope.edit_tag_list_if = false;
+            setTimeout("$('.tag_input')[0].blur()", 500);
+        }
+    }
+    // 编辑删除标签
+    $scope.edit_tag_del = function (name, index) {
+        $scope.edit_item.tag_list.splice(index, 1);
+    }
+    $scope.edit_tag_change = function (name) {
+        $scope.get_tag_list(name);
+    }
 
+    $scope.edit_sure = function () {
+        console.log($scope.edit_item);
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "put",
+            url: "/seting/loophole-intelligence-edit",
+            data: {
+                id: $scope.edit_item.id,
+                title: $scope.edit_item.title,
+                level: $scope.edit_item.level,
+                first_seen_time: $scope.edit_time,
+                sourse: $scope.edit_item.sourse,
+                detail: $scope.edit_item.detail,
+                label_name: $scope.edit_item.label_name,
+                status: $scope.edit_item.status,
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.success("修改成功");
+                }
+                setTimeout(zeroModal.closeAll(), 3000)
+                $scope.get_page();
+            },
+            function () {}
+        );
 
+    }
     $scope.init();
 
 });
