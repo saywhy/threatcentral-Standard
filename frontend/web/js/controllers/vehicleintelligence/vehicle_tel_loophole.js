@@ -161,7 +161,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
                 label_id: params_data.label_id_str,
                 key_word: $scope.seach_data.key_word,
                 page: pageNow,
-                rows: 2,
+                rows: 10,
             }
         }).then(
             function (data) {
