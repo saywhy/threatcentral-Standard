@@ -27,7 +27,7 @@ $this->title = '行业情报';
 
              <div class="vehicle_search_time">
                   <img src="/images/report/time.png" class="time_icon" alt="">
-                  <input class="input_box" id="start_picker" readonly type="text" placeholder="时间">
+                  <input class="input_box" id="search_picker" readonly type="text" placeholder="获取时间">
              </div>
 
              <span class="vehicle_icon_box">

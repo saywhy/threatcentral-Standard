@@ -54,8 +54,7 @@ button:active {
     border-radius: 4px;
     margin-top: 26px;
     text-align: left;
-    padding-left: 34px;
-
+    padding-left: 5px;
 }
 
 
@@ -101,7 +100,7 @@ button:active {
     height: 20px;
     position: absolute;
     top: 37px;
-    left: 8px;
+    right: 8px;
 }
 .loophole_table_content{
     margin:0;
@@ -121,16 +120,16 @@ button:active {
     display: flex;
 }
 .loophole_table_tr th:nth-child(1),.loophole_table_tr td:nth-child(1){
-    width: 100px;
+    width: 80px;
     padding-left: 24px;
 }
 .loophole_table_tr th:nth-child(2),.loophole_table_tr td:nth-child(2){
-    width: 200px;
+    width: 150px;
     overflow: hidden;
     padding-right: 20px;
 }
 .loophole_table_tr th:nth-child(3),.loophole_table_tr td:nth-child(3){
-    width: 300px;
+    width: 260px;
     padding-right: 20px;
 }
 .loophole_table_tr th:nth-child(4),.loophole_table_tr td:nth-child(4){
@@ -138,6 +137,9 @@ button:active {
 }
 .loophole_table_tr th:nth-child(5),.loophole_table_tr td:nth-child(5){
     flex: 1;
+}
+.loophole_table_tr th:nth-child(6),.loophole_table_tr td:nth-child(6){
+    width: 110px;
 }
 
 .loophole_result_length{

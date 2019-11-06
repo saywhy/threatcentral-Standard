@@ -35,8 +35,8 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         }
     ];
 
-    $scope.start_picker = function() {
-        $("#start_picker").daterangepicker(
+    $scope.search_picker = function() {
+        $("#search_picker").daterangepicker(
             {
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -59,5 +59,5 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
     };
 
 
-    $scope.start_picker();
+    $scope.search_picker();
 });
