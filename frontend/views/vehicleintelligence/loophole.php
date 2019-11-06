@@ -11,7 +11,7 @@ $this->title = '漏洞情报';
                    <input type="text" class="vehicle_search_input" ng-focus="get_vehicle_search_focus()"
                        ng-blur="get_vehicle_search_blur()" ng-keyup="myKeyup_vehicle_search(searchData.client_ip)"
                        placeholder="输入关键字" ng-model="searchData.client_ip">
-                   <ul class="container_ul" ng-show="select_vehicle_search_if">
+                   <ul class="container_ul" ng-show="input_select_if">
                        <li ng-repeat="item in select_vehicle_ip" class="li_hover"
                            ng-click="select_vehicle_ip_item(item.client_ip)">
                            {{item.client_ip}}
@@ -27,7 +27,7 @@ $this->title = '漏洞情报';
 
                <div class="vehicle_search_time">
                     <img src="/images/report/time.png" class="time_icon" alt="">
-                    <input class="input_box" id="start_picker" readonly type="text" placeholder="时间">
+                    <input class="input_box" id="search_picker" readonly type="text" placeholder="获取时间">
                </div>
 
                <span class="vehicle_icon_box">
@@ -54,6 +54,7 @@ $this->title = '漏洞情报';
                   <th>漏洞描述</th>
                   <th>情报来源</th>
                   <th>标签类型</th>
+                  <th>获取时间</th>
               </tr>
               <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data" ng-click="detail(item)">
                   <td>
@@ -72,6 +73,7 @@ $this->title = '漏洞情报';
                           <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status">
                       </button>
                   </td>
+                  <td ng-bind="item.endTime"></td>
               </tr>
           </table>
           <p>
