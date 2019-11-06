@@ -6,43 +6,37 @@ $this->title = '漏洞情报';
 <section class="vehicle_loophole_container" ng-app="myApp" ng-controller="vehicleTelLoopholeCtrl" ng-cloak>
       <div class="vehicle_loophole">
            <div class="vehicle_box_top">
-               <span class="vehicle_icon_box">
-                   <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                   <input type="text" class="vehicle_search_input" ng-focus="get_vehicle_search_focus()"
-                       ng-blur="get_vehicle_search_blur()" ng-keyup="myKeyup_vehicle_search(searchData.client_ip)"
-                       placeholder="输入关键字" ng-model="searchData.client_ip">
-                   <ul class="container_ul" ng-show="input_select_if">
-                       <li ng-repeat="item in select_vehicle_ip" class="li_hover"
-                           ng-click="select_vehicle_ip_item(item.client_ip)">
-                           {{item.client_ip}}
-                       </li>
-                   </ul>
-               </span>
-               <select class="vehicle_search_input"  ng-model="searchData.category"
-                   ng-options="x.num as x.type for x in category_select"></select>
 
-               <select class="vehicle_search_input"  ng-model="searchData.company"
-                   ng-options="x.num as x.type for x in company_select"></select>
-
-
-               <div class="vehicle_search_time">
-                    <img src="/images/report/time.png" class="time_icon" alt="">
-                    <input class="input_box" id="search_picker" readonly type="text" placeholder="获取时间">
-               </div>
-
-               <span class="vehicle_icon_box">
-                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                     <input type="text" class="vehicle_search_input" ng-focus="get_client_ip_focus()"
-                         ng-blur="get_client_ip_blur()" ng-keyup="myKeyup_client_ip(searchData.client_ip)"
-                         placeholder="标签" ng-model="searchData.client_ip">
-                     <ul class="container_ul" ng-show="select_client_ip_if">
-                         <li ng-repeat="item in select_client_ip" class="li_hover"
-                             ng-click="select_client_ip_item(item.client_ip)">
-                             {{item.client_ip}}
-                         </li>
-                     </ul>
+                <!-- 漏洞来源 -->
+                <span class="vehicle_icon_box">
+                    <img src="/images/alert/search_icon.png" class="search_icon" alt="">
+                    <input type="text" style="padding-left:34px;" class="vehicle_search_input"
+                        placeholder="输入关键字" ng-model="seach_data.key_word">
                 </span>
-                <button class="button_search" ng-click="search()">搜索</button>
+
+                <!-- 漏洞来源 -->
+                <select class="vehicle_search_input source_input" ng-model="seach_data.source"
+                    ng-options="x for x in loop_source">
+                </select>
+
+                <!-- 漏洞级别 -->
+                <select class="vehicle_search_input source_input" ng-model="seach_data.level"
+                    ng-options="x.num as x.status for x in search_level">
+                </select>
+
+                <!-- 获取时间 -->
+                <div class="vehicle_search_time">
+                    <img src="/images/report/time.png" class="time_icon_search" alt="">
+                    <input class="input_box" id="picker_search" readonly type="text" placeholder="时间">
+                </div>
+
+                <!-- 标签选择 -->
+                <select class="vehicle_search_input source_input" ng-model="seach_data.label_id"
+                    ng-options="x.id as x.label_name for x in search_tag_list">
+                </select>
+
+                <!-- 搜索 -->
+                <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
            </div>
       </div>
 
@@ -58,22 +52,22 @@ $this->title = '漏洞情报';
               </tr>
               <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data" ng-click="detail(item)">
                   <td>
-                    <img src="/images/alert/h.png" ng-if="item.degree === '高'" alt="">
-                    <img src="/images/alert/m.png" ng-if="item.degree === '中'" alt="">
-                    <img src="/images/alert/l.png" ng-if="item.degree === '低'" alt="">
-                    <span ng-bind="item.hid"> </span>
+                    <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
+                    <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
+                    <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
+                    <span ng-bind="item.id"> </span>
                   </td>
-                  <td ng-bind="item.headline"></td>
-                  <td ng-bind="item.describe"></td>
-                  <td ng-bind="item.source"></td>
+                  <td ng-bind="item.title"></td>
+                  <td ng-bind="item.detail"></td>
+                  <td ng-bind="item.sourse"></td>
                   <td class="td_operation">
-                      <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.type"
+                      <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name"
                       ng-click="it.status = !it.status">
-                          {{it.name}}
+                          {{it}}
                           <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status">
                       </button>
                   </td>
-                  <td ng-bind="item.endTime"></td>
+                  <td>{{item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
               </tr>
           </table>
           <p>
@@ -82,25 +76,25 @@ $this->title = '漏洞情报';
           </p>
           <div style="padding: 0px; position: relative;height:60px;">
                <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.pageNow-1)"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)"
                            ng-if="pages.pageNow>1">上一页</a></li>
-                   <li><a href="javascript:void(0);" ng-click="getPage(1)" ng-if="pages.pageNow>1">1</a>
+                   <li><a href="javascript:void(0);" ng-click="get_page(1)" ng-if="pages.pageNow>1">1</a>
                    </li>
                    <li><a href="javascript:void(0);" ng-if="pages.pageNow>4">...</a></li>
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.pageNow-2)" ng-bind="pages.pageNow-2"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-2)" ng-bind="pages.pageNow-2"
                            ng-if="pages.pageNow>3"></a></li>
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.pageNow-1)" ng-bind="pages.pageNow-1"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-bind="pages.pageNow-1"
                            ng-if="pages.pageNow>2"></a></li>
                    <li class="active"><a href="javascript:void(0);" ng-bind="pages.pageNow"></a></li>
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.pageNow+1)" ng-bind="pages.pageNow+1"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow+1)" ng-bind="pages.pageNow+1"
                            ng-if="pages.pageNow<pages.maxPage-1"></a></li>
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.pageNow+2)" ng-bind="pages.pageNow+2"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow+2)" ng-bind="pages.pageNow+2"
                            ng-if="pages.pageNow<pages.maxPage-2"></a></li>
                    <li><a href="javascript:void(0);" ng-if="pages.pageNow<pages.maxPage-3">...</a></li>
 
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.maxPage)" ng-bind="pages.maxPage"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.maxPage)" ng-bind="pages.maxPage"
                            ng-if="pages.pageNow<pages.maxPage"></a></li>
-                   <li><a href="javascript:void(0);" ng-click="getPage(pages.pageNow+1)"
+                   <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow+1)"
                            ng-if="pages.pageNow<pages.maxPage">下一页</a></li>
                  </ul>
            </div>

@@ -5,7 +5,8 @@ $this->title = '标签管理';
 <link rel="stylesheet" href="/css/set/label.css">
 <section class="label_container" ng-app="myApp" ng-controller="labelCtrl" ng-cloak>
     <div class="label_search_box">
-         <input class="label_box_mid_input" placeholder="请输入标签关键字" type="text" ng-model="label_name" ng-keyup="label_keyup($event)">
+         <input class="label_box_mid_input" placeholder="请输入标签关键字" type="text" ng-model="label_name"
+         ng-keyup="label_keyup($event)">
          <img src="/images/alert/search_icon.png" class="search_icon" alt="">
          <button class="label_box_mid_button_left" ng-click="label_search()">搜索</button>
          <button class="label_box_mid_button_right" ng-click="label_add('',$event)">新增标签</button>

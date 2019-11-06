@@ -1,128 +1,176 @@
 var myApp = angular.module("myApp", []);
 myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
 
-    $scope.choosetime = {
-        startDate: moment().subtract(90, "days"),
-        endDate: moment()
-    };
+    $scope.init = function(){
+        $scope.searchTime = {
+            startDate: moment().subtract(90, "days"),
+            endDate: moment()
+        };
 
-    $scope.search_picker = function() {
-        $("#search_picker").daterangepicker(
+        $scope.seach_data = {
+            source: '全部',
+            status: '',
+            label_id: '',
+            key_word: '',
+            level: '',
+            startDate: moment().subtract(90, "days").unix(),
+            endDate: moment().unix(),
+        };
+
+        //漏洞级别
+        $scope.search_level = [{
+                num: '',
+                status: '漏洞级别'
+            },
             {
+                num: '高',
+                status: '高'
+            },
+            {
+                num: '中',
+                status: '中'
+            },
+            {
+                num: '低',
+                status: '低'
+            }];
+
+        $scope.picker_search();
+        $scope.start_time_picker();
+        $scope.get_loophole_source();
+        $scope.get_tag_list();
+        $scope.get_page();
+    }
+
+    //初始化时间
+    $scope.start_time_picker = function () {
+        $("#start_time_picker").daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 timePicker: true,
                 timePicker24Hour: true,
                 drops: "down",
                 opens: "center",
-                maxDate: $scope.choosetime.endDate,
-                startDate: $scope.choosetime.startDate,
+                startDate: moment(),
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
                     format: "YYYY-MM-DD HH:mm:ss"
                 }
             },
-            function(start, end, label) {
-                $scope.outTime.startDate = start.unix();
+            function (start, end, label) {
+                $scope.add_startDate = start.unix()
             }
         );
     };
-
-    $scope.pages = {
-        data:[{degree:'高',hid:'001',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-            describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'内部系统',
-            type:[{name:'信息泄露',status:false}]},
-            {degree:'中',hid:'002',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'upstream',
-                type:[{name:'信息泄露',status:false},{name:'跨站脚本',status:false},{name:'跨站信息',status:false}]},
-            {degree:'低',hid:'003',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'CVE',
-                type:[{name:'信息泄露',status:false},{name:'跨站脚本',status:false}]},
-            {degree:'高',hid:'004',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'内部系统',
-                type:[{name:'信息泄露',status:false},{name:'跨站脚本',status:false},{name:'跨站信息',status:false},{name:'本站信息',status:false}]},
-            {degree:'高',hid:'005',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'内部系统',
-                type:[{name:'信息泄露',status:false}]},
-            {degree:'中',hid:'006',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'upstream',
-                type:[{name:'信息泄露',status:false},{name:'跨站脚本',status:false},{name:'跨站信息',status:false}]},
-            {degree:'低',hid:'007',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'CVE',
-                type:[{name:'信息泄露',status:false},{name:'跨站脚本',status:false}]},
-            {degree:'高',hid:'008',headline:'CVE-2019-16180:iTERM2远程执行代码漏洞警报',endTime:'2019-4-20',
-                describe:'Limesurvey before 3.17.14 allows remote attackers to remote…',source:'内部系统',
-                type:[{name:'信息泄露',status:false},{name:'跨站脚本',status:false},{name:'跨站信息',status:false},{name:'本站信息',status:false}]}],
-        count: 8,
-        maxPage: "...",
-        pageNow: 1
+    $scope.picker_search = function () {
+        $("#picker_search").daterangepicker({
+                showDropdowns: true,
+                timePicker: true,
+                timePicker24Hour: true,
+                drops: "down",
+                opens: "right",
+                maxDate: $scope.searchTime.endDate,
+                startDate: $scope.searchTime.startDate,
+                endDate: $scope.searchTime.endDate,
+                locale: {
+                    applyLabel: "确定",
+                    cancelLabel: "取消",
+                    format: "YYYY-MM-DD HH:mm"
+                }
+            },
+            function (start, end, label) {
+                $scope.seach_data.startDate = start.unix();
+                $scope.seach_data.endDate = end.unix();
+            }
+        );
     };
-
-    $scope.input_select_if = false;
-
-    $scope.searchData = {
-        client_ip: "",
-        category: "",
-        indicator: "",
-        company: ""
-    };
-
-    $scope.category_select = [
-        {
-            num: "",
-            type: "请选择预警类型"
+    // 漏洞来源
+    $scope.get_loophole_source = function () {
+        $http({
+            method: "get",
+            url: "/site/intelligence-sourse",
+            params: {
+                sourse: ''
+            }
+        }).then(
+            function (data) {
+                $scope.loop_source = [];
+                $scope.loop_source_add = [];
+                angular.forEach(data.data, function (item) {
+                    $scope.loop_source.push(item.sourse);
+                    $scope.loop_source_add.push(item.sourse);
+                })
+                $scope.loop_source.push('全部');
+                $scope.loop_source_add.push('请选择');
+            },
+            function () {}
+        );
+    }
+    // 获取标签列表
+    $scope.get_tag_list = function (name) {
+        $http({
+            method: "get",
+            url: "/site/get-label",
+            params: {
+                label_name: name,
+            }
+        }).then(function (data) {
+                    console.log(data);
+                    $scope.search_tag_list = [];
+                    $scope.tag_list = data.data;
+                    $scope.search_tag_list_str = JSON.stringify(data.data)
+                    $scope.search_tag_list = JSON.parse($scope.search_tag_list_str);
+                    $scope.search_tag_list.push({
+                        id: '',
+                        label_name: '请选择标签'
+                    })
+            },
+            function () {}
+        );
+    }
+    // 获取列表
+    $scope.get_page = function (pageNow) {
+        pageNow = pageNow ? pageNow : 1;
+        var loading = zeroModal.loading(4);
+        var params_data = {
+            source: '',
+            label_id: [],
+            label_id_box: [],
+            label_id_str: '',
         }
-    ];
-
-    $scope.company_select = [
-        {
-            num: "",
-            type: "请选择资产分组"
+        if ($scope.seach_data.source != '全部') {
+            params_data.source = $scope.seach_data.source
         }
-    ];
-
-    $scope.search_picker();
-
-    //获取标签列表
-    $scope.get_loophole_list = function () {
-        //var loading = zeroModal.loading(4);
+        if ($scope.seach_data.label_id != '') {
+            params_data.label_id.push($scope.seach_data.label_id * 1);
+            params_data.label_id_box.push(params_data.label_id)
+            params_data.label_id_str = JSON.stringify(params_data.label_id_box);
+        } else {
+            params_data.label_id_str = '[]'
+        }
         $http({
             method: "get",
             url: "/vehicleintelligence/loophole-intelligence-list",
             params: {
-                key_word:'',
-                stime:'352454345',
-                etime:'452345',
-                sourse:'',
-                status:'0',
-                level:'高',
-                label_id:[[1,5],[4,6]]
+                stime: $scope.seach_data.startDate,
+                etime: $scope.seach_data.endDate,
+                sourse: params_data.source,
+                status: '0',
+                level: $scope.seach_data.level,
+                label_id: params_data.label_id_str,
+                key_word: $scope.seach_data.key_word,
+                page: pageNow,
+                rows: 2,
             }
-        }).then(function successCallback(resp) {
-                //zeroModal.close(loading);
-
-                console.log(resp)
-                /*if(resp.status == 200){
-                    $scope.label_data = resp.data.data;
-                }
-
-                let labelAttr = [];
-
-                angular.forEach(resp.data.data, function (key,value) {
-                    if(value === '' || value === null){
-                        value = '自定义标签';
-                    }
-                    labelAttr.push({name:value,label:key,status:false});
-                });
-
-                $scope.label_data = labelAttr;*/
-
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                $scope.pages = data.data;
             },
-            function errorCallback(data) {}
+            function () {}
         );
-    };
+    }
 
-    //初始化
-    $scope.get_loophole_list();
+    $scope.init();
 });
