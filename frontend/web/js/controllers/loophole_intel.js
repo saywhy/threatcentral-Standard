@@ -195,29 +195,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
-    $scope.add_loophole_inteligence = function () {
-        $http({
-            method: "post",
-            url: "/seting/loophole-inteligence-add",
-            data: {
-                title: '',
-                level: '',
-                first_seen_time: '',
-                sourse: '',
-                detail: '',
-                label_id: {
-                    exist: [1, 2, 3, 4],
-                    unexist: ['新标签']
-                },
-            }
-        }).then(
-            function (data) {
-                console.log(data);
 
-            },
-            function () {}
-        );
-    }
     // 情报录入-弹窗
     $scope.add_loop_box = function (item) {
         $scope.alert_item = {
@@ -255,7 +233,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     };
     // 添加漏洞情报
     $scope.add_sure = function () {
-        var loading = zeroModal.loading(4);
         var label_id_exist = []
         if ($scope.alert_item.label_id.exist.length != 0) {
             angular.forEach($scope.alert_item.label_id.exist, function (item) {
@@ -263,8 +240,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             })
         }
         if ($scope.alert_item.sourse == '请选择') {
+            zeroModal.error('请选择情报来源')
             return false
         }
+        if ($scope.alert_item.title == '') {
+            zeroModal.error('请输入标题')
+            return false
+        }
+        var loading = zeroModal.loading(4);
+
         $http({
             method: "post",
             url: "/seting/loophole-intelligence-add",
@@ -312,10 +296,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                console.log(data);
                 $scope.search_tag_list = [];
-                $scope.tag_list = data.data;
-                $scope.search_tag_list_str = JSON.stringify(data.data)
+                $scope.data_location = JSON.stringify(data.data);
+                $scope.tag_list = JSON.parse($scope.data_location);
+                $scope.search_tag_list_str = $scope.data_location;
                 $scope.search_tag_list = JSON.parse($scope.search_tag_list_str);
                 $scope.search_tag_list.push({
                     id: '',
@@ -474,7 +458,14 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
 
     $scope.edit_sure = function () {
-        console.log($scope.edit_item);
+        if ($scope.edit_item.sourse == '请选择') {
+            zeroModal.error('请选择情报来源')
+            return false
+        }
+        if ($scope.edit_item.title == '') {
+            zeroModal.error('请输入标题')
+            return false
+        }
         var loading = zeroModal.loading(4);
         $http({
             method: "put",

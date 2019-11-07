@@ -60,17 +60,17 @@ $this->title = '漏洞情报管理';
                 <td ng-bind="item.title"></td>
                 <td ng-bind="item.detail"></td>
                 <td ng-bind="item.sourse"></td>
-                <td >
-                    <button class="btn_loophole"  ng-repeat="it in item.label_name">
+                <td>
+                    <button class="btn_loophole" ng-repeat="it in item.label_name">
                         {{it}}
                         <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
                     </button>
                 </td>
                 <td>{{item.first_seen_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td  >{{item.status=='0'? '未发布':'已发布'}}</td>
+                <td>{{item.status=='0'? '未发布':'已发布'}}</td>
                 <td class="td_operation th_id">
-                    <button  ng-class="item.status=='0'? 'btn_operation':'btn_unoperation'"
-                    ng-disabled="item.status=='1'" ng-click="release(item.id)">发布</button>
+                    <button ng-class="item.status=='0'? 'btn_operation':'btn_unoperation'"
+                        ng-disabled="item.status=='1'" ng-click="release(item.id)">发布</button>
                     <button class="btn_operation" ng-click="edit_loop_box(item)">编辑</button>
                     <button class="btn_operation" ng-click="delete(item.id)">删除</button>
                 </td>
@@ -107,9 +107,16 @@ $this->title = '漏洞情报管理';
     <!-- 添加新增弹窗 -->
     <div style="display: none;" id="alert_time_box">
         <div id="alert_time">
-            <div class="alert_item_box">
-                <p class="alert_name">漏洞标题</p>
-                <input class="alert_input_box" placeholder="请输入漏洞标题" type="text" ng-model="alert_item.title">
+            <div class="alert_item_box time_select_box">
+                <div class="flex_item">
+                    <p class="alert_name">漏洞标题</p>
+                    <input class="alert_input_box" placeholder="请输入漏洞标题" type="text" ng-model="alert_item.title">
+                </div>
+                <div class="flex_item">
+                    <p class="alert_name">漏洞等级</p>
+                    <select class="loop_select_box" ng-model="alert_item.level"
+                        ng-options="x.num as x.status for x in add_level "></select>
+                </div>
             </div>
             <div class="alert_item_box time_select_box">
                 <div class="flex_item">
@@ -128,11 +135,6 @@ $this->title = '漏洞情报管理';
                 <p class="alert_name">漏洞描述</p>
                 <textarea class="textarea_box" ng-model="alert_item.detail" name="" id="" cols="30"
                     rows="10"></textarea>
-            </div>
-            <div class="alert_item_box">
-                <p class="alert_name">漏洞等级</p>
-                <select class="loop_select_box" ng-model="alert_item.level"
-                    ng-options="x.num as x.status for x in add_level "></select>
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
@@ -162,9 +164,16 @@ $this->title = '漏洞情报管理';
     <!-- 编辑情报 -->
     <div style="display: none;" id="edit_box">
         <div id="edit">
-            <div class="alert_item_box">
-                <p class="alert_name">漏洞标题</p>
-                <input class="alert_input_box" placeholder="请输入漏洞标题" type="text" ng-model="edit_item.title">
+            <div class="alert_item_box time_select_box">
+                <div class="flex_item">
+                    <p class="alert_name">漏洞标题</p>
+                    <input class="alert_input_box" placeholder="请输入漏洞标题" type="text" ng-model="edit_item.title">
+                </div>
+                <div class="flex_item">
+                    <p class="alert_name">漏洞等级</p>
+                    <select class="loop_select_box" ng-model="edit_item.level"
+                        ng-options="x.num as x.status for x in add_level "></select>
+                </div>
             </div>
             <div class="alert_item_box time_select_box">
                 <div class="flex_item">
@@ -177,17 +186,10 @@ $this->title = '漏洞情报管理';
                     <select class="loop_select_box" ng-model="edit_item.sourse"
                         ng-options="x for x in loop_source_add"></select>
                 </div>
-
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">漏洞描述</p>
-                <textarea class="textarea_box" ng-model="edit_item.detail" name="" id="" cols="30"
-                    rows="10"></textarea>
-            </div>
-            <div class="alert_item_box">
-                <p class="alert_name">漏洞等级</p>
-                <select class="loop_select_box" ng-model="edit_item.level"
-                    ng-options="x.num as x.status for x in add_level "></select>
+                <textarea class="textarea_box" ng-model="edit_item.detail" name="" id="" cols="30" rows="10"></textarea>
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
@@ -195,12 +197,13 @@ $this->title = '漏洞情报管理';
                     <ul class="tag_box_ul" ng-if="edit_item.tag_list.length!=0">
                         <li ng-repeat="item in edit_item.tag_list track by $index">
                             <span>{{item}}</span>
-                            <img src="/images/set/tag_del.png" alt="" class="tag_icon" ng-click="edit_tag_del(item,$index)">
+                            <img src="/images/set/tag_del.png" alt="" class="tag_icon"
+                                ng-click="edit_tag_del(item,$index)">
                         </li>
                     </ul>
                     <input class="tag_input" placeholder="请输入标签，按enter键添加新标签" ng-keyup="edit_mykey($event)"
-                        ng-focus="edit_tag_focus()" ng-change="edit_tag_change(edit_item.tag_list_str)" ng-blur="edit_tag_blur()"
-                        type="text" ng-model="edit_item.tag_list_str">
+                        ng-focus="edit_tag_focus()" ng-change="edit_tag_change(edit_item.tag_list_str)"
+                        ng-blur="edit_tag_blur()" type="text" ng-model="edit_item.tag_list_str">
                 </div>
                 <ul class="tag_list_box" ng-if="edit_tag_list_if">
                     <li ng-click="edit_tag_list_item(item)" ng-repeat="item in tag_list track by $index">
