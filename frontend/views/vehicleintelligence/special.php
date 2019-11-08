@@ -5,135 +5,101 @@ $this->title = '行业情报';
 <link rel="stylesheet" href="/css/vehicleintelligence/special.css">
 <section class="vehicle_special_container" ng-app="myApp" ng-controller="vehicleTelSpecialCtrl" ng-cloak>
     <div class="vehicle_special">
-         <div class="vehicle_box_top">
-             <span class="vehicle_icon_box">
-                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                 <input type="text" class="vehicle_search_input" ng-focus="get_vehicle_search_focus()"
-                     ng-blur="get_vehicle_search_blur()" ng-keyup="myKeyup_vehicle_search(searchData.client_ip)"
-                     placeholder="输入关键字" ng-model="searchData.client_ip">
-                 <ul class="container_ul" ng-show="select_vehicle_search_if">
-                     <li ng-repeat="item in select_vehicle_ip" class="li_hover"
-                         ng-click="select_vehicle_ip_item(item.client_ip)">
-                         {{item.client_ip}}
-                     </li>
-                 </ul>
-             </span>
-             <select class="vehicle_search_input"  ng-model="searchData.category"
-                 ng-options="x.num as x.type for x in category_select"></select>
+        <div class="vehicle_box_top">
+            <!-- 漏洞来源 -->
+            <span class="vehicle_icon_box">
+                <img src="/images/alert/search_icon.png" class="search_icon" alt="">
+                <input type="text" style="padding-left:34px;" class="vehicle_search_input"
+                    placeholder="输入关键字" ng-model="seach_data.key_word">
+            </span>
 
-             <select class="vehicle_search_input"  ng-model="searchData.company"
-                 ng-options="x.num as x.type for x in company_select"></select>
+            <!-- 漏洞来源 -->
+            <select class="vehicle_search_input source_input" ng-model="seach_data.source"
+                ng-options="x for x in loop_source">
+            </select>
 
+            <!-- 漏洞级别 -->
+            <select class="vehicle_search_input source_input" ng-model="seach_data.level"
+                ng-options="x.num as x.status for x in search_level">
+            </select>
 
-             <div class="vehicle_search_time">
-                  <img src="/images/report/time.png" class="time_icon" alt="">
-                  <input class="input_box" id="search_picker" readonly type="text" placeholder="获取时间">
-             </div>
+            <!-- 获取时间 -->
+            <div class="vehicle_search_time">
+                <img src="/images/report/time.png" class="time_icon_search" alt="">
+                <input class="input_box" id="picker_search" readonly type="text" placeholder="时间">
+            </div>
 
-             <span class="vehicle_icon_box">
-                   <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                   <input type="text" class="vehicle_search_input" ng-focus="get_client_ip_focus()"
-                       ng-blur="get_client_ip_blur()" ng-keyup="myKeyup_client_ip(searchData.client_ip)"
-                       placeholder="标签" ng-model="searchData.client_ip">
-                   <ul class="container_ul" ng-show="select_client_ip_if">
-                       <li ng-repeat="item in select_client_ip" class="li_hover"
-                           ng-click="select_client_ip_item(item.client_ip)">
-                           {{item.client_ip}}
-                       </li>
-                   </ul>
-              </span>
-              <button class="button_search" ng-click="search()">搜索</button>
-         </div>
+            <!-- 标签选择 -->
+            <!--<select class="vehicle_search_input source_input" ng-model="seach_data.label_id"
+                ng-options="x.id as x.label_name for x in search_tag_list">
+            </select>-->
 
-         <div class="vehicle_search_country">
-           <ul class="search_country">
-                <li class="search_country_item">
-                 <span class="title">Country:</span>
-                 <span class="lists">
-                     <span class="item">China</span>
-                     <span class="item">Thailand</span
-                 </span>
-                </li>
-                <li class="search_country_item">
-                  <span class="title">Company Impacted:</span>
-                  <span class="lists">
-                      <span class="item">DealerLeads</span>
-                      <span class="item active">BMW</span>
-                      <span class="item">Benz</span>
-                  </span>
-                </li>
-                <li class="search_country_item">
-                   <span class="title">Physical/Remote access:</span>
-                   <span class="lists">
-                       <span class="item">Physical access</span>
-                       <span class="item">Remote access</span>
-                   </span>
-                </li>
-                <li class="search_country_item" ng-show="toggleCountry">
-                    <span class="title">Country:</span>
-                    <span class="lists">
-                        <span class="item">China</span>
-                        <span class="item">Thailand</span
-                    </span>
-                </li>
-                <li class="search_country_item" ng-show="toggleCountry">
-                     <span class="title">Company Impacted:</span>
+            <div class="vehicle_item_box" title="点击标签列表选择">
+                <div class="tag_add_box">
+                  <p class="tag_tip" ng-show="label_info.tab_tag_list == 0">标签</p>
+                  <ul class="tag_box_ul" ng-if="alert_item.tag_list.length!=0">
+                      <li ng-repeat="item in label_info.tab_tag_list track by $index">
+                          <span>{{item.label_name}}</span>
+                          <!--<img src="/images/set/tag_del.png" alt="" class="tag_icon" ng-click="tag_del(item,$index)">-->
+                      </li>
+                  </ul>
+                  <!--<input class="tag_input" placeholder="标签" ng-keyup="mykey($event)"
+                      ng-focus="tag_focus()" ng-change="tag_change(alert_item.tag_list_str)" ng-blur="tag_blur()"
+                      type="text" ng-model="alert_item.tag_list_str">-->
+                </div>
+               <!-- <ul class="tag_list_box" ng-show="tag_list_if">
+                  <li  ng-repeat="item in label_info.tag_list track by $index" ng-click="tag_list_item(item)">
+                      {{item.label_name}}
+                  </li>
+                </ul>-->
+            </div>
+
+            <!-- 搜索 -->
+            <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
+       </div>
+
+        <div class="vehicle_search_country">
+            <ul class="search_country">
+                <li class="search_country_item" ng-repeat="item in label_data" ng-hide="$index>toggleCount">
+                     <span class="title">{{item.name}}:</span>
                      <span class="lists">
-                         <span class="item">DealerLeads</span>
-                         <span class="item active">BMW</span>
-                         <span class="item">Benz</span>
+                         <span class="item" ng-repeat="it in item.label"
+                         ng-click="tog_change_status($event,item,it);">{{it.label_name}}</span>
                      </span>
                 </li>
-                <li class="search_country_item" ng-show="toggleCountry">
-                    <span class="title">Physical/Remote access:</span>
-                    <span class="lists">
-                      <span class="item">Physical access</span>
-                      <span class="item">Remote access</span>
-                    </span>
-                </li>
-           </ul>
-           <div class="search_toggle">
-               <a class="toggle" ng-class="{'active':toggleCountry}"
-                href="javascript:void(0);" ng-click="toggleCountry =! toggleCountry">
+            </ul>
+            <div class="search_toggle" ng-show="label_data.length > 0">
+               <a class="toggle" ng-class="{'active':toggleStatus}" ng-click="tog_count_change($event);">
                    <span class="caret"></span>
-                   <span ng-show="!toggleCountry">展开</span><span ng-show="toggleCountry">收起</span>更多
+                   <span ng-show="!toggleStatus">展开</span><span ng-show="toggleStatus">收起</span>更多
                </a>
-           </div>
-         </div>
+            </div>
+        </div>
 
-         <div class="vehicle_search_covenant">
+        <div class="vehicle_search_covenant">
             <p class="covenant_tack">
-              <span class="tack">共有<span class="num">2</span>条记录</span>
+              <span class="tack">共有<span class="num">{{pages.count}}</span>条结果</span>
             </p>
             <ul class="covenant_lists">
-               <li class="covenant_lists_item">
+               <li class="covenant_lists_item" ng-repeat="item in pages.data">
                   <p class="covenant_1">
-                     <span class="status">高</span>
-                     <span class="name">Covenant：针对红队设计的命令行控制框架</span>
+                     <img class="status" src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
+                     <img class="status" src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
+                     <img class="status" src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
+                     <span class="name">{{item.title}}</span>
                   </p>
                   <p class="covenant_2">
-                     <span class="item"><img class="covenant_img" src="/images/login/user.png" alt=""/><span class="ct person">Admin</span></span>
-                     <span class="item"><i class="fa fa-cog"></i><span class="ct time">2019-09-26</span></span>
-                     <span class="item"><i class="fa fa-area-chart"></i><span class="ct twitter">Twitter</span></span>
+                     <span class="item"><img class="covenant_img" src="/images/login/user.png" alt=""/><span class="ct person">{{item.publish_user}}</span></span>
+                     <span class="item"><embed class="cov_time" src="/images/alert/time.svg" width="16" height="16" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                     <span class="ct time">{{item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
+                     <span class="item"><embed class="cov_time" src="/images/alert/twitter.svg" width="16" height="16" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                     <span class="ct twitter">{{item.sourse}}</span></span>
                   </p>
-                  <p class="covenant_3">上海宽娱数码科技有限公司成立于2005年08月12日，注册地位于上海市杨浦区政立路489号801室，法人代表为陈睿。技术开发、技术服务；计算机软硬件的销售月12日，注册地位于上海市杨浦区政立路489号801室。</p>
+                  <p class="covenant_3">{{item.detail}}</p>
                   <p class="covenant_4"><button class="covenant_btn">系统安全</button></p>
                </li>
-               <li class="covenant_lists_item">
-                  <p class="covenant_1">
-                     <span class="status">高</span>
-                     <span class="name">Covenant：针对红队设计的命令行控制框架</span>
-                  </p>
-                  <p class="covenant_2">
-                     <span class="item"><img class="covenant_img" src="/images/login/user.png" alt=""/><span class="ct person">Admin</span></span>
-                     <span class="item"><i class="fa fa-cog"></i><span class="ct time">2019-09-26</span></span>
-                     <span class="item"><i class="fa fa-area-chart"></i><span class="ct twitter">Twitter</span></span>
-                  </p>
-                  <p class="covenant_3">上海宽娱数码科技有限公司成立于2005年08月12日，注册地位于上海市杨浦区政立路489号801室，法人代表为陈睿。技术开发、技术服务；计算机软硬件的销售月12日，注册地位于上海市杨浦区政立路489号801室。</p>
-                  <p class="covenant_4"><button class="covenant_btn">系统安全</button></p>
-                </li>
             </ul>
-         </div>
+        </div>
     </div>
 
 </section>

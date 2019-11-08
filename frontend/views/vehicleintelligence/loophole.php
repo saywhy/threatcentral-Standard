@@ -6,7 +6,6 @@ $this->title = '漏洞情报';
 <section class="vehicle_loophole_container" ng-app="myApp" ng-controller="vehicleTelLoopholeCtrl" ng-cloak>
       <div class="vehicle_loophole">
            <div class="vehicle_box_top">
-
                 <!-- 漏洞来源 -->
                 <span class="vehicle_icon_box">
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
@@ -40,7 +39,7 @@ $this->title = '漏洞情报';
            </div>
       </div>
 
-      <div class="loophole_table_content" ng-click="blur_input()">
+      <div class="loophole_table_content">
           <table class="table table-striped ng-cloak">
               <tr class="loophole_table_tr">
                   <th>情报 ID</th>
@@ -50,7 +49,7 @@ $this->title = '漏洞情报';
                   <th>标签类型</th>
                   <th>获取时间</th>
               </tr>
-              <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data" ng-click="detail(item)">
+              <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data">
                   <td>
                     <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
                     <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
@@ -60,7 +59,7 @@ $this->title = '漏洞情报';
                   <td ng-bind="item.title"></td>
                   <td ng-bind="item.detail"></td>
                   <td ng-bind="item.sourse"></td>
-                  <td class="td_operation">
+                  <td class="td_operation" style="white-space: nowrap;text-overflow: ellipsis;">
                       <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name"
                       ng-click="it.status = !it.status">
                           {{it}}
@@ -71,8 +70,7 @@ $this->title = '漏洞情报';
               </tr>
           </table>
           <p>
-              <span class="loophole_result_length">共有<span
-                      ng-bind="pages.data.length"></span>条结果</span>
+              <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
           </p>
           <div style="padding: 0px; position: relative;height:60px;">
                <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">

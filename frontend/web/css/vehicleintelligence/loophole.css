@@ -65,24 +65,6 @@ button:active {
     padding-left: 15px;
 }
 
-/*.container_ul {
-    width: 160px;
-    height: 100px;
-    overflow-y: auto;
-    position: absolute;
-    top: 45px;
-    border: 1px solid #ECECEC;
-    z-index: 999;
-    background: #fff;
-    padding: 5px;
-    border-radius: 3px;
-}
-
-.li_hover {
-    padding: 3px;
-    border-radius: 3px;
-}*/
-
 .button_search {
     background: #0070FF;
     border-radius: 4px;
@@ -115,6 +97,9 @@ button:active {
     top: 37px;
     right: 8px;
 }
+
+/*************************/
+
 .loophole_table_content{
     margin:0;
     padding:24px 0;

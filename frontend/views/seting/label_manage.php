@@ -106,7 +106,7 @@ $this->title = '标签管理';
             </div>
             <div class="lab_btn_box">
                 <button class="lab_btn_ok" ng-click="lab_delete_ok()">确认</button>
-                <button class="lab_btn_cancel" ng-click="lab_cancel()">取消</button>
+                <button class="lab_btn_cancel" ng-click="lab_delete_cancel()">取消</button>
             </div>
         </div>
     </div>
@@ -118,8 +118,8 @@ $this->title = '标签管理';
                <p class="lab_tip">该标签已经存在，请确认是否合并?</p>
             </div>
             <div class="lab_btn_box">
-                <button class="lab_btn_ok" ng-click="lab_save()">确认</button>
-                <button class="lab_btn_cancel" ng-click="lab_cancel()">取消</button>
+                <button class="lab_btn_ok" ng-click="lab_merge_ok()">确认</button>
+                <button class="lab_btn_cancel" ng-click="lab_merge_cancel()">取消</button>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
 select:focus,
 input:focus {
     outline: none;
-    outline-offset: 0;
+    outline-offset: 0px;
     border: 1px solid #0070FF;
 }
 
@@ -18,10 +18,6 @@ button:focus {
 
 button:active {
     outline: none;
-}
-
-.vehicle_box_top {
-    margin-bottom: 24px;
 }
 
 .vehicle_icon_box {
@@ -39,10 +35,11 @@ button:active {
     border: 1px solid #ECECEC;
     border-radius: 4px;
     height: 42px;
-    width: 160px;
-    padding-left: 34px;
+    width: 130px;
+    padding-left: 5px;
     margin-right: 12px;
 }
+
 .vehicle_search_time{
     height: 82px;
     position: relative;
@@ -50,32 +47,22 @@ button:active {
     margin-right: 12px;
 }
 
+.time_icon_search {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 13px;
+    right: 10px;
+}
+
 .input_box {
-    width: 172px;
+    width: 290px;
     height: 42px;
     border: 1px solid #ECECEC;
     border-radius: 4px;
-    margin-top: 26px;
+    /*margin-top: 26px;*/
     text-align: left;
-    padding-left: 5px;
-}
-
-.container_ul {
-    width: 160px;
-    height: 100px;
-    overflow-y: auto;
-    position: absolute;
-    top: 45px;
-    border: 1px solid #ECECEC;
-    z-index: 999;
-    background: #fff;
-    padding: 5px;
-    border-radius: 3px;
-}
-
-.li_hover {
-    padding: 3px;
-    border-radius: 3px;
+    padding-left: 15px;
 }
 
 .button_search {
@@ -84,19 +71,22 @@ button:active {
     height: 42px;
     width: 124px;
     color: #fff;
-    margin: 0 0 0 34px;
+    margin: 0 0 0 24px;
 }
-.daterangepicker{
-    right: auto;
-    width: 260px;
+
+.daterangepicker td,
+.daterangepicker th {
+    padding: 1px !important;
+}
+
+.daterangepicker {
+    width: auto;
     padding-top: 10px;
     transform: translateX(0);
 }
-
-.daterangepicker td, .daterangepicker th{
-    padding: 1px!important;
+.daterangepicker .ranges{
+    display: contents;
 }
-
 
 .time_icon {
     width: 20px;
@@ -104,6 +94,86 @@ button:active {
     position: absolute;
     top: 37px;
     right: 8px;
+}
+
+.vehicle_item_box{
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+}
+.vehicle_item_box .tag_tip{
+    color: #bbb;
+    font-size: 14px;
+    line-height: 40px;
+    padding-left: 5px;
+    font-family: "PingFangSC-Regular";
+}
+
+.tag_add_box {
+    border-radius: 4px;
+    height: 42px;
+    border: 1px solid #ECECEC;
+    display: flex;
+    width: 150px;
+}
+
+.tag_input {
+    font-size: 14px;
+    width: 40px;
+    margin: 0;
+    border: 0;
+    outline: none;
+    padding-left: 5px;
+    vertical-align: super;
+}
+
+.tag_input:hover,.tag_input:focus{
+    outline: none;
+    border: 0;
+}
+
+.tag_box_ul {
+    display: inline-block;
+    height: 30px;
+    font-size: 14px;
+    /*flex: 1;*/
+    float: left;
+}
+
+.tag_box_ul li {
+    height: 18px;
+    line-height: 18px;
+    padding: 0;
+    display: inline-block;
+    margin-right: 3px;
+    background: #E0EEFF;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #0070FF;
+    margin-bottom: 0px;
+}
+
+.tag_box_ul .tag_icon{
+    vertical-align: text-top;
+}
+
+.tag_list_box {
+    position: absolute;
+    width: 150px;
+    background: #fff;
+    min-height: 300px;
+    height: 300px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    margin-top: 2px;
+    overflow-y: auto;
+}
+.tag_list_box li {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #666666;
+    cursor: pointer;
 }
 
 /**************/
@@ -120,26 +190,36 @@ button:active {
     padding-left: 48px;
 }
 .search_country .search_country_item{
-    height: 44px;
-    line-height: 44px;
+    /*height: 44px;
+    line-height: 44px;*/
+    height: auto;
     border-bottom: 1px solid #fff;
+    display: flex;
 }
 .search_country .search_country_item:last-child{
-    border-width: 0px;
+    border-width: 0;
 }
 
 .search_country .search_country_item .title{
     width: 200px;
     color: #999;
     font-size: 14px;
+    line-height: 43px;
     display: inline-block;
     font-family: 'PingFangSC-Regular';
+}
+
+.search_country .search_country_item .lists{
+    flex: 1;
+    padding: 9px 0;
 }
 
 .search_country .search_country_item .lists .item{
     color: #333;
     font-size: 14px;
     margin-right: 20px;
+    line-height: 25px;
+    cursor: pointer;
     font-family: 'PingFangSC-Regular';
 }
 
@@ -158,8 +238,9 @@ button:active {
     font-size: 12px;
     text-decoration: none;
     position: absolute;
-    top: 100px;
     left: 15px;
+    bottom: 15px;
+    cursor: pointer;
     font-family: 'PingFangSC-Regular';
 }
 
@@ -201,16 +282,7 @@ button:active {
     line-height: 50px;
 }
 .covenant_1 .status{
-    border: 1px solid red;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 12px;
-    padding: 1px 2px;
-    vertical-align:top;
-    background-color:#FF5F5C;
+    vertical-align: sub;
 }
 .covenant_1 .name{
     font-size: 20px;
@@ -241,12 +313,16 @@ button:active {
 .covenant_2 .ct{
     font-size: 14px;
     color: #666;
-    margin-left: 5px;
+    /*margin-left: 5px;*/
     font-family: 'PingFangSC-Medium';
+}
+.covenant_2 .cov_time{
+    vertical-align: text-bottom;
 }
 .covenant_3{
     margin-top: 10px;
     line-height: 24px;
+    min-height: 60px;
     text-align: justify;
 }
 .covenant_4 {
@@ -263,6 +339,8 @@ button:active {
     font-weight: bold;
     border: 1px solid #0070ff;
 }
+
+
 
 
 
