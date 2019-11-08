@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '行业情报';
+$this->title = '行业情报111';
 ?>
 <link rel="stylesheet" href="/css/vehicleintelligence/special.css">
 <section class="vehicle_special_container" ng-app="myApp" ng-controller="vehicleTelSpecialCtrl" ng-cloak>
@@ -55,7 +55,7 @@ $this->title = '行业情报';
             </div>
 
             <!-- 搜索 -->
-            <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索111</button>
+            <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
        </div>
 
         <div class="vehicle_search_country">
