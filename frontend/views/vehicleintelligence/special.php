@@ -1,11 +1,12 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '行业情报111';
+$this->title = '行业情报';
 ?>
 <link rel="stylesheet" href="/css/vehicleintelligence/special.css">
 <section class="vehicle_special_container" ng-app="myApp" ng-controller="vehicleTelSpecialCtrl" ng-cloak>
     <div class="vehicle_special">
         <div class="vehicle_box_top">
+
             <!-- 漏洞来源 -->
             <span class="vehicle_icon_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
@@ -34,7 +35,7 @@ $this->title = '行业情报111';
                 ng-options="x.id as x.label_name for x in search_tag_list">
             </select>-->
 
-            <div class="vehicle_item_box" title="点击标签列表选择">
+            <div class="vehicle_item_box" title="点击标签列表添加标签">
                 <div class="tag_add_box">
                   <p class="tag_tip" ng-show="label_info.tab_tag_list == 0">标签</p>
                   <ul class="tag_box_ul" ng-if="alert_item.tag_list.length!=0">

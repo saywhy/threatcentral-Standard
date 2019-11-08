@@ -74,8 +74,6 @@ button:active {
     margin: 0 0 0 34px;
 }
 
-
-
 .daterangepicker td,
 .daterangepicker th {
     padding: 1px !important;
@@ -123,15 +121,23 @@ button:active {
 }
 .loophole_table_tr th:nth-child(2),.loophole_table_tr td:nth-child(2){
     width: 150px;
-    overflow: hidden;
     padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .loophole_table_tr th:nth-child(3),.loophole_table_tr td:nth-child(3){
     width: 260px;
     padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .loophole_table_tr th:nth-child(4),.loophole_table_tr td:nth-child(4){
     width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .loophole_table_tr th:nth-child(5),.loophole_table_tr td:nth-child(5){
     flex: 1;

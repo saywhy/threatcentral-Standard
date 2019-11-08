@@ -35,7 +35,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         //漏洞级别
         $scope.search_level = [{
             num: '',
-            status: '漏洞级别'
+            status: '全部'
         },
             {
                 num: '高',
@@ -280,7 +280,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
                 stime: $scope.seach_data.startDate,
                 etime: $scope.seach_data.endDate,
                 sourse: params_data.source,
-                status: '0',
+                status: '1',
                 level: $scope.seach_data.level,
                 label_id: JSON.stringify($scope.seach_data.label_id),
                 key_word: $scope.seach_data.key_word,

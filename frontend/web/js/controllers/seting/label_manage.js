@@ -10,7 +10,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         };
 
         $scope.category_id = "";
-        $scope.category_status = false;
+        //$scope.category_status = false;
 
         $scope.label_name = "";
         $scope.intelligence = 0;
@@ -42,6 +42,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         var W = 552;
         var H = 483;
         var loading = zeroModal.loading(4);
+
         $http({
             method: "get",
             url: "/seting/label-category-list",
@@ -53,6 +54,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                 zeroModal.close(loading);
 
                 if(resp.status === 200){
+
                     $scope.label_category_select.category = resp.data.data;
 
                     zeroModal.show({
@@ -64,10 +66,10 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         cancel: false,
                         okFn: function () {},
                         onOpen: function () {
-
-                            if(name != "" && name != undefined){
+                            if(name == '自定义标签' || name == undefined){
+                                $scope.label_data_info.category_name = '';
+                            }else {
                                 $scope.label_data_info.category_name = name;
-                                $scope.category_status = true;
                             }
                         },
                         onCleanup: function () {
@@ -75,7 +77,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         },
                         onClosed: function () {
                             $scope.category_id = "";
-                            $scope.category_status = false;
+                            //$scope.category_status = false;
                             $scope.label_category_select.status = false;
                             $scope.label_data_info = {
                                 category_name: "",
@@ -93,11 +95,10 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
     //保存标签按钮
     $scope.lab_save = function () {
 
-        if($scope.label_data_info.category_name == ""){
-            zeroModal.alert("标签类别不能为空。");
-        }else if($scope.label_data_info.label_name == ""){
+        if($scope.label_data_info.label_name == ""){
             zeroModal.alert("标签名称不能为空。");
         } else {
+
             var loading = zeroModal.loading(4);
 
             $http({
@@ -105,8 +106,6 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                 url: "/seting/label-add",
                 data: $scope.label_data_info
             }).then(function successCallback(resp) {
-
-                    console.log(resp);
 
                     zeroModal.close(loading);
                     if (resp.data.status == "success") {
@@ -139,9 +138,8 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         $event.stopPropagation();
 
         $scope.category_id = item.id;
-
         $scope.label_data_info = {
-            category_name: item.category_name,
+            category_name: item.category_name || '',
             label_name: item.label_name,
             detail: item.detail,
         };
@@ -174,14 +172,14 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         cancel: false,
                         okFn: function () {},
                         onOpen:function () {
-                            $scope.category_status = true;
+                           // $scope.category_status = true;
                         },
                         onCleanup: function () {
                             lab_edit_box.appendChild(lab_edit);
                         },
                         onClosed: function () {
                             $scope.category_id = "";
-                            $scope.category_status = false;
+                            //$scope.category_status = false;
                             $scope.label_data_info = {
                                 category_name: "",
                                 label_name: "",
@@ -190,7 +188,6 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         }
                     });
                 }
-
             },
             function errorCallback(data) {}
         );
@@ -199,14 +196,13 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
     //更新标签（编辑弹窗保存）
     $scope.lab_edit_save = function () {
 
-        if($scope.label_data_info.category_name == ""){
-            zeroModal.alert("标签类别不能为空。");
-        }else if($scope.label_data_info.label_name == ""){
+        if($scope.label_data_info.label_name == ""){
             zeroModal.alert("标签名称不能为空。");
-        }else if($scope.label_name_list.indexOf($scope.label_data_info.label_name) > -1
+        } else if($scope.label_name_list.indexOf($scope.label_data_info.label_name) > -1
         && $scope.label_data_info.label_name != window.originalName){
             var W = 552;
             var H = 248;
+
             zeroModal.show({
                 title: "合并标签",
                 content: lab_merge,
@@ -220,9 +216,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                 onCleanup: function () {
                     lab_merge_box.appendChild(lab_merge);
                 },
-                onClosed: function () {
-
-                }
+                onClosed: function () {}
             });
         } else {
             $scope.label_name_merge();
@@ -325,6 +319,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                     $scope.get_label_list();
                     //标签名称列表更新
                     $scope.get_label_name_list();
+
                 }else if (resp.data.status == "fail") {
                     zeroModal.error(resp.data.errorMessage);
                 }

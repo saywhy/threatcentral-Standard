@@ -20,7 +20,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         //漏洞级别
         $scope.search_level = [{
                 num: '',
-                status: '漏洞级别'
+                status: '全部'
             },
             {
                 num: '高',

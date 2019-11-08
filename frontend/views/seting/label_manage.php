@@ -36,11 +36,11 @@ $this->title = '标签管理';
     <div style="display: none;" id="lab_add_box">
         <div id="lab_add">
             <div class="lab_top">
-                <p class="lab_name">标签类别<span class="lab_tab">*</span></p>
+                <p class="lab_name">标签类别<!--<span class="lab_tab">*</span>--></p>
                 <div class="lab_item">
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
-                    <input type="text" class="lab_mid_name" ng-class="{'disabled':category_status}" placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
-                     ng-disabled="category_status" ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);" required>
+                    <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
+                      ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);">
                     <ul class="lab_top_list" ng-show="label_category_select.status">
                        <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
                     </ul>
@@ -68,11 +68,11 @@ $this->title = '标签管理';
     <div style="display: none;" id="lab_edit_box">
         <div id="lab_edit">
             <div class="lab_top">
-                <p class="lab_name">标签类别<span class="lab_tab">*</span></p>
+                <p class="lab_name">标签类别<!--<span class="lab_tab">*</span>--></p>
                 <div class="lab_item">
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
-                    <input type="text" class="lab_mid_name" ng-class="{'disabled':category_status}" placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
-                     ng-disabled="category_status"  required>
+                    <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
+                      ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);">
                     <ul class="lab_top_list" ng-show="label_category_select.status">
                        <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
                     </ul>
