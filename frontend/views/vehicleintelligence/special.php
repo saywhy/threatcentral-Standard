@@ -55,7 +55,7 @@ $this->title = '行业情报';
             </div>
 
             <!-- 搜索 -->
-            <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
+            <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索111</button>
        </div>
 
         <div class="vehicle_search_country">
