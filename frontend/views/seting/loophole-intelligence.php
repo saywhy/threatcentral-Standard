@@ -126,8 +126,17 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="flex_item">
                     <p class="alert_name">漏洞来源</p>
-                    <select class="loop_select_box" ng-model="alert_item.sourse"
-                        ng-options="x for x in loop_source_add"></select>
+                        <div class="tag_add_box">
+                        <input class="tag_input" ng-model="alert_item.sourse" placeholder="请选择来源或按enter键添加新来源" ng-keyup="add_source_mykey($event)"
+                            ng-focus="add_source_focus()" ng-change="add_source_change(alert_item.sourse)"
+                            ng-blur="add_source_blur();$event.stopPropagation();" type="text" >
+                    </div>
+                    <ul class="tag_list_box" ng-if="add_source_list_if">
+                        <li ng-click="add_source_list_item(item);$event.stopPropagation();"
+                        ng-repeat="item in loop_source_add track by $index">
+                            {{item}}
+                        </li>
+                    </ul>
                 </div>
 
             </div>
@@ -145,7 +154,7 @@ $this->title = '漏洞情报管理';
                             <img src="/images/set/tag_del.png" alt="" class="tag_icon" ng-click="tag_del(item,$index)">
                         </li>
                     </ul>
-                    <input class="tag_input" placeholder="请输入标签，按enter键添加新标签" ng-keyup="mykey($event)"
+                    <input class="tag_input" placeholder="请选择标签或按enter键添加新标签" ng-keyup="mykey($event)"
                         ng-focus="tag_focus()" ng-change="tag_change(alert_item.tag_list_str)" ng-blur="tag_blur()"
                         type="text" ng-model="alert_item.tag_list_str">
                 </div>
@@ -183,8 +192,16 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="flex_item">
                     <p class="alert_name">漏洞来源</p>
-                    <select class="loop_select_box" ng-model="edit_item.sourse"
-                        ng-options="x for x in loop_source_add"></select>
+                     <div class="tag_add_box">
+                        <input class="tag_input" ng-model="edit_item.sourse" placeholder="请选择来源或按enter键添加新来源" ng-keyup="edit_source_mykey($event)"
+                            ng-focus="edit_source_focus()" ng-change="edit_source_change(edit_item.sourse)"
+                            ng-blur="edit_source_blur()" type="text" >
+                    </div>
+                    <ul class="tag_list_box" ng-if="edit_source_list_if">
+                        <li ng-click="edit_source_list_item(item)" ng-repeat="item in loop_source_add track by $index">
+                            {{item}}
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="alert_item_box">
@@ -201,7 +218,7 @@ $this->title = '漏洞情报管理';
                                 ng-click="edit_tag_del(item,$index)">
                         </li>
                     </ul>
-                    <input class="tag_input" placeholder="请输入标签，按enter键添加新标签" ng-keyup="edit_mykey($event)"
+                    <input class="tag_input" placeholder="请选择标签或按enter键添加新标签" ng-keyup="edit_mykey($event)"
                         ng-focus="edit_tag_focus()" ng-change="edit_tag_change(edit_item.tag_list_str)"
                         ng-blur="edit_tag_blur()" type="text" ng-model="edit_item.tag_list_str">
                 </div>
