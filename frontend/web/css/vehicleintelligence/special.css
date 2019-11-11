@@ -313,7 +313,7 @@ button:active {
 .covenant_2 .ct{
     font-size: 14px;
     color: #666;
-    /*margin-left: 5px;*/
+    margin-left: 5px;
     font-family: 'PingFangSC-Medium';
 }
 .covenant_2 .cov_time{
@@ -340,6 +340,35 @@ button:active {
     border: 1px solid #0070ff;
 }
 
+.daterangepicker.dropdown-menu {
+    z-index: 99999;
+}
+
+.daterangepicker {
+    width: auto;
+    padding-top: 10px;
+    transform: translateX(0);
+}
+
+.daterangepicker .calendar th,
+.daterangepicker .calendar td {
+    width: auto;
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+    background-color: #0070ff;
+}
+.daterangepicker .input-mini.active {
+    border: 1px solid #0070ff;
+    border-radius: 4px;
+}
+
+.btn-success,
+.btn-success:active:focus {
+    background-color: #0070ff;
+    border-color: #0070ff;
+}
 
 
 

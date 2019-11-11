@@ -180,3 +180,17 @@ button:active {
     border-radius: 2px 0 2px 0;
 }
 
+.daterangepicker .calendar th,
+.daterangepicker .calendar td {
+    width: auto;
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+    background-color: #0070ff;
+}
+.daterangepicker .input-mini.active {
+    border: 1px solid #0070ff;
+    border-radius: 4px;
+}
+
