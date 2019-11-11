@@ -65,6 +65,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.get_tag_list();
         $scope.get_page();
         $scope.tag_list_if = false;
+        $scope.add_source_list_if = false;
+        $scope.edit_source_list_if = false;
     }
     // 初始化时间
     $scope.start_time_picker = function () {
@@ -130,12 +132,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         );
     };
     // 漏洞来源
-    $scope.get_loophole_source = function () {
+    $scope.get_loophole_source = function (source) {
+        source = source ? source : '';
         $http({
             method: "get",
             url: "/site/intelligence-sourse",
             params: {
-                sourse: ''
+                sourse: source
             }
         }).then(
             function (data) {
@@ -146,7 +149,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.loop_source_add.push(item.sourse);
                 })
                 $scope.loop_source.push('全部');
-                $scope.loop_source_add.push('请选择');
             },
             function () {}
         );
@@ -203,7 +205,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             title: '',
             level: '高',
             first_seen_time: '',
-            sourse: '请选择',
+            sourse: '',
             detail: '',
             label_id: {
                 exist: [],
@@ -234,14 +236,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     // 添加漏洞情报
     $scope.add_sure = function () {
+        $scope.add_source_list_if = false;
         var label_id_exist = []
         if ($scope.alert_item.label_id.exist.length != 0) {
             angular.forEach($scope.alert_item.label_id.exist, function (item) {
                 label_id_exist.push(item.id)
             })
         }
-        console.log($scope.alert_item);
-        if ($scope.alert_item.sourse == '请选择') {
+        if ($scope.alert_item.sourse == '') {
             zeroModal.error('请选择情报来源')
             return false
         }
@@ -495,6 +497,47 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
 
+    }
+
+    // 添加漏洞来源
+
+    $scope.add_source_focus = function () {
+        $scope.add_source_list_if = true;
+        $scope.get_loophole_source();
+    }
+    $scope.add_source_list_item = function (item) {
+        $scope.alert_item.sourse = item;
+        console.log(item);
+        $scope.add_source_list_if = false;
+    }
+    $scope.add_source_change = function (item) {
+        $scope.get_loophole_source(item);
+    }
+    $scope.add_source_mykey = function (e) {
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            $scope.add_source_list_if = false;
+        }
+    }
+    // 编辑漏洞来源
+
+    $scope.edit_source_focus = function () {
+        $scope.edit_source_list_if = true;
+        $scope.get_loophole_source();
+    }
+    $scope.edit_source_list_item = function (item) {
+        $scope.edit_item.sourse = item;
+        console.log(item);
+        $scope.edit_source_list_if = false;
+    }
+    $scope.edit_source_change = function (item) {
+        $scope.get_loophole_source(item);
+    }
+    $scope.edit_source_mykey = function (e) {
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            $scope.edit_source_list_if = false;
+        }
     }
     $scope.init();
 

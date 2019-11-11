@@ -355,13 +355,13 @@ select {
 
 .tag_box_ul {
     display: inline-block;
-    height: 30px;
+    /* height: 30px; */
     font-size: 14px;
 }
 
 .tag_box_ul li {
-    height: 24px;
-    line-height: 24px;
+    height: 30px;
+    line-height: 30px;
     padding: 0 8px;
     display: inline-block;
     margin-right: 6px;
@@ -376,8 +376,8 @@ select {
     display: inline-block;
     margin-left: 10px;
     border: none;
-    height: 24px;
-    line-height: 24px;
+    height: 30px;
+    line-height: 30px;
     border-radius: 0;
     font-size: 14px;
     width: 230px;
