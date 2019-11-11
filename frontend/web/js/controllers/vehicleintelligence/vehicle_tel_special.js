@@ -290,8 +290,6 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         }).then(function (resp) {
                 zeroModal.close(loading);
                 $scope.pages = resp.data;
-
-                console.log($scope.pages)
             },
             function () {}
         );

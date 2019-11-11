@@ -330,14 +330,17 @@ button:active {
     line-height: 40px;
 }
 .covenant_4 .covenant_btn{
-    width: 75px;
-    height: 28px;
     color: #0070ff;
     font-size: 12px;
     line-height: 26px;
     border-radius: 4px;
     font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 10px;
     border: 1px solid #0070ff;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .daterangepicker.dropdown-menu {

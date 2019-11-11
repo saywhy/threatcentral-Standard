@@ -97,7 +97,7 @@ $this->title = '行业情报';
                      <span class="ct twitter">{{item.sourse}}</span></span>
                   </p>
                   <p class="covenant_3">{{item.detail}}</p>
-                  <p class="covenant_4"><button class="covenant_btn">系统安全</button></p>
+                  <p class="covenant_4"><a ng-repeat="tm in item.label_name" class="covenant_btn">{{tm}}</a></p>
                </li>
             </ul>
         </div>

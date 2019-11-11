@@ -9,7 +9,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             status: false
         };
 
-        $scope.category_id = "";
+        $scope.label_id = "";
         //$scope.category_status = false;
 
         $scope.label_name = "";
@@ -66,7 +66,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         cancel: false,
                         okFn: function () {},
                         onOpen: function () {
-                            if(name == '自定义标签' || name == undefined){
+                            if(name == '未分类标签' || name == undefined){
                                 $scope.label_data_info.category_name = '';
                             }else {
                                 $scope.label_data_info.category_name = name;
@@ -76,7 +76,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                             lab_add_box.appendChild(lab_add);
                         },
                         onClosed: function () {
-                            $scope.category_id = "";
+                            $scope.label_id = "";
                             //$scope.category_status = false;
                             $scope.label_category_select.status = false;
                             $scope.label_data_info = {
@@ -137,7 +137,8 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
         $event.stopPropagation();
 
-        $scope.category_id = item.id;
+        $scope.label_id = item.id;
+
         $scope.label_data_info = {
             category_name: item.category_name || '',
             label_name: item.label_name,
@@ -178,7 +179,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                             lab_edit_box.appendChild(lab_edit);
                         },
                         onClosed: function () {
-                            $scope.category_id = "";
+                            $scope.label_id = "";
                             //$scope.category_status = false;
                             $scope.label_data_info = {
                                 category_name: "",
@@ -233,6 +234,9 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         $http({
             method: "get",
             url: "/site/get-effected-intelligence",
+            params:{
+                label_id: $scope.label_id
+            },
         }).then(function successCallback(resp) {
                 zeroModal.close(loading);
 
@@ -260,10 +264,11 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
     //删除弹框确定按钮
     $scope.lab_delete_ok = function () {
+
         $http({
             method: "delete",
             url: "/seting/label-del",
-            data: {id: $scope.category_id}
+            data: {id: $scope.label_id}
         }).then(function successCallback(resp) {
 
                 if(resp.status == 200){
@@ -300,7 +305,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
         var loading = zeroModal.loading(4);
 
-        let updateData = Object.assign($scope.label_data_info,{id:$scope.category_id});
+        let updateData = Object.assign($scope.label_data_info,{id:$scope.label_id});
 
         $http({
             method: "put",
@@ -336,7 +341,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
     };
 
     //标签类别change事件
-    $scope.label_category_click = function(){
+    $scope.label_category_click = function() {
         var loading = zeroModal.loading(5);
         $http({
             method: "get",
@@ -408,6 +413,8 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             }
         }).then(function successCallback(resp) {
 
+
+
                 zeroModal.close(loading);
 
                 if(resp.status == 200){
@@ -416,12 +423,14 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
                         if(value === '' || value === null){
-                            value = '自定义标签';
+                            value = '未分类标签';
                         }
                         labelAttr.push({name:value,label:key,status:false});
                     });
 
                     $scope.label_data = labelAttr;
+
+                    console.log($scope.label_data)
                 }
             },
             function errorCallback(data) {}
@@ -436,7 +445,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 myApp.filter('labelNull',function(){
     return function(arr){
         if(arr == '' || arr == null){
-            return '自定义标签';
+            return '未分类标签';
         }else {
             return arr;
         }
