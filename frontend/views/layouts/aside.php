@@ -176,7 +176,8 @@
         </li>
 
         <li class="aside-item">
-             <a class="aside-item-a" href="javascript:void(0);">
+             <a class="aside-item-a <?=isActive(['/vehiclealert/index'])?>"
+              href="<?=getPath('/vehiclealert/index')?>">
                 <i class="fa fa-heartbeat"></i>
                 <span class="name">车联网预警</span>
                 <!--<span class="caret"></span>-->

@@ -39,6 +39,28 @@
     position: relative;
     cursor: pointer;
 }
+#asideApp .aside-lists .aside-item > a.aside-item-a.active{
+    background-color: #0070FF;
+    color: #fff;
+}
+
+#asideApp .aside-lists .aside-item > a.aside-item-a.active > .fa{
+    background-color: #0070FF;
+    color: #fff;
+}
+
+#asideApp .aside-lists .aside-item > a.aside-item-a.active:after{
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #0070FF;
+    position: absolute;
+    top: 12px;
+    right: -8px;
+    z-index: 999;
+}
 
 #asideApp .aside-lists .aside-item .fa{
     color: #0070FF;
@@ -53,8 +75,8 @@
     border-top: 5px dashed;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
-
 }
+
 #asideApp .aside-lists .aside-item .caret.active{
     top: 15px;
     right: 17px;
@@ -96,6 +118,7 @@
     right: -8px;
     z-index: 999;
 }
+
 .aside-lists-second .aside-item-second.active > a.aside-item-second-a{
     color: #fff;
 }

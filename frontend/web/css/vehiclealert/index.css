@@ -1,0 +1,14 @@
+.vehicle_alert_container{
+    padding: 5px 48px 16px;
+    border: 1px solid red;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    outline-offset: 0px;
+    border: 1px solid #0070FF;
+}

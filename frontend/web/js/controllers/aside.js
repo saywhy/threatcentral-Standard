@@ -60,6 +60,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
         warning_threat: false,
         warning_loophole: false,
         warning_drakNet: false,
+
         // 报表
         report: false,
         report_creat: false,
@@ -161,7 +162,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
             $scope.indexCode = 1;
         }else if(names === 'assets'){
             $scope.indexCode = 2;
-        }else if(names === 'alert'){
+        }else if(names === 'alert' || 'vehiclealert'){
             $scope.indexCode = 3;
         }else if(names === 'report'){
             $scope.indexCode = 4;

@@ -185,6 +185,11 @@ function getPath($path)
          <?php if (isActive(['/alert/darknet']) == 'active') {?>
          <li><a href="/alert/darknet"><i class="fa fa-heartbeat"></i>预警</a></li>
          <?php }?>
+         <?php if (isActive(['/vehiclealert/index']) == 'active') {?>
+          <li><a href="/vehiclealert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
+         <?php }?>
+
+
          <?php if (isActive(['/report/index']) == 'active') {?>
          <li><a href="/report/index"><i class="fa fa-area-chart"></i>报表</a></li>
          <?php }?>
