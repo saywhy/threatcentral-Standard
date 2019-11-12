@@ -1,0 +1,32 @@
+.assets_accessory_container{
+    padding: 5px 48px 16px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    outline-offset: 0px;
+    border: 1px solid #0070FF;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    outline: none;
+}
+
+.accessory_search_input{
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 100px;
+    padding-left: 5px;
+    margin-right: 12px;
+}
+
