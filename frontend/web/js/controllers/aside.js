@@ -60,6 +60,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
         warning_threat: false,
         warning_loophole: false,
         warning_drakNet: false,
+        warning_vehicle: false,
 
         // 报表
         report: false,
@@ -216,6 +217,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
                                 }
                             });
                         }
+
                         // 资产
                         if (item.permissions_id == "54") {
                             //$scope.menu_list.assets = true;
@@ -235,6 +237,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
                                 }
                             });
                         }
+
                         // 预警
                         if (item.permissions_id == "77") {
                             //$scope.menu_list.warning = true;
@@ -247,6 +250,9 @@ myApp.controller("asideCtrl", function($scope,$http) {
                                 }
                                 if (child.permissions_id == "90") {
                                     $scope.menu_list.warning_drakNet = true;
+                                }
+                                if (child.permissions_id == "205") {
+                                    $scope.menu_list.warning_vehicle = true;
                                 }
                             });
                         }

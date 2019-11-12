@@ -175,7 +175,8 @@
             </ul>
         </li>
 
-        <li class="aside-item">
+
+        <li class="aside-item" ng-if="menu_list.warning_vehicle">
              <a class="aside-item-a <?=isActive(['/vehiclealert/index'])?>"
               href="<?=getPath('/vehiclealert/index')?>">
                 <i class="fa fa-heartbeat"></i>
