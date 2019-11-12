@@ -6,7 +6,8 @@ $this->title = '漏洞情报';
 <section class="vehicle_loophole_container" ng-app="myApp" ng-controller="vehicleTelLoopholeCtrl" ng-cloak>
       <div class="vehicle_loophole">
            <div class="vehicle_box_top">
-                <!-- 漏洞来源 -->
+
+                <!-- 输入关键字 -->
                 <span class="vehicle_icon_box">
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                     <input type="text" style="padding-left:34px;" class="vehicle_search_input"

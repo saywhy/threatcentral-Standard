@@ -8,7 +8,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         };
 
         $scope.seach_data = {
-            source: '全部',
+            source: '',
             status: '',
             label_id: '',
             key_word: '',
@@ -20,7 +20,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         //漏洞级别
         $scope.search_level = [{
                 num: '',
-                status: '全部'
+                status: '漏洞级别'
             },
             {
                 num: '高',
@@ -156,7 +156,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
                 stime: $scope.seach_data.startDate,
                 etime: $scope.seach_data.endDate,
                 sourse: params_data.source,
-                status: '1',
+                status: '0',
                 level: $scope.seach_data.level,
                 label_id: params_data.label_id_str,
                 key_word: $scope.seach_data.key_word,

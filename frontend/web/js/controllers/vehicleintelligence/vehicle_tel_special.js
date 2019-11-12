@@ -1,9 +1,8 @@
 var myApp = angular.module("myApp", []);
 myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
-
-
     $scope.init = function(){
+
         $scope.label_data = [];
 
         //展开\折叠更多
@@ -23,7 +22,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         };
 
         $scope.seach_data = {
-            source: '全部',
+            source: '',
             status: '',
             label_id: [],
             key_word: '',
