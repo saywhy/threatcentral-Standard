@@ -217,7 +217,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             tag_list_str: '',
         }
         var W = 828;
-        var H = 620;
+        var H = 550;
         zeroModal.show({
             title: "情报录入",
             content: alert_time,
@@ -410,7 +410,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             status: item.status
         }
         var W = 828;
-        var H = 620;
+        var H = 550;
         zeroModal.show({
             title: "情报编辑",
             content: edit,
