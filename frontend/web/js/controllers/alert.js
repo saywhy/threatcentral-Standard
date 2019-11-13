@@ -210,6 +210,9 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         $scope.searchData.indicator = item;
         $scope.select_indicator_if = false;
     };
+    $scope.get_indicator_blur = function () {
+        $scope.select_indicator_if = false;
+    }
     $scope.myKeyup_indicator = function (ip) {
         $scope.get_select_indicator();
     };

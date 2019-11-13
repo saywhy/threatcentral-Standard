@@ -21,7 +21,7 @@ $this->title = '情报源管理';
         border-radius: 8px;
         height: 208px;
         position: relative;
-        padding: 15px 10px 10px 24px;
+        padding: 15px 10px 10px 14px;
     }
 
     .img_bg {
@@ -193,8 +193,12 @@ $this->title = '情报源管理';
                             <p class="item_info_title_name">{{item.key}}</p>
                             <p class="item_info_title_value">{{item.name}}</p>
                             <p class="item_info_title_time">
-                                <span> 上次更新时间：</span>
-                                <span> {{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span>上次更新时间:</span>
+                                <span>{{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                            </p>
+                            <p class="item_info_title_time">
+                                <span>上次成功更新时间:</span>
+                                <span>{{item.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_res">
                                 <span> 结果：</span>
@@ -230,8 +234,12 @@ $this->title = '情报源管理';
                             <p class="item_info_title_name">{{item.key}}</p>
                             <p class="item_info_title_value">{{item.name}}</p>
                             <p class="item_info_title_time">
-                                <span> 上次更新时间：</span>
-                                <span> {{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span>上次更新时间:</span>
+                                <span>{{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                            </p>
+                            <p class="item_info_title_time">
+                                <span>上次成功更新时间:</span>
+                                <span>{{item.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_res">
                                 <span> 结果：</span>
@@ -283,7 +291,7 @@ $this->title = '情报源管理';
                             </li>
                             <li>
                                 <span class="sensor-detail-title" style="width: 140px;">最后一次更新成功时间:</span>
-                                <span>{{detail_info.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span>{{detail_info.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
                             </li>
                         </ul>
                     </div>

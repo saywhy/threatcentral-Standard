@@ -350,6 +350,9 @@ $this->title = '暗网预警';
         height: 40px;
         line-height: 40px;
     }
+    .cursor{
+        cursor:pointer;
+    }
 </style>
 <!-- Main content -->
 <section ng-app="myApp" class="darknet_content" ng-controller="AlertDarknetCtrl" ng-cloak>
@@ -362,7 +365,7 @@ $this->title = '暗网预警';
                     ng-keyup="myKeyup_loophole_name()">
                 <ul class="container_ul" ng-show="select_loophole_name_if">
                     <li ng-repeat="item in theme_list" class="li_hover"
-                        ng-click="select_loophole_name_item(item.theme);$event.stopPropagation();">
+                        ng-mousedown="select_loophole_name_item(item.theme);$event.stopPropagation();">
                         {{item.theme}}
                     </li>
                 </ul>
@@ -378,12 +381,28 @@ $this->title = '暗网预警';
                     <th style="width:120px">验证状态</th>
                     <th style="width:180px">操作</th>
                 </tr>
-                <tr class="alert_table_tr" style="cursor: pointer;" ng-repeat="item in darknet_list_data.data"
-                    ng-click="dark_detail(item)">
-                    <td style="min-width:150px;padding-left:36px;">{{item.time}}</td>
-                    <td title="{{item.theme}}">{{item.theme}}</td>
-                    <td>{{item.source}} </td>
-                    <td>{{item.verify_status=='0'?'未验证':'已验证'}}</td>
+                <tr class="alert_table_tr"  ng-repeat="item in darknet_list_data.data">
+                    <td style="min-width:150px;padding-left:36px;" class="cursor">
+                        <span class="cursor"ng-click="dark_detail(item)">
+                        {{item.time}}
+                        </span>
+                    </td>
+                    <td >
+                          <span title="{{item.theme}}" class="cursor"ng-click="dark_detail(item)">
+                        {{item.theme}}
+                        </span>
+                    </td>
+                    <td>
+                            <span title="{{item.source}}" class="cursor"ng-click="dark_detail(item)">
+                        {{item.source}}
+                        </span>
+                     </td>
+                    <td>
+                             <span class="cursor"ng-click="dark_detail(item)">
+                        {{item.verify_status=='0'?'未验证':'已验证'}}
+                        {{item.source}}
+                        </span>
+                    </td>
                     <td>
                         <img src="/images/alert/look_detail.png" class="img_margin" ng-click="dark_detail(item)" alt="">
                         <img src="/images/alert/down_load.png" class="img_margin"
