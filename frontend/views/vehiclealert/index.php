@@ -3,71 +3,100 @@
 $this->title = '车联网预警';
 ?>
 <link rel="stylesheet" href="/css/vehiclealert/index.css">
+
 <section class="vehicle_alert_container" ng-app="myApp" ng-controller="vehicleAlertCtrl" ng-cloak>
-      <div class="vehicle_alert">
-           <div class="vehicle_box_top">
-
-                <!-- 输入关键字 -->
-                <span class="vehicle_icon_box">
-                    <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                    <input type="text" style="padding-left:34px;" class="vehicle_search_input"
-                        placeholder="输入关键字" ng-model="seach_data.key_word">
-                </span>
-
-                <!-- 漏洞来源 -->
-                <select class="vehicle_search_input source_input" ng-model="seach_data.source"
-                    ng-options="x for x in loop_source">
-                </select>
-
-                <!-- 漏洞级别 -->
-                <select class="vehicle_search_input source_input" ng-model="seach_data.level"
-                    ng-options="x.num as x.status for x in search_level">
-                </select>
-
-                <!-- 获取时间 -->
-                <div class="vehicle_search_time">
-                    <img src="/images/report/time.png" class="time_icon_search" alt="">
-                    <input class="input_box" id="picker_search" readonly type="text" placeholder="时间">
+        <div class="vehicle_echarts">
+            <div class="vehicle_echarts_item">
+                <div class="left">
+                   <h1 class="left_num">5</h1>
+                   <p class="left_tip">受影响车辆资产</p>
                 </div>
+                <div class="right">
+                   <div id="vehicle1"></div>
+                </div>
+            </div>
 
-                <!-- 标签选择 -->
-                <select class="vehicle_search_input source_input" ng-model="seach_data.label_id"
-                    ng-options="x.id as x.label_name for x in search_tag_list">
-                </select>
+            <div class="vehicle_echarts_item">
+                <div class="left">
+                   <h1 class="left_num">6</h1>
+                   <p class="left_tip">受影响零配件资产</p>
+                </div>
+                <div class="right">
+                   <div id="vehicle2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="vehicle_content">
 
-                <!-- 搜索 -->
-                <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
-           </div>
-      </div>
+            <!-- 受影响资产 -->
+            <span class="vehicle_alert_word">
+                <img src="/images/alert/search_icon.png" class="word_icon" alt="">
+                <input type="text" class="word_input" placeholder="输入关键字" ng-model="seach_data.key_word">
+            </span>
 
-      <div class="loophole_table_content">
+            <!-- 预警事件 -->
+            <div class="vehicle_alert_time">
+                <img src="/images/report/time.png" class="time_icon" alt="">
+                <input class="time_picker" id="picker_search" readonly type="text" placeholder="时间">
+            </div>
+
+            <!-- 处理状态 -->
+            <select class="vehicle_alert_select" ng-model="seach_data.level"
+                ng-options="x.num as x.status for x in search_level">
+            </select>
+
+            <!-- 搜索 -->
+            <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
+        </div>
+        <div class="vehicle_table">
           <table class="table table-striped ng-cloak">
-              <tr class="loophole_table_tr">
-                  <th>情报 ID</th>
-                  <th>漏洞标题</th>
-                  <th>漏洞描述</th>
-                  <th>情报来源</th>
-                  <th>标签类型</th>
-                  <th>获取时间</th>
+              <tr class="vehicle_table_tr">
+                  <th>受影响资产</th>
+                  <th>漏洞名称</th>
+                  <th>所属分组</th>
+                  <th>预警时间</th>
+                  <th>风险状态</th>
+                  <th>处理状态</th>
               </tr>
-              <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data">
+              <tr class="vehicle_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data" ng-click="detail(item);">
+                  <td ng-bind="item.affected"></td>
+                  <td ng-bind="item.name"></td>
+                  <td ng-bind="item.group"></td>
+                  <td>{{item.time*1000 | date : 'yyyy-MM-dd HH:mm'}}</td>
                   <td>
-                    <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
-                    <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
-                    <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
-                    <span ng-bind="item.id"> </span>
+                      <span ng-bind="status_str[item.status].label"></span>
                   </td>
-                  <td ng-bind="item.title"></td>
-                  <td ng-bind="item.detail"></td>
-                  <td ng-bind="item.sourse"></td>
-                  <td class="td_operation" style="white-space: nowrap;text-overflow: ellipsis;">
-                      <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name"
-                      ng-click="it.status = !it.status">
-                          {{it}}
-                          <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status">
+                  <td style="padding-right:36px;" class="td_operation" ng-click="$event.stopPropagation();">
+                      <button class="btn_look" ng-click="operation_click($index);$event.stopPropagation();" ng-if="item.status!='2' && item.status!='3'">
+                          <span ng-bind="status_str[item.status].label"></span>
+                          <img class="btn_look_icon" src="/images/alert/down.png" alt="">
+                          <ul class="td_ul" ng-if="item_operation == $index">
+                              <li class="td_li" ng-click="update_alert(item,'1');$event.stopPropagation();"
+                                  ng-if="item.status!='1'&& item.status!='4'">
+                                  处置中
+                              </li>
+                              <li class="td_li" ng-if="item.status!='4'" ng-click="update_alert(item,'2');$event.stopPropagation();">
+                                  已解决
+                              </li>
+                              <li class="td_li" ng-if="item.status!='4'" ng-click="update_alert(item,'3');$event.stopPropagation();">
+                                  已忽略
+                              </li>
+                              <li class="td_li" ng-click="update_alert(item,'4');$event.stopPropagation();" ng-if="item.category=='钓鱼仿冒'&& item.status!='4'">
+                                  白名单
+                              </li>
+                              <li class="td_li" ng-if="item.status=='4'"
+                              ng-click="update_alert(item,'5'); $event.stopPropagation();">
+                                  取消白
+                              </li>
+                          </ul>
+                      </button>
+                      <button class="btn_look_closed" ng-if="item.status=='2'" ng-click="$event.stopPropagation();">
+                          已解决
+                      </button>
+                      <button class="btn_look_closed" ng-if="item.status=='3'" ng-click="$event.stopPropagation();">
+                          已忽略
                       </button>
                   </td>
-                  <td>{{item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
               </tr>
           </table>
           <p>
@@ -97,6 +126,6 @@ $this->title = '车联网预警';
                            ng-if="pages.pageNow<pages.maxPage">下一页</a></li>
                  </ul>
            </div>
-      </div>
+        </div>
 </section>
 <script src="/js/controllers/vehiclealert/index.js"></script>

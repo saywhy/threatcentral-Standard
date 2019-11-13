@@ -11,7 +11,7 @@ $this->title = '行业情报';
             <span class="vehicle_icon_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 <input type="text" style="padding-left:34px;" class="vehicle_search_input"
-                    placeholder="输入关键字" ng-model="seach_data.key_word">
+                    placeholder="输入情报关键字" ng-model="seach_data.key_word">
             </span>
 
             <!-- 漏洞来源 -->

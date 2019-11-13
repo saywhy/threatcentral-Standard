@@ -105,7 +105,7 @@ border-top-color:transparent;
             </a>
         </li>
         <!-- 预警 -->
-        <li role="presentation" class="dropdown hover_li_title <?=isActive(['/alert/index', '/alert/loophole', '/alert/darknet', '/alert/loophole-detail','/vehiclealert/index'])?>" ng-if="menu_list.warning">
+        <li role="presentation" class="dropdown hover_li_title <?=isActive(['/alert/index', '/alert/loophole', '/alert/darknet', '/alert/loophole-detail', '/vehiclealert/index', '/vehiclealert/detail'])?>" ng-if="menu_list.warning">
             <a class="dropdown-toggle nav_li_a" href="<?=getPath('/alert/index')?>">
                 <i class="fa fa-heartbeat"></i> 预警
             </a>

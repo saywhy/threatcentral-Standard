@@ -1,9 +1,16 @@
 var myApp = angular.module("myApp", []);
 
-console.log('3333')
 myApp.controller("vehicleAlertCtrl", function($scope, $http, $filter) {
 
+
+
     $scope.init = function(){
+
+       var params = {"all_loophole":{"each_level_count":{"high":"1","medium":"0","low":"1"},"total_count":2},"last_7day_loophole":{"each_level_count":{"high":"0","medium":"0","low":"0"},"total_count":0},"effect_asset":{"each_level_count":{"high":"1","medium":0,"low":"1"},"total_count":2}}
+
+        /********************************/
+        $scope.item_operation = "-1";
+
         $scope.searchTime = {
             startDate: moment().subtract(90, "days"),
             endDate: moment()
@@ -37,11 +44,51 @@ myApp.controller("vehicleAlertCtrl", function($scope, $http, $filter) {
                 status: '低'
             }];
 
+        $scope.status_str = [{
+            css: "success",
+            label: "新预警"
+        },
+            {
+                css: "danger",
+                label: "处置中"
+            },
+            {
+                css: "default",
+                label: "已解决"
+            },
+            {
+                css: "default",
+                label: "已忽略"
+            },
+            {
+                css: "default",
+                label: "白名单"
+            },
+            {
+                css: "default",
+                label: "取消白"
+            }
+        ];
+
+
+        $scope.pages = {
+            count: 8,
+            pageNow: 1,
+            data:[
+                {"id":"1", "affected": "222", "name": "Hackmd < 1.3.0 xss 漏洞应急报告", "group": "分组1", "time": 1573440677, "status": "0"},
+                {"id":"2", "affected": "111", "name": "Hackmd < 1.3.0 xss 漏洞应急报告", "group": "分组1", "time": 1573440677, "status": "1"},
+                {"id":"3", "affected": "222", "name": "Hackmd < 1.3.0 xss 漏洞应急报告", "group": "分组1", "time": 1573440677, "status": "0"},
+                {"id":"4", "affected": "333", "name": "Hackmd < 1.3.0 xss 漏洞应急报告", "group": "分组1", "time": 1573440677, "status": "0"}
+            ]
+        }
+
         $scope.picker_search();
         $scope.start_time_picker();
         $scope.get_loophole_source();
         $scope.get_tag_list();
-        $scope.get_page();
+
+        $scope.echarts_bar(params);
+        //$scope.get_page();
     }
 
     //初始化时间
@@ -131,6 +178,314 @@ myApp.controller("vehicleAlertCtrl", function($scope, $http, $filter) {
             function () {}
         );
     }
+
+    // 操作预警已解决
+    $scope.update_alert = function (item, status) {
+        $scope.item_operation = "-1";
+        $scope.item_update = true;
+        var dataJson = {
+            id: [item.id],
+            status: status
+        };
+        /*$http.put("/alert/do-alarm", dataJson).then(
+            function success(rsp) {
+                if (rsp.data.status == "success") {
+                    $scope.getPage($scope.postData.page);
+                }
+            },
+            function err(rsp) {}
+        );*/
+    };
+
+    // 点击显示操作
+    $scope.operation_click = function (index) {
+        $scope.item_operation = index;
+    };
+
+    $scope.detail = function (item) {
+        window.location.href = "/vehiclealert/detail?id=" + item.id;
+    };
+
+    //  环形图表
+    $scope.echarts_bar = function(params) {
+
+        //  受影响车辆资产;
+        var loop_total_data = [];
+        if (params.all_loophole.each_level_count.high != "0") {
+            loop_total_data.push({
+                name: "高危",
+                value: params.all_loophole.each_level_count.high,
+                itemStyle: {
+                    normal: {
+                        color: "#FF5F5C"
+                    }
+                }
+            });
+        }
+        if (params.all_loophole.each_level_count.medium != "0") {
+            loop_total_data.push({
+                name: "中危",
+                value: params.all_loophole.each_level_count.medium,
+                itemStyle: {
+                    normal: {
+                        color: "#FEAA00"
+                    }
+                }
+            });
+        }
+        if (params.all_loophole.each_level_count.low != "0") {
+            loop_total_data.push({
+                name: "低危",
+                value: params.all_loophole.each_level_count.low,
+                itemStyle: {
+                    normal: {
+                        color: "#7ACE4C"
+                    }
+                }
+            });
+        }
+
+        var loop_total_myChart = echarts.init(
+            document.getElementById("vehicle1")
+        );
+
+        var loop_total_option = {
+            grid: {
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20
+            },
+            graphic: {
+                type: "text",
+                left: "center",
+                top: "center",
+                style: {
+                    text: params.all_loophole.total_count, //使用“+”可以使每行文字居中
+                    textAlign: "center",
+                    font: "bolder 24px 'Microsoft YaHei'",
+                    fill: "#bbb",
+                    width: 30,
+                    height: 30
+                }
+            },
+            series: [
+                {
+                    type: "pie",
+                    radius: [30, 55],
+                    legendHoverLin: false, //是否启用图例 hover 时的联动高亮。
+                    hoverAnimation: false, //是否开启 hover 在扇区上的放大动画效果。
+                    avoidLabelOverlap: true, //是否启用防止标签重叠策略
+                    center: ["50%", "50%"],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                formatter: function(params) {
+                                    var str = "";
+                                    switch (params.data.name) {
+                                        case "高危":
+                                            str =
+                                                `{rate|` +
+                                                params.data.value +
+                                                `}` +
+                                                "\n" +
+                                                `{nameStyle|高危}`;
+                                            break;
+                                        case "中危":
+                                            str =
+                                                `{rate|` +
+                                                params.data.value +
+                                                `}` +
+                                                "\n" +
+                                                `{nameStyle|中危}`;
+                                            break;
+                                        case "低危":
+                                            str =
+                                                `{rate|` +
+                                                params.data.value +
+                                                `}` +
+                                                "\n" +
+                                                `{nameStyle|低危}`;
+                                            break;
+                                    }
+                                    return str;
+                                },
+                                textStyle: {
+                                    rich: {
+                                        nameStyle: {
+                                            fontSize: 12,
+                                            color: "#999",
+                                            align: "center"
+                                        },
+                                        rate: {
+                                            fontSize: 18,
+                                            align: "center"
+                                        }
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                show: true,
+                                length: 6,
+                                length2: 12,
+                                lineStyle: {
+                                    color: "#bbb"
+                                }
+                            }
+                        },
+                        emphasis: {
+                            label: {}
+                        }
+                    },
+                    roseType: false,
+                    data: loop_total_data
+                }
+            ]
+        };
+        loop_total_myChart.setOption(loop_total_option);
+
+
+        /////////////
+
+        // 受影响零配件资产;
+        var loop_total_data = [];
+        if (params.all_loophole.each_level_count.high != "0") {
+            loop_total_data.push({
+                name: "高危",
+                value: params.all_loophole.each_level_count.high,
+                itemStyle: {
+                    normal: {
+                        color: "#FF5F5C"
+                    }
+                }
+            });
+        }
+        if (params.all_loophole.each_level_count.medium != "0") {
+            loop_total_data.push({
+                name: "中危",
+                value: params.all_loophole.each_level_count.medium,
+                itemStyle: {
+                    normal: {
+                        color: "#FEAA00"
+                    }
+                }
+            });
+        }
+        if (params.all_loophole.each_level_count.low != "0") {
+            loop_total_data.push({
+                name: "低危",
+                value: params.all_loophole.each_level_count.low,
+                itemStyle: {
+                    normal: {
+                        color: "#7ACE4C"
+                    }
+                }
+            });
+        }
+
+        var loop_total_myChart = echarts.init(
+            document.getElementById("vehicle2")
+        );
+
+        var loop_total_option = {
+            grid: {
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20
+            },
+            graphic: {
+                type: "text",
+                left: "center",
+                top: "center",
+                style: {
+                    text: params.all_loophole.total_count, //使用“+”可以使每行文字居中
+                    textAlign: "center",
+                    font: "bolder 24px 'Microsoft YaHei'",
+                    fill: "#bbb",
+                    width: 30,
+                    height: 30
+                }
+            },
+            series: [
+                {
+                    type: "pie",
+                    radius: [30, 55],
+                    legendHoverLin: false, //是否启用图例 hover 时的联动高亮。
+                    hoverAnimation: false, //是否开启 hover 在扇区上的放大动画效果。
+                    avoidLabelOverlap: true, //是否启用防止标签重叠策略
+                    center: ["50%", "50%"],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                formatter: function(params) {
+                                    var str = "";
+                                    switch (params.data.name) {
+                                        case "高危":
+                                            str =
+                                                `{rate|` +
+                                                params.data.value +
+                                                `}` +
+                                                "\n" +
+                                                `{nameStyle|高危}`;
+                                            break;
+                                        case "中危":
+                                            str =
+                                                `{rate|` +
+                                                params.data.value +
+                                                `}` +
+                                                "\n" +
+                                                `{nameStyle|中危}`;
+                                            break;
+                                        case "低危":
+                                            str =
+                                                `{rate|` +
+                                                params.data.value +
+                                                `}` +
+                                                "\n" +
+                                                `{nameStyle|低危}`;
+                                            break;
+                                    }
+                                    return str;
+                                },
+                                textStyle: {
+                                    rich: {
+                                        nameStyle: {
+                                            fontSize: 12,
+                                            color: "#999",
+                                            align: "center"
+                                        },
+                                        rate: {
+                                            fontSize: 18,
+                                            align: "center"
+                                        }
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                show: true,
+                                length: 6,
+                                length2: 12,
+                                lineStyle: {
+                                    color: "#bbb"
+                                }
+                            }
+                        },
+                        emphasis: {
+                            label: {}
+                        }
+                    },
+                    roseType: false,
+                    data: loop_total_data
+                }
+            ]
+        };
+        loop_total_myChart.setOption(loop_total_option);
+
+    };
+
     // 获取列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;

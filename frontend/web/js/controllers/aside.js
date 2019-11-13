@@ -105,6 +105,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
             case '/assets/asset-risky':
                 $scope.menu_aside.assets.system = true;
                 break;
+
             case '/assets/vehicle':
             case '/assets/accessory':
                 $scope.menu_aside.assets.vehicle = true;
@@ -148,7 +149,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
 
         //预警详情去掉侧边栏
         if(pathName === '/alert/detail' || pathName === '/alert/loophole-detail'
-            || pathName === '/alert/darknet-detail'){
+            || pathName === '/alert/darknet-detail' || pathName === '/vehiclealert/detail'){
             $scope.alertDetail = true;
             return false;
         }else {
@@ -163,13 +164,14 @@ myApp.controller("asideCtrl", function($scope,$http) {
             $scope.indexCode = 1;
         }else if(names === 'assets'){
             $scope.indexCode = 2;
-        }else if(names === 'alert' || 'vehiclealert'){
+        }else if(names === 'alert' || names === 'vehiclealert'){
             $scope.indexCode = 3;
         }else if(names === 'report'){
             $scope.indexCode = 4;
         }else if(names === 'seting' || names === 'api'){
             $scope.indexCode = 5;
         }
+
     }
 
     $scope.get_menu = function() {
