@@ -72,6 +72,7 @@
 
 .label-lists .toggle_content{
     padding: 10px 0 15px;
+    font-size: 0;
 }
 
 .toggle_content .btn_label{
@@ -84,10 +85,16 @@
     text-align: center;
     margin-right: 5px;
     margin-top: 5px;
+    outline: none;
 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.toggle_content .btn_label_add{
+    background-color: #fff;
+    border: 1px solid #EEF6FF;
 }
 
 .toggle_content .btn_label .btn_img{
@@ -99,8 +106,11 @@
 }
 
 /************/
+.lab_top{
+    position: relative;
+}
 
- .lab_top, .lab_mid, .lab_bom{
+.lab_top, .lab_mid, .lab_bom{
     margin-bottom: 15px;
 }
 
@@ -163,17 +173,28 @@
  }
 
  .lab_top_list{
-     position: absolute;
-     z-index: 999;
-     background-color: #f9f9f9;
+     /*position: absolute;
+
+     background: #fff;
      width: 100%;
-     max-height: 192px;
+     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+     margin-top: 2px;
      overflow-y: auto;
-     border-bottom: 1px solid #ddd;
+     z-index: 999;*/
+
+     position: absolute;
+     max-height: 156px;
+     background: #fff;
+     width: 514px;
+     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+     overflow-y: auto;
+     z-index: 999;
+     top: 62px;
+     left: 2px;
  }
 
 .lab_top_list::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
     height: 1px;
 }
 
@@ -183,28 +204,33 @@
 }
 
 .lab_top_list::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: #f9f9f9;
+    /*-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);*/
+    background: #fff;
     border-radius: 2px;
 }
 
 
 .lab_top_list .item{
-    height: 32px;
-    line-height: 32px;
-    padding: 0 20px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #666666;
     cursor: pointer;
-    color: #666;
-    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #f8f8f8;
 }
+.lab_top_list .item:last-child{
+    border-width: 0;
+}
+
+/*.lab_top_list li.item:nth-child(even) {
+    background: #E0EEFF;
+}*/
 
 .lab_top_list .item:hover{
     background-color: #E0EEFF;
 }
 
-.lab_top_list .item:first-child{
-   border-top-width: 0;
-}
 
  .token_bom_content{
     width: 100%;
@@ -262,6 +288,8 @@
 .lab_content .lab_tip{
     color: #333;
     font-size: 16px;
+    line-height: 32px;
+    padding: 0 80px;
 }
 
 

@@ -5,7 +5,7 @@ $this->title = '标签管理';
 <link rel="stylesheet" href="/css/set/label.css">
 <section class="label_container" ng-app="myApp" ng-controller="labelCtrl" ng-cloak>
     <div class="label_search_box">
-         <input class="label_box_mid_input" placeholder="请输入标签关键字" type="text" ng-model="label_name"
+         <input class="label_box_mid_input" placeholder="请输入标签或类别关键字" type="text" ng-model="label_name"
          ng-keyup="label_keyup($event)">
          <img src="/images/alert/search_icon.png" class="search_icon" alt="">
          <button class="label_box_mid_button_left" ng-click="label_search()">搜索</button>
@@ -18,11 +18,12 @@ $this->title = '标签管理';
                   <span class="name">{{item.name | labelNull}}<span>
               </a>
               <div class="toggle_content" ng-show="item.status">
-                <button class="btn_label" ng-repeat="it in item.label" ng-click="label_edit(it,$event);">
+                <button class="btn_label" ng-repeat="it in item.label" ng-click="label_edit(it,$event);"
+                ng-if="it.label_name != null">
                     <img class="btn_img" src="/images/set/label_edit.png"/>
                     <span class="btn_span" title="{{it.label_name}}">{{it.label_name}}</span>
                 </button>
-                <button class="btn_label" ng-click="label_add(item.name,$event);">
+                <button class="btn_label btn_label_add" ng-click="label_add(item.name,$event);">
                     <img class="btn_img" src="/images/set/label_add.png"/>
                     <span class="btn_span">新增标签</span>
                 </button>
@@ -41,10 +42,10 @@ $this->title = '标签管理';
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
                       ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);">
-                    <ul class="lab_top_list" ng-show="label_category_select.status">
-                       <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
-                    </ul>
                 </div>
+                <ul class="lab_top_list" ng-show="label_category_select.status">
+                   <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
+                </ul>
             </div>
             <div class="lab_mid">
                 <p class="lab_name">标签名称<span class="lab_tab">*</span></p>
@@ -73,10 +74,11 @@ $this->title = '标签管理';
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
                       ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);">
-                    <ul class="lab_top_list" ng-show="label_category_select.status">
-                       <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
-                    </ul>
                 </div>
+                <ul class="lab_top_list" ng-show="label_category_select.status">
+                <!--<ul class="lab_top_list">-->
+                   <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
+                </ul>
             </div>
             <div class="lab_mid">
                 <p class="lab_name">标签名称<span class="lab_tab">*</span></p>
@@ -102,7 +104,7 @@ $this->title = '标签管理';
     <div style="display: none;" id="lab_delete_box">
         <div id="lab_delete">
             <div class="lab_content">
-               <p class="lab_tip">有{{intelligence}}条情报在使用这个标签，请确认是否删除?</p>
+               <p class="lab_tip">有{{intelligence}}条情报在使用这个标签，删除这个标签，原有情报将不再使用此标签。请确认是否删除?</p>
             </div>
             <div class="lab_btn_box">
                 <button class="lab_btn_ok" ng-click="lab_delete_ok()">确认</button>

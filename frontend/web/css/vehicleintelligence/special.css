@@ -1,5 +1,5 @@
 .vehicle_special_container{
-    padding: 5px 48px 16px;
+    padding: 20px 48px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #bbb;
@@ -20,10 +20,15 @@ button:active {
     outline: none;
 }
 
+.vehicle_box_top{
+    font-size: 0;
+}
+
 .vehicle_icon_box {
     position: relative;
     height: 42px;
     display: inline-block;
+    vertical-align: top;
 }
 .search_icon {
     position: absolute;
@@ -35,13 +40,23 @@ button:active {
     border: 1px solid #ECECEC;
     border-radius: 4px;
     height: 42px;
-    width: 130px;
+    width: 180px;
     padding-left: 5px;
     margin-right: 12px;
+    font-size: 14px;
+}
+
+.vehicle_search_select {
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 165px;
+    padding-left: 5px;
+    margin-right: 12px;
+    font-size: 14px;
 }
 
 .vehicle_search_time{
-    height: 82px;
     position: relative;
     display: inline-block;
     margin-right: 12px;
@@ -56,7 +71,7 @@ button:active {
 }
 
 .input_box {
-    width: 290px;
+    width: 220px;
     height: 42px;
     border: 1px solid #ECECEC;
     border-radius: 4px;
@@ -72,6 +87,7 @@ button:active {
     width: 124px;
     color: #fff;
     margin: 0 0 0 24px;
+    font-size: 14px;
 }
 
 .daterangepicker td,
@@ -98,9 +114,12 @@ button:active {
 
 .vehicle_item_box{
     position: relative;
-    vertical-align: middle;
-    display: inline-block;
+    margin: 10px 0 20px;
+    height: 42px;
+    width: 96%;
+    border-bottom: 1px solid #DDDDDD;
 }
+
 .vehicle_item_box .tag_tip{
     color: #bbb;
     font-size: 14px;
@@ -110,11 +129,8 @@ button:active {
 }
 
 .tag_add_box {
-    border-radius: 4px;
-    height: 42px;
-    border: 1px solid #ECECEC;
-    display: flex;
-    width: 150px;
+    border: none;
+    font-size: 14px;
 }
 
 .tag_input {
@@ -134,23 +150,22 @@ button:active {
 
 .tag_box_ul {
     display: inline-block;
-    height: 30px;
+    height: 42px;
     font-size: 14px;
     /*flex: 1;*/
     float: left;
 }
 
 .tag_box_ul li {
-    height: 18px;
-    line-height: 18px;
+    height: 24px;
+    line-height: 24px;
     padding: 0;
     display: inline-block;
-    margin-right: 3px;
     background: #E0EEFF;
     border-radius: 2px;
     font-size: 12px;
     color: #0070FF;
-    margin-bottom: 0px;
+    margin: 8px 5px 8px 0;
 }
 
 .tag_box_ul .tag_icon{
@@ -176,18 +191,16 @@ button:active {
     cursor: pointer;
 }
 
-/**************/
-.vehicle_search_country{
-    margin-left: -48px;
-    margin-right: -48px;
+/*********************************/
+.vehicle_search_country {
     background: #EEF6FF;
     display: flex;
-    margin-bottom: 10px;
+    margin: 30px -48px 20px -48px;
 }
 
 .search_country{
     flex: 1;
-    padding-left: 48px;
+    padding-left:48px;
 }
 .search_country .search_country_item{
     /*height: 44px;
@@ -224,7 +237,7 @@ button:active {
 }
 
 .search_country .search_country_item .lists .item.active{
-    color: #0070FF;
+    color: #0070ff;
 }
 
 .search_toggle{
@@ -262,6 +275,10 @@ button:active {
     border-left: 4px solid transparent;
 }
 
+
+/**************************/
+
+
 .vehicle_search_covenant{
     margin-bottom: 20px;
 }
@@ -273,6 +290,7 @@ button:active {
 .covenant_lists .covenant_lists_item{
     border-bottom: 1px solid #ECECEC;
     padding: 0 0 30px;
+    cursor: pointer;
 }
 .covenant_lists .covenant_lists_item:last-child{
     border-width: 0;
@@ -286,8 +304,9 @@ button:active {
 }
 .covenant_1 .name{
     font-size: 20px;
-    color: #333;
     font-weight: bold;
+    color:#0070ff;
+    margin-left: 5px;
     font-family: 'PingFangSC-Medium';
 }
 .covenant_2 {
@@ -319,6 +338,14 @@ button:active {
 .covenant_2 .cov_time{
     vertical-align: text-bottom;
 }
+.covenant_2 .cov_img{
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
 .covenant_3{
     margin-top: 10px;
     line-height: 24px;
@@ -366,11 +393,61 @@ button:active {
     border: 1px solid #0070ff;
     border-radius: 4px;
 }
-
+.btn-success,
 .btn-success:active:focus {
     background-color: #0070ff;
     border-color: #0070ff;
 }
+
+/**************************************/
+
+.l_top{
+    height: 36px;
+    line-height: 36px;
+    background: #EEF6FF;
+    color: #333;
+    font-size: 18px;
+    font-family: 'PingFangSC-Medium';
+}
+.l_mid span{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.l_mid{
+    padding: 15px 0;
+    border-bottom: 1px solid #ECECEC;
+}
+.l_mid .item{
+    display: flex;
+    height: 26px;
+    line-height: 26px;
+}
+.l_mid .l_item{
+    width: 250px;
+}
+.l_mid .l_item1{
+    flex: 1;
+}
+
+.l_bom .l_title{
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+    font-weight: normal;
+}
+
+.l_bom .l_content{
+    line-height: 20px;
+    max-height: 66px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 
 
 

@@ -1,5 +1,5 @@
 .vehicle_loophole_container{
-    padding: 5px 48px 16px;
+    padding: 20px 48px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #bbb;
@@ -20,10 +20,15 @@ button:active {
     outline: none;
 }
 
+.vehicle_box_top{
+    font-size: 0;
+}
+
 .vehicle_icon_box {
     position: relative;
     height: 42px;
     display: inline-block;
+    vertical-align: top;
 }
 .search_icon {
     position: absolute;
@@ -35,13 +40,23 @@ button:active {
     border: 1px solid #ECECEC;
     border-radius: 4px;
     height: 42px;
-    width: 130px;
+    width: 180px;
     padding-left: 5px;
     margin-right: 12px;
+    font-size: 14px;
+}
+
+.vehicle_search_select {
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 165px;
+    padding-left: 5px;
+    margin-right: 12px;
+    font-size: 14px;
 }
 
 .vehicle_search_time{
-    height: 82px;
     position: relative;
     display: inline-block;
     margin-right: 12px;
@@ -51,16 +66,16 @@ button:active {
     width: 15px;
     height: 15px;
     position: absolute;
-    top: 38px;
+    top: 13px;
     right: 10px;
 }
 
 .input_box {
-    width: 290px;
+    width: 220px;
     height: 42px;
     border: 1px solid #ECECEC;
     border-radius: 4px;
-    margin-top: 26px;
+    /*margin-top: 26px;*/
     text-align: left;
     padding-left: 15px;
 }
@@ -71,7 +86,8 @@ button:active {
     height: 42px;
     width: 124px;
     color: #fff;
-    margin: 0 0 0 34px;
+    margin: 0 0 0 24px;
+    font-size: 14px;
 }
 
 .daterangepicker td,
@@ -96,7 +112,169 @@ button:active {
     right: 8px;
 }
 
-/*************************/
+.vehicle_item_box{
+    position: relative;
+    margin: 10px 0 20px;
+    height: 42px;
+    width: 96%;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.vehicle_item_box .tag_tip{
+    color: #bbb;
+    font-size: 14px;
+    line-height: 40px;
+    padding-left: 5px;
+    font-family: "PingFangSC-Regular";
+}
+
+.tag_add_box {
+    border: none;
+    font-size: 14px;
+}
+
+.tag_input {
+    font-size: 14px;
+    width: 40px;
+    margin: 0;
+    border: 0;
+    outline: none;
+    padding-left: 5px;
+    vertical-align: super;
+}
+
+.tag_input:hover,.tag_input:focus{
+    outline: none;
+    border: 0;
+}
+
+.tag_box_ul {
+    display: inline-block;
+    height: 42px;
+    font-size: 14px;
+    /*flex: 1;*/
+    float: left;
+}
+
+.tag_box_ul li {
+    height: 24px;
+    line-height: 24px;
+    padding: 0;
+    display: inline-block;
+    background: #E0EEFF;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #0070FF;
+    margin: 8px 5px 8px 0;
+}
+
+.tag_box_ul .tag_icon{
+    vertical-align: text-top;
+}
+
+.tag_list_box {
+    position: absolute;
+    width: 150px;
+    background: #fff;
+    min-height: 300px;
+    height: 300px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    margin-top: 2px;
+    overflow-y: auto;
+}
+.tag_list_box li {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #666666;
+    cursor: pointer;
+}
+
+/********************************/
+
+.vehicle_search_country{
+    background: #EEF6FF;
+    display: flex;
+    margin: 30px -48px 20px -48px;
+}
+
+.search_country{
+    flex: 1;
+    padding-left: 48px;
+}
+.search_country .search_country_item{
+    height: auto;
+    border-bottom: 1px solid #fff;
+    display: flex;
+}
+.search_country .search_country_item:last-child{
+    border-width: 0;
+}
+
+.search_country .search_country_item .title{
+    width: 200px;
+    color: #999;
+    font-size: 14px;
+    line-height: 43px;
+    display: inline-block;
+    font-family: 'PingFangSC-Regular';
+}
+
+.search_country .search_country_item .lists{
+    flex: 1;
+    padding: 9px 0;
+}
+
+.search_country .search_country_item .lists .item{
+    color: #333;
+    font-size: 14px;
+    margin-right: 20px;
+    line-height: 25px;
+    cursor: pointer;
+    font-family: 'PingFangSC-Regular';
+}
+
+.search_country .search_country_item .lists .item.active{
+    color: #0070FF;
+}
+
+.search_toggle{
+    width: 126px;
+    border-left: 2px solid #fff;
+    position: relative;
+}
+
+.search_toggle .toggle{
+    color: #0070FF;
+    font-size: 12px;
+    text-decoration: none;
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    cursor: pointer;
+    font-family: 'PingFangSC-Regular';
+}
+
+.search_toggle .toggle .caret{
+    border-left: 4px dashed;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+.search_toggle .toggle.active{
+    top: auto;
+    bottom: 15px;
+}
+
+.search_toggle .toggle.active .caret{
+    border-bottom: 4px dashed;
+    border-top: 0;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+/**************************/
 
 .loophole_table_content{
     margin:0;
@@ -116,18 +294,18 @@ button:active {
     display: flex;
 }
 .loophole_table_tr th:nth-child(1),.loophole_table_tr td:nth-child(1){
-    width: 80px;
+    width: 100px;
     padding-left: 24px;
 }
 .loophole_table_tr th:nth-child(2),.loophole_table_tr td:nth-child(2){
-    width: 150px;
+    width: 200px;
     padding-right: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .loophole_table_tr th:nth-child(3),.loophole_table_tr td:nth-child(3){
-    width: 260px;
+    width: 270px;
     padding-right: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -180,6 +358,16 @@ button:active {
     border-radius: 2px 0 2px 0;
 }
 
+.daterangepicker.dropdown-menu {
+    z-index: 99999;
+}
+
+.daterangepicker {
+    width: auto;
+    padding-top: 10px;
+    transform: translateX(0);
+}
+
 .daterangepicker .calendar th,
 .daterangepicker .calendar td {
     width: auto;
@@ -193,4 +381,56 @@ button:active {
     border: 1px solid #0070ff;
     border-radius: 4px;
 }
+.btn-success,
+.btn-success:active:focus {
+    background-color: #0070ff;
+    border-color: #0070ff;
+}
 
+/**************************************/
+.l_top{
+    height: 36px;
+    line-height: 36px;
+    background: #EEF6FF;
+    color: #333;
+    font-size: 18px;
+    font-family: 'PingFangSC-Medium';
+}
+.l_mid span{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.l_mid{
+    padding: 15px 0;
+    border-bottom: 1px solid #ECECEC;
+}
+.l_mid .item{
+    display: flex;
+    height: 26px;
+    line-height: 26px;
+}
+.l_mid .l_item{
+    width: 250px;
+}
+.l_mid .l_item1{
+    flex: 1;
+}
+
+.l_bom .l_title{
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+    font-weight: normal;
+}
+
+.l_bom .l_content{
+    line-height: 20px;
+    max-height: 66px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

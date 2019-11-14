@@ -9,12 +9,8 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         $scope.toggleCount = 2;
         $scope.toggleStatus = false;
 
-        $scope.label_info = {
-            tag_list:[],
-            tab_tag_list: [],
-            tag_checked_list:[],
-            tag_list_str:''
-        }
+        //前端选中标签展示列表
+        $scope.label_checked_list = [];
 
         $scope.searchTime = {
             startDate: moment().subtract(90, "days"),
@@ -22,7 +18,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         };
 
         $scope.seach_data = {
-            source: '',
+            source: '全部',
             status: '',
             label_id: [],
             key_word: '',
@@ -50,40 +46,17 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             }];
 
         $scope.picker_search();
-        $scope.start_time_picker();
         $scope.get_loophole_source();
-        //$scope.get_tag_list();
-        $scope.get_lab_show();
+        $scope.get_lab_list();
         $scope.get_page();
 
-        //$scope.tag_list_if = false;
     }
 
     //初始化时间
-    $scope.start_time_picker = function () {
-        $("#start_time_picker").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                drops: "down",
-                opens: "center",
-                startDate: moment(),
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
-                }
-            },
-            function (start, end, label) {
-                $scope.add_startDate = start.unix()
-            }
-        );
-    };
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
                 showDropdowns: true,
-                timePicker: true,
+                timePicker: false,
                 timePicker24Hour: true,
                 drops: "down",
                 opens: "right",
@@ -93,7 +66,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm"
+                    format: "YYYY-MM-DD"
                 }
             },
             function (start, end, label) {
@@ -103,7 +76,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         );
     };
 
-    // 漏洞来源
+    // 漏洞来源下拉框
     $scope.get_loophole_source = function () {
         $http({
             method: "get",
@@ -111,52 +84,30 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             params: {
                 sourse: ''
             }
-        }).then(
-            function (data) {
+        }).then(function (resp) {
                 $scope.loop_source = [];
-                $scope.loop_source_add = [];
-                angular.forEach(data.data, function (item) {
+                angular.forEach(resp.data, function (item) {
                     $scope.loop_source.push(item.sourse);
-                    $scope.loop_source_add.push(item.sourse);
                 })
-                $scope.loop_source.push('全部');
-                $scope.loop_source_add.push('请选择');
+                $scope.loop_source.unshift('全部');
             },
             function () {}
         );
     }
 
     // 获取标签列表
-    /*$scope.get_tag_list = function (name) {
-        $http({
-            method: "get",
-            url: "/site/get-label",
-            params: {
-                label_name: name,
-            }
-        }).then(function (resp) {
-
-                //console.log(resp)
-                $scope.label_info.tag_list = resp.data;
-
-               // $scope.search_tag_list_str = JSON.stringify(resp.data)
-               // $scope.search_tag_list = JSON.parse($scope.search_tag_list_str);
-            },
-            function () {}
-        );
-    }*/
-
-    // 获取标签展示
-    $scope.get_lab_show = function () {
+    $scope.get_lab_list = function () {
 
         var loading = zeroModal.loading(4);
+
         $http({
             method: "get",
             url: "/site/label-list",
         }).then(function (resp) {
-                zeroModal.close(loading);
 
-                if(resp.status == 200){
+            zeroModal.close(loading);
+
+                if(resp.status == 200) {
 
                     let result = JSON.parse(resp.data);
 
@@ -164,63 +115,59 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
                     angular.forEach(result, function (key,value) {
                         if(value === '' || value === null){
-                            value = '自定义标签';
+                            value = '未分类标签';
                         }
                         labelAttr.push({name:value,label:key,label_attr_id:[]});
                     });
 
                     $scope.label_data = labelAttr;
+
                 }
             },
             function () {}
         );
     }
 
-    //展开按钮事件
+    //展开、收起按钮切换事件
     $scope.tog_count_change = function (e) {
 
         e.preventDefault();
 
-        let toggle = $scope.toggleCount += 3;
+        let length = $scope.label_data.length;
 
-        let tog = Math.ceil(toggle / 3);
-        let label = Math.ceil($scope.label_data.length / 3);
-
-        $scope.toggleCount = tog > label ? 2 : toggle;
-
-        if(tog > label){
-            $scope.toggleCount = 2;
-        }else {
-            $scope.toggleCount = toggle;
-        }
-
-        if(tog < label){
-            $scope.toggleCount = toggle;
-            $scope.toggleStatus = false;
-        }else if(tog == label){
-            $scope.toggleCount = toggle;
-            $scope.toggleStatus = true;
-        }else{
-            $scope.toggleCount = 2;
-            $scope.toggleStatus = false;
+        if(length <= 3){
+            $scope.toggleCount = length;
+            $scope.toggleStatus = !$scope.toggleStatus;
+        } else {
+            let toggle = $scope.toggleCount += 3;
+            let tog = Math.ceil(toggle / 3);
+            let label = Math.ceil($scope.label_data.length / 3);
+            $scope.toggleCount = tog > label ? 2 : toggle;
+            $scope.toggleStatus = tog == label ? true : false;
         }
     }
 
-
-    //标签事件切换
-    $scope.tog_change_status = function (e,item,it){
+    //标签列表事件高亮切换
+    $scope.tog_change_status = function (e,item,it) {
 
         $(event.target).toggleClass('active');
+
         let isActive = $(event.target).hasClass('active');
 
         if(isActive){
+
             angular.forEach($scope.label_data, function (value, key) {
+
                 if (value.name == item.name) {
+                    //每个类别的id数组（后端需要）
                     value.label_attr_id.push(it.id);
-                    $scope.label_info.tab_tag_list.push(it);
+                    //前端展示的列表数据
+                    $scope.label_checked_list.push(it);
                 }
             });
+
         }else {
+
             angular.forEach($scope.label_data, function (value, key) {
                 if (value.name == item.name) {
                     for(let i = 0;i < value.label_attr_id.length; i++){
@@ -228,50 +175,64 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
                             value.label_attr_id.splice(i, 1);
                         }
                     }
-
-                    for(let j = 0; j < $scope.label_info.tab_tag_list.length; j++){
-                        if($scope.label_info.tab_tag_list[j].id == it.id){
-                            $scope.label_info.tab_tag_list.splice(j, 1);
+                    for(let j = 0; j < $scope.label_checked_list.length; j++){
+                        if($scope.label_checked_list[j].id == it.id){
+                            $scope.label_checked_list.splice(j, 1);
                         }
                     }
                 }
             });
         }
-       // console.log($scope.label_info.tab_tag_list);
 
+        //向后端传递label_id的数组拼接
         var attr = [];
         angular.forEach($scope.label_data, function (value, key) {
-
             if (value.label_attr_id.length > 0) {
                 attr.push(value.label_attr_id);
             }
         });
-
+        //向后端传递的label_id（每个类别的id数组的组合）
         $scope.seach_data.label_id = attr;
-
-        //console.log($scope.seach_data.label_id);
     };
+
+    //行业情报事件详情
+    $scope.list_item_click = function (e,item) {
+
+        e.preventDefault();
+
+        item.label_new_name = item.label_name.join('/');
+        $scope.label_item_data = item;
+
+        var W = 600;
+        var H = 340;
+
+        zeroModal.show({
+            title: "行业情报详情",
+            content: vehicle_special,
+            width: W + "px",
+            height: H + "px",
+            ok: false,
+            cancel: false,
+            okFn: function () {},
+            onOpen: function () {},
+            onCleanup: function () {
+                vehicle_special_box.appendChild(vehicle_special);
+            }
+        });
+    }
 
     // 获取行业情报列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;
         var loading = zeroModal.loading(4);
+
         var params_data = {
             source: '',
-            label_id: [],
-            label_id_box: [],
-            label_id_str: '',
+            label_id: []
         }
         if ($scope.seach_data.source != '全部') {
             params_data.source = $scope.seach_data.source;
         }
-        /*if ($scope.seach_data.label_id != '') {
-            params_data.label_id.push($scope.seach_data.label_id * 1);
-            params_data.label_id_box.push(params_data.label_id)
-            params_data.label_id_str = JSON.stringify(params_data.label_id_box);
-        } else {
-            params_data.label_id_str = '[]'
-        }*/
         $http({
             method: "get",
             url: "/vehicleintelligence/special-intelligence-list",
@@ -294,21 +255,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         );
     }
 
-    $scope.init();
 
-    // 删除标签
-    /*$scope.tag_del = function (name, index) {
-        /!*angular.forEach($scope.alert_item.add_new_tag, function (value, key) {
-            if ($scope.alert_item.tag_list[index] == value) {
-                $scope.alert_item.add_new_tag.splice(key, 1);
-            }
-        })
-        angular.forEach($scope.alert_item.label_id.exist, function (item, key) {
-            if ($scope.alert_item.tag_list[index] == item.label_name) {
-                $scope.alert_item.label_id.exist.splice(key, 1);
-            }
-        })*!/
-        $scope.label_info.tab_tag_list.splice(index, 1);
-    }*/
+    $scope.init();
 
 });

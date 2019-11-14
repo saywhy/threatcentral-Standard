@@ -10,7 +10,6 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         };
 
         $scope.label_id = "";
-        //$scope.category_status = false;
 
         $scope.label_name = "";
         $scope.intelligence = 0;
@@ -79,6 +78,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                             $scope.label_id = "";
                             //$scope.category_status = false;
                             $scope.label_category_select.status = false;
+
                             $scope.label_data_info = {
                                 category_name: "",
                                 label_name: "",
@@ -181,6 +181,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         onClosed: function () {
                             $scope.label_id = "";
                             //$scope.category_status = false;
+                            $scope.label_category_select.status = false;
                             $scope.label_data_info = {
                                 category_name: "",
                                 label_name: "",
@@ -413,8 +414,6 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             }
         }).then(function successCallback(resp) {
 
-
-
                 zeroModal.close(loading);
 
                 if(resp.status == 200){
@@ -425,7 +424,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         if(value === '' || value === null){
                             value = '未分类标签';
                         }
-                        labelAttr.push({name:value,label:key,status:false});
+                        labelAttr.push({name:value,label:key,status:true});
                     });
 
                     $scope.label_data = labelAttr;
@@ -448,6 +447,35 @@ myApp.filter('labelNull',function(){
             return '未分类标签';
         }else {
             return arr;
+        }
+    }
+});
+
+myApp.directive('onBlankHide',function(){
+    return{
+        restrict:'A',
+        link: function(scope,element,attr){
+
+            console.log(element)
+
+            element.on('click',function (e) {
+
+                console.log(scope.label_category_select.status)
+                //e.stopPropagation();
+                scope.label_category_select.status = false;
+            })
+            element.on('click',function(e){
+                //阻止底层冒泡
+                e.stopPropagation();
+                angular.element('#'+scope.pop).show();
+            });
+            angular.element('body').click(function(){
+                angular.element('#'+scope.pop).hide();
+            });
+            angular.element('#'+scope.pop).click(function(e){
+                //阻止底层冒泡
+                e.stopPropagation();
+            })
         }
     }
 });
