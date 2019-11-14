@@ -284,10 +284,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.get_tag_list($scope.alert_item.tag_list_str);
     }
     $scope.tag_blur = function () {
+        $scope.tag_list_if = false;
         if ($scope.alert_item.tag_list_str == '') {
             return false;
         }
         $scope.alert_item.tag_list_str = '';
+
     }
     // 获取标签列表
     $scope.get_tag_list = function (name) {
@@ -320,6 +322,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.tag_list_item = function (item) {
         $scope.alert_item.tag_list.push(item.label_name);
         $scope.alert_item.label_id.exist.push(item);
+        $scope.tag_list_if = false;
+    }
+    $scope.tag_blur = function () {
         $scope.tag_list_if = false;
     }
     // 删除标签
@@ -429,6 +434,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.get_tag_list($scope.edit_item.tag_list_str);
     }
     $scope.edit_tag_blur = function () {
+        $scope.edit_tag_list_if = false;
         if ($scope.edit_item.tag_list_str == '') {
             return false;
         }
@@ -510,6 +516,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         console.log(item);
         $scope.add_source_list_if = false;
     }
+    $scope.add_source_blur = function () {
+        $scope.add_source_list_if = false;
+    }
     $scope.add_source_change = function (item) {
         $scope.get_loophole_source(item);
     }
@@ -527,7 +536,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.edit_source_list_item = function (item) {
         $scope.edit_item.sourse = item;
-        console.log(item);
+        $scope.edit_source_list_if = false;
+    }
+    $scope.edit_source_blur = function () {
         $scope.edit_source_list_if = false;
     }
     $scope.edit_source_change = function (item) {

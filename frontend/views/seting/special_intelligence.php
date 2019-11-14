@@ -132,7 +132,8 @@ $this->title = '行业情报管理';
                             ng-blur="add_source_blur();$event.stopPropagation();" type="text" >
                     </div>
                     <ul class="tag_list_box" ng-if="add_source_list_if">
-                        <li ng-click="add_source_list_item(item);$event.stopPropagation();" ng-repeat="item in loop_source_add track by $index">
+                        <li ng-mousedown="add_source_list_item(item);$event.stopPropagation();"
+                        ng-repeat="item in loop_source_add track by $index">
                             {{item}}
                         </li>
                     </ul>
@@ -157,7 +158,7 @@ $this->title = '行业情报管理';
                         type="text" ng-model="alert_item.tag_list_str">
                 </div>
                 <ul class="tag_list_box" ng-if="tag_list_if">
-                    <li ng-click="tag_list_item(item)" ng-repeat="item in tag_list track by $index">
+                    <li ng-mousedown="tag_list_item(item)" ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>
@@ -196,7 +197,7 @@ $this->title = '行业情报管理';
                             ng-blur="edit_source_blur()" type="text" >
                     </div>
                     <ul class="tag_list_box" ng-if="edit_source_list_if">
-                        <li ng-click="edit_source_list_item(item)" ng-repeat="item in loop_source_add track by $index">
+                        <li ng-mousedown="edit_source_list_item(item)" ng-repeat="item in loop_source_add track by $index">
                             {{item}}
                         </li>
                     </ul>
@@ -221,7 +222,7 @@ $this->title = '行业情报管理';
                         ng-blur="edit_tag_blur()" type="text" ng-model="edit_item.tag_list_str">
                 </div>
                 <ul class="tag_list_box" ng-if="edit_tag_list_if">
-                    <li ng-click="edit_tag_list_item(item)" ng-repeat="item in tag_list track by $index">
+                    <li ng-mousedown="edit_tag_list_item(item)" ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>
