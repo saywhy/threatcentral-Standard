@@ -241,7 +241,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         var label_id_exist = []
         if ($scope.alert_item.label_id.exist.length != 0) {
             angular.forEach($scope.alert_item.label_id.exist, function (item) {
-                label_id_exist.push(item.id)
+                label_id_exist.push(item.id * 1)
             })
         }
         if ($scope.alert_item.sourse == '') {
