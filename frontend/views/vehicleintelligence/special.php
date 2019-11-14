@@ -98,7 +98,7 @@ $this->title = '行业情报';
 
 
     <!-- 新增标签弹窗 -->
-    <div style="display: none;" id="vehicle_special_box">
+    <div style="display:none;" id="vehicle_special_box">
         <div id="vehicle_special">
             <h1 class="l_top">{{label_item_data.title}}</h1>
             <div class="l_mid">

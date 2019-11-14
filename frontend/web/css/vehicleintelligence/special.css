@@ -40,7 +40,7 @@ button:active {
     border: 1px solid #ECECEC;
     border-radius: 4px;
     height: 42px;
-    width: 180px;
+    width: 190px;
     padding-left: 5px;
     margin-right: 12px;
     font-size: 14px;
@@ -306,7 +306,7 @@ button:active {
     font-size: 20px;
     font-weight: bold;
     color:#0070ff;
-    margin-left: 5px;
+    margin-left: 2px;
     font-family: 'PingFangSC-Medium';
 }
 .covenant_2 {
@@ -400,10 +400,9 @@ button:active {
 }
 
 /**************************************/
-
 .l_top{
-    height: 36px;
-    line-height: 36px;
+    height: 48px;
+    line-height: 48px;
     background: #EEF6FF;
     color: #333;
     font-size: 18px;
@@ -414,6 +413,7 @@ button:active {
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 14px;
+    font-family: 'PingFangSC-Medium';
 }
 .l_mid{
     padding: 15px 0;
@@ -425,7 +425,7 @@ button:active {
     line-height: 26px;
 }
 .l_mid .l_item{
-    width: 250px;
+    width: 280px;
 }
 .l_mid .l_item1{
     flex: 1;
@@ -433,24 +433,23 @@ button:active {
 
 .l_bom .l_title{
     font-size: 14px;
-    color: #333;
+    color: #979797;
     margin: 10px 0;
     font-weight: normal;
 }
 
 .l_bom .l_content{
-    line-height: 20px;
+    line-height: 18px;
     max-height: 66px;
     overflow: hidden;
+    color: #333;
+    text-align: justify;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    font-family: 'PingFangSC-Medium';
 }
-
-
-
-
 
 
 

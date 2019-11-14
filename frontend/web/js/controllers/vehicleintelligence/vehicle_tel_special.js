@@ -18,7 +18,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         };
 
         $scope.seach_data = {
-            source: '全部',
+            source: '漏洞来源',
             status: '',
             label_id: [],
             key_word: '',
@@ -30,7 +30,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         //漏洞级别
         $scope.search_level = [{
             num: '',
-            status: '全部'
+            status: '漏洞级别'
         },
             {
                 num: '高',
@@ -89,7 +89,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
                 angular.forEach(resp.data, function (item) {
                     $scope.loop_source.push(item.sourse);
                 })
-                $scope.loop_source.unshift('全部');
+                $scope.loop_source.unshift('漏洞来源');
             },
             function () {}
         );
@@ -203,8 +203,8 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         item.label_new_name = item.label_name.join('/');
         $scope.label_item_data = item;
 
-        var W = 600;
-        var H = 340;
+        var W = 740;
+        var H = 352;
 
         zeroModal.show({
             title: "行业情报详情",
@@ -230,7 +230,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             source: '',
             label_id: []
         }
-        if ($scope.seach_data.source != '全部') {
+        if ($scope.seach_data.source != '漏洞来源') {
             params_data.source = $scope.seach_data.source;
         }
         $http({
