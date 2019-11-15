@@ -4,37 +4,34 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
     $scope.init = function () {
 
         $scope.label_data = [];
-        $scope.label_category_select = {
-            category: [],
-            status: false
-        };
-
-        $scope.label_id = "";
-
-        $scope.label_name = "";
         $scope.intelligence = 0;
 
-        $scope.label_name_list = [];
+        //类别参数
+        $scope.category = {
+            name:'',
+            id:'',
+            lists:[],
+            status:false
+        };
 
-        $scope.label_data_info = {
-            category_name: "",
-            label_name: "",
-            detail: ""
+        //标签参数
+        $scope.label = {
+            category_name:'',
+            label_name:'',
+            detail:'',
+            id:'',
+            lists:[],
+            label_name_list:[],
+            status:false
         };
 
         $scope.get_label_list();
 
-        $scope.get_label_name_list();
-
     }
 
-    //标签搜索按钮
-    $scope.label_search = function () {
-        $scope.get_label_list();
-    }
-
+    /**********************************新增编辑***********************************/
     //新增标签弹窗
-    $scope.label_add = function (name,$event) {
+    $scope.label_add = function ($event,name) {
 
         $event.stopPropagation();
 
@@ -46,7 +43,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             method: "get",
             url: "/seting/label-category-list",
             params:{
-                category_name:$scope.label_data_info.category_name
+                category_name: $scope.label.category_name
             }
         }).then(function successCallback(resp) {
 
@@ -54,7 +51,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
                 if(resp.status === 200){
 
-                    $scope.label_category_select.category = resp.data.data;
+                    $scope.label.lists = resp.data.data;
 
                     zeroModal.show({
                         title: "新增标签",
@@ -66,24 +63,24 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         okFn: function () {},
                         onOpen: function () {
                             if(name == '未分类标签' || name == undefined){
-                                $scope.label_data_info.category_name = '';
+                                $scope.label.category_name = '';
                             }else {
-                                $scope.label_data_info.category_name = name;
+                                $scope.label.category_name = name;
                             }
                         },
                         onCleanup: function () {
                             lab_add_box.appendChild(lab_add);
                         },
                         onClosed: function () {
-                            $scope.label_id = "";
-                            //$scope.category_status = false;
-                            $scope.label_category_select.status = false;
-
-                            $scope.label_data_info = {
-                                category_name: "",
-                                label_name: "",
-                                detail: "",
-                            };
+                            $scope.label = {
+                                category_name:'',
+                                label_name:'',
+                                detail:'',
+                                id:'',
+                                lists:[],
+                                label_name_list:[],
+                                status:false
+                            }
                         }
                     });
                 }
@@ -95,28 +92,32 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
     //保存标签按钮
     $scope.lab_save = function () {
 
-        if($scope.label_data_info.label_name == ""){
+        if($scope.label.label_name == ""){
             zeroModal.alert("标签名称不能为空。");
         } else {
 
             var loading = zeroModal.loading(4);
 
+            let params = {
+                category_name:$scope.label.category_name,
+                label_name:$scope.label.label_name,
+                detail:$scope.label.detail
+            }
+
             $http({
                 method: "post",
                 url: "/seting/label-add",
-                data: $scope.label_data_info
+                data: params
             }).then(function successCallback(resp) {
 
                     zeroModal.close(loading);
+
                     if (resp.data.status == "success") {
                         zeroModal.success("保存标签成功！");
                         zeroModal.closeAll();
 
                         //标签列表更新
                         $scope.get_label_list();
-
-                        //标签名称列表更新
-                        $scope.get_label_name_list();
 
                     }else if(resp.data.status == "fail"){
                         zeroModal.error(resp.data.errorMessage);
@@ -132,18 +133,18 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         zeroModal.closeAll();
     };
 
-    //编辑标签弹窗
-    $scope.label_edit = function (item,$event) {
+    /**********************************标签编辑***********************************/
+
+    //标签编辑弹窗
+    $scope.label_edit = function ($event,item) {
 
         $event.stopPropagation();
 
-        $scope.label_id = item.id;
+        $scope.label.category_name = item.category_name || '';
+        $scope.label.label_name = item.label_name;
+        $scope.label.detail = item.detail;
 
-        $scope.label_data_info = {
-            category_name: item.category_name || '',
-            label_name: item.label_name,
-            detail: item.detail,
-        };
+        $scope.label.id = item.id;
 
         //编辑时如果为原始值 不弹出合并弹框
         window.originalName = item.label_name;
@@ -158,11 +159,11 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             url: "/seting/label-category-list",
         }).then(function successCallback(resp) {
 
-            zeroModal.close(loading);
+                zeroModal.close(loading);
 
-            if(resp.status === 200){
+                if(resp.status === 200){
 
-                    $scope.label_category_select.category = resp.data.data;
+                    $scope.label.lists = resp.data.data;
 
                     zeroModal.show({
                         title: "编辑标签",
@@ -172,21 +173,18 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                         ok: false,
                         cancel: false,
                         okFn: function () {},
-                        onOpen:function () {
-                           // $scope.category_status = true;
-                        },
                         onCleanup: function () {
                             lab_edit_box.appendChild(lab_edit);
                         },
                         onClosed: function () {
-                            $scope.label_id = "";
-                            //$scope.category_status = false;
-                            $scope.label_category_select.status = false;
-                            $scope.label_data_info = {
-                                category_name: "",
-                                label_name: "",
-                                detail: "",
-                            };
+                            $scope.label = {
+                                category_name:'',
+                                label_name:'',
+                                detail:'',
+                                id:'',
+                                lists:[],
+                                status:false
+                            }
                         }
                     });
                 }
@@ -195,37 +193,119 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         );
     };
 
-    //更新标签（编辑弹窗保存）
-    $scope.lab_edit_save = function () {
+    //标签编辑标签类别输入框change事件
+    $scope.lab_change_func = function() {
+        var loading = zeroModal.loading(5);
+        $http({
+            method: "get",
+            url: "/seting/label-category-list",
+            params:{
+                category_name:$scope.label.category_name
+            }
+        }).then(function successCallback(resp) {
 
-        if($scope.label_data_info.label_name == ""){
-            zeroModal.alert("标签名称不能为空。");
-        } else if($scope.label_name_list.indexOf($scope.label_data_info.label_name) > -1
-        && $scope.label_data_info.label_name != window.originalName){
-            var W = 552;
-            var H = 248;
+                zeroModal.close(loading);
 
-            zeroModal.show({
-                title: "合并标签",
-                content: lab_merge,
-                width: W + "px",
-                height: H + "px",
-                ok: false,
-                cancel: false,
-                okFn: function () {},
-                onOpen:function () {
-                },
-                onCleanup: function () {
-                    lab_merge_box.appendChild(lab_merge);
-                },
-                onClosed: function () {}
-            });
-        } else {
-            $scope.label_name_merge();
-        }
+                let cate = resp.data.data;
+
+                if(resp.status === 200){
+                    $scope.label.lists = cate;
+
+                    if(cate.length == 0){
+                        $scope.label.status = false;
+                    }else {
+                        $scope.label.status = true;
+                    }
+                }
+            }
+        );
     };
 
-    //删除标签按钮点击弹窗
+    //标签编辑标签类别列表鼠标事件
+    $scope.lab_down_func = function (name) {
+        $scope.label.category_name = name;
+        $scope.label.status = false;
+    };
+
+    //标签编辑标签类别输入框blur事件
+    $scope.lab_blur_func = function (){
+        $scope.label.status = false;
+    }
+
+    //标签编辑标签类别enter点击
+    $scope.lab_key_func = function (e) {
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            $scope.label.status = false;
+        }else if(keycode == 40){
+
+            
+        }
+    }
+
+    //标签编辑保存
+    $scope.lab_edit_save = function () {
+        /*
+        * 获取标签名称列表
+        * */
+        $http({
+            method: "get",
+            url: "/site/get-label",
+            params: {
+                label_name: '',
+            }
+        }).then(function (resp) {
+                let attr = [];
+                angular.forEach(resp.data, function (value, key) {
+                    attr.push(value.label_name);
+                });
+                $scope.label.label_name_list = attr;
+
+                if ($scope.label.label_name == "" ||
+                    $scope.label.label_name == undefined ||
+                    $scope.label.label_name == null) {
+
+                    zeroModal.alert("标签名称不能为空。");
+
+                } else if ($scope.label.label_name_list.indexOf($scope.label.label_name) > -1
+                    && $scope.label.label_name != window.originalName) {
+
+                    var W = 552;
+                    var H = 248;
+
+                    zeroModal.show({
+                        title: "合并标签",
+                        content: lab_merge,
+                        width: W + "px",
+                        height: H + "px",
+                        ok: false,
+                        cancel: false,
+                        okFn: function () {
+                        },
+                        onOpen: function () {
+                        },
+                        onCleanup: function () {
+                            lab_merge_box.appendChild(lab_merge);
+                        },
+                        onClosed: function () {
+                        }
+                    });
+                } else {
+                    $scope.label_name_merge();
+                }
+            },
+            function () {
+            }
+        );
+    };
+
+    //标签编辑取消
+    $scope.lab_edit_cancel = function () {
+        //zeroModal.close(window.deletePopup);
+        zeroModal.closeAll();
+    };
+
+    //标签编辑删除
     $scope.lab_edit_delete = function () {
 
         var W = 552;
@@ -236,7 +316,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             method: "get",
             url: "/site/get-effected-intelligence",
             params:{
-                label_id: $scope.label_id
+                label_id: $scope.label.id
             },
         }).then(function successCallback(resp) {
                 zeroModal.close(loading);
@@ -244,7 +324,7 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                 if(resp.status === 200){
                     $scope.intelligence = resp.data;
 
-                     zeroModal.show({
+                    zeroModal.show({
                         title: "删除标签",
                         content: lab_delete,
                         width: W + "px",
@@ -260,41 +340,35 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             },
             function errorCallback(data) {}
         );
-
     };
 
     //删除弹框确定按钮
     $scope.lab_delete_ok = function () {
-
         $http({
             method: "delete",
             url: "/seting/label-del",
-            data: {id: $scope.label_id}
+            data: {id: $scope.label.id}
         }).then(function successCallback(resp) {
 
                 if(resp.status == 200){
-
                     zeroModal.closeAll();
                     //标签列表更新
                     $scope.get_label_list();
-                    //标签名称列表更新
-                    $scope.get_label_name_list();
                 }
             },
             function errorCallback(data) {}
         );
     };
 
-    //删除弹窗取消按钮
+    //删除弹框取消按钮
     $scope.lab_delete_cancel = function () {
-        //zeroModal.close(window.deletePopup);
         zeroModal.closeAll();
-    }
+    };
 
     //合并弹窗确定按钮
     $scope.lab_merge_ok = function () {
         $scope.label_name_merge();
-    }
+    };
 
     //合并弹窗取消按钮
     $scope.lab_merge_cancel = function () {
@@ -306,12 +380,18 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
         var loading = zeroModal.loading(4);
 
-        let updateData = Object.assign($scope.label_data_info,{id:$scope.label_id});
+        //let updateData = Object.assign($scope.label_data_info,{id:$scope.label_id});
+        let params = {
+            category_name: $scope.label.category_name,
+            label_name:$scope.label.label_name,
+            detail:$scope.label.detail,
+            id:$scope.label.id
+        }
 
         $http({
             method: "put",
             url: "/seting/label-edit",
-            data: updateData
+            data: params
         }).then(function successCallback(resp) {
 
                 zeroModal.close(loading);
@@ -323,8 +403,6 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
 
                     //标签列表更新
                     $scope.get_label_list();
-                    //标签名称列表更新
-                    $scope.get_label_name_list();
 
                 }else if (resp.data.status == "fail") {
                     zeroModal.error(resp.data.errorMessage);
@@ -333,39 +411,218 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
             function errorCallback(data) {}
         );
 
-    }
-
-    //标签类别列表点击事件
-    $scope.category_click = function (name) {
-        $scope.label_data_info.category_name = name;
-        $scope.label_category_select.status = false;
     };
 
-    //标签类别change事件
-    $scope.label_category_click = function() {
-        var loading = zeroModal.loading(5);
+    /**********************************类别处理***********************************/
+
+    //类别编辑弹窗
+    $scope.category_edit = function ($event,item) {
+
+        $event.stopPropagation();
+
+        //长度一定大于0
+        $scope.category.id = item.label[0].category_id;
+        $scope.category.name = item.name;
+
+        var W = 552;
+        var H = 248;
+
+        var loading = zeroModal.loading(4);
+
+        $http({
+            method: "get",
+            url: "/seting/label-category-list",
+        }).then(function successCallback(resp) {
+
+                zeroModal.close(loading);
+
+                if(resp.status === 200){
+
+                    $scope.category.lists = resp.data.data;
+
+                    zeroModal.show({
+                        title: "编辑标签类别",
+                        content: cate_edit,
+                        width: W + "px",
+                        height: H + "px",
+                        ok: false,
+                        cancel: false,
+                        okFn: function () {},
+                        onOpen:function () {},
+                        onCleanup: function () {
+                            cate_edit_box.appendChild(cate_edit);
+                        },
+                        onClosed: function () {
+                            $scope.category = {
+                                name:'',
+                                id:'',
+                                lists:[],
+                                status:false
+                            }
+                        }
+                    });
+                }
+            },
+            function errorCallback(data) {}
+        );
+    };
+
+    //类别编辑标签类别输入框change事件
+    $scope.cate_change_func = function () {
+
+        //var loading = zeroModal.loading(5);
+
         $http({
             method: "get",
             url: "/seting/label-category-list",
             params:{
-                category_name:$scope.label_data_info.category_name
+                category_name:$scope.category.name
             }
         }).then(function successCallback(resp) {
-                zeroModal.close(loading);
+
+                //zeroModal.close(loading);
 
                 let cate = resp.data.data;
 
                 if(resp.status === 200){
-                    $scope.label_category_select.category = cate;
+                    $scope.category.lists = cate;
+
                     if(cate.length == 0){
-                        $scope.label_category_select.status = false;
+                        $scope.category.status = false;
                     }else {
-                        $scope.label_category_select.status = true;
+                        $scope.category.status = true;
                     }
                 }
             }
         );
     };
+
+    //类别编辑标签类别输入框blur事件
+    $scope.cate_blur_func = function (){
+        $scope.category.status = false;
+    }
+
+    //类别编辑标签类别列表点击事件
+    $scope.cate_down_func = function (name) {
+        $scope.category.name = name;
+        $scope.category.status = false;
+    };
+
+    //类别编辑标签类别enter点击
+    $scope.cate_key_func = function (e) {
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            $scope.category.status = false;
+            $scope.cate_edit_save();
+        }
+    }
+
+    //编辑标签类别保存点击
+    $scope.cate_edit_save = function () {
+
+        var loading = zeroModal.loading(5);
+
+        $http({
+            method: "put",
+            url: "/seting/category-edit",
+            data: {
+                id: $scope.category.id,
+                category_name: $scope.category.name
+            }
+        }).then(function successCallback(resp) {
+
+                zeroModal.close(loading);
+
+                if(resp.status == 200){
+
+                    zeroModal.closeAll();
+
+                    //更新列表
+                    $scope.get_label_list();
+                }
+            },
+            function errorCallback(data) {}
+        );
+    };
+
+    //编辑标签类别取消点击
+    $scope.cate_edit_cancel = function () {
+        zeroModal.closeAll();
+    };
+
+    //编辑标签类别删除按钮弹窗
+    $scope.cate_edit_delete = function () {
+
+        var W = 552;
+        var H = 248;
+
+        if($scope.category.id != null ||
+            $scope.category.id != '' ||
+            $scope.category.id != undefined){
+            zeroModal.show({
+                title: "删除标签类别",
+                content: cate_delete_1,
+                width: W + "px",
+                height: H + "px",
+                ok: false,
+                cancel: false,
+                okFn: function () {},
+                onCleanup: function () {
+                    cate_delete_box_1.appendChild(cate_delete_1);
+                },
+            });
+        }else {
+            zeroModal.show({
+                title: "删除标签类别",
+                content: cate_delete_2,
+                width: W + "px",
+                height: H + "px",
+                ok: false,
+                cancel: false,
+                okFn: function () {},
+                onCleanup: function () {
+                    cate_delete_box_2.appendChild(cate_delete_2);
+                }
+            });
+        }
+    };
+
+    //知道了点击事件
+    $scope.cate_delete_aware = function () {
+        zeroModal.closeAll();
+    };
+
+    //删除弹窗确认事件
+    $scope.cate_delete_ok = function () {
+        var loading = zeroModal.loading(5);
+
+        $http({
+            method: "DELETE",
+            url: "/seting/category-del",
+            data: {
+                id: $scope.category.id
+            }
+        }).then(function successCallback(resp) {
+
+                zeroModal.close(loading);
+
+                if(resp.status == 200){
+
+                    zeroModal.closeAll();
+                    //更新列表
+                    $scope.get_label_list();
+                }
+            },
+            function errorCallback(data) {}
+        );
+    };
+
+    //删除弹窗取消事件
+    $scope.cate_delete_cancel = function () {
+        zeroModal.closeAll();
+    };
+
+    /**********************************其他***************************************/
 
     //标签管理搜索enter事件
     $scope.label_keyup = function($event){
@@ -373,32 +630,6 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
         if(keycode==13){
             $scope.get_label_list();
         }
-    };
-
-    //获取标签名称列表
-    $scope.get_label_name_list = function () {
-        var loading = zeroModal.loading(4);
-
-        $http({
-            method: "get",
-            url: "/site/get-label",
-            params: {
-                label_name: '',
-            }
-        }).then(function (resp) {
-
-                zeroModal.close(loading);
-
-                let labelAttr = [];
-
-                angular.forEach(resp.data, function (value,key) {
-                    labelAttr.push(value.label_name);
-                });
-                $scope.label_name_list = labelAttr;
-
-            },
-            function () {}
-        );
     };
 
     //获取列表
@@ -421,15 +652,12 @@ myApp.controller("labelCtrl", function($scope, $http, $filter) {
                     let labelAttr = [];
 
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
-                        if(value === '' || value === null){
-                            value = '未分类标签';
-                        }
                         labelAttr.push({name:value,label:key,status:true});
                     });
 
                     $scope.label_data = labelAttr;
 
-                    console.log($scope.label_data)
+                    console.log(labelAttr);
                 }
             },
             function errorCallback(data) {}

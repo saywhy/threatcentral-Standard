@@ -10,8 +10,8 @@ $this->title = '行业情报';
             <!-- 输入关键字 -->
             <span class="vehicle_icon_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                <input type="text" style="padding-left:34px;" class="vehicle_search_input"
-                    placeholder="关联编号/行业关键字" ng-model="seach_data.key_word">
+                <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="关联编号/行业关键字"
+                     ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
             </span>
 
             <!-- 漏洞来源 -->
@@ -111,7 +111,7 @@ $this->title = '行业情报';
                   <span class="l_item1"><span class="l_name">标签：</span><span class="l_value">{{label_item_data.label_new_name}}</span></span>
                 </p>
                 <p class="item">
-                  <span class="l_item1"><span class="l_name">链接：</span><span class="l_value">www:baidu.com</span></span>
+                  <span class="l_item1"><span class="l_name">链接：</span><span class="l_value">https://threateye.hoohoolab.com/#/app/set_black_list</span></span>
                 </p>
             </div>
             <dl class="l_bom">

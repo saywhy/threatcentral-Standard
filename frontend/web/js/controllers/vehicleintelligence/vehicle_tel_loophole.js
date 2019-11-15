@@ -218,6 +218,15 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         });
     }
 
+    //标签管理搜索enter事件
+    $scope.vehicle_key_up = function($event){
+
+        var keycode = window.event?$event.keyCode:$event.which;
+        if(keycode==13){
+            $scope.get_page();
+        }
+    };
+
     // 获取列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;

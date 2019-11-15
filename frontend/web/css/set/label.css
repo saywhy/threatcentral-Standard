@@ -1,3 +1,8 @@
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+    font-size: 14px;
+}
+
 .label_container{
     padding: 0 48px;
 }
@@ -46,23 +51,31 @@
 
 .label-lists .item{
     border-bottom: 1px solid #ECECEC;
-    padding-top: 12px;
+    padding: 12px 0;
     min-height: 50px;
 }
 
-.label-lists .toggle{
+
+.label-lists .toggle_cate{
+    font-size: 0;
+    margin: 10px 0;
+}
+
+.toggle_cate .toggle{
     text-decoration: none;
     background-size: 10px;
+    font-size: 14px;
+    vertical-align: bottom;
     background-repeat: no-repeat;
     background-position: 0px 2px;
     background-image: url("../../images/set/label_right.png");
 }
 
-.label-lists .toggle.active{
+.toggle_cate .toggle.active{
     background-image: url("../../images/set/label_down.png");
 }
 
-.label-lists .toggle .name{
+.toggle_cate .toggle .name{
     font-family: PingFangSC-Medium;
     font-size: 14px;
     color: #333333;
@@ -70,9 +83,15 @@
     margin-left: 15px;
 }
 
-.label-lists .toggle_content{
+.toggle_cate .toggle_content{
     padding: 10px 0 15px;
     font-size: 0;
+}
+.toggle_cate .toggle_img{
+    vertical-align: sub;
+    margin-left: 3px;
+    z-index: 1500;
+    cursor: pointer;
 }
 
 .toggle_content .btn_label{
@@ -105,7 +124,7 @@
     margin-left: 5px;
 }
 
-/************/
+/*********************************/
 .lab_top{
     position: relative;
 }
@@ -173,15 +192,6 @@
  }
 
  .lab_top_list{
-     /*position: absolute;
-
-     background: #fff;
-     width: 100%;
-     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
-     margin-top: 2px;
-     overflow-y: auto;
-     z-index: 999;*/
-
      position: absolute;
      max-height: 156px;
      background: #fff;
@@ -292,7 +302,162 @@
     padding: 0 80px;
 }
 
+/*************************/
+.cate_top, .cate_mid, .cate_bom {
+    margin-bottom: 15px;
+}
+.cate_top{
+    position: relative;
+}
+.cate_name {
+    font-size: 14px;
+    color: #666;
+}
+.cate_name .cate_tab {
+    color: #FF5F5C;
+    vertical-align: top;
+}
+.cate_item {
+    position: relative;
+    margin: 10px 0;
+}
 
+.cate_mid_name, .cate_mid_name:focus {
+    height: 32px;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+}
+
+.cate_mid_name::placeholder{
+    color: #bbb;
+    font-size: 14px;
+}
+
+.cate_top_list {
+    position: absolute;
+    max-height: 102px;
+    background: #fff;
+    width: 514px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    overflow-y: auto;
+    z-index: 999;
+    top: 64px;
+    left: 2px;
+}
+
+.cate_top_list::-webkit-scrollbar {
+    width: 4px;
+    height: 1px;
+}
+
+.cate_top_list::-webkit-scrollbar-thumb {
+    background: #0070FF;
+    border-radius: 2px;
+}
+
+.cate_top_list::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);*/
+    background: #fff;
+    border-radius: 2px;
+}
+
+.cate_top_list .item {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #666666;
+    cursor: pointer;
+    border-bottom: 1px solid #f8f8f8;
+}
+.cate_top_list .item:hover {
+    background-color: #E0EEFF;
+}
+
+#cate_edit .cate_btn_box{
+    margin: 35px 0;
+    text-align: center;
+}
+
+.cate_btn_box .cate_btn_ok {
+    width: 124px;
+    height: 40px;
+    background: #0070ff;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.cate_btn_box .cate_btn_cancel {
+    border: 1px solid #0070ff;
+    color: #0070ff;
+    border-radius: 4px;
+    width: 124px;
+    height: 40px;
+    margin-left: 16px;
+}
+
+.cate_btn_box .cate_btn_delete {
+    border: 1px solid #0070ff;
+    color: #0070ff;
+    border-radius: 4px;
+    width: 124px;
+    height: 40px;
+    margin-left: 16px;
+}
+
+/********************************************/
+.cate_content{
+    text-align: center;
+    height: 90px;
+    line-height: 70px;
+}
+.cate_content .cate_tip{
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #333333;
+}
+.cate_btn_delete_box{
+    text-align: center;
+}
+
+.cate_btn_delete_box .cate_btn_aware{
+    color: #fff;
+    font-size: 16px;
+    background: #0070FF;
+    border-radius: 4px;
+    width: 180px;
+    height: 40px;
+    font-family: PingFangSC-Regular;
+}
+
+
+.cate_btn_delete_box .cate_btn_ok{
+    color: #fff;
+    font-size: 16px;
+    background: #0070FF;
+    border-radius: 4px;
+    width: 124px;
+    height: 40px;
+    margin: 0 20px;
+    font-family: PingFangSC-Regular;
+}
+.cate_btn_delete_box .cate_btn_cancel{
+    color: #0070FF;
+    font-size: 16px;
+    background: #fff;
+    border-radius: 4px;
+    width: 124px;
+    height: 40px;
+    margin: 0 20px;
+    border: 1px solid #0070FF;
+    font-family: PingFangSC-Regular;
+}
 
 
 

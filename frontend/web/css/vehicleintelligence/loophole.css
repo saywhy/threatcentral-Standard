@@ -218,6 +218,9 @@ button:active {
     font-size: 14px;
     line-height: 43px;
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-family: 'PingFangSC-Regular';
 }
 

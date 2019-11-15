@@ -8,22 +8,27 @@ $this->title = '标签管理';
          <input class="label_box_mid_input" placeholder="请输入标签或类别关键字" type="text" ng-model="label_name"
          ng-keyup="label_keyup($event)">
          <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-         <button class="label_box_mid_button_left" ng-click="label_search()">搜索</button>
-         <button class="label_box_mid_button_right" ng-click="label_add('',$event)">新增标签</button>
+         <button class="label_box_mid_button_left" ng-click="get_label_list();">搜索</button>
+         <button class="label_box_mid_button_right" ng-click="label_add($event,'');">新增标签</button>
     </div>
+
     <div class="label_sort_box">
          <ul class="label-lists">
             <li class="item" ng-repeat="item in label_data" ng-click="item.status = !item.status">
-              <a class="toggle" ng-class="{'active':item.status}" href="javascript:void(0);">
-                  <span class="name">{{item.name | labelNull}}<span>
-              </a>
+              <div class="toggle_cate">
+                  <a class="toggle" ng-class="{'active':item.status}" href="javascript:void(0);">
+                      <span class="name">{{item.name | labelNull}}<span>
+                  </a>
+                  <img ng-if="item.name != ''" class="toggle_img" src="/images/set/label_edit.png"
+                   title="编辑标签类别" ng-click="category_edit($event,item);"/>
+              </div>
               <div class="toggle_content" ng-show="item.status">
-                <button class="btn_label" ng-repeat="it in item.label" ng-click="label_edit(it,$event);"
+                <button class="btn_label" ng-repeat="it in item.label" ng-click="label_edit($event,it);"
                 ng-if="it.label_name != null">
                     <img class="btn_img" src="/images/set/label_edit.png"/>
                     <span class="btn_span" title="{{it.label_name}}">{{it.label_name}}</span>
                 </button>
-                <button class="btn_label btn_label_add" ng-click="label_add(item.name,$event);">
+                <button class="btn_label btn_label_add" ng-click="label_add($event,item.name);">
                     <img class="btn_img" src="/images/set/label_add.png"/>
                     <span class="btn_span">新增标签</span>
                 </button>
@@ -32,7 +37,7 @@ $this->title = '标签管理';
          </ul>
     </div>
 
-    <!--*********************************************************-->
+    <!-- ****************************************************************************************** -->
     <!-- 新增标签弹窗 -->
     <div style="display: none;" id="lab_add_box">
         <div id="lab_add">
@@ -40,23 +45,22 @@ $this->title = '标签管理';
                 <p class="lab_name">标签类别<!--<span class="lab_tab">*</span>--></p>
                 <div class="lab_item">
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
-                    <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
-                      ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);">
+                    <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label.category_name"
+                       ng-keyup="lab_key_func($event);" ng-click="label.status = true" ng-change="lab_change_func();" ng-blur="lab_blur_func()">
                 </div>
-                <ul class="lab_top_list" ng-show="label_category_select.status">
-                   <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
+                <ul class="lab_top_list" ng-show="label.status">
+                   <li class="item" ng-repeat="item in label.lists" ng-mousedown="lab_down_func(item.category_name);">{{item.category_name}}</li>
                 </ul>
             </div>
             <div class="lab_mid">
                 <p class="lab_name">标签名称<span class="lab_tab">*</span></p>
                 <div class="lab_item">
-                   <input type="text" class="lab_mid_name" placeholder="请输入标签名称"  ng-model="label_data_info.label_name" required>
+                   <input type="text" class="lab_mid_name" placeholder="请输入标签名称" ng-model="label.label_name" required>
                 </div>
             </div>
             <div class="lab_bom">
                 <p class="lab_name">标签描述</p>
-                <textarea class="token_bom_content"
-                placeholder="请输入标签描述内容" ng-model="label_data_info.detail"></textarea>
+                <textarea class="token_bom_content" placeholder="请输入标签描述内容" ng-model="label.detail"></textarea>
             </div>
             <div class="lab_btn_box">
                 <button class="lab_btn_ok" ng-click="lab_save()">保存</button>
@@ -65,6 +69,7 @@ $this->title = '标签管理';
         </div>
     </div>
 
+    <!-- ****************************************************************************************** -->
     <!-- 编辑标签弹窗 -->
     <div style="display: none;" id="lab_edit_box">
         <div id="lab_edit">
@@ -72,29 +77,28 @@ $this->title = '标签管理';
                 <p class="lab_name">标签类别<!--<span class="lab_tab">*</span>--></p>
                 <div class="lab_item">
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
-                    <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label_data_info.category_name"
-                      ng-click="label_category_select.status = true" ng-change="label_category_click(label_data_info.category_name);">
+                    <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label.category_name"
+                       ng-keyup="lab_key_func($event);" ng-click="label.status = true" ng-change="lab_change_func();" ng-blur="lab_blur_func()">
                 </div>
-                <ul class="lab_top_list" ng-show="label_category_select.status">
-                <!--<ul class="lab_top_list">-->
-                   <li class="item" ng-repeat="item in label_category_select.category" ng-click="category_click(item.category_name);">{{item.category_name}}</li>
+                <ul class="lab_top_list" ng-show="label.status">
+                   <li class="item" ng-repeat="item in label.lists" ng-mousedown="lab_down_func(item.category_name);">{{item.category_name}}</li>
                 </ul>
             </div>
             <div class="lab_mid">
                 <p class="lab_name">标签名称<span class="lab_tab">*</span></p>
                 <div class="lab_item">
-                   <input type="text" class="lab_mid_name" placeholder="请输入标签名称"  ng-model="label_data_info.label_name" required>
+                   <input type="text" class="lab_mid_name" placeholder="请输入标签名称"  ng-model="label.label_name" required>
                 </div>
             </div>
             <div class="lab_bom">
                 <p class="lab_name">标签描述</p>
                 <textarea class="token_bom_content"
-                placeholder="请输入标签描述内容" ng-model="label_data_info.detail"></textarea>
+                placeholder="请输入标签描述内容" ng-model="label.detail"></textarea>
             </div>
 
             <div class="lab_btn_box">
                 <button class="lab_btn_ok" ng-click="lab_edit_save()">保存</button>
-                <button class="lab_btn_cancel" ng-click="lab_cancel()">取消</button>
+                <button class="lab_btn_cancel" ng-click="lab_edit_cancel()">取消</button>
                 <button class="lab_btn_delete" ng-click="lab_edit_delete()">删除标签</button>
             </div>
         </div>
@@ -125,5 +129,55 @@ $this->title = '标签管理';
             </div>
         </div>
     </div>
+
+    <!-- ****************************************************************************************** -->
+    <!-- 编辑标签类别弹窗 -->
+    <div style="display: none;" id="cate_edit_box">
+        <div id="cate_edit">
+            <div class="cate_top">
+                <p class="cate_name">标签类别名称<span class="cate_tab">*</span></p>
+                <div class="cate_item">
+                    <input type="text" class="cate_mid_name" placeholder="下拉选择或直接输入"  ng-model="category.name"
+                      ng-keyup="cate_key_func($event);" ng-click="category.status = true;"
+                      ng-change="cate_change_func();" ng-blur="cate_blur_func()">
+                </div>
+                <ul class="cate_top_list" ng-show="category.status">
+                   <li class="item" ng-repeat="item in category.lists"
+                   ng-mousedown="cate_down_func(item.category_name);">{{item.category_name}}</li>
+                </ul>
+            </div>
+            <div class="cate_btn_box">
+                <button class="cate_btn_ok" ng-click="cate_edit_save();">保存</button>
+                <button class="cate_btn_cancel" ng-click="cate_edit_cancel();">取消</button>
+                <button class="cate_btn_delete" ng-click="cate_edit_delete();">删除类别</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除标签类别1 -->
+    <div style="display: none;" id="cate_delete_box_1">
+        <div id="cate_delete_1">
+            <div class="cate_content">
+               <p class="cate_tip">该标签类别下还存在标签，请处理后再删除本分类。</p>
+            </div>
+            <div class="cate_btn_delete_box">
+                <button class="cate_btn_aware" ng-click="cate_delete_aware()">知道了</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除标签类别2 -->
+    <div style="display: none;" id="cate_delete_box_2">
+        <div id="cate_delete_2">
+            <div class="cate_content">
+               <p class="cate_tip">请确认是否删除此标签分类？</p>
+            </div>
+            <div class="cate_btn_delete_box">
+                <button class="cate_btn_ok" ng-click="cate_delete_ok()">确认</button>
+                <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+            </div>
+        </div>
+    </div>
+
 </section>
 <script src="/js/controllers/seting/label_manage.js"></script>
