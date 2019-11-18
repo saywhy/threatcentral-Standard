@@ -211,7 +211,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         );
     };
 
-    //类别编辑标签类别input打开下拉框
+    //标签编辑标签类别input打开下拉框
     $scope.lab_click_open = function () {
 
         $scope.label.status = true;

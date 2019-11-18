@@ -150,9 +150,9 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
     //标签列表事件高亮切换
     $scope.tog_change_status = function (e,item,it) {
 
-        $(event.target).toggleClass('active');
+        $(e.target).toggleClass('active');
 
-        let isActive = $(event.target).hasClass('active');
+        let isActive = $(e.target).hasClass('active');
 
         if(isActive){
 
