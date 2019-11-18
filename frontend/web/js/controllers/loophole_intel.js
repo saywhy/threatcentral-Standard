@@ -6,7 +6,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             endDate: moment()
         };
         $scope.seach_data = {
-            source: '全部',
+            source: '漏洞来源',
             stauts: '',
             label_id: [],
             key_word: '',
@@ -16,7 +16,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         };
         $scope.status_search = [{
                 num: '',
-                status: '全部'
+                status: '状态'
             },
             {
                 num: '1',
@@ -29,7 +29,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         ]
         $scope.search_level = [{
                 num: '',
-                status: '全部'
+                status: '漏洞等级'
             },
             {
                 num: '高',
@@ -157,7 +157,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                     $scope.loop_source.push(item.sourse);
                     $scope.loop_source_add.push(item.sourse);
                 })
-                $scope.loop_source.push('全部');
+                $scope.loop_source.push('漏洞来源');
             },
             function () {}
         );
@@ -172,17 +172,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             label_id_box: [],
             label_id_str: '',
         }
-        if ($scope.seach_data.source != '全部') {
+        if ($scope.seach_data.source != '漏洞来源') {
             console.log('1231');
             params_data.source = $scope.seach_data.source
         }
-        // if ($scope.seach_data.label_id != '') {
-        //     params_data.label_id.push($scope.seach_data.label_id * 1);
-        //     params_data.label_id_box.push(params_data.label_id)
-        //     params_data.label_id_str = JSON.stringify(params_data.label_id_box);
-        // } else {
-        //     params_data.label_id_str = '[]'
-        // }
         console.log(params_data);
         $http({
             method: "get",
