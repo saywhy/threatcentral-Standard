@@ -46,10 +46,11 @@ $this->title = '标签管理';
                 <div class="lab_item">
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label.category_name"
-                       ng-keyup="lab_key_func($event);" ng-click="label.status = true" ng-change="lab_change_func();" ng-blur="lab_blur_func()">
+                       ng-keyup="lab_key_func($event);" ng-click="label.status = true" ng-change="lab_change_func();" ng-blur="label.status = false">
                 </div>
                 <ul class="lab_top_list" ng-show="label.status">
-                   <li class="item" ng-repeat="item in label.lists" ng-mousedown="lab_down_func(item.category_name);">{{item.category_name}}</li>
+                   <li class="item" ng-class="{'active':label.active_index == $index}" ng-repeat="item in label.lists"
+                   ng-mousedown="lab_down_func(item.category_name,$index);">{{item.category_name}}</li>
                 </ul>
             </div>
             <div class="lab_mid">
@@ -78,10 +79,11 @@ $this->title = '标签管理';
                 <div class="lab_item">
                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <input type="text" class="lab_mid_name"  placeholder="下拉选择或直接输入"  ng-model="label.category_name"
-                       ng-keyup="lab_key_func($event);" ng-click="label.status = true" ng-change="lab_change_func();" ng-blur="lab_blur_func()">
+                       ng-keyup="lab_key_func($event);" ng-click="lab_click_open();" ng-change="lab_change_func();" ng-blur="label.status = false">
                 </div>
-                <ul class="lab_top_list" ng-show="label.status">
-                   <li class="item" ng-repeat="item in label.lists" ng-mousedown="lab_down_func(item.category_name);">{{item.category_name}}</li>
+                <ul class="lab_top_list" id="lab_top_list" ng-show="label.status">
+                   <li class="item" ng-class="{'active':label.active_index == $index}" ng-repeat="item in label.lists"
+                   ng-mousedown="lab_down_func(item.category_name,$index);">{{item.category_name}}</li>
                 </ul>
             </div>
             <div class="lab_mid">
@@ -110,10 +112,6 @@ $this->title = '标签管理';
             <div class="lab_content">
                <p class="lab_tip">有{{intelligence}}条情报在使用这个标签，删除这个标签，原有情报将不再使用此标签。请确认是否删除?</p>
             </div>
-            <div class="lab_btn_box">
-                <button class="lab_btn_ok" ng-click="lab_delete_ok()">确认</button>
-                <button class="lab_btn_cancel" ng-click="lab_delete_cancel()">取消</button>
-            </div>
         </div>
     </div>
 
@@ -138,12 +136,12 @@ $this->title = '标签管理';
                 <p class="cate_name">标签类别名称<span class="cate_tab">*</span></p>
                 <div class="cate_item">
                     <input type="text" class="cate_mid_name" placeholder="下拉选择或直接输入"  ng-model="category.name"
-                      ng-keyup="cate_key_func($event);" ng-click="category.status = true;"
-                      ng-change="cate_change_func();" ng-blur="cate_blur_func()">
+                      ng-keyup="cate_key_func($event);" ng-click="cate_click_open();"
+                      ng-change="cate_change_func();" ng-blur="category.status = false;">
                 </div>
-                <ul class="cate_top_list" ng-show="category.status">
-                   <li class="item" ng-repeat="item in category.lists"
-                   ng-mousedown="cate_down_func(item.category_name);">{{item.category_name}}</li>
+                <ul class="cate_top_list" id="cate_top_list" ng-show="category.status">
+                   <li class="item" ng-class="{'active':category.active_index == $index}" ng-repeat="item in category.lists"
+                   ng-mousedown="cate_down_func(item.category_name,$index);">{{item.category_name}}</li>
                 </ul>
             </div>
             <div class="cate_btn_box">

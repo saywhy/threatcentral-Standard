@@ -114,6 +114,7 @@
 .toggle_content .btn_label_add{
     background-color: #fff;
     border: 1px solid #EEF6FF;
+    margin-left: -4px;
 }
 
 .toggle_content .btn_label .btn_img{
@@ -193,7 +194,7 @@
 
  .lab_top_list{
      position: absolute;
-     max-height: 156px;
+     max-height: 170px;
      background: #fff;
      width: 514px;
      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
@@ -219,18 +220,23 @@
     border-radius: 2px;
 }
 
-
 .lab_top_list .item{
     height: 34px;
     line-height: 34px;
     padding: 0 16px;
     font-size: 14px;
-    color: #666666;
+    color: #666;
+    background: #fff;
     cursor: pointer;
     border-bottom: 1px solid #f8f8f8;
 }
+
 .lab_top_list .item:last-child{
     border-width: 0;
+}
+
+.lab_top_list .item.active{
+    background: #E0EEFF;
 }
 
 /*.lab_top_list li.item:nth-child(even) {
@@ -377,7 +383,11 @@
     border-bottom: 1px solid #f8f8f8;
 }
 .cate_top_list .item:hover {
-    background-color: #E0EEFF;
+    background: #E0EEFF;
+}
+
+.cate_top_list .item.active {
+    background: #E0EEFF;
 }
 
 #cate_edit .cate_btn_box{
@@ -457,6 +467,40 @@
     margin: 0 20px;
     border: 1px solid #0070FF;
     font-family: PingFangSC-Regular;
+}
+
+/*!!!!!!!!!!!!!!!!!!!!!!!*/
+.zeromodal-footer{
+    bottom: 40px;
+}
+
+.zeromodal-footer .zeromodal-line{
+    display: none;
+}
+.zeromodal-footer .zeromodal-btn-container{
+    text-align: center;
+}
+
+
+ .zeromodal-footer  .zeromodal-btn-primary{
+    width: 124px;
+    height: 40px;
+    background: #0070ff;
+    border-radius: 4px;
+    color: #fff;
+    outline: none;
+    box-shadow: none;
+}
+
+ .zeromodal-footer .zeromodal-btn-default {
+    border: 1px solid #0070ff;
+    color: #0070ff;
+    border-radius: 4px;
+    width: 124px;
+    height: 40px;
+    margin-left: 16px;
+    outline: none;
+    box-shadow: none;
 }
 
 
