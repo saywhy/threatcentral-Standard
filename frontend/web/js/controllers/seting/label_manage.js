@@ -4,6 +4,8 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     $scope.init = function () {
 
         $scope.label_data = [];
+
+        //受情报影响条数
         $scope.intelligence = 0;
 
         //类别参数
@@ -279,19 +281,21 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             $scope.label.category_name = $scope.label.lists[$scope.label.active_index].category_name;
 
         }else if(keycode == 40){
-
+            //下键
             if($scope.label.active_index === length - 1){
-                $scope.label.active_index = length - 1;
-                return false;
+                //$scope.label.active_index = length - 1;
+                $scope.label.active_index = 0;
+                //return false;
             }else {
                 $scope.label.active_index ++;
             }
             $scope.label.category_name = $scope.label.lists[$scope.label.active_index].category_name;
         }else if(keycode == 38) {
-
+            //上键
             if ($scope.label.active_index === 0) {
-                $scope.label.active_index = 0;
-                return false;
+                //$scope.label.active_index = 0;
+                $scope.label.active_index = length - 1;
+                //return false;
             } else {
                 $scope.label.active_index--;
             }
@@ -310,7 +314,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
         document.getElementById('lab_top_list').scrollTop = scrollTop;
 
-    }
+    };
 
     //标签编辑保存
     $scope.lab_edit_save = function () {
@@ -448,6 +452,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         var loading = zeroModal.loading(4);
 
         //let updateData = Object.assign($scope.label_data_info,{id:$scope.label_id});
+
         let params = {
             category_name: $scope.label.category_name,
             label_name:$scope.label.label_name,
@@ -613,19 +618,19 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             $scope.category.name = $scope.category.lists[$scope.category.active_index].category_name;
 
         }else if(keycode == 40){
-
+            //下键
             if($scope.category.active_index === length - 1){
-                $scope.category.active_index = length - 1;
-                return false;
+                $scope.category.active_index = 0;
+                //return false;
             }else {
                 $scope.category.active_index ++;
             }
             $scope.category.name = $scope.category.lists[$scope.category.active_index].category_name;
         }else if(keycode == 38) {
-
+            //上键
             if ($scope.category.active_index === 0) {
-                $scope.category.active_index = 0;
-                return false;
+                $scope.category.active_index = length - 1;
+               // return false;
             } else {
                 $scope.category.active_index--;
             }
@@ -642,7 +647,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
         document.getElementById('cate_top_list').scrollTop = scrollTop;
 
-    }
+    };
 
     //编辑标签类别保存点击
     $scope.cate_edit_save = function () {
@@ -806,6 +811,7 @@ myApp.filter('labelNull',function(){
     }
 });
 
+/*无用代码*/
 myApp.directive('onBlankHide',function(){
     return{
         restrict:'A',
