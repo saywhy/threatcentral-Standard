@@ -8,7 +8,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.seach_data = {
             source: '全部',
             stauts: '',
-            label_id: '',
+            label_id: [],
             key_word: '',
             level: '',
             startDate: moment().subtract(90, "days").unix(),
@@ -67,6 +67,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.tag_list_if = false;
         $scope.add_source_list_if = false;
         $scope.edit_source_list_if = false;
+
+        $scope.label_data = [];
+        //前端选中标签展示列表
+        $scope.label_checked_list = [];
+        //展开\折叠更多
+        $scope.toggleCount = 2;
+        $scope.toggleStatus = false;
+        $scope.get_lab_list()
     }
     // 初始化时间
     $scope.start_time_picker = function () {
@@ -168,13 +176,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if ($scope.seach_data.source != '全部') {
             params_data.source = $scope.seach_data.source
         }
-        if ($scope.seach_data.label_id != '') {
-            params_data.label_id.push($scope.seach_data.label_id * 1);
-            params_data.label_id_box.push(params_data.label_id)
-            params_data.label_id_str = JSON.stringify(params_data.label_id_box);
-        } else {
-            params_data.label_id_str = '[]'
-        }
+        // if ($scope.seach_data.label_id != '') {
+        //     params_data.label_id.push($scope.seach_data.label_id * 1);
+        //     params_data.label_id_box.push(params_data.label_id)
+        //     params_data.label_id_str = JSON.stringify(params_data.label_id_box);
+        // } else {
+        //     params_data.label_id_str = '[]'
+        // }
         console.log(params_data);
         $http({
             method: "get",
@@ -185,7 +193,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 sourse: params_data.source,
                 status: $scope.seach_data.stauts,
                 level: $scope.seach_data.level,
-                label_id: params_data.label_id_str,
+                label_id: JSON.stringify($scope.seach_data.label_id),
                 key_word: $scope.seach_data.key_word,
                 page: pageNow,
                 rows: 10,
@@ -344,16 +352,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
         if (keycode == 13) {
-            if ($scope.alert_item.tag_list_str == '') {
-                $scope.tag_list_if = false;
-                setTimeout("$('.tag_input')[0].blur()", 500);
-                return false;
+            if ($scope.alert_item.tag_list_str != '') {
+                $scope.alert_item.tag_list.push($scope.alert_item.tag_list_str);
+                $scope.alert_item.add_new_tag.push($scope.alert_item.tag_list_str);
+                $scope.alert_item.tag_list_str = '';
             }
-            $scope.alert_item.tag_list.push($scope.alert_item.tag_list_str);
-            $scope.alert_item.add_new_tag.push($scope.alert_item.tag_list_str);
-            $scope.alert_item.tag_list_str = '';
-            $scope.tag_list_if = false;
-            setTimeout("$('.tag_input')[0].blur()", 500);
+            $('.tag_input').blur();
+            $scope.tag_blur();
         }
     }
     // 发布漏洞情报
@@ -448,15 +453,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
         if (keycode == 13) {
-            if ($scope.edit_item.tag_list_str == '') {
-                $scope.edit_tag_list_if = false;
-                setTimeout("$('.tag_input')[0].blur()", 500);
-                return false;
+            if ($scope.edit_item.tag_list_str != '') {
+                $scope.edit_item.tag_list.push($scope.edit_item.tag_list_str);
+                $scope.edit_item.tag_list_str = '';
             }
-            $scope.edit_item.tag_list.push($scope.edit_item.tag_list_str);
-            $scope.edit_item.tag_list_str = '';
-            $scope.edit_tag_list_if = false;
-            setTimeout("$('.tag_input')[0].blur()", 500);
+            $('.tag_input').blur();
+            $scope.edit_tag_blur();
         }
     }
     // 编辑删除标签
@@ -550,6 +552,100 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             $scope.edit_source_list_if = false;
         }
     }
+
+
+    // 获取标签列表
+    $scope.get_lab_list = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "get",
+            url: "/site/label-list",
+        }).then(function (resp) {
+                zeroModal.close(loading);
+                if (resp.status == 200) {
+                    let result = JSON.parse(resp.data);
+                    let labelAttr = [];
+                    angular.forEach(result, function (key, value) {
+                        if (value === '' || value === null) {
+                            value = '未分类标签';
+                        }
+                        labelAttr.push({
+                            name: value,
+                            label: key,
+                            label_attr_id: []
+                        });
+                    });
+                    $scope.label_data = labelAttr;
+                    console.log($scope.label_data);
+
+
+                }
+            },
+            function () {}
+        );
+    }
+
+    //展开、收起按钮切换事件
+    $scope.tog_count_change = function (e) {
+        e.preventDefault();
+        let length = $scope.label_data.length;
+        if (length <= 3) {
+            $scope.toggleCount = length;
+            $scope.toggleStatus = !$scope.toggleStatus;
+        } else {
+            let toggle = $scope.toggleCount += 3;
+            let tog = Math.ceil(toggle / 3);
+            let label = Math.ceil($scope.label_data.length / 3);
+            $scope.toggleCount = tog > label ? 2 : toggle;
+            $scope.toggleStatus = tog == label ? true : false;
+        }
+    }
+
+    //标签列表事件高亮切换
+    $scope.tog_change_status = function (e, item, it) {
+        $(event.target).toggleClass('active');
+        let isActive = $(event.target).hasClass('active');
+        if (isActive) {
+            angular.forEach($scope.label_data, function (value, key) {
+                if (value.name == item.name) {
+                    //每个类别的id数组（后端需要）
+                    value.label_attr_id.push(it.id);
+                    //前端展示的列表数据
+                    $scope.label_checked_list.push(it);
+                }
+            });
+        } else {
+            angular.forEach($scope.label_data, function (value, key) {
+                if (value.name == item.name) {
+                    for (let i = 0; i < value.label_attr_id.length; i++) {
+                        if (value.label_attr_id[i] == it.id) {
+                            value.label_attr_id.splice(i, 1);
+                        }
+                    }
+                    for (let j = 0; j < $scope.label_checked_list.length; j++) {
+                        if ($scope.label_checked_list[j].id == it.id) {
+                            $scope.label_checked_list.splice(j, 1);
+                        }
+                    }
+                }
+            });
+        }
+
+        //向后端传递label_id的数组拼接
+        var attr = [];
+        angular.forEach($scope.label_data, function (value, key) {
+            if (value.label_attr_id.length > 0) {
+                attr.push(value.label_attr_id);
+            }
+        });
+        console.log(attr);
+        //向后端传递的label_id（每个类别的id数组的组合）
+        $scope.seach_data.label_id = attr;
+        console.log($scope.seach_data.label_id);
+    };
+
+
+
     $scope.init();
 
 });

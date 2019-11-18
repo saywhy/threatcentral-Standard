@@ -30,11 +30,26 @@ $this->title = '漏洞情报管理';
                 <img src="/images/report/time.png" class="time_icon_search" alt="">
                 <input class="input_box" id="picker_search" readonly type="text" placeholder="时间">
             </div>
-            <!-- 标签选择 -->
-            <select class="intel_search_input source_input" ng-model="seach_data.label_id"
-                ng-options="x.id as x.label_name for x in search_tag_list"></select>
             <button class="button_search" ng-click="get_page()">搜索</button>
             <button class="button_add" ng-click="add_loop_box()">情报录入</button>
+        </div>
+    </div>
+       <!-- 标签列表展示 -->
+    <div class="vehicle_search_country">
+        <ul class="search_country">
+            <li class="search_country_item" ng-repeat="item in label_data" ng-hide="$index>toggleCount">
+                <span class="title">{{item.name}}：</span>
+                <span class="lists">
+                    <span class="item" ng-repeat="it in item.label"
+                        ng-click="tog_change_status($event,item,it);">{{it.label_name}}</span>
+                </span>
+            </li>
+        </ul>
+        <div class="search_toggle" ng-show="label_data.length > 0">
+            <a class="toggle" ng-class="{'active':toggleStatus}" ng-click="tog_count_change($event);">
+                <span class="caret"></span>
+                <span ng-show="!toggleStatus">展开</span><span ng-show="toggleStatus">收起</span>更多
+            </a>
         </div>
     </div>
     <div class="loophole_table_content" ng-click="blur_input()">
@@ -197,8 +212,9 @@ $this->title = '漏洞情报管理';
                             ng-focus="edit_source_focus()" ng-change="edit_source_change(edit_item.sourse)"
                             ng-blur="edit_source_blur()" type="text" >
                     </div>
-                    <ul class="tag_list_box" ng-if="edit_source_list_if">
-                        <li ng-mousedown="edit_source_list_item(item)" ng-repeat="item in loop_source_add track by $index">
+                    <ul class="tag_list_box edit_source_ul" ng-if="edit_source_list_if">
+                        <li ng-mousedown="edit_source_list_item(item)"
+                                ng-repeat="item in loop_source_add track by $index">
                             {{item}}
                         </li>
                     </ul>
