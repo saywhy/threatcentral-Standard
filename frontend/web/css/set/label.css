@@ -135,7 +135,7 @@
 }
 
  .lab_name{
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
 }
 
@@ -177,13 +177,18 @@
  .lab_mid_name,.lab_mid_name:focus{
     height: 32px;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     border-top-width:0;
     border-left-width:0;
     border-right-width:0;
     border-bottom: 1px solid #ddd;
     outline:none;
+}
+
+.lab_mid_name::placeholder{
+    color: #bbb;
+    font-size: 14px;
 }
 
  .lab_mid_name.disabled{
@@ -239,30 +244,31 @@
     background: #E0EEFF;
 }
 
-/*.lab_top_list li.item:nth-child(even) {
-    background: #E0EEFF;
-}*/
-
 .lab_top_list .item:hover{
     background-color: #E0EEFF;
 }
 
 
- .token_bom_content{
+.token_bom_content{
     width: 100%;
     height: 120px;
     margin: 10px 0;
     padding: 5px 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     border: 1px solid #ddd;
     resize:none;
 }
 
- input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
+.token_bom_content::placeholder{
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
     font-size: 16px;
     color: #BBBBBB;
-}
+}*/
 
  .lab_btn_box {
     height: 40px;
@@ -307,6 +313,7 @@
     line-height: 32px;
     padding: 0 80px;
 }
+
 
 /*************************/
 .cate_top, .cate_mid, .cate_bom {
