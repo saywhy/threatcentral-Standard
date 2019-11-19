@@ -193,7 +193,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     //保存标签按钮
     $scope.lab_save = function () {
 
-        if($scope.label.label_name == ""){
+        if($scope.label.label_name == "" || $scope.label.label_name == undefined){
             zeroModal.alert("标签名称不能为空。");
         } else {
 
@@ -313,7 +313,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             $scope.label.category_name = $scope.label.lists[$scope.label.active_index].category_name;
         }else if(keycode == 38) {
             //上键
-            if ($scope.label.active_index === 0) {
+            if ($scope.label.active_index === 0 || $scope.label.active_index === -1) {
                 //$scope.label.active_index = 0;
                 $scope.label.active_index = length - 1;
                 //return false;
