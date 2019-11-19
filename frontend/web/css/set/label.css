@@ -46,7 +46,7 @@
 }
 
 .label_sort_box{
-    padding: 28px 0;
+    padding: 28px 0 72px;
 }
 
 .label-lists .item{
@@ -85,7 +85,6 @@
 
 .toggle_cate .toggle_content{
     padding: 10px 0 15px;
-    font-size: 0;
 }
 .toggle_cate .toggle_img{
     vertical-align: sub;
@@ -102,10 +101,9 @@
     color: #333;
     font-size: 14px;
     text-align: center;
-    margin-right: 5px;
-    margin-top: 5px;
+    margin-right: 6px;
+    margin-top: 6px;
     outline: none;
-
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -114,7 +112,6 @@
 .toggle_content .btn_label_add{
     background-color: #fff;
     border: 1px solid #EEF6FF;
-    margin-left: -4px;
 }
 
 .toggle_content .btn_label .btn_img{

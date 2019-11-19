@@ -22,7 +22,7 @@ $this->title = '标签管理';
                   <img ng-if="item.name != ''" class="toggle_img" src="/images/set/label_edit.png"
                    title="编辑标签类别" ng-click="category_edit($event,item);"/>
               </div>
-              <div class="toggle_content" ng-show="item.status">
+              <div class="toggle_content" ng-show="item.status" style="font-size:0;">
                 <button class="btn_label" ng-repeat="it in item.label" ng-click="label_edit($event,it,'edit');"
                 ng-if="it.label_name != null">
                     <img class="btn_img" src="/images/set/label_edit.png"/>

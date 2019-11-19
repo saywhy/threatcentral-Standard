@@ -13,6 +13,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             active_index: -1,
             name:'',
             id:'',
+            label_id:'',
             lists:[],
             status:false,
             /*编辑标签类别下拉框高度*/
@@ -507,6 +508,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
         //长度一定大于0
         $scope.category.id = item.label[0].category_id;
+        $scope.category.label_id = item.label[0].id;
         $scope.category.name = item.name;
 
         var W = 552;
@@ -549,6 +551,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                                 active_index:-1,
                                 name:'',
                                 id:'',
+                                label_id:'',
                                 lists:[],
                                 status:false,
                                 listHeight: 102,
@@ -712,10 +715,8 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         var W = 552;
         var H = 248;
 
-        if($scope.category.id != null ||
-            $scope.category.id != '' ||
-            $scope.category.id != undefined){
-            zeroModal.show({
+        if($scope.category.label_id != null){
+            $scope.edit1 = zeroModal.show({
                 title: "删除标签类别",
                 content: cate_delete_1,
                 width: W + "px",
@@ -750,6 +751,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
     //删除弹窗确认事件
     $scope.cate_delete_ok = function () {
+
         var loading = zeroModal.loading(5);
 
         $http({
@@ -813,7 +815,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     $scope.label_data = labelAttr;
 
-                    console.log(labelAttr);
+                   //console.log(labelAttr);
                 }
             },
             function errorCallback(data) {}
