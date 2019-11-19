@@ -42,7 +42,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
     /**********************************新增编辑***********************************/
     //新增标签弹窗
-    $scope.label_add = function ($event,name,types) {
+    /*$scope.label_add = function ($event,name,types) {
 
         $event.stopPropagation();
         var W = 552;
@@ -99,9 +99,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             },
             function errorCallback(data) {}
         );
-    };
-
-
+    };*/
     /**********************************标签处理***********************************/
 
     //标签新增or编辑弹窗
@@ -621,7 +619,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         $scope.category.active_index = index;
     };
 
-    //类别编辑标签类别enter点击
+    //类别编辑标签类别enter\up\down点击
     $scope.cate_key_func = function (e) {
 
         let length = $scope.category.lists.length;
@@ -641,6 +639,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                 $scope.category.active_index ++;
             }
             $scope.category.name = $scope.category.lists[$scope.category.active_index].category_name;
+
         }else if(keycode == 38) {
             //上键
             if ($scope.category.active_index === 0) {
@@ -667,29 +666,39 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     //编辑标签类别保存点击
     $scope.cate_edit_save = function () {
 
-        var loading = zeroModal.loading(5);
+        if ($scope.category.name == "" ||
+            $scope.category.name == undefined ||
+            $scope.category.name == null) {
 
-        $http({
-            method: "put",
-            url: "/seting/category-edit",
-            data: {
-                id: $scope.category.id,
-                category_name: $scope.category.name
-            }
-        }).then(function successCallback(resp) {
+            zeroModal.alert("标签类别不能为空。");
+        }else {
 
-                zeroModal.close(loading);
+            var loading = zeroModal.loading(5);
 
-                if(resp.status == 200){
-
-                    zeroModal.closeAll();
-
-                    //更新列表
-                    $scope.get_label_list();
+            $http({
+                method: "put",
+                url: "/seting/category-edit",
+                data: {
+                    id: $scope.category.id,
+                    category_name: $scope.category.name
                 }
-            },
-            function errorCallback(data) {}
-        );
+            }).then(function successCallback(resp) {
+
+                    zeroModal.close(loading);
+
+                    if(resp.status == 200){
+
+                        zeroModal.closeAll();
+
+                        //更新列表
+                        $scope.get_label_list();
+                    }
+                },
+                function errorCallback(data) {}
+            );
+        }
+
+
     };
 
     //编辑标签类别取消点击
@@ -772,7 +781,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     /**********************************其他***************************************/
 
     //标签管理搜索enter事件
-    $scope.label_keyup = function($event){
+    $scope.label_keyup = function($event) {
         var keycode = window.event?$event.keyCode:$event.which;
         if(keycode==13){
             $scope.get_label_list();
@@ -804,7 +813,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     $scope.label_data = labelAttr;
 
-                    //console.log(labelAttr);
+                    console.log(labelAttr);
                 }
             },
             function errorCallback(data) {}
