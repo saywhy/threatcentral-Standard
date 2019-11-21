@@ -93,8 +93,7 @@ $this->title = '漏洞情报';
                   <td ng-bind="item.detail" style="color:#0070ff;"></td>
                   <td ng-bind="item.sourse"></td>
                   <td class="td_operation" style="white-space: nowrap;text-overflow: ellipsis;">
-                      <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name"
-                      ng-click="it.status = !it.status">
+                      <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name">
                           {{it}}
                           <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status">
                       </button>
