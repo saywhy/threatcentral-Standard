@@ -74,6 +74,33 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         $scope.toggleCount = 2;
         $scope.toggleStatus = false;
         $scope.get_lab_list()
+        $scope.source_add_scrollTop = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+        $scope.tag_add_scrollTop = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+        $scope.tag_edit_scrollTop = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+        $scope.source_edit_scrollTop = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+
+
+
     }
     // 初始化时间
     $scope.start_time_picker = function () {
@@ -273,6 +300,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 setTimeout(zeroModal.closeAll(), 3000)
                 $scope.get_page();
@@ -284,6 +313,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.tag_focus = function () {
         $scope.tag_list_if = true;
         $scope.get_tag_list($scope.alert_item.tag_list_str);
+        $scope.tag_add_scrollTop.active_index = -1
     }
     $scope.tag_blur = function () {
         $scope.tag_list_if = false;
@@ -317,6 +347,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.tag_change = function (name) {
         $scope.get_tag_list(name);
+        $scope.tag_add_scrollTop.active_index = -1
     }
     // 选择标签
     $scope.tag_list_item = function (item) {
@@ -348,7 +379,30 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             }
             $('.tag_input').blur();
             $scope.tag_blur();
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_add_scrollTop.active_index == ($scope.tag_list.length - 1)) {
+                $scope.tag_add_scrollTop.active_index = 0
+            } else {
+                $scope.tag_add_scrollTop.active_index++
+            }
+            $scope.alert_item.tag_list_str = $scope.tag_list[$scope.tag_add_scrollTop.active_index].label_name;
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_add_scrollTop.active_index === 0 || $scope.tag_add_scrollTop.active_index === -1) {
+                $scope.tag_add_scrollTop.active_index = $scope.tag_list.length - 1;
+            } else {
+                $scope.tag_add_scrollTop.active_index--;
+            }
+            $scope.alert_item.tag_list_str = $scope.tag_list[$scope.tag_add_scrollTop.active_index].label_name;
         }
+        var scrollTop = 0;
+        if ($scope.tag_add_scrollTop.listHeight < $scope.tag_add_scrollTop.listItemHeight *
+            ($scope.tag_add_scrollTop.active_index + 1)) {
+            scrollTop = $scope.tag_add_scrollTop.listItemHeight *
+                ($scope.tag_add_scrollTop.active_index + 1) - $scope.tag_add_scrollTop.listHeight;
+        }
+        document.getElementById('tag_add_scrollTop').scrollTop = scrollTop;
     }
     // 发布漏洞情报
     $scope.release = function (id) {
@@ -364,6 +418,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("发布成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 $scope.get_page();
             },
@@ -384,6 +440,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("删除成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 $scope.get_page();
             },
@@ -426,6 +484,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_tag_focus = function () {
         $scope.edit_tag_list_if = true;
         $scope.get_tag_list($scope.edit_item.tag_list_str);
+        $scope.tag_edit_scrollTop.active_index = -1;
     }
     $scope.edit_tag_blur = function () {
         $scope.edit_tag_list_if = false;
@@ -449,7 +508,30 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             }
             $('.tag_input').blur();
             $scope.edit_tag_blur();
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_edit_scrollTop.active_index == ($scope.tag_list.length - 1)) {
+                $scope.tag_edit_scrollTop.active_index = 0
+            } else {
+                $scope.tag_edit_scrollTop.active_index++
+            }
+            $scope.edit_item.tag_list_str = $scope.tag_list[$scope.tag_edit_scrollTop.active_index].label_name;
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_edit_scrollTop.active_index === 0 || $scope.tag_edit_scrollTop.active_index === -1) {
+                $scope.tag_edit_scrollTop.active_index = $scope.tag_list.length - 1;
+            } else {
+                $scope.tag_edit_scrollTop.active_index--;
+            }
+            $scope.edit_item.tag_list_str = $scope.tag_list[$scope.tag_edit_scrollTop.active_index].label_name;
         }
+        var scrollTop = 0;
+        if ($scope.tag_edit_scrollTop.listHeight < $scope.tag_edit_scrollTop.listItemHeight *
+            ($scope.tag_edit_scrollTop.active_index + 1)) {
+            scrollTop = $scope.tag_edit_scrollTop.listItemHeight *
+                ($scope.tag_edit_scrollTop.active_index + 1) - $scope.tag_edit_scrollTop.listHeight;
+        }
+        document.getElementById('tag_edit_scrollTop').scrollTop = scrollTop;
     }
     // 编辑删除标签
     $scope.edit_tag_del = function (name, index) {
@@ -457,6 +539,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.edit_tag_change = function (name) {
         $scope.get_tag_list(name);
+        $scope.tag_edit_scrollTop.active_index = -1;
     }
 
     $scope.edit_sure = function () {
@@ -487,6 +570,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("修改成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 setTimeout(zeroModal.closeAll(), 3000)
                 $scope.get_page();
@@ -501,7 +586,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
 
     $scope.add_source_focus = function () {
         $scope.add_source_list_if = true;
-        $scope.get_loophole_source();
+        $scope.get_loophole_source($scope.alert_item.sourse);
+        $scope.source_add_scrollTop.active_index = -1
     }
     $scope.add_source_list_item = function (item) {
         $scope.alert_item.sourse = item;
@@ -513,19 +599,44 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.add_source_change = function (item) {
         $scope.get_loophole_source(item);
+        $scope.source_add_scrollTop.active_index = -1
     }
     $scope.add_source_mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
         if (keycode == 13) {
             $scope.add_source_list_if = false;
+            $('.tag_input').blur();
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.source_add_scrollTop.active_index == ($scope.loop_source_add.length - 1)) {
+                $scope.source_add_scrollTop.active_index = 0
+            } else {
+                $scope.source_add_scrollTop.active_index++
+            }
+            $scope.alert_item.sourse = $scope.loop_source_add[$scope.source_add_scrollTop.active_index];
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.source_add_scrollTop.active_index === 0 || $scope.source_add_scrollTop.active_index === -1) {
+                $scope.source_add_scrollTop.active_index = $scope.loop_source_add.length - 1;
+            } else {
+                $scope.source_add_scrollTop.active_index--;
+            }
+            $scope.alert_item.sourse = $scope.loop_source_add[$scope.source_add_scrollTop.active_index];
         }
+        var scrollTop = 0;
+        if ($scope.source_add_scrollTop.listHeight < $scope.source_add_scrollTop.listItemHeight *
+            ($scope.source_add_scrollTop.active_index + 1)) {
+            scrollTop = $scope.source_add_scrollTop.listItemHeight *
+                ($scope.source_add_scrollTop.active_index + 1) - $scope.source_add_scrollTop.listHeight;
+        }
+        document.getElementById('source_add_scrollTop').scrollTop = scrollTop;
     }
     // 编辑漏洞来源
 
     $scope.edit_source_focus = function () {
         $scope.edit_source_list_if = true;
         $scope.get_loophole_source();
-        $scope.i = 0;
+        $scope.source_edit_scrollTop.active_index = -1
     }
     $scope.edit_source_list_item = function (item) {
         $scope.edit_item.sourse = item;
@@ -539,23 +650,37 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
 
     $scope.edit_source_change = function (item) {
         $scope.get_loophole_source(item);
+        $scope.source_edit_scrollTop.active_index = -1
     }
     $scope.edit_source_mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
         if (keycode == 13) {
             $scope.edit_source_list_if = false;
+            $('.tag_input').blur();
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.source_edit_scrollTop.active_index == ($scope.loop_source_add.length - 1)) {
+                $scope.source_edit_scrollTop.active_index = 0
+            } else {
+                $scope.source_edit_scrollTop.active_index++
+            }
+            $scope.edit_item.sourse = $scope.loop_source_add[$scope.source_edit_scrollTop.active_index];
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.source_edit_scrollTop.active_index === 0 || $scope.source_edit_scrollTop.active_index === -1) {
+                $scope.source_edit_scrollTop.active_index = $scope.loop_source_add.length - 1;
+            } else {
+                $scope.source_edit_scrollTop.active_index--;
+            }
+            $scope.edit_item.sourse = $scope.loop_source_add[$scope.source_edit_scrollTop.active_index];
         }
-        var arr_length = $scope.loop_source_add.length;
-        // if (keycode == 38) {
-        // $scope.i = arr_length;
-        // $('.edit_source_ul li')[$scope.i].style.backgroundColor = 'green';
-        // $scope.i--;
-        // }
-        // if (keycode == 40) {
-        //     console.log('xia');
-        //     $('.edit_source_ul li')[$scope.i].style.backgroundColor = 'red';
-        //     $scope.i++;
-        // }
+        var scrollTop = 0;
+        if ($scope.source_edit_scrollTop.listHeight < $scope.source_edit_scrollTop.listItemHeight *
+            ($scope.source_edit_scrollTop.active_index + 1)) {
+            scrollTop = $scope.source_edit_scrollTop.listItemHeight *
+                ($scope.source_edit_scrollTop.active_index + 1) - $scope.source_edit_scrollTop.listHeight;
+        }
+        document.getElementById('source_edit_scrollTop').scrollTop = scrollTop;
     }
 
 

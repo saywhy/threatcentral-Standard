@@ -75,6 +75,44 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.toggleCount = 2;
         $scope.toggleStatus = false;
         $scope.get_lab_list()
+        $scope.alert_item = {
+            title: '',
+            level: '高',
+            first_seen_time: '',
+            sourse: '',
+            detail: '',
+            label_id: {
+                exist: [],
+                unexist: []
+            },
+            tag_list: [],
+            add_new_tag: [],
+            tag_list_str: '',
+        }
+        $scope.tag_key_add = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+        $scope.tag_list_scrollTop = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+        $scope.tag_key_edit = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
+        $scope.edit_tag_scrollTop = {
+            active_index: -1,
+            listHeight: 156,
+            listItemHeight: 34,
+            list_length: 0
+        }
     }
     // 初始化时间
     $scope.start_time_picker = function () {
@@ -141,6 +179,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     // 漏洞来源
     $scope.get_loophole_source = function (source) {
+        var loading = zeroModal.loading(4);
         source = source ? source : '';
         $http({
             method: "get",
@@ -150,11 +189,21 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
+                zeroModal.close(loading);
                 $scope.loop_source = [];
                 $scope.loop_source_add = [];
                 angular.forEach(data.data, function (item) {
+                    var obj = {
+                        name: item.sourse,
+                        active: false
+                    }
                     $scope.loop_source.push(item.sourse);
-                    $scope.loop_source_add.push(item.sourse);
+                    $scope.loop_source_add.push(obj);
+                })
+                angular.forEach($scope.loop_source_add, function (item, index) {
+                    if ($scope.alert_item.sourse == item.name) {
+                        $scope.tag_key_add.active_index = 0;
+                    }
                 })
                 $scope.loop_source.push('情报来源');
             },
@@ -163,8 +212,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 获取列表
     $scope.get_page = function (pageNow) {
-        console.log($scope.search_tag_list);
-        console.log($scope.tag_list);
         pageNow = pageNow ? pageNow : 1;
         var loading = zeroModal.loading(4);
         var params_data = {
@@ -272,6 +319,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 setTimeout(zeroModal.closeAll(), 3000)
                 $scope.get_page();
@@ -283,6 +332,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.tag_focus = function () {
         $scope.tag_list_if = true;
         $scope.get_tag_list($scope.alert_item.tag_list_str);
+        $scope.tag_list_scrollTop.active_index = -1
     }
     $scope.tag_blur = function () {
         $scope.tag_list_if = false;
@@ -318,12 +368,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.tag_change = function (name) {
         $scope.get_tag_list(name);
+        $scope.tag_list_scrollTop.active_index = -1
     }
     // 选择标签
     $scope.tag_list_item = function (item) {
         $scope.alert_item.tag_list.push(item.label_name);
         $scope.alert_item.label_id.exist.push(item);
         $scope.tag_list_if = false;
+        $scope.alert_item.tag_list_str = ''
     }
     $scope.tag_blur = function () {
         $scope.tag_list_if = false;
@@ -352,7 +404,31 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
             $('.tag_input').blur();
             $scope.tag_blur();
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_list_scrollTop.active_index == ($scope.tag_list.length - 1)) {
+                $scope.tag_list_scrollTop.active_index = 0
+            } else {
+                $scope.tag_list_scrollTop.active_index++
+            }
+            console.log($scope.tag_list_scrollTop.active_index);
+            $scope.alert_item.tag_list_str = $scope.tag_list[$scope.tag_list_scrollTop.active_index].label_name;
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_list_scrollTop.active_index === 0 || $scope.tag_list_scrollTop.active_index === -1) {
+                $scope.tag_list_scrollTop.active_index = $scope.tag_list.length - 1;
+            } else {
+                $scope.tag_list_scrollTop.active_index--;
+            }
+            $scope.alert_item.tag_list_str = $scope.tag_list[$scope.tag_list_scrollTop.active_index].label_name;
         }
+        var scrollTop = 0;
+        if ($scope.tag_list_scrollTop.listHeight < $scope.tag_list_scrollTop.listItemHeight *
+            ($scope.tag_list_scrollTop.active_index + 1)) {
+            scrollTop = $scope.tag_list_scrollTop.listItemHeight *
+                ($scope.tag_list_scrollTop.active_index + 1) - $scope.tag_list_scrollTop.listHeight;
+        }
+        document.getElementById('tag_list_scrollTop').scrollTop = scrollTop;
     }
     // 发布漏洞情报
     $scope.release = function (id) {
@@ -368,6 +444,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("发布成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 $scope.get_page();
             },
@@ -388,6 +466,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("删除成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 $scope.get_page();
             },
@@ -430,6 +510,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_tag_focus = function () {
         $scope.edit_tag_list_if = true;
         $scope.get_tag_list($scope.edit_item.tag_list_str);
+        $scope.edit_tag_scrollTop.active_index = -1;
     }
     $scope.edit_tag_blur = function () {
         $scope.edit_tag_list_if = false;
@@ -442,6 +523,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_tag_list_item = function (item) {
         $scope.edit_item.tag_list.push(item.label_name);
         $scope.edit_tag_list_if = false;
+        $scope.edit_item.tag_list_str = '';
     }
     $scope.edit_mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
@@ -452,7 +534,31 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
             $('.tag_input').blur();
             $scope.edit_tag_blur();
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.edit_tag_scrollTop.active_index == ($scope.tag_list.length - 1)) {
+                $scope.edit_tag_scrollTop.active_index = 0
+            } else {
+                $scope.edit_tag_scrollTop.active_index++
+            }
+            console.log($scope.edit_tag_scrollTop.active_index);
+            $scope.edit_item.tag_list_str = $scope.tag_list[$scope.edit_tag_scrollTop.active_index].label_name;
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.edit_tag_scrollTop.active_index === 0 || $scope.edit_tag_scrollTop.active_index === -1) {
+                $scope.edit_tag_scrollTop.active_index = $scope.tag_list.length - 1;
+            } else {
+                $scope.edit_tag_scrollTop.active_index--;
+            }
+            $scope.edit_item.tag_list_str = $scope.tag_list[$scope.edit_tag_scrollTop.active_index].label_name;
         }
+        var scrollTop = 0;
+        if ($scope.edit_tag_scrollTop.listHeight < $scope.edit_tag_scrollTop.listItemHeight *
+            ($scope.edit_tag_scrollTop.active_index + 1)) {
+            scrollTop = $scope.edit_tag_scrollTop.listItemHeight *
+                ($scope.edit_tag_scrollTop.active_index + 1) - $scope.edit_tag_scrollTop.listHeight;
+        }
+        document.getElementById('edit_tag_scrollTop').scrollTop = scrollTop;
     }
     // 编辑删除标签
     $scope.edit_tag_del = function (name, index) {
@@ -460,6 +566,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.edit_tag_change = function (name) {
         $scope.get_tag_list(name);
+        $scope.edit_tag_scrollTop.active_index = -1;
     }
 
     $scope.edit_sure = function () {
@@ -491,6 +598,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("修改成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 setTimeout(zeroModal.closeAll(), 3000)
                 $scope.get_page();
@@ -504,9 +613,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     $scope.add_source_focus = function () {
         $scope.add_source_list_if = true;
-        $scope.get_loophole_source();
+        $scope.get_loophole_source($scope.alert_item.sourse);
+        $scope.tag_key_add.active_index = -1;
     }
-    $scope.add_source_list_item = function (item) {
+    $scope.add_source_list_item = function (item, index) {
         $scope.alert_item.sourse = item;
         console.log(item);
         $scope.add_source_list_if = false;
@@ -515,19 +625,47 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.add_source_list_if = false;
     }
     $scope.add_source_change = function (item) {
+        $scope.tag_key_add.active_index = -1;
         $scope.get_loophole_source(item);
     }
     $scope.add_source_mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
         if (keycode == 13) {
+            $('#tag_source').blur();
             $scope.add_source_list_if = false;
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_key_add.active_index == ($scope.loop_source_add.length - 1)) {
+                $scope.tag_key_add.active_index = 0
+            } else {
+                $scope.tag_key_add.active_index++
+            }
+            console.log($scope.tag_key_add.active_index);
+            $scope.alert_item.sourse = $scope.loop_source_add[$scope.tag_key_add.active_index].name;
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_key_add.active_index === 0 || $scope.tag_key_add.active_index === -1) {
+                $scope.tag_key_add.active_index = $scope.loop_source_add.length - 1;
+            } else {
+                $scope.tag_key_add.active_index--;
+            }
+            $scope.alert_item.sourse = $scope.loop_source_add[$scope.tag_key_add.active_index].name;
         }
+        var scrollTop = 0;
+        if ($scope.tag_key_add.listHeight < $scope.tag_key_add.listItemHeight *
+            ($scope.tag_key_add.active_index + 1)) {
+            scrollTop = $scope.tag_key_add.listItemHeight *
+                ($scope.tag_key_add.active_index + 1) - $scope.tag_key_add.listHeight;
+        }
+        document.getElementById('add_tag_list').scrollTop = scrollTop;
+
     }
     // 编辑漏洞来源
 
-    $scope.edit_source_focus = function () {
+    $scope.edit_source_focus = function (name) {
         $scope.edit_source_list_if = true;
-        $scope.get_loophole_source();
+        $scope.get_loophole_source(name);
+        $scope.tag_key_edit.active_index = -1;
     }
     $scope.edit_source_list_item = function (item) {
         $scope.edit_item.sourse = item;
@@ -538,12 +676,37 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.edit_source_change = function (item) {
         $scope.get_loophole_source(item);
+        $scope.tag_key_edit.active_index = -1;
     }
     $scope.edit_source_mykey = function (e) {
         var keycode = window.event ? e.keyCode : e.which; //获取按键编码
         if (keycode == 13) {
             $scope.edit_source_list_if = false;
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_key_edit.active_index == ($scope.loop_source_add.length - 1)) {
+                $scope.tag_key_edit.active_index = 0
+            } else {
+                $scope.tag_key_edit.active_index++
+            }
+            console.log($scope.tag_key_edit.active_index);
+            $scope.edit_item.sourse = $scope.loop_source_add[$scope.tag_key_edit.active_index].name;
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_key_edit.active_index === 0 || $scope.tag_key_edit.active_index === -1) {
+                $scope.tag_key_edit.active_index = $scope.loop_source_add.length - 1;
+            } else {
+                $scope.tag_key_edit.active_index--;
+            }
+            $scope.edit_item.sourse = $scope.loop_source_add[$scope.tag_key_edit.active_index].name;
         }
+        var scrollTop = 0;
+        if ($scope.tag_key_edit.listHeight < $scope.tag_key_edit.listItemHeight *
+            ($scope.tag_key_edit.active_index + 1)) {
+            scrollTop = $scope.tag_key_edit.listItemHeight *
+                ($scope.tag_key_edit.active_index + 1) - $scope.tag_key_edit.listHeight;
+        }
+        document.getElementById('loop_source_add').scrollTop = scrollTop;
     }
 
 

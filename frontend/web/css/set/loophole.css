@@ -531,3 +531,12 @@ select {
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
+
+.add_bg {
+    background: #E0EEFF;
+}
+
+.lab_item_icon {
+    float: right;
+    margin-top: 10px;
+}

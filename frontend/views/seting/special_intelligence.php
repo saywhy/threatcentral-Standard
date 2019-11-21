@@ -143,15 +143,18 @@ $this->title = '行业情报管理';
                 <div class="flex_item">
                     <p class="alert_name">情报来源</p>
                     <div class="tag_add_box">
-                        <input class="tag_input" ng-model="alert_item.sourse" placeholder="请选择来源或按enter键添加新来源"
+                    <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
+                        <input class="tag_input" id="tag_source"
+                        ng-model="alert_item.sourse" placeholder="请选择来源或按enter键添加新来源"
                             ng-keyup="add_source_mykey($event)" ng-focus="add_source_focus()"
                             ng-change="add_source_change(alert_item.sourse)"
                             ng-blur="add_source_blur();$event.stopPropagation();" type="text">
                     </div>
-                    <ul class="tag_list_box" ng-if="add_source_list_if">
-                        <li ng-mousedown="add_source_list_item(item);$event.stopPropagation();"
+                    <ul class="tag_list_box" ng-if="add_source_list_if" id="add_tag_list" >
+                        <li ng-mousedown="add_source_list_item(item.name,$index);"
+                        ng-class="{'add_bg':tag_key_add.active_index == $index}"
                             ng-repeat="item in loop_source_add track by $index">
-                            {{item}}
+                            {{item.name}}
                         </li>
                     </ul>
                 </div>
@@ -163,6 +166,7 @@ $this->title = '行业情报管理';
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
+                  <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                 <div class="tag_add_box">
                     <ul class="tag_box_ul" ng-if="alert_item.tag_list.length!=0">
                         <li ng-repeat="item in alert_item.tag_list track by $index">
@@ -170,12 +174,15 @@ $this->title = '行业情报管理';
                             <img src="/images/set/tag_del.png" alt="" class="tag_icon" ng-click="tag_del(item,$index)">
                         </li>
                     </ul>
-                    <input class="tag_input" placeholder="请输入标签，按enter键添加新标签" ng-keyup="mykey($event)"
+                    <input class="tag_input" placeholder="请输入标签，按enter键添加新标签"
+                     ng-keyup="mykey($event)"
                         ng-focus="tag_focus()" ng-change="tag_change(alert_item.tag_list_str)" ng-blur="tag_blur()"
                         type="text" ng-model="alert_item.tag_list_str">
                 </div>
-                <ul class="tag_list_box" ng-if="tag_list_if">
-                    <li ng-mousedown="tag_list_item(item)" ng-repeat="item in tag_list track by $index">
+                <ul class="tag_list_box" ng-if="tag_list_if" id="tag_list_scrollTop">
+                    <li ng-mousedown="tag_list_item(item,$index)"
+                     ng-class="{'add_bg':tag_list_scrollTop.active_index == $index}"
+                     ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>
@@ -208,15 +215,17 @@ $this->title = '行业情报管理';
                 </div>
                 <div class="flex_item">
                     <p class="alert_name">情报来源</p>
+                      <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <div class="tag_add_box">
                         <input class="tag_input" ng-model="edit_item.sourse" placeholder="请选择来源或按enter键添加新来源"
-                            ng-keyup="edit_source_mykey($event)" ng-focus="edit_source_focus()"
+                            ng-keyup="edit_source_mykey($event)" ng-focus="edit_source_focus(edit_item.sourse)"
                             ng-change="edit_source_change(edit_item.sourse)" ng-blur="edit_source_blur()" type="text">
                     </div>
-                    <ul class="tag_list_box" ng-if="edit_source_list_if">
-                        <li ng-mousedown="edit_source_list_item(item)"
+                    <ul class="tag_list_box" ng-if="edit_source_list_if" id="loop_source_add">
+                        <li ng-mousedown="edit_source_list_item(item.name,$index)"
+                             ng-class="{'add_bg':tag_key_edit.active_index == $index}"
                             ng-repeat="item in loop_source_add track by $index">
-                            {{item}}
+                            {{item.name}}
                         </li>
                     </ul>
                 </div>
@@ -227,6 +236,7 @@ $this->title = '行业情报管理';
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
+                  <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                 <div class="tag_add_box">
                     <ul class="tag_box_ul" ng-if="edit_item.tag_list.length!=0">
                         <li ng-repeat="item in edit_item.tag_list track by $index">
@@ -239,8 +249,10 @@ $this->title = '行业情报管理';
                         ng-focus="edit_tag_focus()" ng-change="edit_tag_change(edit_item.tag_list_str)"
                         ng-blur="edit_tag_blur()" type="text" ng-model="edit_item.tag_list_str">
                 </div>
-                <ul class="tag_list_box" ng-if="edit_tag_list_if">
-                    <li ng-mousedown="edit_tag_list_item(item)" ng-repeat="item in tag_list track by $index">
+                <ul class="tag_list_box" ng-if="edit_tag_list_if" id="edit_tag_scrollTop">
+                    <li ng-mousedown="edit_tag_list_item(item,$index)"
+                       ng-class="{'add_bg':edit_tag_scrollTop.active_index == $index}"
+                        ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>

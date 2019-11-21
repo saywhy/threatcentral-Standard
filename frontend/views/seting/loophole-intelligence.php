@@ -142,12 +142,14 @@ $this->title = '漏洞情报管理';
                 <div class="flex_item">
                     <p class="alert_name">漏洞来源</p>
                         <div class="tag_add_box">
+                             <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                         <input class="tag_input" ng-model="alert_item.sourse" placeholder="请选择来源或按enter键添加新来源" ng-keyup="add_source_mykey($event)"
                             ng-focus="add_source_focus()" ng-change="add_source_change(alert_item.sourse)"
                             ng-blur="add_source_blur();$event.stopPropagation();" type="text" >
                     </div>
-                    <ul class="tag_list_box" ng-if="add_source_list_if">
+                    <ul class="tag_list_box" ng-if="add_source_list_if" id="source_add_scrollTop">
                         <li ng-mousedown="add_source_list_item(item);$event.stopPropagation();"
+                             ng-class="{'add_bg':source_add_scrollTop.active_index == $index}"
                         ng-repeat="item in loop_source_add track by $index">
                             {{item}}
                         </li>
@@ -163,6 +165,7 @@ $this->title = '漏洞情报管理';
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
                 <div class="tag_add_box">
+                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <ul class="tag_box_ul" ng-if="alert_item.tag_list.length!=0">
                         <li ng-repeat="item in alert_item.tag_list track by $index">
                             <span>{{item}}</span>
@@ -173,8 +176,10 @@ $this->title = '漏洞情报管理';
                         ng-focus="tag_focus()" ng-change="tag_change(alert_item.tag_list_str)" ng-blur="tag_blur()"
                         type="text" ng-model="alert_item.tag_list_str">
                 </div>
-                <ul class="tag_list_box" ng-if="tag_list_if">
-                    <li ng-mousedown="tag_list_item(item)" ng-repeat="item in tag_list track by $index">
+                <ul class="tag_list_box" ng-if="tag_list_if" id="tag_add_scrollTop">
+                    <li ng-mousedown="tag_list_item(item)"
+                      ng-class="{'add_bg':tag_add_scrollTop.active_index == $index}"
+                    ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>
@@ -208,12 +213,14 @@ $this->title = '漏洞情报管理';
                 <div class="flex_item">
                     <p class="alert_name">漏洞来源</p>
                      <div class="tag_add_box">
+                          <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                         <input class="tag_input" ng-model="edit_item.sourse" placeholder="请选择来源或按enter键添加新来源" ng-keyup="edit_source_mykey($event)"
                             ng-focus="edit_source_focus()" ng-change="edit_source_change(edit_item.sourse)"
                             ng-blur="edit_source_blur()" type="text" >
                     </div>
-                    <ul class="tag_list_box edit_source_ul" ng-if="edit_source_list_if">
+                    <ul class="tag_list_box edit_source_ul" ng-if="edit_source_list_if" id="source_edit_scrollTop">
                         <li ng-mousedown="edit_source_list_item(item)"
+                           ng-class="{'add_bg':source_edit_scrollTop.active_index == $index}"
                                 ng-repeat="item in loop_source_add track by $index">
                             {{item}}
                         </li>
@@ -227,6 +234,7 @@ $this->title = '漏洞情报管理';
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
                 <div class="tag_add_box">
+                     <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <ul class="tag_box_ul" ng-if="edit_item.tag_list.length!=0">
                         <li ng-repeat="item in edit_item.tag_list track by $index">
                             <span>{{item}}</span>
@@ -238,8 +246,10 @@ $this->title = '漏洞情报管理';
                         ng-focus="edit_tag_focus()" ng-change="edit_tag_change(edit_item.tag_list_str)"
                         ng-blur="edit_tag_blur()" type="text" ng-model="edit_item.tag_list_str">
                 </div>
-                <ul class="tag_list_box" ng-if="edit_tag_list_if">
-                    <li ng-mousedown="edit_tag_list_item(item)" ng-repeat="item in tag_list track by $index">
+                <ul class="tag_list_box" ng-if="edit_tag_list_if" id="tag_edit_scrollTop">
+                    <li ng-mousedown="edit_tag_list_item(item)"
+                       ng-class="{'add_bg':tag_edit_scrollTop.active_index == $index}"
+                       ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>
