@@ -126,10 +126,9 @@ $this->title = '情报查询';
         height: 120px;
         border-bottom: 1px solid #ececec;
         padding: 36px;
-
     }
 
-    .info_top_box {}
+
 
     .info_top_input {
         background: #FFFFFF;
@@ -281,6 +280,67 @@ $this->title = '情报查询';
     background: #ececec;
     color: #fff;
     }
+
+    /********************/
+    .info_top_exp{
+        position:absolute;
+        right:50px;
+        top:35px;
+        color: #0070ff;
+        font-size: 16px;
+        width: 124px;
+        height: 48px;
+        border: 1px solid #0070ff;
+        border-radius: 4px;
+    }
+
+    .label_box_mid_input {
+        padding-left: 36px;
+        font-size: 14px;
+        color: #333;
+        border: 1px solid #ececec;
+        border-radius: 4px;
+        width: 480px;
+        height: 42px;
+    }
+
+    .search_icon {
+        position: absolute;
+        left: 48px;
+        top: 48%;
+        transform: translateY(-50%);
+    }
+
+    .vehicle_search_select {
+       border: 1px solid #ECECEC;
+       border-radius: 4px;
+       height: 42px;
+       width: 120px;
+       padding-left: 5px;
+       margin-right: 12px;
+       font-size: 14px;
+       margin-left: 12px;
+    }
+
+    .label_box_mid_button_left {
+        margin-left: 36px;
+        color: #fff;
+        font-size: 16px;
+        width: 124px;
+        height: 42px;
+        background: #0070ff;
+        border-radius: 4px;
+        vertical-align: top;
+    }
+    .label_box_mid_button_right {
+        float: right;
+        color: #0070ff;
+        font-size: 16px;
+        width: 124px;
+        height: 42px;
+        border: 1px solid #0070ff;
+        border-radius: 4px;
+    }
 </style>
 <section ng-app="myApp" ng-controller="searchCtrl" ng-cloak>
     <div class="search_container">
@@ -396,14 +456,27 @@ $this->title = '情报查询';
                     </div>
                 </div>
                 <div id="loophole" class="tab-pane" ng-class="!tab_active?'active':''">
-                    <div class="info_top" style="border-bottom:0;">
+                    <div class="info_top" style="position:relative;">
                         <div class="info_top_box">
                             <input class="info_top_input" placeholder="请输入漏洞名称" ng-model="loophole_search" type="text">
                             <button class="info_top_btn" ng-click="loophole_get()">
                                 <img src="/images/search/search.png" alt="">
                             </button>
                         </div>
+                        <button class="info_top_exp" ng-click="reputation_exp()">一键导出</button>
                     </div>
+
+                    <!--<div class="info_top" style="position:relative;border-bottom: 1px solid #ececec;">
+                         <input class="label_box_mid_input" placeholder="请输入漏洞名称" type="text" ng-model="loophole_search">
+                         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
+
+                         <select class="vehicle_search_select source_input" ng-model="level"
+                            ng-options="x.num as x.status for x in custom_level">
+                         </select>
+                         <button class="label_box_mid_button_left" ng-click="loophole_get();">搜索</button>
+                         <button class="info_top_exp" ng-click="reputation_exp()">一键导出</button>
+                    </div>-->
+
                     <div class="loophole_contarner" style="padding-bottom: 20px;">
                         <table class="table ng-cloak domain_table">
                             <tr>

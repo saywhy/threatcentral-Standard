@@ -31,6 +31,25 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
             }
         };
 
+        $scope.level = '';
+        //漏洞级别
+        $scope.custom_level = [{
+            num: '',
+            status: '漏洞级别'
+        },
+            {
+                num: '高',
+                status: '高'
+            },
+            {
+                num: '中',
+                status: '中'
+            },
+            {
+                num: '低',
+                status: '低'
+            }];
+
         $scope.custom_edit_data = {};
         $scope.custom_list_get(1);
         $scope.loophole_get(1);
@@ -338,7 +357,8 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
             params: {
                 indicator: $scope.loophole_search,
                 rows: 10,
-                page: page
+                page: page,
+                //level:$scope.level
             }
         }).then(
             function (data) {
@@ -368,6 +388,12 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
         );
         // }
     };
+
+    //一键导出
+    $scope.reputation_exp = function(){
+        window.open('https://47.105.196.251:8443/intelligence/export-loophole');
+    }
+
     $scope.go_loophole_detail = function (html) {
         // localStorage.setItem("loop_detail_data", html);
         $scope.html_content = html;
