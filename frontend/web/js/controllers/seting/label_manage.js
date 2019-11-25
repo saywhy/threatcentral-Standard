@@ -255,7 +255,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     $scope.lab_change_func = function() {
 
         $scope.label.active_index = 0;
-        var loading = zeroModal.loading(5);
+       // var loading = zeroModal.loading(5);
 
         $http({
             method: "get",
@@ -265,7 +265,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             }
         }).then(function successCallback(resp) {
 
-                zeroModal.close(loading);
+               // zeroModal.close(loading);
 
                 let cate = resp.data.data;
 
@@ -588,7 +588,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     $scope.cate_change_func = function () {
 
         $scope.category.active_index = 0;
-        var loading = zeroModal.loading(5);
+       // var loading = zeroModal.loading(5);
 
         $http({
             method: "get",
@@ -598,7 +598,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             }
         }).then(function successCallback(resp) {
 
-                zeroModal.close(loading);
+                //zeroModal.close(loading);
 
                 let cate = resp.data.data;
 
