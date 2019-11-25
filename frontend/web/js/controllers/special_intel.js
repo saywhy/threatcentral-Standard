@@ -179,7 +179,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     // 漏洞来源
     $scope.get_loophole_source = function (source) {
-        var loading = zeroModal.loading(4);
         source = source ? source : '';
         $http({
             method: "get",
@@ -189,7 +188,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                zeroModal.close(loading);
                 $scope.loop_source = [];
                 $scope.loop_source_add = [];
                 angular.forEach(data.data, function (item) {

@@ -504,7 +504,7 @@ $this->title = '情报查询';
                                 </td>
                                 <td>
                                 <span ng-click="loophole_detail(item)">
-                                {{item.first_seen | date : 'yyyy-MM-dd HH:mm'}}
+                                {{item.createdAt}}
                                 </span>
                                 </td>
                                 <td ng-click="loop_download();$event.stopPropagation();">
