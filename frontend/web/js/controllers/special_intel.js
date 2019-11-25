@@ -317,6 +317,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
+                    $scope.get_tag_list();
+                    $scope.get_lab_list()
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
@@ -596,6 +598,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("修改成功");
+                    $scope.get_tag_list();
+                    $scope.get_lab_list()
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
