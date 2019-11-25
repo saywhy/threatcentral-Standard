@@ -488,16 +488,25 @@ $this->title = '情报查询';
                                 <th  style="width: 210px;">下载导出</th>
                             </tr>
                             <tr style="cursor: pointer;" ng-repeat="item in loophole_res.data.result"
-                                ng-click="loophole_detail(item)">
+                                >
                                 <td title="{{item.id}}" class="loop_id">
-                                    <span>{{item.id}}</span>
+                                    <span ng-click="loophole_detail(item)">{{item.id}}</span>
                                 </td>
-                                <td title="{{item.title}}">{{item.title}}</td>
+                                <td title="{{item.title}}">
+                                <span ng-click="loophole_detail(item)">{{item.title}}</span>
+                                </td>
                                 <td title="{{item.degree}}"
                                     ng-class="{high_color:item.degree=='高',mid_color:item.degree=='中',low_color:item.degree=='低'}">
-                                    {{item.degree}}</td>
-                                <td title="{{item.count}}">{{item.count}}</td>
-                                <td>{{item.first_seen | date : 'yyyy-MM-dd HH:mm'}}</td>
+                                           <span ng-click="loophole_detail(item)">{{item.degree}}</span>
+                                    </td>
+                                <td title="{{item.count}}">
+                                  <span ng-click="loophole_detail(item)">{{item.count}}</span>
+                                </td>
+                                <td>
+                                <span ng-click="loophole_detail(item)">
+                                {{item.first_seen | date : 'yyyy-MM-dd HH:mm'}}
+                                </span>
+                                </td>
                                 <td ng-click="loop_download();$event.stopPropagation();">
                                     <button ng-class="item.poc==''?'poc_btn':''" class="btn_download"
                                     ng-click="download_poc(item.poc);$event.stopPropagation();">下载POC</button>
@@ -508,7 +517,6 @@ $this->title = '情报查询';
                         </table>
                         <div style="border-top: 1px solid #f4f4f4;padding: 10px;">
                             <em>共有<span ng-bind="loophole_res.count"></span>条漏洞</em>
-                            <!-- angularjs分页 -->
                             <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
                                 <li><a href="javascript:void(0);" ng-click="loophole_get(loophole_res.pageNow-1)"
                                         ng-if="loophole_res.pageNow>1">上一页</a></li>
