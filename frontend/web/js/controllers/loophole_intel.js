@@ -702,6 +702,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                     angular.forEach(result, function (key, value) {
                         if (value === '' || value === null) {
                             value = '未分类标签';
+                        } else {
+                            value = value.substring(0, value.length - 10);
                         }
                         labelAttr.push({
                             name: value,

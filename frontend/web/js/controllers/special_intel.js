@@ -724,8 +724,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     let result = JSON.parse(resp.data);
                     let labelAttr = [];
                     angular.forEach(result, function (key, value) {
-                        if (value === '' || value === null) {
+                        if (value == '' || value === null) {
                             value = '未分类标签';
+                        } else {
+                            value = value.substring(0, value.length - 10);
                         }
                         labelAttr.push({
                             name: value,
@@ -735,8 +737,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     });
                     $scope.label_data = labelAttr;
                     console.log($scope.label_data);
-
-
                 }
             },
             function () {}
