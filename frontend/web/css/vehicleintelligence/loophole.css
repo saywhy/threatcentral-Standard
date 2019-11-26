@@ -227,6 +227,7 @@ button:active {
 .search_country .search_country_item .lists{
     flex: 1;
     padding: 9px 0;
+    word-break: break-all;
 }
 
 .search_country .search_country_item .lists .item{

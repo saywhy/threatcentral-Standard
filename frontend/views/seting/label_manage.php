@@ -106,10 +106,13 @@ $this->title = '标签管理';
         <div id="cate_edit">
             <div class="cate_top">
                 <p class="cate_name">标签类别名称<span class="cate_tab">*</span></p>
-                <div class="cate_item">
+            <!--<div class="cate_item">
                     <input type="text" class="cate_mid_name" placeholder="下拉选择或直接输入"  ng-model="category.name"
                       ng-keyup="cate_key_func($event);" ng-click="cate_click_open();"
                       ng-change="cate_change_func();" ng-blur="category.status = false;">
+                </div>-->
+                <div class="cate_item">
+                    <input type="text" class="cate_mid_name" placeholder="请输入标签类别"  ng-model="category.name">
                 </div>
                 <ul class="cate_top_list" id="cate_top_list" ng-show="category.status">
                    <li class="item" ng-class="{'active':category.active_index == $index}" ng-repeat="item in category.lists"

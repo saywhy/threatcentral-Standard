@@ -674,7 +674,8 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             $scope.category.name == null) {
 
             zeroModal.alert("标签类别不能为空。");
-        }else {
+
+        } else {
 
             var loading = zeroModal.loading(5);
 
@@ -689,19 +690,20 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     zeroModal.close(loading);
 
-                    if(resp.status == 200){
-
-                        zeroModal.closeAll();
-
+                    if(resp.data.status == 'success'){
                         //更新列表
                         $scope.get_label_list();
+
+                        zeroModal.closeAll();
+                    }
+                    else if (resp.data.status == "fail") {
+
+                        zeroModal.error(resp.data.errorMessage);
                     }
                 },
                 function errorCallback(data) {}
             );
         }
-
-
     };
 
     //编辑标签类别取消点击
@@ -810,12 +812,18 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                     let labelAttr = [];
 
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
-                        labelAttr.push({name:value,label:key,status:true});
+
+                        if(value != ''){
+                            labelAttr.push({name: value.substring(0,value.length-10),label:key,status:true});
+                        }else {
+                            labelAttr.push({name: value,label:key,status:true});
+                        }
+
                     });
 
                     $scope.label_data = labelAttr;
 
-                   //console.log(labelAttr);
+                    //console.log(labelAttr);
                 }
             },
             function errorCallback(data) {}

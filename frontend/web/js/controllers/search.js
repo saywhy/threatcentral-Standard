@@ -391,8 +391,9 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
 
     //一键导出
     $scope.reputation_exp = function(){
-        window.open('https://47.105.196.251:8443/intelligence/export-loophole');
+        window.open('/intelligence/export-loophole');
     }
+
 
     $scope.go_loophole_detail = function (html) {
         // localStorage.setItem("loop_detail_data", html);

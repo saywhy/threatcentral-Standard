@@ -113,9 +113,13 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
                     let labelAttr = [];
 
+
                     angular.forEach(result, function (key,value) {
+
                         if(value === '' || value === null){
                             value = '未分类标签';
+                        }else {
+                            value = value.substring(0,value.length - 10);
                         }
                         labelAttr.push({name:value,label:key,label_attr_id:[]});
                     });
