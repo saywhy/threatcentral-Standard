@@ -454,18 +454,20 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_loop_box = function (item) {
         $scope.picker_edit(moment(new Date(item.first_seen_time * 1000)));
         console.log(item);
+        var item_str = JSON.stringify(item);
+        var item_obj = JSON.parse(item_str)
         $scope.edit_time = item.first_seen_time;
         $scope.edit_item = {
-            id: item.id,
-            title: item.title,
-            level: item.level,
-            first_seen_time: item.first_seen_time,
-            sourse: item.sourse,
-            detail: item.detail,
-            label_name: item.label_name,
-            tag_list: item.label_name,
+            id: item_obj.id,
+            title: item_obj.title,
+            level: item_obj.level,
+            first_seen_time: item_obj.first_seen_time,
+            sourse: item_obj.sourse,
+            detail: item_obj.detail,
+            label_name: item_obj.label_name,
+            tag_list: item_obj.label_name,
             tag_list_str: '',
-            status: item.status
+            status: item_obj.status
         }
         var W = 828;
         var H = 550;
@@ -644,14 +646,11 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     $scope.edit_source_list_item = function (item) {
         $scope.edit_item.sourse = item;
-        console.log(item);
         $scope.edit_source_list_if = false;
     }
     $scope.edit_source_blur = function () {
         $scope.edit_source_list_if = false;
     }
-
-
     $scope.edit_source_change = function (item) {
         $scope.get_loophole_source(item);
         $scope.source_edit_scrollTop.active_index = -1

@@ -340,7 +340,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             return false;
         }
         $scope.alert_item.tag_list_str = '';
-
     }
     // 获取标签列表
     $scope.get_tag_list = function (name) {
@@ -477,19 +476,21 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
         $scope.picker_edit(moment(new Date(item.first_seen_time * 1000)));
+        var item_str = JSON.stringify(item);
+        var item_obj = JSON.parse(item_str)
         console.log(item);
-        $scope.edit_time = item.first_seen_time;
+        $scope.edit_time = item_obj.first_seen_time;
         $scope.edit_item = {
-            id: item.id,
-            title: item.title,
-            level: item.level,
-            first_seen_time: item.first_seen_time,
-            sourse: item.sourse,
-            detail: item.detail,
-            label_name: item.label_name,
-            tag_list: item.label_name,
+            id: item_obj.id,
+            title: item_obj.title,
+            level: item_obj.level,
+            first_seen_time: item_obj.first_seen_time,
+            sourse: item_obj.sourse,
+            detail: item_obj.detail,
+            label_name: item_obj.label_name,
+            tag_list: item_obj.label_name,
             tag_list_str: '',
-            status: item.status
+            status: item_obj.status
         }
         var W = 828;
         var H = 550;
