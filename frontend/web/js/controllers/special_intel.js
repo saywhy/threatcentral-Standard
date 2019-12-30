@@ -69,6 +69,18 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.edit_source_list_if = false;
 
         $scope.label_data = [];
+        //------
+        $scope.pop_show = {
+            add: false,
+            edit: false,
+            add_level_list: false,
+            add_tag_category: false,
+            add_tag_name: false,
+            add_NVD_list: false,
+            add_source_list: false,
+        }
+
+        //=---------
         //前端选中标签展示列表
         $scope.label_checked_list = [];
         //展开\折叠更多
@@ -127,7 +139,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
+                    format: "YYYY-MM-DD HH:mm"
                 }
             },
             function (start, end, label) {
@@ -211,7 +223,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     // 获取列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;
-        var loading = zeroModal.loading(4);
+        // var loading = zeroModal.loading(4);
         var params_data = {
             source: '',
             label_id: [],
@@ -238,7 +250,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                zeroModal.close(loading);
+                // zeroModal.close(loading);
                 $scope.pages = data.data;
             },
             function () {}
@@ -247,9 +259,23 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     // 情报录入-弹窗
     $scope.add_loop_box = function (item) {
-        $scope.alert_item = {
+        $scope.pop_show.add = true;
+        $scope.add_item = {
             title: '',
-            level: '高',
+            level: '',
+            level_list: [{
+                    name: '高危',
+                    num: '高危'
+                },
+                {
+                    name: '中危',
+                    num: '中危'
+                },
+                {
+                    name: '低危',
+                    num: '低危'
+                },
+            ],
             first_seen_time: '',
             sourse: '',
             detail: '',
@@ -261,24 +287,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             add_new_tag: [],
             tag_list_str: '',
         }
-        var W = 828;
-        var H = 550;
-        zeroModal.show({
-            title: "情报录入",
-            content: alert_time,
-            width: W + "px",
-            height: H + "px",
-            ok: false,
-            cancel: false,
-            okFn: function () {},
-            onCleanup: function () {
-                alert_time_box.appendChild(alert_time);
-            }
-        });
     };
     //   取消弹窗
     $scope.add_cancel = function () {
-        zeroModal.closeAll();
+        $scope.pop_show.add = false;
     };
     // 添加漏洞情报
     $scope.add_sure = function () {
@@ -297,7 +309,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             zeroModal.error('请输入标题')
             return false
         }
-        var loading = zeroModal.loading(4);
+        // var loading = zeroModal.loading(4);
         $http({
             method: "post",
             url: "/seting/special-intelligence-add",
@@ -314,7 +326,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                zeroModal.close(loading);
+                // zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
                     $scope.get_tag_list();
@@ -431,7 +443,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 发布漏洞情报
     $scope.release = function (id) {
-        var loading = zeroModal.loading(4);
+        // var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
@@ -440,7 +452,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                zeroModal.close(loading);
+                // zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("发布成功");
                 } else {
@@ -453,7 +465,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 删除漏洞情报
     $scope.delete = function (id) {
-        var loading = zeroModal.loading(4);
+        // var loading = zeroModal.loading(4);
         $http({
             method: "delete",
             url: "/seting/special-intelligence-del",
@@ -462,7 +474,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                zeroModal.close(loading);
+                // zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("删除成功");
                 } else {
@@ -580,7 +592,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             zeroModal.error('请输入标题')
             return false
         }
-        var loading = zeroModal.loading(4);
+        // var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-edit",
@@ -596,7 +608,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                zeroModal.close(loading);
+                // zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("修改成功");
                     $scope.get_tag_list();
@@ -612,21 +624,89 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     }
 
-    // 添加漏洞来源
-
-    $scope.add_source_focus = function () {
-        $scope.add_source_list_if = true;
-        $scope.get_loophole_source($scope.alert_item.sourse);
-        $scope.tag_key_add.active_index = -1;
+    // 录入情报来源
+    // add_level_list: false,
+    //    add_tag_category: false,
+    //        add_tag_name: false,
+    //        add_NVD_list: false,
+    //        add_source_list: false,
+    //获取焦点
+    $scope.add_focus = function (name) {
+        switch (name) {
+            case 'level':
+                $scope.pop_show.add_level_list = true;
+                break;
+            case 'tag_category':
+                $scope.pop_show.add_tag_category = true;
+                break;
+            case 'tag_name':
+                $scope.pop_show.add_tag_name = true;
+                break;
+            case 'NVD':
+                $scope.pop_show.add_NVD_list = true;
+                break;
+            case 'source':
+                $scope.pop_show.add_source_list = true;
+                break;
+            default:
+                break;
+        }
     }
+    // 失去焦点
+    $scope.add_blur = function (name) {
+        switch (name) {
+            case 'level':
+                $scope.pop_show.add_level_list = false;
+                break;
+            case 'tag_category':
+                $scope.pop_show.add_tag_category = false;
+                break;
+            case 'tag_name':
+                $scope.pop_show.add_tag_name = false;
+                break;
+            case 'NVD':
+                $scope.pop_show.add_NVD_list = false;
+                break;
+            case 'source':
+                $scope.pop_show.add_source_list = false;
+                break;
+            default:
+                break;
+        }
+
+    }
+    // 选择列表
+    $scope.choose_item = function (data, index, name) {
+        switch (name) {
+            case 'level':
+                $scope.add_item.level = data;
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    // 获取情报来源焦点
+    $scope.add_source_focus = function () {
+        $scope.pop_show.add_source_list = true;
+        // $scope.get_loophole_source($scope.alert_item.sourse);
+        // $scope.tag_key_add.active_index = -1;
+    }
+    //  失去焦点
+    $scope.add_source_blur = function () {
+        $scope.pop_show.add_source_list = false;
+    }
+
+
+
     $scope.add_source_list_item = function (item, index) {
         $scope.alert_item.sourse = item;
         console.log(item);
         $scope.add_source_list_if = false;
     }
-    $scope.add_source_blur = function () {
-        $scope.add_source_list_if = false;
-    }
+
     $scope.add_source_change = function (item) {
         $scope.tag_key_add.active_index = -1;
         $scope.get_loophole_source(item);
@@ -715,12 +795,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     // 获取标签列表
     $scope.get_lab_list = function () {
-        var loading = zeroModal.loading(4);
+        // var loading = zeroModal.loading(4);
         $http({
             method: "get",
             url: "/site/label-list",
         }).then(function (resp) {
-                zeroModal.close(loading);
+                // zeroModal.close(loading);
                 if (resp.status == 200) {
                     let result = JSON.parse(resp.data);
                     let labelAttr = [];

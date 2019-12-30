@@ -206,7 +206,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         console.log(params_data);
         $http({
             method: "get",
-            url: "/vehicleintelligence/loophole-intelligence-list",
+            url: "/seting/loophole-intelligence-list",
             params: {
                 stime: $scope.seach_data.startDate,
                 etime: $scope.seach_data.endDate,

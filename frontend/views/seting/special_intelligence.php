@@ -3,7 +3,6 @@
 $this->title = '行业情报管理';
 ?>
 <style>
-
 </style>
 <link rel="stylesheet" href="/css/set/special.css">
 <section class="special_intel_container" ng-app="myApp" ng-controller="specialIntelCtrl" ng-cloak>
@@ -138,21 +137,20 @@ $this->title = '行业情报管理';
                 <div class="flex_item">
                     <p class="alert_name">获取时间</p>
                     <img src="/images/report/time.png" class="time_icon" alt="">
-                    <input class="alert_input_box" type="text" placeholder="请选择" id="start_time_picker" readonly>
+                    <!-- <input class="alert_input_box" type="text" placeholder="请选择" id="start_time_picker" readonly> -->
                 </div>
                 <div class="flex_item">
                     <p class="alert_name">情报来源</p>
                     <div class="tag_add_box">
-                    <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
-                        <input class="tag_input" id="tag_source"
-                        ng-model="alert_item.sourse" placeholder="请选择来源或按enter键添加新来源"
-                            ng-keyup="add_source_mykey($event)" ng-focus="add_source_focus()"
-                            ng-change="add_source_change(alert_item.sourse)"
+                        <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
+                        <input class="tag_input" id="tag_source" ng-model="alert_item.sourse"
+                            placeholder="请选择来源或按enter键添加新来源" ng-keyup="add_source_mykey($event)"
+                            ng-focus="add_source_focus()" ng-change="add_source_change(alert_item.sourse)"
                             ng-blur="add_source_blur();$event.stopPropagation();" type="text">
                     </div>
-                    <ul class="tag_list_box" ng-if="add_source_list_if" id="add_tag_list" >
+                    <ul class="tag_list_box" ng-if="add_source_list_if" id="add_tag_list">
                         <li ng-mousedown="add_source_list_item(item.name,$index);"
-                        ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                            ng-class="{'add_bg':tag_key_add.active_index == $index}"
                             ng-repeat="item in loop_source_add track by $index">
                             {{item.name}}
                         </li>
@@ -166,7 +164,7 @@ $this->title = '行业情报管理';
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
-                  <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
+                <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                 <div class="tag_add_box">
                     <ul class="tag_box_ul" ng-if="alert_item.tag_list.length!=0">
                         <li ng-repeat="item in alert_item.tag_list track by $index">
@@ -174,15 +172,14 @@ $this->title = '行业情报管理';
                             <img src="/images/set/tag_del.png" alt="" class="tag_icon" ng-click="tag_del(item,$index)">
                         </li>
                     </ul>
-                    <input class="tag_input" placeholder="请输入标签，按enter键添加新标签"
-                     ng-keyup="mykey($event)"
+                    <input class="tag_input" placeholder="请输入标签，按enter键添加新标签" ng-keyup="mykey($event)"
                         ng-focus="tag_focus()" ng-change="tag_change(alert_item.tag_list_str)" ng-blur="tag_blur()"
                         type="text" ng-model="alert_item.tag_list_str">
                 </div>
                 <ul class="tag_list_box" ng-if="tag_list_if" id="tag_list_scrollTop">
                     <li ng-mousedown="tag_list_item(item,$index)"
-                     ng-class="{'add_bg':tag_list_scrollTop.active_index == $index}"
-                     ng-repeat="item in tag_list track by $index">
+                        ng-class="{'add_bg':tag_list_scrollTop.active_index == $index}"
+                        ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
                 </ul>
@@ -215,7 +212,7 @@ $this->title = '行业情报管理';
                 </div>
                 <div class="flex_item">
                     <p class="alert_name">情报来源</p>
-                      <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
+                    <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                     <div class="tag_add_box">
                         <input class="tag_input" ng-model="edit_item.sourse" placeholder="请选择来源或按enter键添加新来源"
                             ng-keyup="edit_source_mykey($event)" ng-focus="edit_source_focus(edit_item.sourse)"
@@ -223,7 +220,7 @@ $this->title = '行业情报管理';
                     </div>
                     <ul class="tag_list_box" ng-if="edit_source_list_if" id="loop_source_add">
                         <li ng-mousedown="edit_source_list_item(item.name,$index)"
-                             ng-class="{'add_bg':tag_key_edit.active_index == $index}"
+                            ng-class="{'add_bg':tag_key_edit.active_index == $index}"
                             ng-repeat="item in loop_source_add track by $index">
                             {{item.name}}
                         </li>
@@ -236,7 +233,7 @@ $this->title = '行业情报管理';
             </div>
             <div class="alert_item_box">
                 <p class="alert_name">添加标签</p>
-                  <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
+                <img src="/images/set/label_triangle_down.png" class="lab_item_icon" alt="">
                 <div class="tag_add_box">
                     <ul class="tag_box_ul" ng-if="edit_item.tag_list.length!=0">
                         <li ng-repeat="item in edit_item.tag_list track by $index">
@@ -251,7 +248,7 @@ $this->title = '行业情报管理';
                 </div>
                 <ul class="tag_list_box" ng-if="edit_tag_list_if" id="edit_tag_scrollTop">
                     <li ng-mousedown="edit_tag_list_item(item,$index)"
-                       ng-class="{'add_bg':edit_tag_scrollTop.active_index == $index}"
+                        ng-class="{'add_bg':edit_tag_scrollTop.active_index == $index}"
                         ng-repeat="item in tag_list track by $index">
                         {{item.label_name}}
                     </li>
@@ -259,6 +256,171 @@ $this->title = '行业情报管理';
             </div>
             <div class="alert_btn_box">
                 <button class="alert_btn_ok" ng-click="edit_sure()">确认</button>
+                <button class="alert_btn_cancel" ng-click="add_cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+    <!-- 添加新增弹窗 -->
+    <div class="pop_box" ng-show="pop_show.add">
+        <div class="pop_contnet">
+            <div class="contnet_title_box">
+                <p class="pop_contnet_title">行业情报录入</p>
+                <img src="/images/set/closed_pop.png" ng-click="add_cancel()" class="closed_img" alt="">
+            </div>
+            <div class="contnet">
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_1.png" alt="">
+                        <span>情报标题:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <input type="text" placeholder="请输入情报标题" class="item_right_input">
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_2.png" alt="">
+                        <span>漏洞等级:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                       <div class="tag_item" style="margin:0">
+                            <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                            <input type="text" placeholder="请选择漏洞等级"
+                            ng-model="add_item.level"
+                            ng-focus="add_focus('level')"
+                             ng-blur="add_blur('level');"
+                             class="item_right_input" readonly>
+                        </div>
+                        <ul class="select_list_box"  ng-if="pop_show.add_level_list"  style="height:107px">
+                               <li ng-mousedown="choose_item(item.name,$index,'level');"
+                            ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                            ng-repeat="item in add_item.level_list track by $index">
+                            {{item.name}}
+                        </li>
+                        </ul>
+                        <!-- <select class="item_right_input" ng-model="alert_item.level"
+                            ng-options="x.num as x.status for x in add_level "></select> -->
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_3.png" alt="">
+                        <span>发现时间:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <img src="/images/report/time.png" alt="" class="item_right_time_icon">
+                        <input class="item_right_input" type="text" placeholder="请选择发现时间" id="start_time_picker"
+                            readonly>
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_4.png" alt="">
+                        <span>情报来源:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                        <input class="item_right_input" ng-model="add_item.sourse" placeholder="请选择来源或按Enter键添加新来源"
+                            ng-keyup="add_source_mykey($event)"
+                                ng-focus="add_focus('source')"
+                             ng-blur="add_blur('source');"
+                            ng-change="add_source_change(add_item.sourse)"
+                           type="text">
+                        <ul class="select_list_box" ng-if="pop_show.add_source_list" id="add_tag_list">
+                            <li ng-mousedown="add_source_list_item(item.name,$index);"
+                                ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                                ng-repeat="item in loop_source_add track by $index">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_5.png" alt="">
+                        <span>关联链接:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <input type="text" placeholder="请输入关联链接" class="item_right_input">
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_6.png" alt="">
+                        <span>情报描述:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <textarea class="item_right_input" style="resize:none;line-height:2.0" placeholder="请输入情报描述"
+                            ng-model="add_item.detail" name="" id="" cols="30" rows="3"></textarea>
+                        <!-- <input type="text"  placeholder="请输入情报描述"  class="item_right_input"> -->
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_7.png" alt="">
+                        <span>原始情报:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <input type="text" placeholder="请输入原始情报" class="item_right_input">
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_8.png" alt="">
+                        <span>参考信息:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <div class="tag_item">
+                            <input type="text" placeholder="请输入参考信息" class="item_right_input">
+                        </div>
+                           <div class="add_icon_box">
+                            <img src="/images/set/add_input_icon.png" class="add_icon" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_9.png" alt="">
+                        <span>标签:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <div class="tag_item">
+                            <input type="text" placeholder="请选择标签类别" class="item_right_input ">
+                            <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="tag_item">
+                            <input type="text" placeholder="请选择标签名称" class="item_right_input ">
+                            <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                        </div>
+                        <div class="add_icon_box">
+                            <img src="/images/set/add_input_icon.png" class="add_icon" alt="">
+                        </div>
+                        <!-- <img src="/images/set/cel_icon.png" alt=""> -->
+                    </div>
+                </div>
+                <div class="contnet_item">
+                    <div class="contnet_item_left">
+                        <img src="/images/set/add_icon_10.png" alt="">
+                        <span>NVD关联:</span>
+                    </div>
+                    <div class="contnet_item_right">
+                        <div class="tag_item">
+                            <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                            <input type="text" placeholder="请选择NVD关联" class="item_right_input">
+                        </div>
+
+                        <div class="add_icon_box">
+                            <img src="/images/set/add_input_icon.png" class="add_icon" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="alert_btn_box">
+                <button class="alert_btn_ok" ng-click="add_sure()">确认</button>
                 <button class="alert_btn_cancel" ng-click="add_cancel()">取消</button>
             </div>
         </div>
