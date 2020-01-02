@@ -813,7 +813,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     let labelAttr = [];
 
-                    console.log(JSON.parse(resp.data))
+                   // console.log(JSON.parse(resp.data))
 
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
 
@@ -851,15 +851,24 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                 revert: true,
                 stop:function(){
                     //记录sort后的id顺序数组
-                    var arr = $( ".label-lists").sortable('toArray',{attribute: 'value'});
-                    console.log(arr);
+                    var category_id_attr = $( ".label-lists").sortable('toArray',{attribute: 'value'});
 
+                    console.log(category_id_attr);
 
-                    $scope.$apply(()=>{
+                    //传递category_id数组
 
-                        console.log($scope.label_data);
+                    $http({
+                        method: "put",
+                        url: "/seting/change-category-sort",
+                        data: {
+                            label_name:category_id_attr
+                        }
+                    }).then(function (resp) {
+
+                        console.log(resp)
+
+                        $scope.get_label_list();
                     })
-
                 }
             });
 

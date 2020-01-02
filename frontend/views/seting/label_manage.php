@@ -80,8 +80,12 @@ ul li {
                          <img ng-if="item.name != ''" class="tog_img tog_img_edit" src="/images/set/label_edit.png"
                           title="编辑标签类别" ng-click="category_edit($event,item);"/>
                     </div>
-                    <img class="tog_img tog_img_top" ng-value="$idx" src="/images/set/is_top.png" title="置顶"/>
-                    <img class="tog_img tog_img_drag" src="/images/set/label_drag_h.png" title="拖动"/>
+                    <div class="tog_edit_seat">
+                        <img ng-if="item.name != ''" class="tog_img tog_img_top" ng-value="$idx" src="/images/set/is_top.png" title="置顶"/>
+                    </div>
+                    <div class="tog_edit_seat">
+                       <img ng-if="item.name != ''" class="tog_img tog_img_drag" src="/images/set/label_drag_h.png" title="拖动"/>
+                    </div>
                     <a class="tog_arrow" ng-class="{'active':item.status}" href="javascript:void(0);"
                      ng-click="item.status = !item.status">
                        <span class="name" ng-show="item.status">收起</span>
@@ -92,8 +96,8 @@ ul li {
               <!-- 标签列表 -->
               <div class="toggle_content" ng-show="item.status" style="font-size:0;">
                 <ul class="sortable sortable{{$idx}}">
-                    <li ng-repeat="it in item.label" class="sortable_list">
-                        <button class="btn_label"  ng-if="it.label_name != null">
+                    <li ng-repeat="it in item.label" class="sortable_list" ng-if="it.label_name != null">
+                        <button class="btn_label">
                             <div class="b_label">
                                 <span class="b_span" title="{{it.label_name}}">{{it.label_name}}</span>
                             </div>
