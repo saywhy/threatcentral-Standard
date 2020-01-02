@@ -1,6 +1,6 @@
 var myApp = angular.module("asideApp", []);
 
-myApp.controller("asideCtrl", function($scope,$http,$q,$timeout) {
+myApp.controller("asideCtrl", function($scope,$http,$timeout) {
 
     $scope.indexCode = 0;
     $scope.alertDetail = false;
@@ -189,6 +189,11 @@ myApp.controller("asideCtrl", function($scope,$http,$q,$timeout) {
             permission = JSON.parse(str);
         }else {
             permission = await $scope.getPermiss().then(function (resp) {
+
+                let locale = window.localStorage;
+                let permission = JSON.stringify(resp.data);
+                locale.permission = permission;
+
                 return resp.data;
             });
         }

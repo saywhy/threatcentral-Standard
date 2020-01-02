@@ -201,6 +201,10 @@ myApp.controller("loginCtrl", function($scope, $http, $filter, $sce) {
         }
       }).then(
         function successCallback(data) {
+
+          //le删除权限
+          window.localStorage.removeItem('permission');
+
           if (data.data.status_code == "202") {
             if ($scope.select_if) {
               localStorage.setItem("username", "");
