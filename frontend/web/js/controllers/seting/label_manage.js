@@ -813,6 +813,8 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     let labelAttr = [];
 
+                    console.log(JSON.parse(resp.data))
+
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
 
                         if(value != ''){
@@ -825,7 +827,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     $scope.label_data = labelAttr;
 
-                   // console.log(labelAttr);
+                    console.log(labelAttr);
 
                     $scope.initDrag();
                 }
@@ -857,8 +859,6 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                         console.log($scope.label_data);
                     })
-
-
 
                 }
             });

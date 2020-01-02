@@ -14,12 +14,12 @@ $this->title = '行业情报';
                      ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
             </span>
 
-            <!-- 漏洞来源 -->
+            <!-- 情报来源 -->
             <select class="vehicle_search_select source_input" ng-model="seach_data.source"
                 ng-options="x for x in loop_source">
             </select>
 
-            <!-- 漏洞级别 -->
+            <!-- 情报级别 -->
             <select class="vehicle_search_select source_input" ng-model="seach_data.level"
                 ng-options="x.num as x.status for x in search_level">
             </select>
@@ -143,7 +143,7 @@ $this->title = '行业情报';
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
                     <h4 class="title">关联链接：</h4>
-                    <span class="stance s_active">https://threateye.hoohoolab.com/#/app/set_black_list</span>
+                    <span class="stance s_active">{{label_item_data.link}}</span>
                 </li>
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp5.png" alt=""/>
