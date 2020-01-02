@@ -205,10 +205,10 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         $scope.label_item_data = item;
 
         var W = 740;
-        var H = 352;
+        var H = 593;
 
         zeroModal.show({
-            title: "漏洞情报详情",
+            title: "",
             content: vehicle_loophole,
             width: W + "px",
             height: H + "px",

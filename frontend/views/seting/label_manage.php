@@ -2,6 +2,34 @@
 /* @var $this yii\web\View */
 $this->title = '标签管理';
 ?>
+<style>
+
+.drag{
+    width: 200px;
+    height: 200px;
+    float: left;
+}
+ul li {
+    list-style: none;
+}
+.innerdiv{
+    padding: 10px;
+    height: 100%;
+}
+.innerdiv2{
+    background: grey;
+    height: 100%;
+}
+#draggable1{
+    width: 400px;
+    height: 150px;
+}
+.move{
+    width: 80px;
+    height: 40px;
+    background: blanchedalmond;
+}
+</style>
 <link rel="stylesheet" href="/css/set/label.css">
 <section class="label_container" ng-app="myApp" ng-controller="labelCtrl" ng-cloak>
     <div class="label_search_box">
@@ -12,25 +40,73 @@ $this->title = '标签管理';
          <button class="label_box_mid_button_right" ng-click="label_edit($event,'','add');">新增标签</button>
     </div>
 
+     <!--<ul class="sortable1">
+        <li id="draggable3" class="drag" value="1">
+          <div class="innerdiv">
+            <div class="innerdiv2">
+              <div class="move">放在这里</div>
+              222
+            </div>
+          </div>
+        </li>
+        <li id="draggable4" class="drag" value="2">
+          <div class="innerdiv">
+            <div class="innerdiv2">
+              <div class="move">放在这里</div>
+              333
+            </div>
+          </div>
+        </li>
+        <li id="draggable5" class="drag" value="3">
+          <div class="innerdiv">
+            <div class="innerdiv2">
+              <div class="move">放在这里</div>
+              444
+            </div>
+          </div>
+        </li>
+    </ul>-->
+
     <div class="label_sort_box">
          <ul class="label-lists">
-            <li class="item" ng-repeat="item in label_data" ng-click="item.status = !item.status">
+            <li class="item" ng-repeat="($idx,item) in label_data" ng-value="item.label[0].category_id">
+              <!-- 名称和操作 -->
               <div class="toggle_cate">
-                  <a class="toggle" ng-class="{'active':item.status}" href="javascript:void(0);">
-                      <span class="name">{{item.name | labelNull}}<span>
-                  </a>
-                  <img ng-if="item.name != ''" class="toggle_img" src="/images/set/label_edit.png"
-                   title="编辑标签类别" ng-click="category_edit($event,item);"/>
+                  <div class="tog_cate">
+                    <span class="name">{{item.name | labelNull}}<span>
+                  </div>
+                  <div class="tog_list">
+                    <div class="tog_edit_seat">
+                         <img ng-if="item.name != ''" class="tog_img tog_img_edit" src="/images/set/label_edit.png"
+                          title="编辑标签类别" ng-click="category_edit($event,item);"/>
+                    </div>
+                    <img class="tog_img tog_img_top" ng-value="$idx" src="/images/set/is_top.png" title="置顶"/>
+                    <img class="tog_img tog_img_drag" src="/images/set/label_drag_h.png" title="拖动"/>
+                    <a class="tog_arrow" ng-class="{'active':item.status}" href="javascript:void(0);"
+                     ng-click="item.status = !item.status">
+                       <span class="name" ng-show="item.status">收起</span>
+                       <span class="name" ng-show="!item.status">展开</span>
+                    </a>
+                  </div>
               </div>
+              <!-- 标签列表 -->
               <div class="toggle_content" ng-show="item.status" style="font-size:0;">
-                <button class="btn_label" ng-repeat="it in item.label" ng-click="label_edit($event,it,'edit');"
-                ng-if="it.label_name != null">
-                    <img class="btn_img" src="/images/set/label_edit.png"/>
-                    <span class="btn_span" title="{{it.label_name}}">{{it.label_name}}</span>
-                </button>
-                <button class="btn_label btn_label_add" ng-click="label_edit($event,item.name,'add');">
-                    <img class="btn_img" src="/images/set/label_add.png"/>
-                    <span class="btn_span">新增标签</span>
+                <ul class="sortable sortable{{$idx}}">
+                    <li ng-repeat="it in item.label" class="sortable_list">
+                        <button class="btn_label"  ng-if="it.label_name != null">
+                            <div class="b_label">
+                                <span class="b_span" title="{{it.label_name}}">{{it.label_name}}</span>
+                            </div>
+                        </button>
+                        <div class="btn_img">
+                            <img class="b_img b_img_drag b_img_drag{{$idx}}" src="/images/set/label_drag_v.png"/>
+                            <img class="b_img b_img_edit" ng-click="label_edit($event,it,'edit');" src="/images/set/label_edit.png"/>
+                        </div>
+                    </li>
+                </ul>
+                <button class="btn_label_add" ng-click="label_edit($event,item.name,'add');">
+                    <img class="ba_img" src="/images/set/label_add.png"/>
+                    <span class="ba_span">新增标签</span>
                 </button>
               </div>
             </li>

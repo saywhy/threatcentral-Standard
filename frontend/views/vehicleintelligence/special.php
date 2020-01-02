@@ -76,7 +76,7 @@ $this->title = '行业情报';
               <span class="tack">共有<span class="num">{{pages.count}}</span>条结果</span>
             </p>
             <ul class="covenant_lists">
-               <li class="covenant_lists_item" ng-repeat="item in pages.data" ng-click="list_item_click($event,item);">
+               <li class="covenant_lists_item" ng-repeat="item in pages.data">
                   <p class="covenant_1">
                      <img class="status" src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
                      <img class="status" src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
@@ -89,7 +89,7 @@ $this->title = '行业情报';
                      <span class="ct time">{{item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
                      <span class="item"><img class="cov_img" src="/images/loophole/loop_5.png" alt=""/><span class="ct twitter">{{item.sourse}}</span></span>
                   </p>
-                  <p class="covenant_3">{{item.detail}}</p>
+                  <p class="covenant_3"  ng-click="list_item_click($event,item);">{{item.detail}}</p>
                   <p class="covenant_4"><a ng-repeat="tm in item.label_name" class="covenant_btn">{{tm}}</a></p>
                </li>
             </ul>
@@ -98,28 +98,83 @@ $this->title = '行业情报';
 
 
     <!-- 新增标签弹窗 -->
+    <!--<div style="display:none;" id="vehicle_special_box">
+            <div id="vehicle_special">
+                <h1 class="l_top">{{label_item_data.title}}</h1>
+                <div class="l_mid">
+                    <p class="item">
+                      <span class="l_item"><span class="l_name">威胁等级：</span><span class="l_value">{{label_item_data.level}}危</span></span>
+                      <span class="l_item1"><span class="l_name">时间：</span><span class="l_value">{{label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
+                    </p>
+                    <p class="item">
+                      <span class="l_item"><span class="l_name">来源：</span><span class="l_value">{{label_item_data.sourse}}</span></span>
+                      <span class="l_item1"><span class="l_name">标签：</span><span class="l_value">{{label_item_data.label_new_name}}</span></span>
+                    </p>
+                    <p class="item">
+                      <span class="l_item1"><span class="l_name">链接：</span><span class="l_value">https://threateye.hoohoolab.com/#/app/set_black_list</span></span>
+                    </p>
+                </div>
+                <dl class="l_bom">
+                    <dt class="l_title">行业描述：</dt>
+                    <dd class="l_content">{{label_item_data.detail}}</dd>
+                </dl>
+            </div>
+         </div>-->
+
     <div style="display:none;" id="vehicle_special_box">
         <div id="vehicle_special">
             <h1 class="l_top">{{label_item_data.title}}</h1>
-            <div class="l_mid">
-                <p class="item">
-                  <span class="l_item"><span class="l_name">威胁等级：</span><span class="l_value">{{label_item_data.level}}危</span></span>
-                  <span class="l_item1"><span class="l_name">时间：</span><span class="l_value">{{label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
-                </p>
-                <p class="item">
-                  <span class="l_item"><span class="l_name">来源：</span><span class="l_value">{{label_item_data.sourse}}</span></span>
-                  <span class="l_item1"><span class="l_name">标签：</span><span class="l_value">{{label_item_data.label_new_name}}</span></span>
-                </p>
-                <p class="item">
-                  <span class="l_item1"><span class="l_name">链接：</span><span class="l_value">https://threateye.hoohoolab.com/#/app/set_black_list</span></span>
-                </p>
-            </div>
-            <dl class="l_bom">
-                <dt class="l_title">行业描述：</dt>
-                <dd class="l_content">{{label_item_data.detail}}</dd>
-            </dl>
+            <ul class="l_mid">
+              <li class="item">
+                    <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
+                    <h4 class="title">威胁等级：</h4>
+                    <span class="stance">{{label_item_data.level}}危</span>
+              </li>
+              <li class="item">
+                    <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
+                    <h4 class="title">发现时间：</h4>
+                    <span class="stance">{{label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span>
+              </li>
+               <li class="item">
+                    <img class="i_img" src="/images/loophole/sp3.png" alt=""/>
+                    <h4 class="title">情报来源：</h4>
+                    <span class="stance">{{label_item_data.sourse}}</span>
+                </li>
+                <li class="item">
+                    <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
+                    <h4 class="title">关联链接：</h4>
+                    <span class="stance s_active">https://threateye.hoohoolab.com/#/app/set_black_list</span>
+                </li>
+                <li class="item">
+                    <img class="i_img" src="/images/loophole/sp5.png" alt=""/>
+                    <h4 class="title">漏洞描述：</h4>
+                    <span class="stance s_content">{{label_item_data.detail}}</span>
+                </li>
+                <li class="item">
+                    <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
+                    <h4 class="title">标签：</h4>
+                    <p class="s_label" style="margin-top:6px;">
+                      <span class="s_name">标签类别1：</span>
+                      <span class="s_lab">
+                        <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
+                        <a class="s_lab_val">消息泄露</a>
+                        <a class="s_lab_val">跨站脚本</a>
+                        <a class="s_lab_val">跨站脚本</a>
+                      </span>
+                    </p>
+                    <p class="s_label">
+                      <span class="s_name">标签类别2：</span>
+                      <span class="s_lab">
+                        <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
+                        <a class="s_lab_val">消息泄露</a>
+                        <a class="s_lab_val">跨站脚本</a>
+                        <a class="s_lab_val">跨站脚本</a>
+                      </span>
+                    </p>
+                </li>
+            </ul>
         </div>
-    </div>
+   </div>
 
 </section>
 <script src="/js/controllers/vehicleintelligence/vehicle_tel_special.js"></script>

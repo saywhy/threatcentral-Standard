@@ -43,6 +43,10 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
   $scope.get_menu = function() {
     $http.get("/site/menu").then(
       function success(data) {
+
+
+       // console.log('**************')
+       // console.log(data.data)
         if (data.data.status == "success") {
           angular.forEach(data.data.data, function(item) {
             // 首页

@@ -213,8 +213,8 @@ button:active {
 }
 
 .search_country .search_country_item .title{
-    width: 200px;
-    color: #999;
+    width: 150px;
+    color: #0070FF;
     font-size: 14px;
     line-height: 43px;
     display: inline-block;
@@ -222,6 +222,12 @@ button:active {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: 'PingFangSC-Regular';
+}
+
+@media screen and (min-width: 1600px) {
+    .search_country .search_country_item .title {
+        width: 200px;
+    }
 }
 
 .search_country .search_country_item .lists{
@@ -236,6 +242,7 @@ button:active {
     margin-right: 20px;
     line-height: 25px;
     cursor: pointer;
+    display: inline-block;
     font-family: 'PingFangSC-Regular';
 }
 
@@ -393,53 +400,82 @@ button:active {
 }
 
 /**************************************/
+.zeromodal-container{
+    background: #F8F8F8;
+}
+#vehicle_loophole{
+    padding-left: 20px;
+    padding-right: 4px;
+}
+
 .l_top{
-    height: 48px;
-    line-height: 48px;
-    background: #EEF6FF;
+    height: 40px;
     color: #333;
     font-size: 18px;
+    font-weight: bold;
     font-family: 'PingFangSC-Medium';
 }
-.l_mid span{
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 14px;
-    font-family: 'PingFangSC-Medium';
-}
+
 .l_mid{
-    padding: 15px 0;
-    border-bottom: 1px solid #ECECEC;
+    border: 1px solid #ECECEC;
 }
 .l_mid .item{
-    display: flex;
-    height: 26px;
-    line-height: 26px;
+    padding: 10px 10px;
 }
-.l_mid .l_item{
-    width: 280px;
-}
-.l_mid .l_item1{
-    flex: 1;
+.l_mid .item:nth-child(odd){
+    background: #fff;
 }
 
-.l_bom .l_title{
+.l_mid .item .i_img{
+    display: inline-block;
+    transform: scale(0.8);
+    margin: 0 5px;
+}
+.l_mid .item .title{
+    width: 150px;
+    color: #666;
     font-size: 14px;
-    color: #979797;
-    margin: 10px 0;
-    font-weight: normal;
+    font-weight: bold;
+    display: inline-block;
+}
+.l_mid .item .stance{
+    display: inline-block;
 }
 
-.l_bom .l_content{
+.l_mid .item .stance.s_active{
+    color: #0070ff;
+}
+.l_mid .item .stance.s_content{
+    padding: 6px 0 0 32px;
+    color: #666;
+    font-size: 14px;
     line-height: 18px;
-    max-height: 66px;
-    overflow: hidden;
-    color: #333;
-    text-align: justify;
+    height: 60px;
+    word-break: break-all;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    font-family: 'PingFangSC-Medium';
+    overflow: hidden;
+}
+.l_mid .item .s_label{
+    height: 34px;
+    line-height: 34px;
+    display: flex;
+}
+.l_mid .item .s_label .s_name{
+    width: 100px;
+}
+.l_mid .item .s_label .s_lab{
+    flex: 1;
+    font-size: 0;
+}
+
+.l_mid .item .s_label .s_lab .s_lab_val{
+    color: #0070ff;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 3px 8px;
+    margin-right: 5px;
+    border: 1px solid #0070ff;
+    white-space: nowrap;
+    overflow: hidden;
 }

@@ -131,24 +131,64 @@ $this->title = '漏洞情报';
         </div>
 
         <!-- 新增标签弹窗 -->
-        <div style="display: none;" id="vehicle_loophole_box">
+        <div style="display:none;" id="vehicle_loophole_box">
             <div id="vehicle_loophole">
                 <h1 class="l_top">{{label_item_data.title}}</h1>
-                <div class="l_mid">
-                    <p class="item">
-                      <span class="l_item"><span class="l_name">威胁等级：</span><span class="l_value">{{label_item_data.level}}危</span></span>
-                      <span class="l_item1"><span class="l_name">时间：</span><span class="l_value">{{label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
-                    </p>
-                    <p class="item">
-                      <span class="l_item"><span class="l_name">来源：</span><span class="l_value">{{label_item_data.sourse}}</span></span>
-                      <span class="l_item1"><span class="l_name">标签：</span><span class="l_value">{{label_item_data.label_new_name}}</span></span>
-                    </p>
-                </div>
-                <dl class="l_bom">
-                    <dt class="l_title">漏洞描述：</dt>
-                    <dd class="l_content">{{label_item_data.detail}}</dd>
-                </dl>
+                <ul class="l_mid">
+                  <li class="item">
+                        <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
+                        <h4 class="title">漏洞等级：</h4>
+                        <span class="stance">高危</span>
+                  </li>
+                  <li class="item">
+                        <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
+                        <h4 class="title">发现时间：</h4>
+                        <span class="stance">2019-09-26</span>
+                  </li>
+                   <li class="item">
+                        <img class="i_img" src="/images/loophole/sp3.png" alt=""/>
+                        <h4 class="title">情报来源：</h4>
+                        <span class="stance">内部系统</span>
+                    </li>
+                    <li class="item">
+                        <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
+                        <h4 class="title">影响产品：</h4>
+                        <span class="stance">Windows 10 Version 1067 for 32-bit systems</span>
+                    </li>
+                    <li class="item">
+                        <img class="i_img" src="/images/loophole/sp7.png" alt=""/>
+                        <h4 class="title">漏洞描述：</h4>
+                        <span class="stance s_content">Limesurvey before 3.17.14 allows remote attackers to remot Limesurvey before 3.17.14 allows remote attackers to remot Limesurvey before 3.17.14 allows remote attackers to remote Limesurvey before 3.17.14 allows remote attackers to remote.</span>
+                    </li>
+                    <li class="item">
+                        <img class="i_img" src="/images/loophole/sp8.png" alt=""/>
+                        <h4 class="title">建议处理措施：</h4>
+                        <span class="stance s_content">Windows DNS (Domain Name System) 服务器处理请求时存在缺陷，从而导致存在远程执行代码漏洞，远程且未经授权的攻击者通过向 Windows DNS 服务端发送精心构造的恶意请求，即能以本地系统账户权限执行任意代码。</span>
+                    </li>
+                    <li class="item">
+                        <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
+                        <h4 class="title">标签：</h4>
+                        <p class="s_label" style="margin-top:6px;">
+                          <span class="s_name">标签类别1：</span>
+                          <span class="s_lab">
+                            <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
+                            <a class="s_lab_val">消息泄露</a>
+                            <a class="s_lab_val">跨站脚本</a>
+                            <a class="s_lab_val">跨站脚本</a>
+                          </span>
+                        </p>
+                        <p class="s_label">
+                          <span class="s_name">标签类别2：</span>
+                          <span class="s_lab">
+                            <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
+                            <a class="s_lab_val">消息泄露</a>
+                            <a class="s_lab_val">跨站脚本</a>
+                            <a class="s_lab_val">跨站脚本</a>
+                          </span>
+                        </p>
+                    </li>
+                </ul>
             </div>
-        </div>
+       </div>
 </section>
 <script src="/js/controllers/vehicleintelligence/vehicle_tel_loophole.js"></script>

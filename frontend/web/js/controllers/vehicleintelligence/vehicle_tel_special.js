@@ -204,14 +204,16 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
         e.preventDefault();
 
+        console.log(item)
+
         item.label_new_name = item.label_name.join('/');
         $scope.label_item_data = item;
 
         var W = 740;
-        var H = 352;
+        var H = 489;
 
         zeroModal.show({
-            title: "行业情报详情",
+            title: "",
             content: vehicle_special,
             width: W + "px",
             height: H + "px",

@@ -1,6 +1,8 @@
 var myApp = angular.module("myApp", []);
 myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
+
+
     $scope.init = function () {
 
         $scope.label_data = [];
@@ -814,7 +816,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
 
                         if(value != ''){
-                            labelAttr.push({name: value.substring(0,value.length-10),label:key,status:true});
+                            labelAttr.push({name: value.substring(0,value.length - 10),label:key,status:true});
                         }else {
                             labelAttr.push({name: value,label:key,status:true});
                         }
@@ -823,7 +825,9 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     $scope.label_data = labelAttr;
 
-                    //console.log(labelAttr);
+                   // console.log(labelAttr);
+
+                    $scope.initDrag();
                 }
             },
             function errorCallback(data) {}
@@ -831,10 +835,95 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     };
 
 
+    //拖拽置顶初始化
+    $scope.initDrag = function () {
+
+        angular.element(document).ready(function () {
+
+            //纵向拖动
+            $( ".label-lists" ).sortable({
+                handle: ".tog_img_drag",
+                opacity: 0.7,
+                delay: 150,
+                cursor:'move',
+                revert: true,
+                stop:function(){
+                    //记录sort后的id顺序数组
+                    var arr = $( ".label-lists").sortable('toArray',{attribute: 'value'});
+                    console.log(arr);
+
+
+                    $scope.$apply(()=>{
+
+                        console.log($scope.label_data);
+                    })
+
+
+
+                }
+            });
+
+            //横向拖动
+            angular.forEach($scope.label_data,function (key,index) {
+                // $( ".sortable0" ).css('background','red')
+                $( ".sortable"+index ).sortable({
+                    handle: ".b_img_drag"+index,
+                    opacity: 0.7,
+                    delay: 150,
+                    cursor:'move',
+                    revert: true,
+                    stop:function(){
+                        //记录sort后的id顺序数组
+                        var arr = $( ".sortable"+index).sortable('toArray',{attribute: 'value'});
+
+                        console.log(arr);
+
+                        console.log($scope.label_data);
+
+                        $scope.$apply(()=>{
+
+
+                        })
+
+                    }
+                });
+            });
+
+            //置顶点击事件
+            $('.tog_img_top').click(function () {
+
+                setTimeout(()=>{
+
+                    $scope.$apply(()=>{
+
+                        let index = $(this).attr('value');
+
+                        console.log(index)
+
+                        let spliceAttr = $scope.label_data.splice(index,1);
+
+                        $scope.label_data = [...spliceAttr,...$scope.label_data];
+
+                        console.log($scope.label_data)
+                    });
+
+                },200)
+
+            });
+
+        });
+    };
+
+
     $scope.init();
+
+
 
 });
 
+
+
+/*过滤器*/
 myApp.filter('labelNull',function(){
     return function(arr){
         if(arr == '' || arr == null){
@@ -851,7 +940,7 @@ myApp.directive('onBlankHide',function(){
         restrict:'A',
         link: function(scope,element,attr){
 
-            console.log(element)
+            console.log(element);
 
             element.on('click',function (e) {
 
