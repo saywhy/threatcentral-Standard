@@ -38,9 +38,8 @@ button:active {
     border: 1px solid #ECECEC;
     border-radius: 4px;
     height: 42px;
-    width: 115px;
+    width: 100%;
     padding-left: 34px;
-    margin-right: 12px;
 }
 
 .intel_search_time {
@@ -250,7 +249,7 @@ select {
 }
 
 .alert_btn_box {
-    margin: 24px 0;
+    margin-top: 24px;
     text-align: center;
     height: 40px;
 }
@@ -650,6 +649,7 @@ select {
     padding: 0 16px;
     color: #666666;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .select_list_box li:hover {
@@ -682,10 +682,27 @@ select {
 
 .add_icon {
     width: 16px;
+    cursor: pointer;
 }
 
 .tag_item {
     margin-right: 10px;
     position: relative;
-    flex: 1;
+    flex: 1
+}
+
+/* 修改搜索框 下拉框 */
+.search_input_box {
+    display: inline-block;
+    width: 136px;
+    position: relative;
+    margin-right: 5px;
+}
+
+.search_input {
+    border: 1px solid #ECECEC;
+    border-radius: 4px;
+    height: 42px;
+    width: 136px;
+    padding: 0 21px;
 }
