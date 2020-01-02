@@ -40,33 +40,6 @@ ul li {
          <button class="label_box_mid_button_right" ng-click="label_edit($event,'','add');">新增标签</button>
     </div>
 
-     <!--<ul class="sortable1">
-        <li id="draggable3" class="drag" value="1">
-          <div class="innerdiv">
-            <div class="innerdiv2">
-              <div class="move">放在这里</div>
-              222
-            </div>
-          </div>
-        </li>
-        <li id="draggable4" class="drag" value="2">
-          <div class="innerdiv">
-            <div class="innerdiv2">
-              <div class="move">放在这里</div>
-              333
-            </div>
-          </div>
-        </li>
-        <li id="draggable5" class="drag" value="3">
-          <div class="innerdiv">
-            <div class="innerdiv2">
-              <div class="move">放在这里</div>
-              444
-            </div>
-          </div>
-        </li>
-    </ul>-->
-
     <div class="label_sort_box">
          <ul class="label-lists">
             <li class="item" ng-repeat="($idx,item) in label_data" ng-value="item.label[0].category_id">
@@ -96,7 +69,7 @@ ul li {
               <!-- 标签列表 -->
               <div class="toggle_content" ng-show="item.status" style="font-size:0;">
                 <ul class="sortable sortable{{$idx}}">
-                    <li ng-repeat="it in item.label" class="sortable_list" ng-if="it.label_name != null">
+                    <li ng-repeat="it in item.label" class="sortable_list" ng-if="it.label_name != null" ng-value="it.id">
                         <button class="btn_label">
                             <div class="b_label">
                                 <span class="b_span" title="{{it.label_name}}">{{it.label_name}}</span>

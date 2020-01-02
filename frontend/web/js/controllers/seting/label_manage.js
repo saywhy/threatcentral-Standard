@@ -794,6 +794,43 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         }
     };
 
+    //纵向操作
+    $scope.drag_category = function(args){
+        //传递category_id数组
+        $http({
+            method: "put",
+            url: "/seting/change-category-sort",
+            data: {
+                category:args.reverse()
+            }
+        }).then(function (resp) {
+
+            if(resp.data.status != 'success') {
+                zeroModal.error('失败');
+            }
+            $scope.get_label_list();
+
+        }).catch(function () {
+            $scope.get_label_list();
+        })
+    };
+
+    //横向拖拽
+    $scope.drag_label = function(args){
+        //传递category_id数组
+        $http({
+            method: "put",
+            url: "/seting/change-label-sort",
+            data: {
+                label: args.reverse()
+            }
+        }).then(function (resp) {
+            $scope.get_label_list();
+        }).catch(function () {
+            $scope.get_label_list();
+        })
+    };
+
     //获取列表
     $scope.get_label_list = function () {
 
@@ -811,9 +848,9 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                 if(resp.status == 200){
 
-                    let labelAttr = [];
+                    $scope.category_id_attr = [];
 
-                   // console.log(JSON.parse(resp.data))
+                    let labelAttr = [];
 
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
 
@@ -823,11 +860,13 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                             labelAttr.push({name: value,label:key,status:true});
                         }
 
+                        $scope.category_id_attr.push(key[0].category_id);
+
                     });
 
                     $scope.label_data = labelAttr;
 
-                    console.log(labelAttr);
+                    //console.log($scope.label_data);
 
                     $scope.initDrag();
                 }
@@ -837,7 +876,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     };
 
 
-    //拖拽置顶初始化
+    //拖拽与置顶初始化
     $scope.initDrag = function () {
 
         angular.element(document).ready(function () {
@@ -853,22 +892,9 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                     //记录sort后的id顺序数组
                     var category_id_attr = $( ".label-lists").sortable('toArray',{attribute: 'value'});
 
-                    console.log(category_id_attr);
+                    //纵向拖拽
+                    $scope.drag_category(category_id_attr);
 
-                    //传递category_id数组
-
-                    $http({
-                        method: "put",
-                        url: "/seting/change-category-sort",
-                        data: {
-                            label_name:category_id_attr
-                        }
-                    }).then(function (resp) {
-
-                        console.log(resp)
-
-                        $scope.get_label_list();
-                    })
                 }
             });
 
@@ -883,16 +909,10 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                     revert: true,
                     stop:function(){
                         //记录sort后的id顺序数组
-                        var arr = $( ".sortable"+index).sortable('toArray',{attribute: 'value'});
+                        var label_id_attr = $( ".sortable"+index).sortable('toArray',{attribute: 'value'});
 
-                        console.log(arr);
-
-                        console.log($scope.label_data);
-
-                        $scope.$apply(()=>{
-
-
-                        })
+                        //纵向拖拽
+                        $scope.drag_label(label_id_attr);
 
                     }
                 });
@@ -901,22 +921,14 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
             //置顶点击事件
             $('.tog_img_top').click(function () {
 
-                setTimeout(()=>{
+                let index = $(this).attr('value');
 
-                    $scope.$apply(()=>{
+                $scope.category_id_attr.unshift($scope.category_id_attr.splice(index , 1)[0]);
 
-                        let index = $(this).attr('value');
+                /* let spliceAttr = $scope.category_id_attr.splice(index,1);
+                $scope.category_id_attr = [...spliceAttr,...$scope.category_id_attr];*/
 
-                        console.log(index)
-
-                        let spliceAttr = $scope.label_data.splice(index,1);
-
-                        $scope.label_data = [...spliceAttr,...$scope.label_data];
-
-                        console.log($scope.label_data)
-                    });
-
-                },200)
+                $scope.drag_category($scope.category_id_attr);
 
             });
 
@@ -926,10 +938,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
     $scope.init();
 
-
-
 });
-
 
 
 /*过滤器*/
