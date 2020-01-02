@@ -44,9 +44,12 @@ navApp.controller("mainNavCtrl", function($scope, $rootScope, $http, $filter) {
     $http.get("/site/menu").then(
       function success(data) {
 
+        let locale = window.localStorage;
 
-       // console.log('**************')
-       // console.log(data.data)
+        let permission = JSON.stringify(data.data);
+
+        locale.permission = permission;
+
         if (data.data.status == "success") {
           angular.forEach(data.data.data, function(item) {
             // 首页
