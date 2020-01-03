@@ -77,12 +77,17 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             add_tag_name: false,
             add_NVD_list: false,
             add_source_list: false,
+            add_original_input: true,
+            add_old_box: true,
+            add_new_box: true,
             edit: false,
             edit_level_list: false,
             edit_tag_category: false,
             edit_tag_name: false,
             edit_NVD_list: false,
             edit_source_list: false,
+            edit_original_input: false,
+            edit_old_box: true,
         }
         $scope.search_box_ul = {
             source: false,
@@ -344,6 +349,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             level: '',
             link: '',
             original_intelligence: '',
+            original_intelligence_cn: '',
+            original_intelligence_more: '',
             level_list: [{
                     name: '高危',
                     num: '高危'
@@ -653,6 +660,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             level: '',
             link: $scope.edit_item_str.link,
             original_intelligence: $scope.edit_item_str.original_intelligence,
+            original_intelligence_cn: '',
+            original_intelligence_more: $scope.edit_item_str.original_intelligence,
             level_list: [{
                     name: '高危',
                     num: '高危'
@@ -673,15 +682,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 icon: true
             }],
             nvd_list: [],
-            tag: [{
-                category: '',
-                name: '',
-                tag_name_list: [],
-                category_ul: false,
-                name_ul: false,
-                icon: true,
-                id: ''
-            }],
+            tag: [],
             label_category: [],
             first_seen_time: moment(new Date($scope.edit_item_str.first_seen_time * 1000)),
             sourse: $scope.edit_item_str.sourse,
@@ -711,9 +712,39 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
             $scope.edit_item.reference.push(obj);
         })
+        if ($scope.edit_item.original_intelligence.length > 25) {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+        } else {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+        }
+        // 匹配标签
+        angular.forEach(JSON.parse($scope.edit_item_str.label_id), function (item, index) {
+            if (item != '') {
+                var obj = {
+                    category: '',
+                    name: '',
+                    tag_name_list: [],
+                    category_ul: false,
+                    name_ul: false,
+                    icon: false,
+                    id: item
+                }
+                $scope.edit_item.tag.push(obj)
+            }
+        })
+        $scope.edit_item.tag[$scope.edit_item.tag.length - 1].icon = true;
+        angular.forEach($scope.edit_item.tag, function (item) {
+            angular.forEach($scope.label_data, function (key) {
+                angular.forEach(key.label, function (k) {
+                    if (k.id == item.id) {
+                        item.tag_name_list = key.label
+                        item.category = k.category_name
+                        item.name = k.label_name
+                    }
+                })
 
-
-
+            })
+        })
         $scope.pop_show.edit = true;
     };
     // 触发标签选择
@@ -1170,10 +1201,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     category_ul: false,
                     name_ul: false,
                     icon: true
-
                 })
                 break;
-
             default:
                 break;
         }
@@ -1324,7 +1353,91 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
 
 
+    // 原始情报信息 展开 折叠
+    $scope.original_blur = function () {
+        $scope.pop_show.add_original_input = false;
+        if ($scope.add_item.original_intelligence.length > 20) {
+            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence.substring(0, 25) + '...';
+        } else {
+            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence
+        }
+        console.log($scope.add_item.original_intelligence_cn);
+    }
+    $scope.original_focus = function () {
+        $scope.pop_show.add_original_input = true;
+        setTimeout(
+            function () {
+                document.getElementById('original_intelligence').focus()
+            }, 100
+        )
+    }
 
+    $scope.more = function () {
+        $scope.pop_show.add_old_box = false;
+        // if ($scope.add_item.original_intelligence != '') {
+        setTimeout(function () {
+            var textarea = document.getElementById('text');
+            console.log($scope.add_item.original_intelligence);
+            if ($scope.add_item.original_intelligence == '') {
+                console.log('111');
+                textarea.style.height = '42px';
+                $('.pickup_box')[0].style.height = '42px';
+            } else {
+                textarea.style.height = textarea.scrollHeight + 'px';
+                $('#add_pickup_box')[0].style.height = textarea.scrollHeight + 'px';
+            }
+        }, 10)
+        // }
+    }
+    $scope.pickup = function () {
+        $scope.pop_show.add_old_box = true;
+        $scope.pop_show.add_original_input = false;
+        if ($scope.add_item.original_intelligence.length > 20) {
+            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence.substring(0, 25) + '...';
+        } else {
+            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence
+        }
+    }
+    // 编辑原始情报信息 展开 折叠
+    $scope.edit_original_blur = function () {
+        $scope.pop_show.edit_original_input = false;
+        if ($scope.edit_item.original_intelligence.length > 25) {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+        } else {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+        }
+    }
+    $scope.edit_original_focus = function () {
+        $scope.pop_show.edit_original_input = true;
+        setTimeout(
+            function () {
+                document.getElementById('edit_original_intelligence').focus()
+            }, 100
+        )
+    }
+
+    $scope.edit_more = function () {
+        $scope.pop_show.edit_old_box = false;
+        // if ($scope.add_item.original_intelligence != '') {
+        setTimeout(function () {
+            var textarea = document.getElementById('edit_text');
+            var edit_pickup_box = document.getElementById('edit_pickup_box');
+            console.log($scope.edit_item.original_intelligence);
+            textarea.style.height = textarea.scrollHeight + 'px';
+            console.log(edit_pickup_box);
+            edit_pickup_box.style.height = textarea.scrollHeight + 'px';
+        }, 10)
+        // }
+    }
+    $scope.edit_pickup = function () {
+        $scope.pop_show.edit_old_box = true;
+        $scope.pop_show.edit_original_input = false;
+        if ($scope.edit_item.original_intelligence.length > 25) {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+        } else {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+        }
+    }
     $scope.init();
 
 });

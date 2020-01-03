@@ -706,3 +706,36 @@ select {
     width: 136px;
     padding: 0 21px;
 }
+
+.more_original {
+    width: 100px;
+    background: #F8F8F8;
+    color: #0070FF;
+    margin-left: 5px;
+    font-size: 12px;
+    text-align: center;
+    position: relative;
+}
+
+.more_original img {
+    width: 9px;
+    vertical-align: middle;
+}
+
+.textarea_original {
+    resize: none;
+    /* height: auto; */
+}
+
+.add_old_box {
+    flex: 1;
+}
+
+.pickup_box_div {
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 42px;
+    width: 100px;
+}
