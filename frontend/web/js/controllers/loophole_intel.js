@@ -531,7 +531,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             id: $scope.edit_item_str.id,
             title: $scope.edit_item_str.title,
             level: '',
-            link: $scope.edit_item_str.link,
             level_list: [{
                     name: '高危',
                     num: '高危'
