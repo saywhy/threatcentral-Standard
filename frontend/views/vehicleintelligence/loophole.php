@@ -14,14 +14,30 @@ $this->title = '漏洞情报';
                 </span>
 
                 <!-- 漏洞来源 -->
-                <select class="vehicle_search_select source_input" ng-model="seach_data.source"
-                   ng-options="x for x in loop_source">
-                </select>
+               <div class="vehicle_icon_box">
+                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                   <input type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+                        ng-blur="search_blur('source');" class="search_input" readonly>
+                   <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0">
+                       <li ng-mousedown="search_choose_item(item,$index,'source');"
+                           ng-repeat="item in loop_source track by $index">
+                           {{item}}
+                       </li>
+                   </ul>
+               </div>
 
-                <!-- 漏洞级别 -->
-                <select class="vehicle_search_select source_input" ng-model="seach_data.level"
-                   ng-options="x.num as x.status for x in search_level">
-                </select>
+               <!-- 漏洞级别 -->
+                <div class="vehicle_icon_box">
+                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                   <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
+                        ng-blur="search_blur('level');" class="search_input" readonly>
+                   <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0">
+                       <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
+                           ng-repeat="item in search_level track by $index">
+                           {{item.status}}
+                       </li>
+                   </ul>
+               </div>
 
                 <!-- 获取时间 -->
                 <div class="vehicle_search_time">

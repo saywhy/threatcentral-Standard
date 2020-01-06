@@ -300,6 +300,12 @@
                                 <span>漏洞情报管理</span>
                             </a>
                         </li>
+                        <li class="aside-item-three <?=isActive(['/seting/base-intelligence'])?>"
+                        ng-if="menu_list.set_base">
+                            <a class="aside-item-three-a" href="<?=getPath('/seting/base-intelligence')?>" >
+                                <span>基础情报管理</span>
+                            </a>
+                        </li>
                      </ul>
                 </li>
              </ul>

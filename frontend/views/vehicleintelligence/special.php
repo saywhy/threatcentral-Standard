@@ -14,26 +14,37 @@ $this->title = '行业情报';
                      ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
             </span>
 
-            <!-- 情报来源 -->
-            <select class="vehicle_search_select source_input" ng-model="seach_data.source"
-                ng-options="x for x in loop_source">
-            </select>
+            <!-- 漏洞来源 -->
+            <div class="vehicle_icon_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+                     ng-blur="search_blur('source');" class="search_input" readonly>
+                <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item,$index,'source');"
+                        ng-repeat="item in loop_source track by $index">
+                        {{item}}
+                    </li>
+                </ul>
+            </div>
 
-            <!-- 情报级别 -->
-            <select class="vehicle_search_select source_input" ng-model="seach_data.level"
-                ng-options="x.num as x.status for x in search_level">
-            </select>
+            <!-- 漏洞级别 -->
+             <div class="vehicle_icon_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
+                     ng-blur="search_blur('level');" class="search_input" readonly>
+                <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
+                        ng-repeat="item in search_level track by $index">
+                        {{item.status}}
+                    </li>
+                </ul>
+            </div>
 
             <!-- 获取时间 -->
             <div class="vehicle_search_time">
                 <img src="/images/report/time.png" class="time_icon_search" alt="">
                 <input class="input_box" id="picker_search" readonly type="text" placeholder="时间">
             </div>
-
-            <!-- 标签选择 -->
-            <!--<select class="vehicle_search_select source_input" ng-model="seach_data.label_id"
-                ng-options="x.id as x.label_name for x in search_tag_list">
-            </select>-->
 
             <!-- 搜索 -->
             <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
@@ -98,29 +109,6 @@ $this->title = '行业情报';
 
 
     <!-- 新增标签弹窗 -->
-    <!--<div style="display:none;" id="vehicle_special_box">
-            <div id="vehicle_special">
-                <h1 class="l_top">{{label_item_data.title}}</h1>
-                <div class="l_mid">
-                    <p class="item">
-                      <span class="l_item"><span class="l_name">威胁等级：</span><span class="l_value">{{label_item_data.level}}危</span></span>
-                      <span class="l_item1"><span class="l_name">时间：</span><span class="l_value">{{label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
-                    </p>
-                    <p class="item">
-                      <span class="l_item"><span class="l_name">来源：</span><span class="l_value">{{label_item_data.sourse}}</span></span>
-                      <span class="l_item1"><span class="l_name">标签：</span><span class="l_value">{{label_item_data.label_new_name}}</span></span>
-                    </p>
-                    <p class="item">
-                      <span class="l_item1"><span class="l_name">链接：</span><span class="l_value">https://threateye.hoohoolab.com/#/app/set_black_list</span></span>
-                    </p>
-                </div>
-                <dl class="l_bom">
-                    <dt class="l_title">行业描述：</dt>
-                    <dd class="l_content">{{label_item_data.detail}}</dd>
-                </dl>
-            </div>
-         </div>-->
-
     <div style="display:none;" id="vehicle_special_box">
         <div id="vehicle_special">
             <h1 class="l_top">{{label_item_data.title}}</h1>
@@ -153,24 +141,16 @@ $this->title = '行业情报';
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
                     <h4 class="title">标签：</h4>
-                    <p class="s_label" style="margin-top:6px;">
-                      <span class="s_name">标签类别1：</span>
-                      <span class="s_lab">
-                        <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
-                        <a class="s_lab_val">消息泄露</a>
-                        <a class="s_lab_val">跨站脚本</a>
-                        <a class="s_lab_val">跨站脚本</a>
-                      </span>
-                    </p>
-                    <p class="s_label">
-                      <span class="s_name">标签类别2：</span>
-                      <span class="s_lab">
-                        <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
-                        <a class="s_lab_val">消息泄露</a>
-                        <a class="s_lab_val">跨站脚本</a>
-                        <a class="s_lab_val">跨站脚本</a>
-                      </span>
-                    </p>
+
+                    <div class="s_label_list">
+                        <p class="s_label" ng-repeat = "item in label_item_data.label_new_name">
+                          <span class="s_name">{{item.name}}：</span>
+                          <span class="s_lab">
+                            <a ng-repeat="tm in item.value" class="s_lab_val">{{tm.label_name}}</a>
+                          </span>
+                        </p>
+                    </div>
+
                 </li>
             </ul>
         </div>

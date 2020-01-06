@@ -806,12 +806,23 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         }).then(function (resp) {
 
             if(resp.data.status != 'success') {
-                zeroModal.error('失败');
+                zeroModal.error({
+                    content: '操作失败',
+                    okFn:function () {
+                        $scope.get_label_list();
+                    }
+                });
+            }else {
+                $scope.get_label_list();
             }
-            $scope.get_label_list();
 
         }).catch(function () {
-            $scope.get_label_list();
+            zeroModal.error({
+                content: '操作失败',
+                okFn:function () {
+                    $scope.get_label_list();
+                }
+            });
         })
     };
 

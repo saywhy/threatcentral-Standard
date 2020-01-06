@@ -153,6 +153,9 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.sortable .btn_label:hover,.sortable .btn_label:focus{
+    border: 1px solid #EEF6FF;
+}
 
 .sortable .btn_label .b_label{
     width: 90px;

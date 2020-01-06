@@ -9,6 +9,12 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         $scope.toggleCount = 2;
         $scope.toggleStatus = false;
 
+        //漏洞来源、级别下拉框显隐状态
+        $scope.search_box_ul = {
+            source: false,
+            level: false
+        }
+
         //前端选中标签展示列表
         $scope.label_checked_list = [];
 
@@ -18,7 +24,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         };
 
         $scope.seach_data = {
-            source: '漏洞来源',
+            source: '',
             status: '',
             label_id: [],
             key_word: '',
@@ -28,10 +34,11 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         };
 
         //漏洞级别
-        $scope.search_level = [{
-            num: '',
-            status: '漏洞级别'
-        },
+        $scope.search_level = [
+            {
+                num: '',
+                status: '全部'
+            },
             {
                 num: '高',
                 status: '高'
@@ -89,7 +96,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
                 angular.forEach(resp.data, function (item) {
                     $scope.loop_source.push(item.sourse);
                 })
-                $scope.loop_source.unshift('漏洞来源');
+                $scope.loop_source.unshift('全部');
             },
             function () {}
         );
@@ -204,9 +211,13 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
         e.preventDefault();
 
-        console.log(item)
+        item.label_new_name = [];
 
-        item.label_new_name = item.label_name.join('/');
+        angular.forEach(item.label_name_ext,function (value,key) {
+            item.label_new_name.push({name: key.substring(0,key.length - 10),value:value})
+
+        });
+
         $scope.label_item_data = item;
 
         var W = 740;
@@ -234,6 +245,51 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             $scope.get_page();
         }
     };
+
+    /*修改搜索框*/
+    // 搜索框获取焦点
+    $scope.search_focus = function (name) {
+        switch (name) {
+            case 'source':
+                $scope.search_box_ul.source = true;
+                break;
+            case 'level':
+                $scope.search_box_ul.level = true;
+                break;
+            default:
+                break;
+        }
+
+    }
+    // 搜索框失去焦点
+    $scope.search_blur = function (name) {
+        switch (name) {
+            case 'source':
+                $scope.search_box_ul.source = false;
+                break;
+            case 'level':
+                $scope.search_box_ul.level = false;
+                break;
+            default:
+                break;
+        }
+    }
+    // 搜索栏选择
+    $scope.search_choose_item = function (data, index, name) {
+        switch (name) {
+            case 'source':
+                $scope.seach_data.source = data
+                break;
+            case 'stauts':
+                $scope.seach_data.stauts = data
+                break;
+            case 'level':
+                $scope.seach_data.level = data
+                break;
+            default:
+                break;
+        }
+    }
 
     // 获取行业情报列表
     $scope.get_page = function (pageNow) {

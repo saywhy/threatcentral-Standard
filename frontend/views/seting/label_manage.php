@@ -77,7 +77,7 @@ ul li {
                         </button>
                         <div class="btn_img">
                             <img class="b_img b_img_drag b_img_drag{{$idx}}" src="/images/set/label_drag_v.png"/>
-                            <img class="b_img b_img_edit" ng-click="label_edit($event,it,'edit');" src="/images/set/label_edit.png"/>
+                            <img class="b_img b_img_edit" title="编辑标签" ng-click="label_edit($event,it,'edit');" src="/images/set/label_edit.png"/>
                         </div>
                     </li>
                 </ul>

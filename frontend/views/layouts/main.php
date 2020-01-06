@@ -221,6 +221,9 @@ function getPath($path)
           <?php if (isActive(['/seting/loophole-intelligence']) == 'active') {?>
               <li><a href="/seting/loophole-intelligence"><i class="fa fa-cog"></i>配置</a></li>
           <?php }?>
+          <?php if (isActive(['/seting/base-intelligence']) == 'active') {?>
+             <li><a href="/seting/base-intelligence"><i class="fa fa-cog"></i>配置</a></li>
+          <?php }?>
 
          <li class="active"><?=$this->title?></li>
        </ol>
