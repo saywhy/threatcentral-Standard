@@ -416,7 +416,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         }
         angular.forEach($scope.add_item.tag, function (item, index) {
             if (item.name != '') {
-                $scope.add_item.exist.push(item.id)
+                $scope.add_item.exist.push(item.id * 1)
             }
         })
         angular.forEach($scope.add_item.reference, function (item, index) {
