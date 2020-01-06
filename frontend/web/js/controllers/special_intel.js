@@ -57,13 +57,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 status: '低'
             }
         ]
-
-
         $scope.picker_search();
         $scope.start_time_picker();
         $scope.get_loophole_source();
-        $scope.get_tag_list();
         $scope.get_page();
+        $scope.get_nvd();
         $scope.tag_list_if = false;
         $scope.add_source_list_if = false;
         $scope.edit_source_list_if = false;
@@ -101,20 +99,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.toggleCount = 2;
         $scope.toggleStatus = false;
         $scope.get_lab_list()
-        $scope.alert_item = {
-            title: '',
-            level: '高',
-            first_seen_time: '',
-            sourse: '',
-            detail: '',
-            label_id: {
-                exist: [],
-                unexist: []
-            },
-            tag_list: [],
-            add_new_tag: [],
-            tag_list_str: '',
-        }
+
         $scope.tag_key_add = {
             active_index: -1,
             listHeight: 156,
@@ -184,7 +169,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         );
     };
     $scope.picker_edit = function (startDate) {
-        console.log(startDate);
         $("#picker_edit").daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -215,7 +199,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                console.log(data);
                 $scope.loop_source = [];
                 $scope.loop_source_add = [];
                 angular.forEach(data.data, function (item) {
@@ -226,15 +209,21 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.loop_source_add.push(obj);
                     $scope.loop_source.push(obj);
                 })
-                angular.forEach($scope.loop_source_add, function (item, index) {
-                    if ($scope.alert_item.sourse == item.name) {
-                        $scope.tag_key_add.active_index = 0;
-                    }
-                })
                 $scope.loop_source.unshift({
                     name: '全部',
                     active: false
                 })
+            },
+            function () {}
+        );
+    }
+    $scope.get_nvd = function () {
+        $http({
+            method: "get",
+            url: "/site/cve-list",
+        }).then(
+            function (data) {
+                $scope.nvd_list = data.data;
             },
             function () {}
         );
@@ -265,7 +254,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if ($scope.params_data.level == '全部') {
             $scope.params_data.level = ''
         }
-        console.log($scope.params_data);
         $http({
             method: "get",
             url: "/seting/special-intelligence-list",
@@ -371,9 +359,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             reference_information: [],
             NVD: [{
                 name: '',
-                icon: true
+                icon: true,
+                nvd_ul: false,
             }],
-            nvd_list: [],
+            nvd_list: $scope.nvd_list,
             tag: [{
                 category: '',
                 name: '',
@@ -398,35 +387,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_cancel = function () {
         $scope.pop_show.edit = false;
     };
-    // 添加漏洞情报
+    // 添加录入情报
     $scope.add_sure = function () {
-        console.log($scope.add_item);
-        //------
-        // {
-        //     "title": "3462454",
-        //     "level": "高",
-        //     "first_seen_time": 1577691334,
-        //     "sourse": "https://www.upstream.auto/research/automotive-cybersecurity",
-        //     "link": "链接",
-        //     "detail": "23253534",
-        //     "original_intelligence": "yuanshi qingbao",
-        //     "reference_information": ["123", "adfg", "dfd", "f佛挡杀佛的"],
-        //     "label_id": {
-        //         "exist": [112, 118],
-        //         "unexist": ["5656565656"]
-        //     },
-        //     "nvd": ["sssss", "adfg", "ss", "aaaa"]
-        // }
-        //  tag: [{
-        //      category: '',
-        //      name: '',
-        //      tag_name_list: [],
-        //      category_ul: false,
-        //      name_ul: false,
-        //      icon: true,
-        //      id: ''
-        //  }],
-        //----
         if ($scope.add_item.title == '') {
             zeroModal.error('请输入标题')
             return false
@@ -448,10 +410,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             default:
                 break;
         }
-        // if ($scope.add_item.sourse == '') {
-        //     zeroModal.error('请选择情报来源')
-        //     return false
-        // }
+        if ($scope.add_item.sourse == '') {
+            zeroModal.error('请选择情报来源')
+            return false
+        }
         angular.forEach($scope.add_item.tag, function (item, index) {
             if (item.name != '') {
                 $scope.add_item.exist.push(item.id)
@@ -468,6 +430,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         })
         // var loading = zeroModal.loading(4);
+        var NVD_Array = [];
+        angular.forEach($scope.add_item.NVD, function (item) {
+            if (item.name != '') {
+                NVD_Array.push(item.name);
+            }
+        })
         $http({
             method: "post",
             url: "/seting/special-intelligence-add",
@@ -478,7 +446,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 sourse: $scope.add_item.sourse,
                 link: $scope.add_item.link,
                 detail: $scope.add_item.detail,
-                nvd: ['0000', '9999', '8888'],
+                nvd: NVD_Array,
                 reference_information: $scope.add_item.reference_information,
                 original_intelligence: $scope.add_item.original_intelligence,
                 label_id: {
@@ -489,10 +457,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         }).then(
             function (data) {
                 // zeroModal.close(loading);
-                console.log(data);
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
-                    $scope.get_tag_list()
                     $scope.get_loophole_source();
                     $scope.get_page();
                     $scope.pop_show.add = false;
@@ -503,109 +469,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     };
-    // 触发标签选择
-    $scope.tag_focus = function () {
-        $scope.tag_list_if = true;
-        $scope.get_tag_list($scope.alert_item.tag_list_str);
-        $scope.tag_list_scrollTop.active_index = -1
-    }
-    $scope.tag_blur = function () {
-        $scope.tag_list_if = false;
-        if ($scope.alert_item.tag_list_str == '') {
-            return false;
-        }
-        $scope.alert_item.tag_list_str = '';
-    }
-
-    // 获取标签列表
-    $scope.get_tag_list = function (name) {
-        $http({
-            method: "get",
-            url: "/site/get-label",
-            params: {
-                label_name: name,
-            }
-        }).then(
-            function (data) {
-                console.log(data);
-                $scope.search_tag_list = [];
-                $scope.data_location = JSON.stringify(data.data);
-                $scope.tag_list = JSON.parse($scope.data_location);
-                $scope.search_tag_list_str = $scope.data_location;
-                $scope.search_tag_list = JSON.parse($scope.search_tag_list_str);
-                $scope.search_tag_list.push({
-                    id: '',
-                    label_name: '全部'
-                })
-            },
-            function () {}
-        );
-    }
-    $scope.tag_change = function (name) {
-        $scope.get_tag_list(name);
-        $scope.tag_list_scrollTop.active_index = -1
-    }
-    // 选择标签
-    $scope.tag_list_item = function (item) {
-        $scope.alert_item.tag_list.push(item.label_name);
-        $scope.alert_item.label_id.exist.push(item);
-        $scope.tag_list_if = false;
-        $scope.alert_item.tag_list_str = ''
-    }
-    $scope.tag_blur = function () {
-        $scope.tag_list_if = false;
-    }
-    // 删除标签
-    $scope.tag_del = function (name, index) {
-        angular.forEach($scope.alert_item.add_new_tag, function (value, key) {
-            if ($scope.alert_item.tag_list[index] == value) {
-                $scope.alert_item.add_new_tag.splice(key, 1);
-            }
-        })
-        angular.forEach($scope.alert_item.label_id.exist, function (item, key) {
-            if ($scope.alert_item.tag_list[index] == item.label_name) {
-                $scope.alert_item.label_id.exist.splice(key, 1);
-            }
-        })
-        $scope.alert_item.tag_list.splice(index, 1);
-    }
-    $scope.mykey = function (e) {
-        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
-        if (keycode == 13) {
-            if ($scope.alert_item.tag_list_str != '') {
-                $scope.alert_item.tag_list.push($scope.alert_item.tag_list_str);
-                $scope.alert_item.add_new_tag.push($scope.alert_item.tag_list_str);
-                $scope.alert_item.tag_list_str = '';
-            }
-            $('.tag_input').blur();
-            $scope.tag_blur();
-        } else if (keycode == 40) {
-            //下键
-            if ($scope.tag_list_scrollTop.active_index == ($scope.tag_list.length - 1)) {
-                $scope.tag_list_scrollTop.active_index = 0
-            } else {
-                $scope.tag_list_scrollTop.active_index++
-            }
-            console.log($scope.tag_list_scrollTop.active_index);
-            $scope.alert_item.tag_list_str = $scope.tag_list[$scope.tag_list_scrollTop.active_index].label_name;
-        } else if (keycode == 38) {
-            //上键
-            if ($scope.tag_list_scrollTop.active_index === 0 || $scope.tag_list_scrollTop.active_index === -1) {
-                $scope.tag_list_scrollTop.active_index = $scope.tag_list.length - 1;
-            } else {
-                $scope.tag_list_scrollTop.active_index--;
-            }
-            $scope.alert_item.tag_list_str = $scope.tag_list[$scope.tag_list_scrollTop.active_index].label_name;
-        }
-        var scrollTop = 0;
-        if ($scope.tag_list_scrollTop.listHeight < $scope.tag_list_scrollTop.listItemHeight *
-            ($scope.tag_list_scrollTop.active_index + 1)) {
-            scrollTop = $scope.tag_list_scrollTop.listItemHeight *
-                ($scope.tag_list_scrollTop.active_index + 1) - $scope.tag_list_scrollTop.listHeight;
-        }
-        document.getElementById('tag_list_scrollTop').scrollTop = scrollTop;
-    }
-    // 发布漏洞情报
+    // 发布情报
     $scope.release = function (id) {
         // var loading = zeroModal.loading(4);
         $http({
@@ -627,7 +491,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
-    // 删除漏洞情报
+    // 删除情报
     $scope.delete = function (id) {
         // var loading = zeroModal.loading(4);
         $http({
@@ -653,9 +517,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_loop_box = function (item) {
         var item_str = JSON.stringify(item);
         $scope.edit_item_str = JSON.parse(item_str);
-        console.log($scope.edit_item_str);
         $scope.picker_edit(moment(new Date($scope.edit_item_str.first_seen_time * 1000)));
         $scope.edit_item = {
+            id: $scope.edit_item_str.id,
             title: $scope.edit_item_str.title,
             level: '',
             link: $scope.edit_item_str.link,
@@ -677,14 +541,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             ],
             reference: [],
             reference_information: [],
-            NVD: [{
-                name: '',
-                icon: true
-            }],
-            nvd_list: [],
+            NVD: [],
+            nvd_list: $scope.nvd_list,
             tag: [],
             label_category: [],
-            first_seen_time: moment(new Date($scope.edit_item_str.first_seen_time * 1000)),
+            first_seen_time: $scope.edit_item_str.first_seen_time,
             sourse: $scope.edit_item_str.sourse,
             detail: $scope.edit_item_str.detail,
             exist: [],
@@ -702,20 +563,31 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             default:
                 break;
         }
-        angular.forEach($scope.edit_item_str.reference_information, function (item, index) {
-            var obj = {
-                name: item,
-                icon: false
-            }
-            if (index == $scope.edit_item_str.reference_information.length - 1) {
-                obj.icon = true
-            }
-            $scope.edit_item.reference.push(obj);
-        })
-        if ($scope.edit_item.original_intelligence.length > 25) {
-            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+        if ($scope.edit_item_str.reference_information && $scope.edit_item_str.reference_information != '') {
+            angular.forEach($scope.edit_item_str.reference_information, function (item, index) {
+                var obj = {
+                    name: item,
+                    icon: false
+                }
+                if (index == $scope.edit_item_str.reference_information.length - 1) {
+                    obj.icon = true
+                }
+                $scope.edit_item.reference.push(obj);
+            })
         } else {
-            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+            $scope.edit_item.reference.push({
+                name: '',
+                icon: true
+            });
+        }
+        if ($scope.edit_item.original_intelligence) {
+            if ($scope.edit_item.original_intelligence.length > 25) {
+                $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+            } else {
+                $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+            }
+        } else {
+            $scope.edit_item.original_intelligence = ''
         }
         // 匹配标签
         angular.forEach(JSON.parse($scope.edit_item_str.label_id), function (item, index) {
@@ -732,94 +604,97 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.edit_item.tag.push(obj)
             }
         })
-        $scope.edit_item.tag[$scope.edit_item.tag.length - 1].icon = true;
-        angular.forEach($scope.edit_item.tag, function (item) {
-            angular.forEach($scope.label_data, function (key) {
-                angular.forEach(key.label, function (k) {
-                    if (k.id == item.id) {
-                        item.tag_name_list = key.label
-                        item.category = k.category_name
-                        item.name = k.label_name
-                    }
+        if ($scope.edit_item.tag.length != 0) {
+            $scope.edit_item.tag[$scope.edit_item.tag.length - 1].icon = true;
+            angular.forEach($scope.edit_item.tag, function (item) {
+                angular.forEach($scope.label_data, function (key) {
+                    angular.forEach(key.label, function (k) {
+                        if (k.id == item.id) {
+                            item.tag_name_list = key.label
+                            item.category = k.category_name
+                            item.name = k.label_name
+                        }
+                    })
+
                 })
-
             })
-        })
-        $scope.pop_show.edit = true;
-    };
-    // 触发标签选择
-    $scope.edit_tag_focus = function () {
-        $scope.edit_tag_list_if = true;
-        $scope.get_tag_list($scope.edit_item.tag_list_str);
-        $scope.edit_tag_scrollTop.active_index = -1;
-    }
-    $scope.edit_tag_blur = function () {
-        $scope.edit_tag_list_if = false;
-        if ($scope.edit_item.tag_list_str == '') {
-            return false;
+        } else {
+            $scope.edit_item.tag.push({
+                category: '',
+                name: '',
+                tag_name_list: [],
+                category_ul: false,
+                name_ul: false,
+                icon: true,
+                id: item
+            })
         }
-        $scope.edit_item.tag_list_str = '';
-    }
-    // 编辑选择标签
-    $scope.edit_tag_list_item = function (item) {
-        $scope.edit_item.tag_list.push(item.label_name);
-        $scope.edit_tag_list_if = false;
-        $scope.edit_item.tag_list_str = '';
-    }
-    $scope.edit_mykey = function (e) {
-        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
-        if (keycode == 13) {
-            if ($scope.edit_item.tag_list_str != '') {
-                $scope.edit_item.tag_list.push($scope.edit_item.tag_list_str);
-                $scope.edit_item.tag_list_str = '';
-            }
-            $('.tag_input').blur();
-            $scope.edit_tag_blur();
-        } else if (keycode == 40) {
-            //下键
-            if ($scope.edit_tag_scrollTop.active_index == ($scope.tag_list.length - 1)) {
-                $scope.edit_tag_scrollTop.active_index = 0
-            } else {
-                $scope.edit_tag_scrollTop.active_index++
-            }
-            console.log($scope.edit_tag_scrollTop.active_index);
-            $scope.edit_item.tag_list_str = $scope.tag_list[$scope.edit_tag_scrollTop.active_index].label_name;
-        } else if (keycode == 38) {
-            //上键
-            if ($scope.edit_tag_scrollTop.active_index === 0 || $scope.edit_tag_scrollTop.active_index === -1) {
-                $scope.edit_tag_scrollTop.active_index = $scope.tag_list.length - 1;
-            } else {
-                $scope.edit_tag_scrollTop.active_index--;
-            }
-            $scope.edit_item.tag_list_str = $scope.tag_list[$scope.edit_tag_scrollTop.active_index].label_name;
-        }
-        var scrollTop = 0;
-        if ($scope.edit_tag_scrollTop.listHeight < $scope.edit_tag_scrollTop.listItemHeight *
-            ($scope.edit_tag_scrollTop.active_index + 1)) {
-            scrollTop = $scope.edit_tag_scrollTop.listItemHeight *
-                ($scope.edit_tag_scrollTop.active_index + 1) - $scope.edit_tag_scrollTop.listHeight;
-        }
-        document.getElementById('edit_tag_scrollTop').scrollTop = scrollTop;
-    }
-    // 编辑删除标签
-    $scope.edit_tag_del = function (name, index) {
-        $scope.edit_item.tag_list.splice(index, 1);
-    }
-    $scope.edit_tag_change = function (name) {
-        $scope.get_tag_list(name);
-        $scope.edit_tag_scrollTop.active_index = -1;
-    }
+        if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
+            angular.forEach($scope.edit_item_str.nvd, function (item, index) {
+                var obj = {
+                    name: item,
+                    nvd_ul: false,
+                    icon: false
+                }
+                if (index == $scope.edit_item_str.nvd.length - 1) {
+                    obj.icon = true
+                }
+                $scope.edit_item.NVD.push(obj)
+            })
 
-    $scope.edit_sure = function () {
-        console.log($scope.edit_item);
-        if ($scope.edit_item.sourse == '请选择') {
-            zeroModal.error('请选择情报来源')
-            return false
+        } else {
+            $scope.edit_item.NVD.push({
+                name: '',
+                nvd_ul: false,
+                icon: true
+            })
         }
+        $scope.pop_show.edit = true;
+        console.log($scope.edit_item_str);
+        console.log($scope.edit_item);
+    };
+    $scope.edit_sure = function () {
         if ($scope.edit_item.title == '') {
             zeroModal.error('请输入标题')
             return false
         }
+        if ($scope.edit_item.sourse == '请选择') {
+            zeroModal.error('请选择情报来源')
+            return false
+        }
+        var params_edit = {
+            level: '',
+            nvd: [],
+            label_name: []
+        }
+        switch ($scope.edit_item.level) {
+            case '高危':
+                params_edit.level = '高'
+                break;
+            case '中危':
+                params_edit.level = '中'
+                break;
+            case '低危':
+                params_edit.level = '低'
+                break;
+            default:
+                break;
+        }
+        angular.forEach($scope.edit_item.reference, function (item, index) {
+            if (item.name != '') {
+                $scope.edit_item.reference_information.push(item.name)
+            }
+        })
+        angular.forEach($scope.edit_item.NVD, function (item, index) {
+            if (item.name != '') {
+                params_edit.nvd.push(item.name)
+            }
+        })
+        angular.forEach($scope.edit_item.tag, function (item, index) {
+            if (item.name != '') {
+                params_edit.label_name.push(item.name)
+            }
+        })
         // var loading = zeroModal.loading(4);
         $http({
             method: "put",
@@ -827,37 +702,33 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             data: {
                 id: $scope.edit_item.id,
                 title: $scope.edit_item.title,
-                level: $scope.edit_item.level,
-                first_seen_time: $scope.edit_time,
+                level: params_edit.level,
+                first_seen_time: $scope.edit_item.first_seen_time,
                 sourse: $scope.edit_item.sourse,
+                link: $scope.edit_item.link,
                 detail: $scope.edit_item.detail,
-                label_name: $scope.edit_item.label_name,
-                status: $scope.edit_item.status,
+                original_intelligence: $scope.edit_item.original_intelligence,
+                reference_information: $scope.edit_item.reference_information,
+                nvd: params_edit.nvd,
+                label_name: params_edit.label_name,
             }
         }).then(
             function (data) {
                 // zeroModal.close(loading);
+                console.log(data);
                 if (data.data.status == 'success') {
                     zeroModal.success("修改成功");
-                    $scope.get_tag_list();
-                    $scope.get_lab_list()
+                    $scope.pop_show.edit = false;
+                    $scope.get_loophole_source();
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
-                setTimeout(zeroModal.closeAll(), 3000)
                 $scope.get_page();
             },
             function () {}
         );
-
     }
-
     // ---------------录入情报来源
-    // add_level_list: false,
-    //    add_tag_category: false,
-    //        add_tag_name: false,
-    //        add_NVD_list: false,
-    //        add_source_list: false,
     //获取焦点
     $scope.add_focus = function (name, index) {
         switch (name) {
@@ -886,12 +757,17 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.pop_show.add_tag_name = true;
                 break;
             case 'NVD':
-                $scope.pop_show.add_NVD_list = true;
+                angular.forEach($scope.add_item.NVD, function (key, value) {
+                    if (value == index) {
+                        key.nvd_ul = true;
+                    } else {
+                        key.nvd_ul = false;
+                    }
+                })
                 break;
             case 'source':
                 $scope.pop_show.add_source_list = true;
                 break;
-
             default:
                 break;
         }
@@ -917,7 +793,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 })
                 break;
             case 'NVD':
-                $scope.pop_show.add_NVD_list = false;
+                angular.forEach($scope.add_item.NVD, function (key, value) {
+                    key.nvd_ul = false;
+                })
                 break;
             case 'source':
                 $scope.pop_show.add_source_list = false;
@@ -925,7 +803,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             default:
                 break;
         }
-
     }
     // 选择列表
     $scope.choose_item = function (data, index, name) {
@@ -957,9 +834,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         key.id = data.id;
                     }
                 })
-
                 break;
-
+            case 'NVD':
+                angular.forEach($scope.add_item.NVD, function (key, value) {
+                    if (value == index) {
+                        key.name = data;
+                    }
+                })
+                break;
             default:
                 break;
         }
@@ -997,10 +879,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     category_ul: false,
                     name_ul: false,
                     icon: true
-
                 })
                 break;
-
             default:
                 break;
         }
@@ -1017,7 +897,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             case 'tag':
                 $scope.add_item.tag.splice(index, 1);
                 break;
-
             default:
                 break;
         }
@@ -1033,7 +912,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if (keycode == 13) {
             $('#input_source_add').blur();
             $scope.pop_show.add_source_list = false;
-            console.log('enter');
         } else if (keycode == 40) {
             //下键
             if ($scope.tag_key_add.active_index == ($scope.loop_source_add.length - 1)) {
@@ -1041,7 +919,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             } else {
                 $scope.tag_key_add.active_index++
             }
-            console.log($scope.tag_key_add.active_index);
             $scope.add_item.sourse = $scope.loop_source_add[$scope.tag_key_add.active_index].name;
         } else if (keycode == 38) {
             //上键
@@ -1090,7 +967,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.pop_show.edit_tag_name = true;
                 break;
             case 'NVD':
-                $scope.pop_show.edit_NVD_list = true;
+                angular.forEach($scope.edit_item.NVD, function (key, value) {
+                    if (value == index) {
+                        key.nvd_ul = true;
+                    } else {
+                        key.nvd_ul = false;
+                    }
+                })
                 break;
             case 'source':
                 $scope.pop_show.edit_source_list = true;
@@ -1121,7 +1004,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 })
                 break;
             case 'NVD':
-                $scope.pop_show.edit_NVD_list = false;
+                angular.forEach($scope.edit_item.NVD, function (key, value) {
+                    key.nvd_ul = false;
+                })
                 break;
             case 'source':
                 $scope.pop_show.edit_source_list = false;
@@ -1161,13 +1046,17 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         key.id = data.id;
                     }
                 })
-
                 break;
-
+            case 'NVD':
+                angular.forEach($scope.edit_item.NVD, function (key, value) {
+                    if (value == index) {
+                        key.name = data;
+                    }
+                })
+                break;
             default:
                 break;
         }
-
     }
     // 增加input框
     $scope.edit_add_input_list = function (name, index) {
@@ -1260,8 +1149,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         document.getElementById('loop_source_edit').scrollTop = scrollTop;
     }
 
-
-
     // 获取标签列表
     $scope.get_lab_list = function () {
         // var loading = zeroModal.loading(4);
@@ -1346,7 +1233,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 attr.push(value.label_attr_id);
             }
         });
-        console.log(attr);
         //向后端传递的label_id（每个类别的id数组的组合）
         $scope.seach_data.label_id = attr;
         console.log($scope.seach_data.label_id);
@@ -1374,12 +1260,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     $scope.more = function () {
         $scope.pop_show.add_old_box = false;
-        // if ($scope.add_item.original_intelligence != '') {
         setTimeout(function () {
             var textarea = document.getElementById('text');
             console.log($scope.add_item.original_intelligence);
             if ($scope.add_item.original_intelligence == '') {
-                console.log('111');
                 textarea.style.height = '42px';
                 $('.pickup_box')[0].style.height = '42px';
             } else {
@@ -1387,7 +1271,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $('#add_pickup_box')[0].style.height = textarea.scrollHeight + 'px';
             }
         }, 10)
-        // }
     }
     $scope.pickup = function () {
         $scope.pop_show.add_old_box = true;
@@ -1415,19 +1298,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }, 100
         )
     }
-
     $scope.edit_more = function () {
         $scope.pop_show.edit_old_box = false;
-        // if ($scope.add_item.original_intelligence != '') {
         setTimeout(function () {
             var textarea = document.getElementById('edit_text');
             var edit_pickup_box = document.getElementById('edit_pickup_box');
-            console.log($scope.edit_item.original_intelligence);
             textarea.style.height = textarea.scrollHeight + 'px';
-            console.log(edit_pickup_box);
             edit_pickup_box.style.height = textarea.scrollHeight + 'px';
         }, 10)
-        // }
     }
     $scope.edit_pickup = function () {
         $scope.pop_show.edit_old_box = true;

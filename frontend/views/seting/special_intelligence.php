@@ -335,9 +335,17 @@ $this->title = '行业情报管理';
                     <div class="contnet_item_right" style="flex-direction: column;">
                         <div ng-repeat="(index,item) in add_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                             <div class="tag_item" style="flex:1;">
-                                <input type="text" placeholder="请选择NVD关联" ng-model='item.name' class="item_right_input"
+                                <input type="text" placeholder="请选择NVD关联" ng-model='item.name'
+                                 ng-focus="add_focus('NVD',index)" ng-blur="add_blur('NVD',index);"
+                                class="item_right_input"
                                     readonly>
                                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                                  <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
+                                    <li ng-repeat="key in add_item.nvd_list"
+                                        ng-mousedown="choose_item(key.cve,index,'NVD');">
+                                        {{key.cve}}
+                                    </li>
+                                </ul>
                             </div>
                             <div class="add_icon_box">
                                 <img src="/images/set/add_input_icon.png" ng-click="add_input_list('NVD',index)"
@@ -541,15 +549,23 @@ $this->title = '行业情报管理';
                     </div>
                     <div class="contnet_item_right" style="flex-direction: column;">
                         <div ng-repeat="(index,item) in edit_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
-                            <div class="tag_item" style="flex:1;">
-                                <input type="text" placeholder="请选择NVD关联" ng-model='item.name' class="item_right_input"
+   <div class="tag_item" style="flex:1;">
+                                <input type="text" placeholder="请选择NVD关联" ng-model='item.name'
+                                 ng-focus="edit_focus('NVD',index)" ng-blur="edit_blur('NVD',index);"
+                                class="item_right_input"
                                     readonly>
                                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                                  <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
+                                    <li ng-repeat="key in edit_item.nvd_list"
+                                        ng-mousedown="choose_item_edit(key.cve,index,'NVD');">
+                                        {{key.cve}}
+                                    </li>
+                                </ul>
                             </div>
                             <div class="add_icon_box">
-                                <img src="/images/set/add_input_icon.png" ng-click="add_input_list('NVD',index)"
+                                <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('NVD',index)"
                                     ng-if="item.icon" class="add_icon" alt="">
-                                <img src="/images/set/cel_icon.png" ng-click="delete_input_list('NVD',index)"
+                                <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('NVD',index)"
                                     ng-if="!item.icon" class="add_icon" alt="">
                             </div>
                         </div>
