@@ -94,7 +94,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
                 angular.forEach(resp.data, function (item) {
                     $scope.loop_source.push(item.sourse);
                 })
-                $scope.loop_source.unshift('全部');
+                $scope.loop_source.unshift('漏洞来源');
             },
             function () {}
         );

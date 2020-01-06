@@ -522,9 +522,10 @@ button:active {
     font-size: 14px;
     line-height: 18px;
     height: 60px;
-    word-break: break-all;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .l_mid .item .s_label{
     height: 34px;
