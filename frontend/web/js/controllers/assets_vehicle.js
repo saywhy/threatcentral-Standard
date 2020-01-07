@@ -2,145 +2,47 @@ var myApp = angular.module("myApp", []);
 myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
     console.log('11');
     $scope.init = function () {
-        $scope.data = [{
-                id: '2001',
-                host: '印度名爵',
-                brand: 'MG',
-                series: 'CN202SR',
-                model: 'hector',
-                style: 'hectorxx',
-                master: true,
-                show_index: true,
-                master_index: 0,
-                show_clild: false,
-                class: 'master',
-                info: [{
-                        index: 0,
-                        info_index: 0,
-                        show_index: false,
-                        ids: 1001,
-                        PN: '1v1(导航系统)',
-                        Supplier: '航盛',
-                        Hardware: 'S02',
-                        Software: 'V12.0',
-                        OS: 'andiord',
-                        branch: true,
-                        show: false,
-                        class: 'branch',
-                    },
-                    {
-                        index: 0,
-                        ids: 111,
-                        info_index: 1,
-                        show_index: false,
-                        PN: '1v1(导航系统)',
-                        Supplier: '111',
-                        Hardware: '111',
-                        Software: '111.0',
-                        OS: '1111',
-                        branch: true,
-                        show: false,
-                        class: 'branch',
-                    },
-                    {
-                        index: 0,
-                        ids: 111,
-                        show_index: false,
-                        PN: '1v1(导航系统)',
-                        Supplier: '111',
-                        Hardware: '111',
-                        Software: '111.0',
-                        OS: '1111',
-                        branch: true,
-                        show: false,
-                        class: 'branch',
-                    },
-                ]
+        $scope.select_list = {
+            brand: {
+                choose: '',
+                show: false,
+                list: []
             },
-            {
-                id: '2222',
-                host: '22',
-                brand: '2222',
-                series: '222',
-                model: '222',
-                style: '2222',
-                master: true,
-                show_index: true,
-                master_index: 1,
-                show_clild: false,
-                class: 'master',
-                info: [{
-                        index: 1,
-                        ids: 3333,
-                        PN: '1v1(33333)',
-                        Supplier: '333',
-                        Hardware: '33333',
-                        Software: '3333',
-                        OS: '33333',
-                        show_index: false,
-                        class: 'branch',
-                        branch: true,
-                        show: false
-                    },
-                    {
-                        index: 1,
-                        ids: 4444,
-                        PN: '4444',
-                        Supplier: '4444',
-                        Hardware: '4444',
-                        Software: '44444.0',
-                        OS: '4444',
-                        branch: true,
-                        show: false,
-                        show_index: false,
-                        class: 'branch',
-                    },
-                ]
-            }
-        ]
-        angular.forEach($scope.data, function (item) {
-            var title = {
-                index: item.master_index,
-                ids: '配件ID',
-                PN: 'PN名称',
-                Supplier: '供应商',
-                Hardware: '硬件版本',
-                Software: '软件版本',
-                OS: '操作系统',
-                operation: '操作',
-                show_index: false,
-                class: 'title',
-                branch: true,
-                show: false
-            }
-            item.info.unshift(title);
-        })
-        $scope.new_list = [];
-        angular.forEach($scope.data, function (item) {
-            $scope.new_list.push(item);
-            if (item.info) {
-                angular.forEach(item.info, function (key) {
-                    $scope.new_list.push(key);
-                })
-            }
-
-        })
-        angular.forEach($scope.new_list, function (item) {
-            if (item.master_index && item.master_index % 2 == 0) {
-                item.style_bg = {
-                    background: '#fff'
-                }
-            } else if (item.master_index && item.master_index % 2 == 1) {
-                item.style_bg = {
-                    background: '#eef6ff'
-                }
-            } else {
-                item.style_bg = {}
-            }
-        })
-        console.log($scope.new_list);
-
+            manufactory: {
+                choose: '',
+                show: false,
+                list: []
+            },
+            series: {
+                choose: '',
+                show: false,
+                list: []
+            },
+            model: {
+                choose: '',
+                show: false,
+                list: []
+            },
+            code: {
+                choose: '',
+                show: false,
+                list: []
+            },
+            styles: {
+                choose: '',
+                show: false,
+                list: []
+            },
+        }
+        $scope.get_select_list('brand');
+        $scope.get_select_list('manufactory');
+        $scope.get_select_list('series');
+        $scope.get_select_list('code');
+        $scope.get_select_list('model');
+        $scope.get_select_list('styles');
+        $scope.get_page();
     }
+
     // 点击展开收起
     $scope.click_item = function (key) {
         if (key.class != 'master') {
@@ -156,5 +58,206 @@ myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
         })
     }
 
+    // 获取搜索下拉框
+    $scope.get_select_list = function (name) {
+        $http({
+            method: "get",
+            url: "/assets/vehicle-filters",
+            params: {
+                filter: name,
+                value: '',
+            }
+        }).then(
+            function (data) {
+                // zeroModal.close(loading);
+                switch (name) {
+                    case 'brand':
+                        $scope.select_list.brand.list = data.data.data;
+                        break;
+                    case 'manufactory':
+                        $scope.select_list.manufactory.list = data.data.data;
+                        break;
+                    case 'series':
+                        $scope.select_list.series.list = data.data.data;
+                        break;
+                    case 'code':
+                        $scope.select_list.code.list = data.data.data;
+                        break;
+                    case 'model':
+                        $scope.select_list.model.list = data.data.data;
+                        break;
+                    case 'styles':
+                        $scope.select_list.styles.list = data.data.data;
+                        break;
+                    default:
+                        break;
+                }
+            },
+            function () {}
+        );
+    }
+    // 搜索框获取焦点
+    $scope.search_focus = function (name) {
+        switch (name) {
+            case 'brand':
+                $scope.select_list.brand.show = true;
+                break;
+            case 'manufactory':
+                $scope.select_list.manufactory.show = true;
+                break;
+            case 'series':
+                $scope.select_list.series.show = true;
+                break;
+            case 'code':
+                $scope.select_list.code.show = true;
+                break;
+            case 'model':
+                $scope.select_list.model.show = true;
+                break;
+            case 'styles':
+                $scope.select_list.styles.show = true;
+                break;
+            default:
+                break;
+        }
+
+    }
+    // 搜索框失去焦点
+    $scope.search_blur = function (name) {
+        switch (name) {
+            case 'brand':
+                $scope.select_list.brand.show = false;
+                break;
+            case 'manufactory':
+                $scope.select_list.manufactory.show = false;
+                break;
+            case 'series':
+                $scope.select_list.series.show = false;
+                break;
+            case 'code':
+                $scope.select_list.code.show = false;
+                break;
+            case 'model':
+                $scope.select_list.model.show = false;
+                break;
+            case 'styles':
+                $scope.select_list.styles.show = false;
+                break;
+            default:
+                break;
+        }
+
+    }
+    // 搜索栏选择
+    $scope.search_choose_item = function (data, index, name) {
+        switch (name) {
+            case 'brand':
+                $scope.select_list.brand.choose = data
+                break;
+            case 'manufactory':
+                $scope.select_list.manufactory.choose = data
+                break;
+            case 'series':
+                $scope.select_list.series.choose = data
+                break;
+            case 'code':
+                $scope.select_list.code.choose = data
+                break;
+            case 'model':
+                $scope.select_list.model.choose = data
+                break;
+            case 'styles':
+                $scope.select_list.styles.choose = data
+                break;
+            default:
+                break;
+        }
+    }
+    //    重置
+    $scope.reset = function () {
+        $scope.select_list.manufactory.choose = '';
+        $scope.select_list.brand.choose = '';
+        $scope.select_list.series.choose = '';
+        $scope.select_list.model.choose = '';
+        $scope.select_list.code.choose = '';
+        $scope.select_list.styles.choose = '';
+    }
+    // 获取列表
+    $scope.get_page = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "get",
+            url: "/assets/vehicle-assets-list",
+            params: {
+                brand: '',
+                series: '',
+                manufactory: '',
+                model: '',
+                styles: '',
+                row: 5,
+                page: 1,
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                console.log(data);
+                if (data.data.status == 'success') {
+                    $scope.table_list = data.data.data;
+                    angular.forEach($scope.table_list.data, function (item) {
+                        item.children = []
+                        item.show = false;
+                    })
+                }
+                console.log($scope.table_list);
+            },
+            function () {}
+        );
+    }
+    // 获取车辆详情
+    $scope.detail = function (item) {
+        console.log(item);
+        if (item.show) {
+            item.show = !item.show;
+            return false
+        }
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "get",
+            url: "/assets/vehicle-accessorys",
+            params: {
+                vehicle_id: item.vehicle_id
+            }
+        }).then(
+            function (data) {
+                console.log(data.data.data.data);
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    item.children = [];
+                    item.children = [{
+                        pn_id: 'PN#',
+                        name: 'PN名称',
+                        supplier_id: '供应商ID',
+                        supplier_name: '供应商名称',
+                        hardware: '硬件版本',
+                        software: '软件版本',
+                        os_version: '操作系统版',
+                        os_kernel: '操作系统内核',
+                        head: true
+                    }]
+                    angular.forEach($scope.table_list.data, function (key, value) {
+                        if (item.id == key.id) {
+                            item.show = true;
+                            angular.forEach(data.data.data.data, function (o, b) {
+                                o.head = false;
+                                item.children.push(o)
+                            })
+                        }
+                    })
+                }
+                console.log($scope.table_list.data);
+            },
+            function () {}
+        );
+    }
     $scope.init();
 });

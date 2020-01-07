@@ -6,60 +6,142 @@ $this->title = '车辆资产';
 <section class="assets_vehicle_container" ng-app="myApp" ng-controller="assetsVehicleCtrl" ng-cloak>
     <div class="assets_vehicle">
         <div class="search_box">
-            <div class="select_item_box">
-                <select class="select_item"></select>
+            <!-- manufactory -主机厂 -->
+            <div class="search_input_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="主机厂" ng-model="select_list.manufactory.choose"
+                    ng-focus="search_focus('manufactory')" ng-blur="search_blur('manufactory');" class="search_input"
+                    readonly>
+                <ul class="select_list_box" ng-if="select_list.manufactory.show" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item,$index,'manufactory');"
+                        ng-repeat="item in select_list.manufactory.list track by $index">
+                        {{item}}
+                    </li>
+                </ul>
             </div>
-            <div class="select_item_box">
-                <select class="select_item"></select>
+            <!-- brand -品牌 -->
+            <div class="search_input_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="品牌" ng-model="select_list.brand.choose" ng-focus="search_focus('brand')"
+                    ng-blur="search_blur('brand');" class="search_input" readonly>
+                <ul class="select_list_box" ng-if="select_list.brand.show" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item,$index,'brand');"
+                        ng-repeat="item in select_list.brand.list track by $index">
+                        {{item}}
+                    </li>
+                </ul>
             </div>
-            <div class="select_item_box">
-                <select class="select_item"></select>
+            <!-- model - 车型 -->
+            <div class="search_input_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="车型" ng-model="select_list.model.choose" ng-focus="search_focus('model')"
+                    ng-blur="search_blur('model');" class="search_input" readonly>
+                <ul class="select_list_box" ng-if="select_list.model.show" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item,$index,'model');"
+                        ng-repeat="item in select_list.model.list track by $index">
+                        {{item}}
+                    </li>
+                </ul>
             </div>
-            <div class="select_item_box">
-                <select class="select_item"></select>
+            <!-- series - 系列名 -->
+            <div class="search_input_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="系列名" ng-model="select_list.series.choose"
+                    ng-focus="search_focus('series')" ng-blur="search_blur('series');" class="search_input" readonly>
+                <ul class="select_list_box" ng-if="select_list.series.show" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item,$index,'series');"
+                        ng-repeat="item in select_list.series.list track by $index">
+                        {{item}}
+                    </li>
+                </ul>
             </div>
-            <div class="select_item_box">
-                <select class="select_item"></select>
+            <!-- styles - 车款 -->
+            <div class="search_input_box">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input type="text" placeholder="车款" ng-model="select_list.styles.choose"
+                    ng-focus="search_focus('styles')" ng-blur="search_blur('styles');" class="search_input" readonly>
+                <ul class="select_list_box" ng-if="select_list.styles.show" style="height:107px;margin:0">
+                    <li ng-mousedown="search_choose_item(item,$index,'styles');"
+                        ng-repeat="item in select_list.styles.list track by $index">
+                        {{item}}
+                    </li>
+                </ul>
             </div>
-            <div class="select_item_box">
-                <select class="select_item"></select>
-            </div>
-            <div class="btn_box">
-                <button class="reset_btn">重置</button>
-            </div>
-            <div class="btn_box">
-                <button class="search_btn">筛选</button>
-            </div>
-            <div class="sync_btn_box">
-                <button class="reset_btn">同步资产</button>
+            <button class="btn_i">查询</button>
+            <button class="btn_o" ng-click="reset()">重置</button>
+            <button class="btn_o">导出</button>
+        </div>
+        <div class="t_box">
+            <ul class="t_head">
+                <li class="t_head_frist"></li>
+                <li class="t_head_flex">车辆ID</li>
+                <li class="t_head_flex">主机厂</li>
+                <li class="t_head_flex">车辆品牌</li>
+                <li class="t_head_flex">系列名</li>
+                <li class="t_head_flex">车型代码</li>
+                <li class="t_head_flex">车款</li>
+                <li class="t_head_flex"></li>
+                <li class="t_head_flex"></li>
+            </ul>
+            <div class="t_body" ng-repeat="item in table_list.data">
+                <ul>
+                    <li class="main" ng-click="detail(item)" ng-class="$index%2==0?'':'background_odd' ">
+                        <span class="t_head_frist">
+                            <img src="/images/assets/label_right.png" class="label_right" ng-if="!item.show" alt="">
+                            <img src="/images/assets/label_down.png" class="label_right" ng-if="item.show" alt="">
+                        </span>
+                        <span class="t_head_flex"> {{item.id}}</span>
+                        <span class="t_head_flex"> {{item.manufactory}}</span>
+                        <span class="t_head_flex"> {{item.brand}}</span>
+                        <span class="t_head_flex"> {{item.series}}</span>
+                        <span class="t_head_flex"> {{item.model}}</span>
+                        <span class="t_head_flex"> {{item.styles}}</span>
+                        <span class="t_head_flex"></span>
+                        <span class="t_head_flex"></span>
+                    </li>
+                    <div class="children_box">
+                        <li class="children" ng-repeat="key in item.children" ng-class="key.head?'children_head':''"
+                            ng-show='item.show'>
+                            <span class="t_head_frist"></span>
+                            <span class="t_head_flex"> {{key.pn_id}}</span>
+                            <span class="t_head_flex"> {{key.name}}</span>
+                            <span class="t_head_flex"> {{key.supplier_id}}</span>
+                            <span class="t_head_flex"> {{key.supplier_name}}</span>
+                            <span class="t_head_flex"> {{key.hardware}}</span>
+                            <span class="t_head_flex"> {{key.software}}</span>
+                            <span class="t_head_flex"> {{key.os_version}}</span>
+                            <span class="t_head_flex"> {{key.os_kernel}}</span>
+                        </li>
+                    </div>
+                </ul>
             </div>
         </div>
 
 
-        <div class="table_box">
+        <!-- <div class="table_box">
             <div id="info" class="tab-pane active">
                 <table class="table ng-cloak domain_table">
-                    <tr class="th_bg">
-                        <th style="width: 100px;text-align: left; padding-left: 24px;" >
-                            <img src="/images/login/select_o.png" alt="">
+                    <tr class="th_bg t_head">
+                        <th style="width: 50px;text-align: center; padding-left: 24px;">
                         </th>
-                        <th style="min-width: 80px;">车辆ID</th>
-                        <th style="min-width: 80px;">主机厂</th>
-                        <th style="min-width: 80px;">品牌</th>
-                        <th style="min-width: 80px;">系列名</th>
-                        <th style="width: 150px;">车型</th>
-                        <th style="min-width: 80px;">车款</th>
-                        <th style="min-width: 80px;">操作</th>
+                        <td style="min-width: 80px;">车辆ID</td>
+                        <td style="min-width: 80px;">主机厂</td>
+                        <td style="min-width: 80px;">车辆品牌</td>
+                        <td style="min-width: 80px;">系列名</td>
+                        <td style="width: 150px;">车型代码</td>
+                        <td style="min-width: 80px;">车款</td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                    <tr style="cursor: pointer;" ng-repeat="item in new_list" ng-style="item.style_bg"
+                    <tr style="cursor: pointer;" class="t_body" ng-repeat="item in new_list" ng-style="item.style_bg"
                         ng-class="{'branch':'info_bg','title':'title_bg'}[item.class]" ng-click="click_item(item)"
                         ng-if="item.show_index">
-                        <td style="width: 100px;text-align: left; padding-left: 24px;">
+                        <td style="width: 50px;text-align: center; padding-left: 24px;">
                             <div ng-if="item.master">
-                                <img src="/images/login/select_o.png" alt="">
-                                <!-- <img src="/images/login/select_i.png"   alt=""> -->
-                                <img src="/images/assets/label_right.png"class="label_right" ng-if="!item.show_clild" alt="">
-                                <img src="/images/assets/label_down.png" class="label_right" ng-if="item.show_clild" alt="">
+                                <img src="/images/assets/label_right.png" class="label_right" ng-if="!item.show_clild"
+                                    alt="">
+                                <img src="/images/assets/label_down.png" class="label_right" ng-if="item.show_clild"
+                                    alt="">
                             </div>
                         </td>
                         <td ng-if="item.master">{{item.id}}</td>
@@ -74,11 +156,6 @@ $this->title = '车辆资产';
                         <td ng-if="item.branch&& item.show">{{item.Hardware}}</td>
                         <td ng-if="item.branch&& item.show">{{item.Software}}</td>
                         <td ng-if="item.branch&& item.show">{{item.OS}}</td>
-                        <td ng-if="item.class!='title'">
-                            <img src="/images/set/edit_icon.png" ng-if="item.master" class="img_icon"
-                                ng-click="edit_loop(item)" alt="">
-                            <img src="/images/set/cel_icon.png" class="img_icon" ng-click="cel_loop(item)" alt="">
-                        </td>
                         <td ng-if="item.class=='title'">
                             操作
                         </td>
@@ -114,7 +191,7 @@ $this->title = '车辆资产';
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </section>
