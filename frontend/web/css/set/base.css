@@ -275,6 +275,13 @@ select {
     width: 45%;
     text-align: left;
 }
+
+@media (min-width:1600px) {
+    .th_id{
+        width: 55%;
+    }
+}
+
 .td_operation{
     width: 160px;
     text-align: center!important;

@@ -111,7 +111,11 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
         $event.stopPropagation();
 
         if(types == 'edit'){
+
             $scope.label.category_name = item.category_name || '';
+            /*if($scope.label.category_name === '未分类标签'){
+                $scope.label.category_name = '';
+            }*/
             $scope.label.label_name = item.label_name;
             $scope.label.detail = item.detail;
             $scope.label.id = item.id;
@@ -863,6 +867,8 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
                     let labelAttr = [];
 
+                   // console.log(JSON.parse(resp.data))
+
                     angular.forEach(JSON.parse(resp.data), function (key,value) {
 
                         if(value != ''){
@@ -870,9 +876,9 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                         }else {
                             labelAttr.push({name: value,label:key,status:true});
                         }
-
-                        $scope.category_id_attr.push(key[0].category_id);
-
+                        if(key.length > 0){
+                            $scope.category_id_attr.push(key[0].category_id);
+                        }
                     });
 
                     $scope.label_data = labelAttr;
