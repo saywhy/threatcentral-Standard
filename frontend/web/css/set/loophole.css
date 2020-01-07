@@ -430,64 +430,73 @@ select {
 
 
 
+/*********************************/
 .vehicle_search_country {
     background: #EEF6FF;
     display: flex;
     margin: 30px -48px 20px -48px;
 }
 
-.search_country {
+.search_country{
     flex: 1;
-    padding-left: 48px;
+    padding-left:48px;
 }
-
-.search_country .search_country_item {
+.search_country .search_country_item{
     /*height: 44px;
     line-height: 44px;*/
     height: auto;
     border-bottom: 1px solid #fff;
     display: flex;
 }
-
-.search_country .search_country_item:last-child {
+.search_country .search_country_item:last-child{
     border-width: 0;
 }
 
-.search_country .search_country_item .title {
-    width: 200px;
-    color: #999;
+.search_country .search_country_item .title{
+    width: 150px;
+    color: #0070FF;
     font-size: 14px;
     line-height: 43px;
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-family: 'PingFangSC-Regular';
 }
 
-.search_country .search_country_item .lists {
+@media screen and (min-width: 1600px) {
+    .search_country .search_country_item .title {
+        width: 200px;
+    }
+}
+
+.search_country .search_country_item .lists{
     flex: 1;
     padding: 9px 0;
     word-break: break-all;
 }
 
-.search_country .search_country_item .lists .item {
+.search_country .search_country_item .lists .item{
     color: #333;
     font-size: 14px;
     margin-right: 20px;
     line-height: 25px;
     cursor: pointer;
+    display: inline-block;
     font-family: 'PingFangSC-Regular';
 }
 
-.search_country .search_country_item .lists .item.active {
+.search_country .search_country_item .lists .item.active{
     color: #0070ff;
 }
 
-.search_toggle {
+.search_toggle{
     width: 126px;
     border-left: 2px solid #fff;
     position: relative;
 }
 
-.search_toggle .toggle {
+.search_toggle .toggle{
     color: #0070FF;
     font-size: 12px;
     text-decoration: none;
@@ -498,23 +507,24 @@ select {
     font-family: 'PingFangSC-Regular';
 }
 
-.search_toggle .toggle .caret {
+.search_toggle .toggle .caret{
     border-left: 4px dashed;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
 }
 
-.search_toggle .toggle.active {
+.search_toggle .toggle.active{
     top: auto;
     bottom: 15px;
 }
 
-.search_toggle .toggle.active .caret {
+.search_toggle .toggle.active .caret{
     border-bottom: 4px dashed;
     border-top: 0;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
+
 
 .add_bg {
     background: #E0EEFF;
