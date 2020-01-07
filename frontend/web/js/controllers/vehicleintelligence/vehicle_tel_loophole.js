@@ -207,10 +207,12 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
     $scope.list_item_click = function (e,item) {
 
         e.preventDefault();
+        item.label_new_name = [];
+        angular.forEach(item.label_name_ext,function (value,key) {
+            item.label_new_name.push({name: key.substring(0,key.length - 10),value:value})
+        });
 
-        $scope.base_data = item;
-
-        console.log(item)
+        $scope.label_item_data = item;
 
         var W = 740;
         var H = 593;
@@ -314,7 +316,6 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         }).then(function (data) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
-
                 console.log($scope.pages)
             },
             function () {}

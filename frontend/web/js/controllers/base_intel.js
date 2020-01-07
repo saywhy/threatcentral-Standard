@@ -166,7 +166,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
             $scope.params_data.level = ''
         }
 
-      //  console.log($scope.params_data)
+        //console.log($scope.params_data)
         $http({
             method: "get",
             url: "/seting/base-intelligence-list",

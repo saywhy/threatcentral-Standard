@@ -147,59 +147,50 @@ $this->title = '漏洞情报';
         <!-- 新增标签弹窗 -->
         <div style="display:none;" id="vehicle_loophole_box">
             <div id="vehicle_loophole">
-                <h1 class="l_top">{{base_data.title}}</h1>
+                <h1 class="l_top">{{label_item_data.title}}</h1>
                 <ul class="l_mid">
                   <li class="item">
                         <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
                         <h4 class="title">漏洞等级：</h4>
-                        <span class="stance">{{base_data.level}}<span ng-hide="base_data.level=''">危</span></span>
+                        <span class="stance">{{label_item_data.level}}<span ng-hide="label_item_data.level=''">危</span></span>
                   </li>
                   <li class="item">
                         <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
-                        <h4 class="title">发现时间：</h4>
-                        <span class="stance">{{base_data.open_time*1000 | date : 'yyyy-MM-dd'}}</span>
+                        <h4 class="title">公开日期：</h4>
+                        <span class="stance">{{label_item_data.open_time*1000 | date : 'yyyy-MM-dd'}}</span>
                   </li>
                    <li class="item">
                         <img class="i_img" src="/images/loophole/sp3.png" alt=""/>
                         <h4 class="title">情报来源：</h4>
-                        <span class="stance">{{base_data.sourse}}</span>
+                        <span class="stance">{{label_item_data.sourse}}</span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
                         <h4 class="title">影响产品：</h4>
-                        <span class="stance" style="margin-right: 5px;" ng-repeat="it in base_data.affected_products">{{it}}</span>
+                        <span class="stance s_affected" style="margin-right: 5px;" ng-repeat="it in label_item_data.affected_products">{{it}}</span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp7.png" alt=""/>
                         <h4 class="title">漏洞描述：</h4>
-                        <span class="stance s_content" ng-bind="base_data.detail"></span>
+                        <span class="stance s_content" ng-bind="label_item_data.detail"></span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp8.png" alt=""/>
                         <h4 class="title">建议处理措施：</h4>
-                        <span class="stance s_content" ng-bind="base_data.treatment_measures"></span>
+                        <span class="stance s_content" ng-bind="label_item_data.treatment_measures"></span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
                         <h4 class="title">标签：</h4>
-                        <p class="s_label" style="margin-top:6px;">
-                          <span class="s_name">标签类别1：</span>
-                          <span class="s_lab">
-                            <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
-                            <a class="s_lab_val">消息泄露</a>
-                            <a class="s_lab_val">跨站脚本</a>
-                            <a class="s_lab_val">跨站脚本</a>
-                          </span>
-                        </p>
-                        <p class="s_label">
-                          <span class="s_name">标签类别2：</span>
-                          <span class="s_lab">
-                            <!--<a ng-repeat="tm in item.label_name" class="s_lab_val">{{tm}}</a>-->
-                            <a class="s_lab_val">消息泄露</a>
-                            <a class="s_lab_val">跨站脚本</a>
-                            <a class="s_lab_val">跨站脚本</a>
-                          </span>
-                        </p>
+
+                        <div class="s_label_list">
+                            <p class="s_label" ng-repeat = "item in label_item_data.label_new_name">
+                              <span class="s_name">{{item.name}}：</span>
+                              <span class="s_lab">
+                                <a ng-repeat="tm in item.value" class="s_lab_val">{{tm.label_name}}</a>
+                              </span>
+                            </p>
+                        </div>
                     </li>
                 </ul>
             </div>

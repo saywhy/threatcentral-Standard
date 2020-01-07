@@ -519,6 +519,10 @@ button:active {
     color: #0070ff;
 }
 
+.l_mid .item .stance.s_affected{
+
+}
+
 .l_mid .item .stance.s_content{
     padding: 6px 0 0 32px;
     color: #666;
@@ -532,13 +536,38 @@ button:active {
     -webkit-box-orient: vertical;
     font-family: PingFangSC-Regular;
 }
+.l_mid .item .s_label_list{
+    margin-top:6px;
+    height: 70px;
+    overflow-y: auto;
+}
+.s_label_list::-webkit-scrollbar {
+    width: 4px;
+    height: 1px;
+}
+
+.s_label_list::-webkit-scrollbar-thumb {
+    background: #0070FF;
+    border-radius: 2px;
+}
+
+.s_label_list::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 2px;
+}
+
+
 .l_mid .item .s_label{
     height: 34px;
     line-height: 34px;
     display: flex;
+
 }
 .l_mid .item .s_label .s_name{
     width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .l_mid .item .s_label .s_lab{
     flex: 1;

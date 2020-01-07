@@ -215,7 +215,6 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
         angular.forEach(item.label_name_ext,function (value,key) {
             item.label_new_name.push({name: key.substring(0,key.length - 10),value:value})
-
         });
 
         $scope.label_item_data = item;
@@ -319,6 +318,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             }
         }).then(function (resp) {
                 zeroModal.close(loading);
+                console.log(resp.data)
                 $scope.pages = resp.data;
             },
             function () {}
