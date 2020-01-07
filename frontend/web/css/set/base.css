@@ -695,9 +695,11 @@ select {
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
+    display: block;
     -webkit-box-orient: vertical;
     font-family: PingFangSC-Regular;
 }
+
 .l_mid .item .s_label{
     height: 34px;
     line-height: 34px;

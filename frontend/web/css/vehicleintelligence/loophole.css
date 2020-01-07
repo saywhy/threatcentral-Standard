@@ -376,35 +376,35 @@ button:active {
     display: flex;
 }
 .loophole_table_tr th:nth-child(1),.loophole_table_tr td:nth-child(1){
-    width: 100px;
+    width: 200px;
     padding-left: 24px;
 }
 .loophole_table_tr th:nth-child(2),.loophole_table_tr td:nth-child(2){
-    width: 200px;
+    width: 250px;
     padding-right: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .loophole_table_tr th:nth-child(3),.loophole_table_tr td:nth-child(3){
-    width: 270px;
+    width: 100px;
     padding-right: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .loophole_table_tr th:nth-child(4),.loophole_table_tr td:nth-child(4){
-    width: 100px;
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .loophole_table_tr th:nth-child(5),.loophole_table_tr td:nth-child(5){
-    flex: 1;
+    width: 120px;
+
 }
-.loophole_table_tr th:nth-child(6),.loophole_table_tr td:nth-child(6){
-    width: 110px;
-}
+
 
 .loophole_result_length{
     font-size: 14px;
@@ -486,7 +486,6 @@ button:active {
     font-weight: bold;
     font-family: 'PingFangSC-Medium';
 }
-
 .l_mid{
     border: 1px solid #ECECEC;
 }
@@ -501,6 +500,7 @@ button:active {
     display: inline-block;
     transform: scale(0.8);
     margin: 0 5px;
+    vertical-align: sub;
 }
 .l_mid .item .title{
     width: 150px;
@@ -508,14 +508,17 @@ button:active {
     font-size: 14px;
     font-weight: bold;
     display: inline-block;
+    font-family: PingFangSC-Medium;
 }
 .l_mid .item .stance{
     display: inline-block;
+    font-family: PingFangSC-Regular;
 }
 
 .l_mid .item .stance.s_active{
     color: #0070ff;
 }
+
 .l_mid .item .stance.s_content{
     padding: 6px 0 0 32px;
     color: #666;
@@ -523,9 +526,11 @@ button:active {
     line-height: 18px;
     height: 60px;
     overflow: hidden;
+    display: block;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    font-family: PingFangSC-Regular;
 }
 .l_mid .item .s_label{
     height: 34px;
@@ -551,3 +556,6 @@ button:active {
     white-space: nowrap;
     overflow: hidden;
 }
+
+
+

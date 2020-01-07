@@ -208,8 +208,9 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
 
         e.preventDefault();
 
-        item.label_new_name = item.label_name.join('/');
-        $scope.label_item_data = item;
+        $scope.base_data = item;
+
+        console.log(item)
 
         var W = 740;
         var H = 593;
@@ -295,13 +296,6 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         if ($scope.seach_data.source != '漏洞来源') {
             params_data.source = $scope.seach_data.source
         }
-        /*if ($scope.seach_data.label_id != '') {
-            params_data.label_id.push($scope.seach_data.label_id * 1);
-            params_data.label_id_box.push(params_data.label_id)
-            params_data.label_id_str = JSON.stringify(params_data.label_id_box);
-        } else {
-            params_data.label_id_str = '[]'
-        }*/
         $http({
             method: "get",
             url: "/vehicleintelligence/loophole-intelligence-list",
@@ -320,6 +314,8 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
         }).then(function (data) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
+
+                console.log($scope.pages)
             },
             function () {}
         );

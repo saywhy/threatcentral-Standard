@@ -17,8 +17,8 @@ $this->title = '漏洞情报';
                <div class="vehicle_icon_box">
                    <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
                    <input type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
-                        ng-blur="search_blur('source');" class="search_input" readonly>
-                   <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0">
+                       ng-blur="search_blur('source');" class="search_input" readonly>
+                   <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0;overflow-x: hidden;">
                        <li ng-mousedown="search_choose_item(item,$index,'source');"
                            ng-repeat="item in loop_source track by $index">
                            {{item}}
@@ -31,7 +31,7 @@ $this->title = '漏洞情报';
                    <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
                    <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
                         ng-blur="search_blur('level');" class="search_input" readonly>
-                   <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0">
+                   <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0;overflow-x: hidden;">
                        <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
                            ng-repeat="item in search_level track by $index">
                            {{item.status}}
@@ -90,23 +90,21 @@ $this->title = '漏洞情报';
         <div class="loophole_table_content">
             <table class="table table-striped ng-cloak">
               <tr class="loophole_table_tr">
-                  <th>情报 ID</th>
                   <th>漏洞标题</th>
                   <th>漏洞描述</th>
                   <th>情报来源</th>
                   <th>标签类型</th>
-                  <th>获取时间</th>
+                  <th>公开日期</th>
               </tr>
               <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data"
               ng-click="list_item_click($event,item);">
-                  <td>
+                  <td style="color:#0070ff;">
                     <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
                     <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
                     <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
-                    <span ng-bind="item.id"> </span>
+                    <span ng-bind="item.title"></span>
                   </td>
-                  <td ng-bind="item.title"></td>
-                  <td ng-bind="item.detail" style="color:#0070ff;"></td>
+                  <td ng-bind="item.detail"></td>
                   <td ng-bind="item.sourse"></td>
                   <td class="td_operation" style="white-space: nowrap;text-overflow: ellipsis;">
                       <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name">
@@ -114,7 +112,7 @@ $this->title = '漏洞情报';
                           <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status">
                       </button>
                   </td>
-                  <td>{{item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
+                  <td>{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
               </tr>
             </table>
             <p>
@@ -149,37 +147,37 @@ $this->title = '漏洞情报';
         <!-- 新增标签弹窗 -->
         <div style="display:none;" id="vehicle_loophole_box">
             <div id="vehicle_loophole">
-                <h1 class="l_top">{{label_item_data.title}}</h1>
+                <h1 class="l_top">{{base_data.title}}</h1>
                 <ul class="l_mid">
                   <li class="item">
                         <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
                         <h4 class="title">漏洞等级：</h4>
-                        <span class="stance">高危</span>
+                        <span class="stance">{{base_data.level}}<span ng-hide="base_data.level=''">危</span></span>
                   </li>
                   <li class="item">
                         <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
                         <h4 class="title">发现时间：</h4>
-                        <span class="stance">2019-09-26</span>
+                        <span class="stance">{{base_data.open_time*1000 | date : 'yyyy-MM-dd'}}</span>
                   </li>
                    <li class="item">
                         <img class="i_img" src="/images/loophole/sp3.png" alt=""/>
                         <h4 class="title">情报来源：</h4>
-                        <span class="stance">内部系统</span>
+                        <span class="stance">{{base_data.sourse}}</span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
                         <h4 class="title">影响产品：</h4>
-                        <span class="stance">Windows 10 Version 1067 for 32-bit systems</span>
+                        <span class="stance" style="margin-right: 5px;" ng-repeat="it in base_data.affected_products">{{it}}</span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp7.png" alt=""/>
                         <h4 class="title">漏洞描述：</h4>
-                        <span class="stance s_content">Limesurvey before 3.17.14 allows remote attackers to remot Limesurvey before 3.17.14 allows remote attackers to remot Limesurvey before 3.17.14 allows remote attackers to remote Limesurvey before 3.17.14 allows remote attackers to remote.</span>
+                        <span class="stance s_content" ng-bind="base_data.detail"></span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp8.png" alt=""/>
                         <h4 class="title">建议处理措施：</h4>
-                        <span class="stance s_content">Windows DNS (Domain Name System) 服务器处理请求时存在缺陷，从而导致存在远程执行代码漏洞，远程且未经授权的攻击者通过向 Windows DNS 服务端发送精心构造的恶意请求，即能以本地系统账户权限执行任意代码。</span>
+                        <span class="stance s_content" ng-bind="base_data.treatment_measures"></span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
