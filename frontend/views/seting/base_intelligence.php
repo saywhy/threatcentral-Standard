@@ -51,7 +51,7 @@ $this->title = '基础情报管理';
                     <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
                     <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
                     <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
-                    <span class="th_id_detail" ng-bind="item.detail"></span>
+                    <span class="th_id_detail" ng-attr-title="{{item.detail}}" ng-bind="item.detail"></span>
                 </td>
                 <td ng-bind="item.cve"></td>
                <!-- <td>{{item.created_at*1000 | date : 'yyyy-MM-dd'}}</td>
