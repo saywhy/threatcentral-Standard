@@ -311,11 +311,9 @@ select {
 }
 
 
-
 .daterangepicker.dropdown-menu {
     z-index: 99999;
 }
-
 
 .daterangepicker {
     width: auto;
@@ -332,26 +330,17 @@ select {
 .daterangepicker td.active:hover {
     background-color: #0070ff;
 }
-
-.btn-success,
+.daterangepicker .input-mini.active {
+    border: 1px solid #0070ff;
+    border-radius: 4px;
+}
+.btn-success,.btn-success:hover,
 .btn-success:active:focus {
     background-color: #0070ff;
     border-color: #0070ff;
 }
-
-.btn-default.focus,
-.btn-default:active:focus,
-.btn-default:focus {
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #DDDDDD;
-}
-
-
-.btn-success:hover,
-.btn-success:active,
-.btn-success.hover {
-    background-color: #0070ff;
+.ranges{
+    display: contents!important;
 }
 
 .source_input {
