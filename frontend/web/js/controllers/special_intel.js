@@ -210,7 +210,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         source = source ? source : '';
         $http({
             method: "get",
-            url: "/site/intelligence-sourse",
+            url: "/site/special-intelligence-sourse",
             params: {
                 sourse: source
             }

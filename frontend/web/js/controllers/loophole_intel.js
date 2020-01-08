@@ -211,7 +211,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         source = source ? source : '';
         $http({
             method: "get",
-            url: "/site/intelligence-sourse",
+            url: "/site/loophole-intelligence-sourse",
             params: {
                 sourse: source
             }
