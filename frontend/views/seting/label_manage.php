@@ -2,34 +2,6 @@
 /* @var $this yii\web\View */
 $this->title = '标签管理';
 ?>
-<style>
-
-.drag{
-    width: 200px;
-    height: 200px;
-    float: left;
-}
-ul li {
-    list-style: none;
-}
-.innerdiv{
-    padding: 10px;
-    height: 100%;
-}
-.innerdiv2{
-    background: grey;
-    height: 100%;
-}
-#draggable1{
-    width: 400px;
-    height: 150px;
-}
-.move{
-    width: 80px;
-    height: 40px;
-    background: blanchedalmond;
-}
-</style>
 <link rel="stylesheet" href="/css/set/label.css">
 <section class="label_container" ng-app="myApp" ng-controller="labelCtrl" ng-cloak>
     <div class="label_search_box">
