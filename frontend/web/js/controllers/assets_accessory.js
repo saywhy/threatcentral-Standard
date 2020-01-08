@@ -51,16 +51,22 @@ myApp.controller("assetsAccessoryCtrl", function ($scope, $http, $filter) {
         $scope.get_select_list('os_kernel');
         $scope.get_select_list('os_version');
         $scope.get_page();
-        // id
-        // name
-        // supplier_name
-        // hardware
-        // software
-        // os_version
-        // os_kernel
-        // supplier_id
+        $scope.enter();
     }
-
+    // 按enter键搜索
+    $scope.enter = function () {
+        document.onkeydown = function (e) {
+            // 兼容FF和IE和Opera
+            var theEvent = e || window.event;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13) {
+                //回车执行查询
+                $scope.$apply(function () {
+                    $scope.get_page(1);
+                });
+            }
+        };
+    };
     // 点击展开收起
     $scope.click_item = function (key) {
         if (key.class != 'master') {
@@ -275,9 +281,6 @@ myApp.controller("assetsAccessoryCtrl", function ($scope, $http, $filter) {
                         code: '车型代码',
                         model: '车型',
                         styles: '车款',
-                        os_kernel: '车辆年份',
-                        os_kernel: '显示品牌',
-                        os_kernel: '显示车型',
                         head: true
                     }]
                     angular.forEach($scope.table_list.data, function (key, value) {

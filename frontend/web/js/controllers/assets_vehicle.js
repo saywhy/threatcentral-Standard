@@ -40,8 +40,23 @@ myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
         $scope.get_select_list('model');
         $scope.get_select_list('styles');
         $scope.get_page();
+        $scope.enter();
     }
-
+    // 按enter键搜索
+    $scope.enter = function () {
+        document.onkeydown = function (e) {
+            // 兼容FF和IE和Opera
+            var theEvent = e || window.event;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13) {
+                console.log(1111);
+                //回车执行查询
+                $scope.$apply(function () {
+                    $scope.get_page(1);
+                });
+            }
+        };
+    };
     // 点击展开收起
     $scope.click_item = function (key) {
         if (key.class != 'master') {
@@ -183,8 +198,6 @@ myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
     }
     // 获取列表
     $scope.get_page = function (page) {
-        console.log('222');
-
         page = page ? page : 1
         var loading = zeroModal.loading(4);
         $http({
