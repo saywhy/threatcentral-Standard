@@ -67,9 +67,9 @@ $this->title = '车辆资产';
                     </li>
                 </ul>
             </div>
-            <button class="btn_i">查询</button>
+            <button class="btn_i" ng-click="get_page()">查询</button>
             <button class="btn_o" ng-click="reset()">重置</button>
-            <button class="btn_o">导出</button>
+            <button class="btn_o" ng-click="export()">导出</button>
         </div>
         <div class="t_box">
             <ul class="t_head">
@@ -116,82 +116,52 @@ $this->title = '车辆资产';
                 </ul>
             </div>
         </div>
-
-
-        <!-- <div class="table_box">
-            <div id="info" class="tab-pane active">
-                <table class="table ng-cloak domain_table">
-                    <tr class="th_bg t_head">
-                        <th style="width: 50px;text-align: center; padding-left: 24px;">
-                        </th>
-                        <td style="min-width: 80px;">车辆ID</td>
-                        <td style="min-width: 80px;">主机厂</td>
-                        <td style="min-width: 80px;">车辆品牌</td>
-                        <td style="min-width: 80px;">系列名</td>
-                        <td style="width: 150px;">车型代码</td>
-                        <td style="min-width: 80px;">车款</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr style="cursor: pointer;" class="t_body" ng-repeat="item in new_list" ng-style="item.style_bg"
-                        ng-class="{'branch':'info_bg','title':'title_bg'}[item.class]" ng-click="click_item(item)"
-                        ng-if="item.show_index">
-                        <td style="width: 50px;text-align: center; padding-left: 24px;">
-                            <div ng-if="item.master">
-                                <img src="/images/assets/label_right.png" class="label_right" ng-if="!item.show_clild"
-                                    alt="">
-                                <img src="/images/assets/label_down.png" class="label_right" ng-if="item.show_clild"
-                                    alt="">
-                            </div>
-                        </td>
-                        <td ng-if="item.master">{{item.id}}</td>
-                        <td ng-if="item.master">{{item.host}}</td>
-                        <td ng-if="item.master">{{item.brand}}</td>
-                        <td ng-if="item.master">{{item.series}}</td>
-                        <td ng-if="item.master">{{item.model}}</td>
-                        <td ng-if="item.master"> {{item.style}}</td>
-                        <td ng-if="item.branch && item.show">{{item.ids}}</td>
-                        <td ng-if="item.branch&& item.show">{{item.PN}}</td>
-                        <td ng-if="item.branch&& item.show">{{item.Supplier}}</td>
-                        <td ng-if="item.branch&& item.show">{{item.Hardware}}</td>
-                        <td ng-if="item.branch&& item.show">{{item.Software}}</td>
-                        <td ng-if="item.branch&& item.show">{{item.OS}}</td>
-                        <td ng-if="item.class=='title'">
-                            操作
-                        </td>
-                    </tr>
-                </table>
-                <div style="border-top: 1px solid #f4f4f4;padding: 20px;">
-                    <em style="font-size: 14px;color: #BBBBBB;">共有<span ng-bind="domain_data.count"></span>条资产</em>
-                    <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.pageNow-1)"
-                                ng-if="domain_data.pageNow>1">上一页</a></li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(1)" ng-if="domain_data.pageNow>1">1</a>
-                        </li>
-                        <li><a href="javascript:void(0);" ng-if="domain_data.pageNow>4">...</a></li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.pageNow-2)"
-                                ng-bind="domain_data.pageNow-2" ng-if="domain_data.pageNow>3"></a></li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.pageNow-1)"
-                                ng-bind="domain_data.pageNow-1" ng-if="domain_data.pageNow>2"></a></li>
-                        <li class="active"><a href="javascript:void(0);" ng-bind="domain_data.pageNow"></a>
-                        </li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.pageNow+1)"
-                                ng-bind="domain_data.pageNow+1" ng-if="domain_data.pageNow<domain_data.maxPage-1"></a>
-                        </li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.pageNow+2)"
-                                ng-bind="domain_data.pageNow+2" ng-if="domain_data.pageNow<domain_data.maxPage-2"></a>
-                        </li>
-                        <li><a href="javascript:void(0);" ng-if="domain_data.pageNow<domain_data.maxPage-3">...</a>
-                        </li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.maxPage)"
-                                ng-bind="domain_data.maxPage" ng-if="domain_data.pageNow<domain_data.maxPage"></a>
-                        </li>
-                        <li><a href="javascript:void(0);" ng-click="domain_get(domain_data.pageNow+1)"
-                                ng-if="domain_data.pageNow<domain_data.maxPage">下一页</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
+           <div style="padding: 20px;min-height: 20px;">
+            <em style="font-size: 14px;color: #BBBBBB;">共有
+                <span>{{table_list.count}}</span>条结果</em>
+            <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.pageNow-1)"
+                        ng-if="table_list.pageNow>1">上一页</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(1)" ng-if="table_list.pageNow>1">1</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-if="table_list.pageNow>4">...</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.pageNow-2)"
+                        ng-bind="table_list.pageNow-2" ng-if="table_list.pageNow>3"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.pageNow-1)"
+                        ng-bind="table_list.pageNow-1" ng-if="table_list.pageNow>2"></a>
+                </li>
+                <li class="active">
+                    <a href="javascript:void(0);" ng-bind="table_list.pageNow"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.pageNow+1)"
+                        ng-bind="table_list.pageNow+1" ng-if="table_list.pageNow<table_list.maxPage-1"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.pageNow+2)"
+                        ng-bind="table_list.pageNow+2" ng-if="table_list.pageNow<table_list.maxPage-2"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-if="table_list.pageNow<table_list.maxPage-3">...</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.maxPage)" ng-bind="table_list.maxPage"
+                        ng-if="table_list.pageNow<table_list.maxPage"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="get_page(table_list.pageNow+1)"
+                        ng-if="table_list.pageNow<table_list.maxPage">下一页</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </section>

@@ -142,18 +142,6 @@
     flex: 1;
 }
 
-/* .t_head td {
-    font-family: PingFangSC-Medium;
-    font-size: 14px;
-    color: #333333;
-} */
-
-/* .t_body td {
-    font-family: PingFangSC-Regular;
-    font-size: 14px;
-    color: #333333;
-    text-align: center;
-} */
 .t_body {
     min-height: 48px;
     cursor: pointer;
@@ -175,13 +163,3 @@
     display: flex;
     background: #F8F8F8;
 }
-
-/* .t_body child {
-    height: 48px;
-    display: flex;
-}
-
-.t_body child li {
-    height: 48px;
-    flex: 1
-} */

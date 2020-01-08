@@ -1,6 +1,5 @@
 var myApp = angular.module("myApp", []);
 myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
-    console.log('11');
     $scope.init = function () {
         $scope.select_list = {
             brand: {
@@ -183,19 +182,22 @@ myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
         $scope.select_list.styles.choose = '';
     }
     // 获取列表
-    $scope.get_page = function () {
+    $scope.get_page = function (page) {
+        console.log('222');
+
+        page = page ? page : 1
         var loading = zeroModal.loading(4);
         $http({
             method: "get",
             url: "/assets/vehicle-assets-list",
             params: {
-                brand: '',
-                series: '',
-                manufactory: '',
-                model: '',
-                styles: '',
-                row: 5,
-                page: 1,
+                brand: $scope.select_list.brand.choose,
+                series: $scope.select_list.series.choose,
+                manufactory: $scope.select_list.manufactory.choose,
+                model: $scope.select_list.model.choose,
+                styles: $scope.select_list.styles.choose,
+                rows: 10,
+                page: page,
             }
         }).then(
             function (data) {
@@ -258,6 +260,10 @@ myApp.controller("assetsVehicleCtrl", function ($scope, $http, $filter) {
             },
             function () {}
         );
+    }
+    // 导出
+    $scope.export = function () {
+        window.open("/assets/vehicle-export?manufactory=" + $scope.select_list.manufactory.choose + '&brand=' + $scope.select_list.brand.choose + '&series=' + $scope.select_list.series.choose + '&model=' + $scope.select_list.model.choose + '&styles=' + $scope.select_list.styles.choose)
     }
     $scope.init();
 });
