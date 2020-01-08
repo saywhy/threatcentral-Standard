@@ -224,6 +224,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function($scope, $http, $filter) {
             height: H + "px",
             ok: false,
             cancel: false,
+            drag:false,
             okFn: function () {},
             onOpen: function () {},
             onCleanup: function () {

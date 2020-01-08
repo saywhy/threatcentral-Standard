@@ -28,7 +28,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
                 num: '低',
                 status: '低'
             }
-        ]
+        ];
 
         $scope.search_box_ul = {
             source: false,
@@ -82,6 +82,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
             height: H + "px",
             ok: false,
             cancel: false,
+            drag:false,
             okFn: function () {},
             onOpen: function () {},
             onCleanup: function () {

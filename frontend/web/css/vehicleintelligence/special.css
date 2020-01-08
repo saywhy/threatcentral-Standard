@@ -380,7 +380,8 @@ button:active {
     line-height: 50px;
 }
 .covenant_1 .status{
-    vertical-align: sub;
+    vertical-align: middle;
+    margin-top: -8px;
 }
 .covenant_1 .name{
     font-size: 20px;
@@ -527,6 +528,7 @@ button:active {
 
 .l_mid .item .stance.s_active{
     color: #0070ff;
+    cursor: pointer;
 }
 .l_mid .item .stance.s_content{
     padding: 6px 0 0 32px;
@@ -561,13 +563,13 @@ button:active {
     border-radius: 2px;
 }
 
-
 .l_mid .item .s_label{
     height: 34px;
     line-height: 34px;
     display: flex;
-
+    margin-left: 6px;
 }
+
 .l_mid .item .s_label .s_name{
     width: 100px;
     overflow: hidden;
@@ -581,11 +583,13 @@ button:active {
 
 .l_mid .item .s_label .s_lab .s_lab_val{
     color: #0070ff;
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 32px;
     border-radius: 4px;
+    font-weight: bold;
     text-decoration: none;
-    padding: 3px 8px;
-    margin-right: 5px;
+    padding: 4px 10px;
+    margin-right: 10px;
     border: 1px solid #0070ff;
     white-space: nowrap;
     overflow: hidden;

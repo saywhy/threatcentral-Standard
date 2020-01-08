@@ -276,6 +276,12 @@ select {
     text-align: left;
 }
 
+.th_id_img{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
 @media (min-width:1600px) {
     .th_id{
         width: 55%;
@@ -286,6 +292,7 @@ select {
     width: 160px;
     text-align: center!important;
 }
+
 .th_id_detail{
     ont-family: PingFangSC-Regular;
     font-size: 14px;

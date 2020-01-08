@@ -48,10 +48,18 @@ $this->title = '基础情报管理';
             <tr class="loophole_table_tr" ng-repeat="item in pages.data track by $index"
                 ng-click="detail(item)">
                 <td class="th_id" style="padding-left:30px;">
-                    <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
-                    <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
-                    <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
-                    <span class="th_id_detail" ng-attr-title="{{item.detail}}" ng-bind="item.detail"></span>
+                   <div ng-if="item.level === '高'" class="th_id_img">
+                    <img src="/images/alert/h.png"  alt="">
+                   </div>
+                   <div ng-if="item.level === '中'" class="th_id_img">
+                    <img src="/images/alert/m.png"  alt="">
+                   </div>
+                   <div ng-if="item.level === '低'" class="th_id_img">
+                    <img src="/images/alert/l.png"  alt="">
+                   </div>
+                   <div ng-if="item.level === ''" class="th_id_img">
+                   </div>
+                   <span class="th_id_detail" ng-attr-title="{{item.detail}}" ng-bind="item.detail"></span>
                 </td>
                 <td ng-bind="item.cve"></td>
                <!-- <td>{{item.created_at*1000 | date : 'yyyy-MM-dd'}}</td>
@@ -128,7 +136,9 @@ $this->title = '基础情报管理';
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
                     <h4 class="title">关联地址：</h4>
-                    <span class="stance s_active">https://nvd.nist.gov/vuln/detail/{{base_data.cve}}</span>
+                    <a class="stance s_active" target="_blank" ng-href="https://nvd.nist.gov/vuln/detail/{{base_data.cve}}">
+                      https://nvd.nist.gov/vuln/detail/{{base_data.cve}}
+                    </a>
                 </li>
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp5.png" alt=""/>

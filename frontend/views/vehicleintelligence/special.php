@@ -131,7 +131,7 @@ $this->title = '行业情报';
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
                     <h4 class="title">关联链接：</h4>
-                    <span class="stance s_active">{{label_item_data.link}}</span>
+                    <a class="stance s_active" target="_blank" ng-href="{{label_item_data.link}}">{{label_item_data.link}}</a>
                 </li>
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp5.png" alt=""/>

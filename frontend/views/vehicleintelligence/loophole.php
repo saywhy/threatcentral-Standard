@@ -99,9 +99,17 @@ $this->title = '漏洞情报';
               <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data"
               ng-click="list_item_click($event,item);">
                   <td style="color:#0070ff;">
-                    <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
-                    <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
-                    <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
+                    <div ng-if="item.level === '高'" class="th_id_img">
+                     <img src="/images/alert/h.png"  alt="">
+                    </div>
+                    <div ng-if="item.level === '中'" class="th_id_img">
+                     <img src="/images/alert/m.png"  alt="">
+                    </div>
+                    <div ng-if="item.level === '低'" class="th_id_img">
+                     <img src="/images/alert/l.png"  alt="">
+                    </div>
+                    <div ng-if="item.level === ''" class="th_id_img">
+                    </div>
                     <span ng-bind="item.title"></span>
                   </td>
                   <td ng-bind="item.detail"></td>

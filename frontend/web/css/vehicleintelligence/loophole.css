@@ -372,6 +372,16 @@ button:active {
     color: #333;
 }
 
+.loophole_table_tr > td .th_id_img{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.loophole_table_tr > td .th_id_img .status{
+    vertical-align: sub;
+}
+
 .loophole_table_tr{
     display: flex;
 }
@@ -561,6 +571,7 @@ button:active {
     height: 34px;
     line-height: 34px;
     display: flex;
+    margin-left: 6px;
 
 }
 .l_mid .item .s_label .s_name{
@@ -576,11 +587,13 @@ button:active {
 
 .l_mid .item .s_label .s_lab .s_lab_val{
     color: #0070ff;
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 32px;
     border-radius: 4px;
+    font-weight: bold;
     text-decoration: none;
-    padding: 3px 8px;
-    margin-right: 5px;
+    padding: 4px 10px;
+    margin-right: 10px;
     border: 1px solid #0070ff;
     white-space: nowrap;
     overflow: hidden;
