@@ -574,7 +574,7 @@ button:active {
 }
 
 .l_mid .item .s_label .s_name{
-    width: 100px;
+    width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
