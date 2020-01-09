@@ -82,7 +82,8 @@ $this->title = '行业情报管理';
     <div class="loophole_table_content" ng-click="blur_input()">
         <table class="table table-striped ng-cloak">
             <tr class="loophole_table_tr">
-                <th class="th_id">情报 ID</th>
+                <th ></th>
+                <th >情报 ID</th>
                 <th>情报标题</th>
                 <th>情报描述</th>
                 <th>情报来源</th>
@@ -93,10 +94,12 @@ $this->title = '行业情报管理';
             </tr>
             <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
                 ng-click="detail(item)">
-                <td class="th_id">
+                <td >
                     <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
                     <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
                     <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
+                </td>
+                <td >
                     <span ng-bind="item.id"> </span>
                 </td>
                 <td ng-bind="item.title"></td>
@@ -336,11 +339,10 @@ $this->title = '行业情报管理';
                         <div ng-repeat="(index,item) in add_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                             <div class="tag_item" style="flex:1;">
                                 <input type="text" placeholder="请选择NVD关联" ng-model='item.name'
-                                 ng-focus="add_focus('NVD',index)" ng-blur="add_blur('NVD',index);"
-                                class="item_right_input"
-                                    readonly>
+                                    ng-focus="add_focus('NVD',index)" ng-blur="add_blur('NVD',index);"
+                                    class="item_right_input" readonly>
                                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                                  <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
+                                <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
                                     <li ng-repeat="key in add_item.nvd_list"
                                         ng-mousedown="choose_item(key.cve,index,'NVD');">
                                         {{key.cve}}
@@ -549,13 +551,12 @@ $this->title = '行业情报管理';
                     </div>
                     <div class="contnet_item_right" style="flex-direction: column;">
                         <div ng-repeat="(index,item) in edit_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
-   <div class="tag_item" style="flex:1;">
+                            <div class="tag_item" style="flex:1;">
                                 <input type="text" placeholder="请选择NVD关联" ng-model='item.name'
-                                 ng-focus="edit_focus('NVD',index)" ng-blur="edit_blur('NVD',index);"
-                                class="item_right_input"
-                                    readonly>
+                                    ng-focus="edit_focus('NVD',index)" ng-blur="edit_blur('NVD',index);"
+                                    class="item_right_input" readonly>
                                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                                  <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
+                                <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
                                     <li ng-repeat="key in edit_item.nvd_list"
                                         ng-mousedown="choose_item_edit(key.cve,index,'NVD');">
                                         {{key.cve}}
