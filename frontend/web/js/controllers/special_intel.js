@@ -57,11 +57,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 status: '低'
             }
         ]
+        $scope.enter_show = true;
         $scope.picker_search();
         $scope.start_time_picker();
         $scope.get_loophole_source();
         $scope.get_page();
         $scope.get_nvd();
+        $scope.enter();
         $scope.tag_list_if = false;
         $scope.add_source_list_if = false;
         $scope.edit_source_list_if = false;
@@ -99,7 +101,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.toggleCount = 2;
         $scope.toggleStatus = false;
         $scope.get_lab_list()
-
         $scope.tag_key_add = {
             active_index: -1,
             listHeight: 156,
@@ -125,6 +126,22 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             list_length: 0
         }
     }
+    // 按enter键搜索
+    $scope.enter = function () {
+        document.onkeydown = function (e) {
+            // 兼容FF和IE和Opera
+            var theEvent = e || window.event;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13) {
+                //回车执行查询
+                $scope.$apply(function () {
+                    if ($scope.enter_show) {
+                        $scope.get_page(1);
+                    }
+                });
+            }
+        };
+    };
     // 初始化时间
     $scope.start_time_picker = function () {
         $("#start_time_picker").daterangepicker({
@@ -193,7 +210,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         source = source ? source : '';
         $http({
             method: "get",
-            url: "/site/intelligence-sourse",
+            url: "/site/special-intelligence-sourse",
             params: {
                 sourse: source
             }
@@ -231,7 +248,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     // 获取列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;
-        // var loading = zeroModal.loading(4);
         var params_data = JSON.stringify($scope.seach_data);
         $scope.params_data = JSON.parse(params_data)
         switch ($scope.params_data.stauts) {
@@ -254,6 +270,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if ($scope.params_data.level == '全部') {
             $scope.params_data.level = ''
         }
+        var loading = zeroModal.loading(4);
         $http({
             method: "get",
             url: "/seting/special-intelligence-list",
@@ -270,7 +287,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                // zeroModal.close(loading);
+                zeroModal.close(loading);
                 $scope.pages = data.data;
             },
             function () {}
@@ -331,6 +348,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     // 情报录入-弹窗
     $scope.add_loop_box = function (item) {
+        $scope.enter_show = false;
         $scope.pop_show.add = true;
         $scope.add_item = {
             title: '',
@@ -382,10 +400,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     //   取消弹窗
     $scope.add_cancel = function () {
         $scope.pop_show.add = false;
+        $scope.enter_show = true;
     };
     //   取消编辑弹窗
     $scope.edit_cancel = function () {
         $scope.pop_show.edit = false;
+        $scope.enter_show = true;
     };
     // 添加录入情报
     $scope.add_sure = function () {
@@ -424,18 +444,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.add_item.reference_information.push(item.name)
             }
         })
-        angular.forEach($scope.add_item.NVD, function (item, index) {
-            if (item.name != '') {
-                $scope.add_item.nvd_list.push(item.name)
-            }
-        })
-        // var loading = zeroModal.loading(4);
         var NVD_Array = [];
         angular.forEach($scope.add_item.NVD, function (item) {
             if (item.name != '') {
                 NVD_Array.push(item.name);
             }
         })
+        var loading = zeroModal.loading(4);
         $http({
             method: "post",
             url: "/seting/special-intelligence-add",
@@ -456,7 +471,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                // zeroModal.close(loading);
+                zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
                     $scope.get_loophole_source();
@@ -471,7 +486,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     // 发布情报
     $scope.release = function (id) {
-        // var loading = zeroModal.loading(4);
+        var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
@@ -480,7 +495,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                // zeroModal.close(loading);
+                zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("发布成功");
                 } else {
@@ -493,7 +508,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 删除情报
     $scope.delete = function (id) {
-        // var loading = zeroModal.loading(4);
+        var loading = zeroModal.loading(4);
         $http({
             method: "delete",
             url: "/seting/special-intelligence-del",
@@ -502,7 +517,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                // zeroModal.close(loading);
+                zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("删除成功");
                 } else {
@@ -515,6 +530,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
+        $scope.enter_show = false;
         var item_str = JSON.stringify(item);
         $scope.edit_item_str = JSON.parse(item_str);
         $scope.picker_edit(moment(new Date($scope.edit_item_str.first_seen_time * 1000)));
@@ -695,7 +711,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 params_edit.label_name.push(item.name)
             }
         })
-        // var loading = zeroModal.loading(4);
+        var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-edit",
@@ -714,8 +730,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         }).then(
             function (data) {
-                // zeroModal.close(loading);
-                console.log(data);
+                zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.success("修改成功");
                     $scope.pop_show.edit = false;
@@ -1151,12 +1166,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     // 获取标签列表
     $scope.get_lab_list = function () {
-        // var loading = zeroModal.loading(4);
+        var loading = zeroModal.loading(4);
         $http({
             method: "get",
             url: "/site/label-list",
         }).then(function (resp) {
-                // zeroModal.close(loading);
+                zeroModal.close(loading);
                 if (resp.status == 200) {
                     let result = JSON.parse(resp.data);
                     let labelAttr = [];

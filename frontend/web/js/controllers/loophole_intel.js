@@ -57,11 +57,13 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 status: '低'
             }
         ]
+        $scope.enter_show = true;
         $scope.picker_search();
         $scope.start_time_picker();
         $scope.get_loophole_source();
         $scope.get_page();
         $scope.get_nvd();
+        $scope.enter();
         $scope.tag_list_if = false;
         $scope.add_source_list_if = false;
         $scope.edit_source_list_if = false;
@@ -125,6 +127,22 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             list_length: 0
         }
     }
+    // 按enter键搜索
+    $scope.enter = function () {
+        document.onkeydown = function (e) {
+            // 兼容FF和IE和Opera
+            var theEvent = e || window.event;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13) {
+                //回车执行查询
+                $scope.$apply(function () {
+                    if ($scope.enter_show) {
+                        $scope.get_page(1);
+                    }
+                });
+            }
+        };
+    };
     // 初始化时间
     $scope.start_time_picker = function () {
         $("#start_time_picker").daterangepicker({
@@ -193,7 +211,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         source = source ? source : '';
         $http({
             method: "get",
-            url: "/site/intelligence-sourse",
+            url: "/site/loophole-intelligence-sourse",
             params: {
                 sourse: source
             }
@@ -331,6 +349,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     // 情报录入-弹窗
     $scope.add_loop_box = function (item) {
+        $scope.enter_show = false;
         $scope.pop_show.add = true;
         $scope.add_item = {
             title: '',
@@ -384,10 +403,12 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     //   取消弹窗
     $scope.add_cancel = function () {
         $scope.pop_show.add = false;
+        $scope.enter_show = true;
     };
     //   取消编辑弹窗
     $scope.edit_cancel = function () {
         $scope.pop_show.edit = false;
+        $scope.enter_show = true;
     };
     // 添加录入情报
     $scope.add_sure = function () {
@@ -429,11 +450,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         angular.forEach($scope.add_item.affected, function (item, index) {
             if (item.name != '') {
                 $scope.add_item.affected_products.push(item.name)
-            }
-        })
-        angular.forEach($scope.add_item.NVD, function (item, index) {
-            if (item.name != '') {
-                $scope.add_item.nvd_list.push(item.name)
             }
         })
         // var loading = zeroModal.loading(4);
@@ -523,6 +539,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
+        $scope.enter_show = false;
         var item_str = JSON.stringify(item);
         $scope.edit_item_str = JSON.parse(item_str);
         $scope.picker_edit(moment(new Date($scope.edit_item_str.open_time * 1000)));

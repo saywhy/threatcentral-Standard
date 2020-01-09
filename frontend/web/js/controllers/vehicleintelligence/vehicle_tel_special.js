@@ -1,7 +1,7 @@
 var myApp = angular.module("myApp", []);
-myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
+myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
 
-    $scope.init = function(){
+    $scope.init = function () {
 
         $scope.label_data = [];
 
@@ -34,8 +34,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
         };
 
         //漏洞级别
-        $scope.search_level = [
-            {
+        $scope.search_level = [{
                 num: '',
                 status: '全部'
             },
@@ -50,7 +49,8 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             {
                 num: '低',
                 status: '低'
-            }];
+            }
+        ];
 
         $scope.picker_search();
         $scope.get_loophole_source();
@@ -87,9 +87,10 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
     $scope.get_loophole_source = function () {
         $http({
             method: "get",
-            url: "/site/intelligence-sourse",
+            url: "/site/special-intelligence-sourse",
             params: {
-                sourse: ''
+                sourse: '',
+                status: 1
             }
         }).then(function (resp) {
                 $scope.loop_source = [];
@@ -104,31 +105,26 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
     // 获取标签列表
     $scope.get_lab_list = function () {
-
         var loading = zeroModal.loading(4);
-
         $http({
             method: "get",
             url: "/site/label-list",
         }).then(function (resp) {
-
-            zeroModal.close(loading);
-
-                if(resp.status == 200) {
-
+                zeroModal.close(loading);
+                if (resp.status == 200) {
                     let result = JSON.parse(resp.data);
-
                     let labelAttr = [];
-
-
-                    angular.forEach(result, function (key,value) {
-
-                        if(value === '' || value === null){
+                    angular.forEach(result, function (key, value) {
+                        if (value === '' || value === null) {
                             value = '未分类标签';
-                        }else {
-                            value = value.substring(0,value.length - 10);
+                        } else {
+                            value = value.substring(0, value.length - 10);
                         }
-                        labelAttr.push({name:value,label:key,label_attr_id:[]});
+                        labelAttr.push({
+                            name: value,
+                            label: key,
+                            label_attr_id: []
+                        });
                     });
 
                     $scope.label_data = labelAttr;
@@ -146,7 +142,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
 
         let length = $scope.label_data.length;
 
-        if(length <= 3){
+        if (length <= 3) {
             $scope.toggleCount = length;
             $scope.toggleStatus = !$scope.toggleStatus;
         } else {
@@ -159,13 +155,13 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
     }
 
     //标签列表事件高亮切换
-    $scope.tog_change_status = function (e,item,it) {
+    $scope.tog_change_status = function (e, item, it) {
 
         $(e.target).toggleClass('active');
 
         let isActive = $(e.target).hasClass('active');
 
-        if(isActive){
+        if (isActive) {
 
             angular.forEach($scope.label_data, function (value, key) {
 
@@ -177,17 +173,17 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
                 }
             });
 
-        }else {
+        } else {
 
             angular.forEach($scope.label_data, function (value, key) {
                 if (value.name == item.name) {
-                    for(let i = 0;i < value.label_attr_id.length; i++){
-                        if(value.label_attr_id[i] == it.id){
+                    for (let i = 0; i < value.label_attr_id.length; i++) {
+                        if (value.label_attr_id[i] == it.id) {
                             value.label_attr_id.splice(i, 1);
                         }
                     }
-                    for(let j = 0; j < $scope.label_checked_list.length; j++){
-                        if($scope.label_checked_list[j].id == it.id){
+                    for (let j = 0; j < $scope.label_checked_list.length; j++) {
+                        if ($scope.label_checked_list[j].id == it.id) {
                             $scope.label_checked_list.splice(j, 1);
                         }
                     }
@@ -207,14 +203,17 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
     };
 
     //行业情报事件详情
-    $scope.list_item_click = function (e,item) {
+    $scope.list_item_click = function (e, item) {
 
         e.preventDefault();
 
         item.label_new_name = [];
 
-        angular.forEach(item.label_name_ext,function (value,key) {
-            item.label_new_name.push({name: key.substring(0,key.length - 10),value:value})
+        angular.forEach(item.label_name_ext, function (value, key) {
+            item.label_new_name.push({
+                name: key.substring(0, key.length - 10),
+                value: value
+            })
         });
 
         $scope.label_item_data = item;
@@ -229,7 +228,7 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
             height: H + "px",
             ok: false,
             cancel: false,
-            drag:false,
+            drag: false,
             okFn: function () {},
             onOpen: function () {},
             onCleanup: function () {
@@ -239,9 +238,9 @@ myApp.controller("vehicleTelSpecialCtrl", function($scope, $http, $filter) {
     }
 
     //标签管理搜索enter事件
-    $scope.vehicle_key_up = function($event){
-        var keycode = window.event?$event.keyCode:$event.which;
-        if(keycode==13){
+    $scope.vehicle_key_up = function ($event) {
+        var keycode = window.event ? $event.keyCode : $event.which;
+        if (keycode == 13) {
             $scope.get_page();
         }
     };

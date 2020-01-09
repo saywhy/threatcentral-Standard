@@ -82,6 +82,7 @@ $this->title = '漏洞情报管理';
     <div class="loophole_table_content" ng-click="blur_input()">
         <table class="table table-striped ng-cloak">
             <tr class="loophole_table_tr">
+                <th ></th>
                 <th>情报标题</th>
                 <th>情报摘要</th>
                 <th>情报来源</th>
@@ -92,10 +93,12 @@ $this->title = '漏洞情报管理';
             </tr>
             <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
                 ng-click="detail(item)">
-                <td>
-                    <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
+                <td >
+                        <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
                     <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
                     <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
+                </td>
+                <td>
                     <span ng-bind="item.title"> </span>
                 </td>
                 <td ng-bind="item.detail"></td>

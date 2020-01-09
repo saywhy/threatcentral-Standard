@@ -112,7 +112,6 @@ $this->title = '零配件资产';
                         <span class="t_head_flex"> {{item.software}}</span>
                         <span class="t_head_flex"> {{item.os_version}}</span>
                         <span class="t_head_flex"></span>
-                        <span class="t_head_flex"></span>
                     </li>
                     <div class="children_box">
                         <li class="children" ng-repeat="key in item.children" ng-class="key.head?'children_head':''"
@@ -125,7 +124,6 @@ $this->title = '零配件资产';
                             <span class="t_head_flex"> {{key.code}}</span>
                             <span class="t_head_flex"> {{key.model}}</span>
                             <span class="t_head_flex"> {{key.styles}}</span>
-                            <span class="t_head_flex"></span>
                         </li>
                     </div>
                 </ul>
