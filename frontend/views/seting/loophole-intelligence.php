@@ -72,8 +72,8 @@ $this->title = '漏洞情报管理';
                 </span>
             </li>
         </ul>
-        <div class="search_toggle" ng-show="label_data.length > 0" style="width:130px;">
-            <a class="toggle" ng-class="{'active':toggleStatus}" ng-click="tog_count_change($event);">
+        <div class="search_toggle" ng-show="label_data.length > 0" style="width:140px;">
+            <a class="toggle"  ng-class="{'active':toggleStatus}" ng-click="tog_count_change($event);">
                 <span class="caret"></span>
                 <span ng-show="!toggleStatus">展开</span><span ng-show="toggleStatus">收起</span>更多
             </a>

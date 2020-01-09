@@ -526,7 +526,8 @@ select {
     font-size: 12px;
     text-decoration: none;
     position: absolute;
-    left: 15px;
+    /*left: 15px;*/
+    right: 48px;
     bottom: 15px;
     cursor: pointer;
     font-family: 'PingFangSC-Regular';
