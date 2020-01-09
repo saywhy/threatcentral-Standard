@@ -318,8 +318,15 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
             }
         }).then(function (resp) {
                 zeroModal.close(loading);
-                console.log(resp.data)
-                $scope.pages = resp.data;
+                let datas = resp.data;
+                angular.forEach(datas.data,function (value,key) {
+                    if(!(value.link.includes('http://')||value.link.includes('https://')||
+                        value.link.includes('HTTP://')||value.link.includes('HTTPS://'))){
+                        value.link = `http://${value.link}`;
+                    }
+                });
+                $scope.pages = datas;
+               // console.log($scope.pages)
             },
             function () {}
         );
