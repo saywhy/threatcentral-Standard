@@ -1,5 +1,8 @@
+.content-header > h1{
+    padding-left: 24px!important;
+}
 .vehicle_special_container{
-    padding: 20px 48px;
+    padding: 20px 24px;
 }
 input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #bbb!important;
@@ -266,12 +269,12 @@ button:active {
 .vehicle_search_country {
     background: #EEF6FF;
     display: flex;
-    margin: 30px -48px 20px -48px;
+    margin: 30px -24px 20px -24px;
 }
 
 .search_country{
     flex: 1;
-    padding-left:48px;
+    padding-left:24px;
 }
 .search_country .search_country_item{
     /*height: 44px;

@@ -1,10 +1,16 @@
+.content-header > h1{
+    padding-left: 24px!important;
+}
+/*.breadcrumb{
+    display: none;
+}*/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #bbb;
     font-size: 14px;
 }
 
 .label_container{
-    padding: 0 48px;
+    padding: 0 24px;
 }
 .label_search_box {
     position: relative;

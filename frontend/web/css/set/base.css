@@ -1,5 +1,8 @@
+.content-header > h1{
+    padding-left: 24px!important;
+}
 .base_intel_container {
-    padding: 5px 48px 16px;
+    padding: 5px 24px 16px;
 }
 
 ::-webkit-input-placeholder {
@@ -117,8 +120,8 @@ button:active {
 }
 
 .loophole_table_content {
-    margin: 0;
     padding: 24px 0;
+    margin: 0 -24px 0 0;
 }
 
 .loophole_table_tr>th,
@@ -136,7 +139,7 @@ button:active {
 }
 
 .loophole_result_length {
-    font-size: 12px;
+    font-size: 14px;
     color: #BBBBBB;
 }
 

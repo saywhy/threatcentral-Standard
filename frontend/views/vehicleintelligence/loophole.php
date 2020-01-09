@@ -87,6 +87,10 @@ $this->title = '漏洞情报';
             </div>
         </div>
 
+        <p>
+          <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
+        </p>
+
         <div class="loophole_table_content">
             <table class="table table-striped ng-cloak">
               <tr class="loophole_table_tr">
@@ -123,9 +127,6 @@ $this->title = '漏洞情报';
                   <td>{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
               </tr>
             </table>
-            <p>
-              <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
-            </p>
             <div style="padding: 0px; position: relative;height:60px;">
                <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
                    <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)"
