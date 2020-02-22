@@ -306,10 +306,14 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
 
         var params_data = {
             source: '',
+            level:'',
             label_id: []
         }
-        if ($scope.seach_data.source != '情报来源') {
+        if ($scope.seach_data.source != '全部') {
             params_data.source = $scope.seach_data.source;
+        }
+        if ($scope.seach_data.level != '全部') {
+            params_data.level = $scope.seach_data.level;
         }
         $http({
             method: "get",
@@ -319,7 +323,7 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                 etime: $scope.seach_data.endDate,
                 sourse: params_data.source,
                 status: '1',
-                level: $scope.seach_data.level,
+                level: params_data.level,
                 label_id: JSON.stringify($scope.seach_data.label_id),
                 key_word: $scope.seach_data.key_word,
                 page: pageNow,
