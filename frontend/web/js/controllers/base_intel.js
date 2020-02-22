@@ -2,17 +2,16 @@ var myApp = angular.module("myApp", []);
 myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
     $scope.init = function () {
         $scope.searchTime = {
-            startDate: moment().subtract(90, "days"),
-            endDate: moment()
+            startDate: '',
+            endDate: ''
         };
         $scope.seach_data = {
             key_word: '',
             level: '',
-            startDate: moment().subtract(90, "days").unix(),
-            endDate: moment().unix(),
+            startDate: '',
+            endDate: '',
         };
-        $scope.search_level = [
-            {
+        $scope.search_level = [{
                 num: '',
                 status: '全部'
             },
@@ -49,9 +48,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
                 timePicker24Hour: true,
                 drops: "down",
                 opens: "right",
-                maxDate: $scope.searchTime.endDate,
-                startDate: $scope.searchTime.startDate,
-                endDate: $scope.searchTime.endDate,
+                autoUpdateInput: false,
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
@@ -59,6 +56,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
                 }
             },
             function (start, end, label) {
+                $("#picker_search").data('daterangepicker').autoUpdateInput = true
                 $scope.seach_data.startDate = start.unix();
                 $scope.seach_data.endDate = end.unix();
             }
@@ -66,7 +64,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
     };
 
     //基础情报详情
-    $scope.list_item_click = function (e,item) {
+    $scope.list_item_click = function (e, item) {
 
         e.preventDefault();
 
@@ -82,7 +80,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
             height: H + "px",
             ok: false,
             cancel: false,
-            drag:false,
+            drag: false,
             okFn: function () {},
             onOpen: function () {},
             onCleanup: function () {
@@ -145,9 +143,9 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
     }
 
     //搜索enter事件
-    $scope.search_keyup = function($event) {
-        var keycode = window.event?$event.keyCode:$event.which;
-        if(keycode==13){
+    $scope.search_keyup = function ($event) {
+        var keycode = window.event ? $event.keyCode : $event.which;
+        if (keycode == 13) {
             $scope.get_page();
         }
     };
@@ -175,14 +173,14 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
                 stime: $scope.params_data.startDate,
                 etime: $scope.params_data.endDate,
                 key_word: $scope.params_data.key_word,
-                level:$scope.params_data.level,
+                level: $scope.params_data.level,
                 page: pageNow,
                 rows: 10,
             }
         }).then(
             function (data) {
                 zeroModal.close(loading);
-                 console.log(data);
+                console.log(data);
 
                 $scope.pages = data.data;
             },

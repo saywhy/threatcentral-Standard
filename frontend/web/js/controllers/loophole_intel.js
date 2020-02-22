@@ -2,8 +2,10 @@ var myApp = angular.module("myApp", []);
 myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.init = function () {
         $scope.searchTime = {
-            startDate: moment().subtract(90, "days"),
-            endDate: moment()
+            startDate: '',
+            // startDate: moment().subtract(90, "days"),
+            // endDate: moment(),
+            endDate: ''
         };
         $scope.seach_data = {
             source: '',
@@ -11,8 +13,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             label_id: [],
             key_word: '',
             level: '',
-            startDate: moment().subtract(90, "days").unix(),
-            endDate: moment().unix(),
+            startDate: '',
+            // startDate: moment().subtract(90, "days").unix(),
+            // endDate: moment().unix(),
+            endDate: '',
         };
         $scope.status_search = [{
                 num: '',
@@ -57,9 +61,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 status: '低'
             }
         ]
+        $scope.pageNow = 1
         $scope.enter_show = true;
         $scope.picker_search();
-        $scope.start_time_picker();
         $scope.get_loophole_source();
         $scope.get_page();
         $scope.get_nvd();
@@ -67,7 +71,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
         $scope.tag_list_if = false;
         $scope.add_source_list_if = false;
         $scope.edit_source_list_if = false;
-
+        $scope.get_page_show = false;
         $scope.label_data = [];
         //------
         $scope.pop_show = {
@@ -145,6 +149,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     };
     // 初始化时间
     $scope.start_time_picker = function () {
+        $('#start_time_picker').val('');
         $("#start_time_picker").daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -152,7 +157,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 timePicker24Hour: true,
                 drops: "down",
                 opens: "center",
-                startDate: moment(),
+                autoUpdateInput: false,
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
@@ -160,6 +165,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 }
             },
             function (start, end, label) {
+                $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
                 $scope.add_item.first_seen_time = start.unix()
             }
         );
@@ -171,9 +177,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 timePicker24Hour: true,
                 drops: "down",
                 opens: "right",
-                maxDate: $scope.searchTime.endDate,
-                startDate: $scope.searchTime.startDate,
-                endDate: $scope.searchTime.endDate,
+                autoUpdateInput: false,
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
@@ -181,6 +185,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 }
             },
             function (start, end, label) {
+                $("#picker_search").data('daterangepicker').autoUpdateInput = true
                 $scope.seach_data.startDate = start.unix();
                 $scope.seach_data.endDate = end.unix();
             }
@@ -249,6 +254,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     // 获取列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;
+        $scope.pageNow = pageNow
         // var loading = zeroModal.loading(4);
         var params_data = JSON.stringify($scope.seach_data);
         $scope.params_data = JSON.parse(params_data)
@@ -291,6 +297,160 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 console.log(data);
                 // zeroModal.close(loading);
                 $scope.pages = data.data;
+                if ($scope.get_page_show) {
+                    angular.forEach($scope.pages.data, function (item) {
+                        if (item.id == $scope.edit_item_data.id) {
+                            $scope.edit_item_data = item;
+                        }
+                    })
+                    $scope.enter_show = false;
+                    var item_str = JSON.stringify($scope.edit_item_data);
+                    $scope.edit_item_str = JSON.parse(item_str);
+                    $scope.picker_edit(moment(new Date($scope.edit_item_str.open_time * 1000)));
+                    console.log($scope.edit_item_str);
+                    $scope.edit_item = {
+                        id: $scope.edit_item_str.id,
+                        title: $scope.edit_item_str.title,
+                        level: '',
+                        level_list: [{
+                                name: '高危',
+                                num: '高危'
+                            },
+                            {
+                                name: '中危',
+                                num: '高危'
+                            },
+                            {
+                                name: '低危',
+                                num: '高危'
+                            },
+                        ],
+                        reference: [],
+                        reference_information: [],
+                        affected: [],
+                        affected_products: [],
+                        NVD: [],
+                        nvd_list: $scope.nvd_list,
+                        tag: [],
+                        label_category: [],
+                        first_seen_time: $scope.edit_item_str.open_time,
+                        sourse: $scope.edit_item_str.sourse,
+                        detail: $scope.edit_item_str.detail,
+                        treatment_measures: $scope.edit_item_str.treatment_measures,
+                        exist: [],
+                    }
+                    switch ($scope.edit_item_str.level) {
+                        case '高':
+                            $scope.edit_item.level = '高危'
+                            break;
+                        case '中':
+                            $scope.edit_item.level = '中危'
+                            break;
+                        case '低':
+                            $scope.edit_item.level = '低危'
+                            break;
+                        default:
+                            break;
+                    }
+                    if ($scope.edit_item_str.reference_information && $scope.edit_item_str.reference_information != '') {
+                        angular.forEach($scope.edit_item_str.reference_information, function (item, index) {
+                            var obj = {
+                                name: item,
+                                icon: false
+                            }
+                            if (index == $scope.edit_item_str.reference_information.length - 1) {
+                                obj.icon = true
+                            }
+                            $scope.edit_item.reference.push(obj);
+                        })
+                    } else {
+                        $scope.edit_item.reference.push({
+                            name: '',
+                            icon: true
+                        });
+                    }
+                    // affected: [],
+                    //     affected_products: [],
+                    if ($scope.edit_item_str.affected_products && $scope.edit_item_str.affected_products.length != 0) {
+                        angular.forEach($scope.edit_item_str.affected_products, function (item, index) {
+                            var obj = {
+                                name: item,
+                                icon: false
+                            }
+                            if (index == $scope.edit_item_str.affected_products.length - 1) {
+                                obj.icon = true
+                            }
+                            $scope.edit_item.affected.push(obj);
+                        })
+                    } else {
+                        $scope.edit_item.affected.push({
+                            name: '',
+                            icon: true
+                        });
+                    }
+                    // 匹配标签
+                    angular.forEach(JSON.parse($scope.edit_item_str.label_id), function (item, index) {
+                        if (item != '') {
+                            var obj = {
+                                category: '',
+                                name: '',
+                                tag_name_list: [],
+                                category_ul: false,
+                                name_ul: false,
+                                icon: false,
+                                id: item
+                            }
+                            $scope.edit_item.tag.push(obj)
+                        }
+                    })
+                    if ($scope.edit_item.tag.length != 0) {
+                        $scope.edit_item.tag[$scope.edit_item.tag.length - 1].icon = true;
+                        angular.forEach($scope.edit_item.tag, function (item) {
+                            angular.forEach($scope.label_data, function (key) {
+                                angular.forEach(key.label, function (k) {
+                                    if (k.id == item.id) {
+                                        item.tag_name_list = key.label
+                                        item.category = k.category_name
+                                        item.name = k.label_name
+                                    }
+                                })
+
+                            })
+                        })
+                    } else {
+                        $scope.edit_item.tag.push({
+                            category: '',
+                            name: '',
+                            tag_name_list: [],
+                            category_ul: false,
+                            name_ul: false,
+                            icon: true,
+                            id: '0'
+                        })
+                    }
+                    if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
+                        angular.forEach($scope.edit_item_str.nvd, function (item, index) {
+                            var obj = {
+                                name: item,
+                                nvd_ul: false,
+                                icon: false
+                            }
+                            if (index == $scope.edit_item_str.nvd.length - 1) {
+                                obj.icon = true
+                            }
+                            $scope.edit_item.NVD.push(obj)
+                        })
+
+                    } else {
+                        $scope.edit_item.NVD.push({
+                            name: '',
+                            nvd_ul: false,
+                            icon: true
+                        })
+                    }
+                    $scope.pop_show.edit = true;
+                    $scope.get_page_show = false;
+                }
             },
             function () {}
         );
@@ -349,6 +509,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     // 情报录入-弹窗
     $scope.add_loop_box = function (item) {
+        $scope.start_time_picker();
+
         $scope.enter_show = false;
         $scope.pop_show.add = true;
         $scope.add_item = {
@@ -484,7 +646,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 if (data.data.status == 'success') {
                     zeroModal.success("添加成功");
                     $scope.get_loophole_source();
-                    $scope.get_page();
+                    $scope.get_page($scope.pageNow);
                     $scope.pop_show.add = false;
                 } else {
                     zeroModal.error(data.data.errorMessage);
@@ -510,7 +672,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
-                $scope.get_page();
+                $scope.get_page($scope.pageNow);
             },
             function () {}
         );
@@ -532,159 +694,17 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
-                $scope.get_page();
+                $scope.get_page($scope.pageNow);
             },
             function () {}
         );
     }
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
-        $scope.enter_show = false;
-        var item_str = JSON.stringify(item);
-        $scope.edit_item_str = JSON.parse(item_str);
-        $scope.picker_edit(moment(new Date($scope.edit_item_str.open_time * 1000)));
-        console.log($scope.edit_item_str);
-        $scope.edit_item = {
-            id: $scope.edit_item_str.id,
-            title: $scope.edit_item_str.title,
-            level: '',
-            level_list: [{
-                    name: '高危',
-                    num: '高危'
-                },
-                {
-                    name: '中危',
-                    num: '高危'
-                },
-                {
-                    name: '低危',
-                    num: '高危'
-                },
-            ],
-            reference: [],
-            reference_information: [],
-            affected: [],
-            affected_products: [],
-            NVD: [],
-            nvd_list: $scope.nvd_list,
-            tag: [],
-            label_category: [],
-            first_seen_time: $scope.edit_item_str.open_time,
-            sourse: $scope.edit_item_str.sourse,
-            detail: $scope.edit_item_str.detail,
-            treatment_measures: $scope.edit_item_str.treatment_measures,
-            exist: [],
-        }
-        switch ($scope.edit_item_str.level) {
-            case '高':
-                $scope.edit_item.level = '高危'
-                break;
-            case '中':
-                $scope.edit_item.level = '中危'
-                break;
-            case '低':
-                $scope.edit_item.level = '低危'
-                break;
-            default:
-                break;
-        }
-        if ($scope.edit_item_str.reference_information && $scope.edit_item_str.reference_information != '') {
-            angular.forEach($scope.edit_item_str.reference_information, function (item, index) {
-                var obj = {
-                    name: item,
-                    icon: false
-                }
-                if (index == $scope.edit_item_str.reference_information.length - 1) {
-                    obj.icon = true
-                }
-                $scope.edit_item.reference.push(obj);
-            })
-        } else {
-            $scope.edit_item.reference.push({
-                name: '',
-                icon: true
-            });
-        }
-        // affected: [],
-        //     affected_products: [],
-        if ($scope.edit_item_str.affected_products && $scope.edit_item_str.affected_products.length != 0) {
-            angular.forEach($scope.edit_item_str.affected_products, function (item, index) {
-                var obj = {
-                    name: item,
-                    icon: false
-                }
-                if (index == $scope.edit_item_str.affected_products.length - 1) {
-                    obj.icon = true
-                }
-                $scope.edit_item.affected.push(obj);
-            })
-        } else {
-            $scope.edit_item.affected.push({
-                name: '',
-                icon: true
-            });
-        }
-        // 匹配标签
-        angular.forEach(JSON.parse($scope.edit_item_str.label_id), function (item, index) {
-            if (item != '') {
-                var obj = {
-                    category: '',
-                    name: '',
-                    tag_name_list: [],
-                    category_ul: false,
-                    name_ul: false,
-                    icon: false,
-                    id: item
-                }
-                $scope.edit_item.tag.push(obj)
-            }
-        })
-        if ($scope.edit_item.tag.length != 0) {
-            $scope.edit_item.tag[$scope.edit_item.tag.length - 1].icon = true;
-            angular.forEach($scope.edit_item.tag, function (item) {
-                angular.forEach($scope.label_data, function (key) {
-                    angular.forEach(key.label, function (k) {
-                        if (k.id == item.id) {
-                            item.tag_name_list = key.label
-                            item.category = k.category_name
-                            item.name = k.label_name
-                        }
-                    })
+        $scope.get_page_show = true;
+        $scope.edit_item_data = item;
+        $scope.get_page($scope.pageNow);
 
-                })
-            })
-        } else {
-            $scope.edit_item.tag.push({
-                category: '',
-                name: '',
-                tag_name_list: [],
-                category_ul: false,
-                name_ul: false,
-                icon: true,
-                id: item
-            })
-        }
-        if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
-            angular.forEach($scope.edit_item_str.nvd, function (item, index) {
-                var obj = {
-                    name: item,
-                    nvd_ul: false,
-                    icon: false
-                }
-                if (index == $scope.edit_item_str.nvd.length - 1) {
-                    obj.icon = true
-                }
-                $scope.edit_item.NVD.push(obj)
-            })
-
-        } else {
-            $scope.edit_item.NVD.push({
-                name: '',
-                nvd_ul: false,
-                icon: true
-            })
-        }
-        $scope.pop_show.edit = true;
         console.log($scope.edit_item_str);
         console.log($scope.edit_item);
     };
@@ -762,7 +782,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
-                $scope.get_page();
+                $scope.get_page($scope.pageNow);
             },
             function () {}
         );

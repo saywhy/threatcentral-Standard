@@ -111,7 +111,7 @@ $this->title = '行业情报管理';
                         <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
                     </button>
                 </td>
-                <td>{{item.first_seen_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{item.first_seen_time ==0 ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>{{item.status=='0'? '未发布':'已发布'}}</td>
                 <td class="td_operation th_id">
                     <button ng-class="item.status=='0'? 'btn_operation':'btn_unoperation'"
@@ -169,12 +169,12 @@ $this->title = '行业情报管理';
                 <div class="contnet_item">
                     <div class="contnet_item_left">
                         <img src="/images/set/add_icon_2.png" alt="">
-                        <span>漏洞等级:</span>
+                        <span>情报级别:</span>
                     </div>
                     <div class="contnet_item_right">
                         <div class="tag_item" style="margin:0">
                             <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                            <input type="text" placeholder="请选择漏洞等级" ng-model="add_item.level"
+                            <input type="text" placeholder="请选择情报级别" ng-model="add_item.level"
                                 ng-focus="add_focus('level')" ng-blur="add_blur('level');" class="item_right_input"
                                 readonly>
                         </div>
@@ -385,12 +385,12 @@ $this->title = '行业情报管理';
                 <div class="contnet_item">
                     <div class="contnet_item_left">
                         <img src="/images/set/add_icon_2.png" alt="">
-                        <span>漏洞等级:</span>
+                        <span>情报级别:</span>
                     </div>
                     <div class="contnet_item_right">
                         <div class="tag_item" style="margin:0">
                             <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                            <input type="text" placeholder="请选择漏洞等级" ng-model="edit_item.level"
+                            <input type="text" placeholder="请选择情报级别" ng-model="edit_item.level"
                                 ng-focus="edit_focus('level')" ng-blur="edit_blur('level');" class="item_right_input"
                                 readonly>
                         </div>
