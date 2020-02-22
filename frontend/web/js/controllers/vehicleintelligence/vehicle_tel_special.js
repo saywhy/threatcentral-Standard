@@ -219,11 +219,11 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         $scope.label_item_data = item;
 
         //测试
-        /*item.label_new_name = [
-            {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'}]},
+      /*  item.label_new_name = [
+            {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'},{label_name:'11141'},{label_name:'2222212222'},{label_name:'12111'}]},
             {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]},
             {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]}]
-        item.reference_information = ['11111111111','22222222222','3333333333','1111111ew1111','222222w22222','3w3334333333']
+        item.reference_information = ['222222w22222','3w3334333333']
         item.nvd = ['11111111111','22222222222','3333333333','1111111ew1111','222222w22222','3w3334333333']
         //测试*/
 
