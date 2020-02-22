@@ -95,7 +95,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
                 angular.forEach(resp.data, function (item) {
                     $scope.loop_source.push(item.sourse);
                 })
-                $scope.loop_source.unshift('漏洞来源');
+                $scope.loop_source.unshift('全部');
             },
             function () {}
         );
@@ -220,6 +220,15 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
             })
         });
 
+        //测试
+        /*item.label_new_name = [
+            {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'}]},
+            {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]},
+            {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]}]
+        item.reference_information = ['11111111111','22222222222','3333333333','1111111ew1111','222222w22222','3w3334333333']
+        item.nvd = ['11111111111','22222222222','3333333333','1111111ew1111','222222w22222','3w3334333333']
+        //测试*/
+
         $scope.label_item_data = item;
 
         var W = 740;
@@ -304,7 +313,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
             source: '',
             label_id: []
         }
-        if ($scope.seach_data.source != '漏洞来源') {
+        if ($scope.seach_data.source != '情报来源') {
             params_data.source = $scope.seach_data.source
         }
         $http({

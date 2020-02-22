@@ -10,14 +10,14 @@ $this->title = '行业情报';
             <!-- 输入关键字 -->
             <span class="vehicle_icon_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="关联编号/行业关键字"
+                <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="情报标题/情报描述"
                      ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
             </span>
 
             <!-- 漏洞来源 -->
             <div class="vehicle_icon_box">
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                <input type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+                <input type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
                      ng-blur="search_blur('source');" class="search_input" readonly>
                 <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0;overflow-x: hidden;">
                     <li ng-mousedown="search_choose_item(item,$index,'source');"
@@ -30,7 +30,7 @@ $this->title = '行业情报';
             <!-- 漏洞级别 -->
              <div class="vehicle_icon_box">
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
+                <input type="text" placeholder="情报级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
                      ng-blur="search_blur('level');" class="search_input" readonly>
                 <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0;overflow-x: hidden;">
                     <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
@@ -113,10 +113,11 @@ $this->title = '行业情报';
         <div id="vehicle_special">
             <h1 class="l_top">{{label_item_data.title}}</h1>
             <ul class="l_mid">
+
               <li class="item">
                     <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
-                    <h4 class="title">威胁等级：</h4>
-                    <span class="stance">{{label_item_data.level}}危</span>
+                    <h4 class="title">情报级别：</h4>
+                    <span class="stance">{{label_item_data.level}}<span ng-hide="label_item_data.level==''">危</span></span>
               </li>
               <li class="item">
                     <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
@@ -131,7 +132,7 @@ $this->title = '行业情报';
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
                     <h4 class="title">关联链接：</h4>
-                    <a class="stance s_active" target="_blank" ng-href="{{label_item_data.link}}">{{label_item_data.link}}</a>
+                    <a class="stance s_active" target="_blank" ng-href="{{label_item_data.link}}" ng-attr-title="{{label_item_data.link}}">{{label_item_data.link}}</a>
                 </li>
                 <li class="item">
                     <img class="i_img" src="/images/loophole/sp5.png" alt=""/>
@@ -139,18 +140,31 @@ $this->title = '行业情报';
                     <span class="stance s_content">{{label_item_data.detail}}</span>
                 </li>
                 <li class="item">
+                    <img class="i_img" src="/images/set/add_icon_8.png" alt=""/>
+                    <h4 class="title">参考信息：</h4>
+                    <span class="stance" style="position:absolute;">
+                       <span class=" s_refer" ng-repeat="item in label_item_data.reference_information">{{item}}</span>
+                    </span>
+                </li>
+                <li class="item">
+                    <img class="i_img" src="/images/set/add_icon_10.png" alt=""/>
+                    <h4 class="title">NVD关联：</h4>
+                    <span class="stance" style="position:absolute;">
+                       <span class=" s_refer" ng-repeat="item in label_item_data.nvd">{{item}}</span>
+                    </span>
+                </li>
+                <li class="item">
                     <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
                     <h4 class="title">标签：</h4>
 
                     <div class="s_label_list">
                         <p class="s_label" ng-repeat = "item in label_item_data.label_new_name">
-                          <span class="s_name">{{item.name}}：</span>
+                          <span class="s_name" ng-attr-title="{{item.name}}">{{item.name}}：</span>
                           <span class="s_lab">
                             <a ng-repeat="tm in item.value" class="s_lab_val">{{tm.label_name}}</a>
                           </span>
                         </p>
                     </div>
-
                 </li>
             </ul>
         </div>

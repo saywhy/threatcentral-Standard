@@ -503,11 +503,10 @@ button:active {
     font-family: 'PingFangSC-Medium';
 }
 
-.l_mid{
-    border: 1px solid #ECECEC;
-}
+
 .l_mid .item{
     padding: 10px 10px;
+    position: relative;
 }
 .l_mid .item:nth-child(odd){
     background: #fff;
@@ -532,6 +531,13 @@ button:active {
 .l_mid .item .stance.s_active{
     color: #0070ff;
     cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 196px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    width: 456px;
 }
 .l_mid .item .stance.s_content{
     padding: 6px 0 0 32px;
@@ -546,22 +552,43 @@ button:active {
     -webkit-box-orient: vertical;
 }
 
+.l_mid .item .stance .s_refer{
+    color: #0070ff;
+    font-size: 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 4px 4px;
+    margin-right: 10px;
+    border: 1px solid #0070ff;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
 .l_mid .item .s_label_list{
     margin-top:6px;
-    height: 70px;
-    overflow-y: auto;
+    /*height: 70px;
+    overflow-y: auto;*/
 }
-.s_label_list::-webkit-scrollbar {
+
+.l_mid{
+    border: 1px solid #ECECEC;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.l_mid::-webkit-scrollbar {
     width: 4px;
     height: 1px;
 }
 
-.s_label_list::-webkit-scrollbar-thumb {
+.l_mid::-webkit-scrollbar-thumb {
     background: #0070FF;
     border-radius: 2px;
 }
 
-.s_label_list::-webkit-scrollbar-track {
+.l_mid::-webkit-scrollbar-track {
     background: #fff;
     border-radius: 2px;
 }
@@ -570,11 +597,11 @@ button:active {
     height: 34px;
     line-height: 34px;
     display: flex;
-    margin-left: 6px;
+    margin-left: 30px;
 }
 
 .l_mid .item .s_label .s_name{
-    width: 150px;
+    width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

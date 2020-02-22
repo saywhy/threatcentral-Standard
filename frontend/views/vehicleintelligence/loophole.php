@@ -9,14 +9,14 @@ $this->title = '漏洞情报';
                 <!-- 输入关键字 -->
                 <span class="vehicle_icon_box">
                    <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                   <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="关联编号/漏洞关键字"
+                   <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="情报标题/情报描述"
                         ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
                 </span>
 
                 <!-- 漏洞来源 -->
                <div class="vehicle_icon_box">
                    <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                   <input type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+                   <input type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
                        ng-blur="search_blur('source');" class="search_input" readonly>
                    <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0;overflow-x: hidden;">
                        <li ng-mousedown="search_choose_item(item,$index,'source');"
@@ -29,7 +29,7 @@ $this->title = '漏洞情报';
                <!-- 漏洞级别 -->
                 <div class="vehicle_icon_box">
                    <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                   <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
+                   <input type="text" placeholder="情报级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
                         ng-blur="search_blur('level');" class="search_input" readonly>
                    <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0;overflow-x: hidden;">
                        <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
@@ -160,8 +160,8 @@ $this->title = '漏洞情报';
                 <ul class="l_mid">
                   <li class="item">
                         <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
-                        <h4 class="title">漏洞等级：</h4>
-                        <span class="stance">{{label_item_data.level}}<span ng-hide="label_item_data.level=''">危</span></span>
+                        <h4 class="title">情报级别：</h4>
+                    <span class="stance">{{label_item_data.level}}<span ng-hide="label_item_data.level==''">危</span></span>
                   </li>
                   <li class="item">
                         <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
@@ -187,6 +187,20 @@ $this->title = '漏洞情报';
                         <img class="i_img" src="/images/loophole/sp8.png" alt=""/>
                         <h4 class="title">建议处理措施：</h4>
                         <span class="stance s_content" ng-bind="label_item_data.treatment_measures"></span>
+                    </li>
+                    <li class="item">
+                        <img class="i_img" src="/images/set/add_icon_8.png" alt=""/>
+                        <h4 class="title">参考信息：</h4>
+                        <span class="stance" style="position:absolute;">
+                           <span class=" s_refer" ng-repeat="item in label_item_data.reference_information">{{item}}</span>
+                        </span>
+                    </li>
+                    <li class="item">
+                        <img class="i_img" src="/images/set/add_icon_10.png" alt=""/>
+                        <h4 class="title">NVD关联：</h4>
+                        <span class="stance" style="position:absolute;">
+                           <span class=" s_refer" ng-repeat="item in label_item_data.nvd">{{item}}</span>
+                        </span>
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
