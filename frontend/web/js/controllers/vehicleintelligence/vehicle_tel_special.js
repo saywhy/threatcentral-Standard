@@ -62,22 +62,22 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
     //初始化时间
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
-                singleDatePicker: true,
                 showDropdowns: true,
                 timePicker: true,
                 timePicker24Hour: true,
                 drops: "down",
-                opens: "center",
+                opens: "right",
                 autoUpdateInput: false,
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
+                    format: "YYYY-MM-DD HH:mm"
                 }
             },
             function (start, end, label) {
                 $("#picker_search").data('daterangepicker').autoUpdateInput = true
-                $scope.edit_item.first_seen_time = start.unix()
+                $scope.seach_data.startDate = start.unix();
+                $scope.seach_data.endDate = end.unix();
             }
         );
     };
