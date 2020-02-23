@@ -572,11 +572,36 @@ select {
   z-index: 999;
 }
 
+.pop_box_container::-webkit-scrollbar-track-piece {
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.pop_box_container::-webkit-scrollbar {
+  width: 4px;
+  height: 1px;
+}
+
+.pop_box_container::-webkit-scrollbar-thumb {
+  background: #0070FF;
+  border-radius: 10px;
+  height: 20px;
+}
+
+.pop_box_container::-webkit-scrollbar-thumb:hover {
+  background: #0070FF;
+}
+
+.pop_box_container {
+  width: 100%;
+  overflow-y: auto;
+  height: 95%;
+}
+
 .pop_contnet {
   color: red;
-  width: 740px;
-  height: 500px;
-  overflow-y: auto;
+  width: 60%;
+  height: 80%;
   padding: 24px 36px;
   background: #F8F8F8;
   border-radius: 8px;

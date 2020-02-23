@@ -11,8 +11,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             label_id: [],
             key_word: '',
             level: '',
-            startDate: moment().subtract(90, "days").unix(),
-            endDate: moment().unix(),
+            startDate: '',
+            endDate: '',
         };
         $scope.status_search = [{
                 num: '',
@@ -192,24 +192,49 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         );
     };
     $scope.picker_edit = function (startDate) {
-        $("#picker_edit").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                drops: "down",
-                opens: "center",
-                startDate: startDate,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
+        console.log(startDate);
+        if (startDate == 0) {
+            $('#picker_edit').val('');
+            $("#picker_edit").daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    timePicker: true,
+                    timePicker24Hour: true,
+                    drops: "down",
+                    opens: "center",
+                    autoUpdateInput: false,
+                    locale: {
+                        applyLabel: "确定",
+                        cancelLabel: "取消",
+                        format: "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                function (start, end, label) {
+                    $("#picker_edit").data('daterangepicker').autoUpdateInput = true
+                    $scope.edit_item.first_seen_time = start.unix()
                 }
-            },
-            function (start, end, label) {
-                $scope.edit_item.first_seen_time = start.unix()
-            }
-        );
+            );
+        } else {
+            $("#picker_edit").daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    timePicker: true,
+                    timePicker24Hour: true,
+                    drops: "down",
+                    opens: "center",
+                    startDate: startDate,
+                    locale: {
+                        applyLabel: "确定",
+                        cancelLabel: "取消",
+                        format: "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                function (start, end, label) {
+                    $scope.edit_item.first_seen_time = start.unix()
+                }
+            );
+        }
+
     };
     // 获取情报来源
     $scope.get_loophole_source = function (source) {
@@ -305,6 +330,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     })
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
+                    // $scope.edit_item_str.publish_time = 0;
+                    if ($scope.edit_item_str.publish_time == 0) {
+                        $scope.edit_item_str.publish_time = 0
+                    } else {
+                        $scope.edit_item_str.publish_time = $scope.edit_item_str.publish_time * 1000
+                    }
                     $scope.edit_item = {
                         id: $scope.edit_item_str.id,
                         title: $scope.edit_item_str.title,
@@ -332,7 +363,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         nvd_list: $scope.nvd_list,
                         tag: [],
                         label_category: [],
-                        first_seen_time: $scope.edit_item_str.publish_time * 1000,
+                        first_seen_time: $scope.edit_item_str.publish_time,
                         sourse: $scope.edit_item_str.sourse,
                         detail: $scope.edit_item_str.detail,
                         exist: [],
@@ -437,7 +468,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         })
                     }
                     $scope.pop_show.edit = true;
-                    $scope.picker_edit(moment(new Date($scope.edit_item_str.publish_time * 1000)));
+                    if ($scope.edit_item_str.publish_time == 0) {
+                        $scope.picker_edit(0)
+                    } else {
+                        $scope.picker_edit(moment(new Date($scope.edit_item_str.publish_time)));
+                    }
                     $scope.get_page_show = false;
                 }
             },
@@ -688,7 +723,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_loop_box = function (item) {
         $scope.get_page_show = true;
         $scope.edit_item_data = item;
-        $scope.get_page($scope.pageNow);
+        $scope.get_lab_list();
+
     };
     $scope.edit_sure = function () {
         if ($scope.edit_item.title == '') {
@@ -1212,6 +1248,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     });
                     $scope.label_data = labelAttr;
                     console.log($scope.label_data);
+                    if ($scope.get_page_show) {
+                        $scope.get_page($scope.pageNow);
+                    }
                 }
             },
             function () {}

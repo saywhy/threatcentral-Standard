@@ -703,10 +703,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_loop_box = function (item) {
         $scope.get_page_show = true;
         $scope.edit_item_data = item;
-        $scope.get_page($scope.pageNow);
-
-        console.log($scope.edit_item_str);
-        console.log($scope.edit_item);
+        $scope.get_lab_list();
     };
     $scope.edit_sure = function () {
         if ($scope.edit_item.title == '') {
@@ -1257,7 +1254,11 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                     });
                     $scope.label_data = labelAttr;
                     console.log($scope.label_data);
+                    if ($scope.get_page_show) {
+                        $scope.get_page($scope.pageNow);
+                    }
                 }
+
             },
             function () {}
         );
