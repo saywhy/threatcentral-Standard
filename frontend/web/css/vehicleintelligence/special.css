@@ -544,13 +544,11 @@ button:active {
     color: #666;
     font-size: 14px;
     line-height: 18px;
-    height: 60px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
+    height: 56px;
+    overflow-y: auto;
     display: block;
     margin-top: -20px;
-    -webkit-box-orient: vertical;
+    font-family: PingFangSC-Regular;
 }
 
 .l_mid .item .stance .s_refer{
@@ -569,6 +567,10 @@ button:active {
     text-overflow: ellipsis;
 }
 
+.zeromodal-body{
+    overflow-y: hidden;
+}
+
 
 .l_mid .item .s_label_list{
     margin-top:6px;
@@ -581,22 +583,22 @@ button:active {
  /*   height: 500px;*/
    /* overflow-y: auto;
     overflow-x: auto;*/
-}
-.zeromodal-body{
     overflow-y: auto;
+    height: 480px;
 }
 
-.zeromodal-body::-webkit-scrollbar {
+
+.l_mid::-webkit-scrollbar {
     width: 4px;
     height: 1px;
 }
 
-.zeromodal-body::-webkit-scrollbar-thumb {
+.l_mid::-webkit-scrollbar-thumb {
     background: #0070FF;
     border-radius: 2px;
 }
 
-.zeromodal-body::-webkit-scrollbar-track {
+.l_mid::-webkit-scrollbar-track {
     background: #fff;
     border-radius: 2px;
 }

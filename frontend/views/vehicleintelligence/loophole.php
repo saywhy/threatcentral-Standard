@@ -180,7 +180,7 @@ $this->title = '漏洞情报';
                     </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp7.png" alt=""/>
-                        <h4 class="title">漏洞描述：</h4>
+                        <h4 class="title">情报描述：</h4>
                         <span class="stance s_content" ng-bind="label_item_data.detail"></span>
                     </li>
                     <li class="item">
