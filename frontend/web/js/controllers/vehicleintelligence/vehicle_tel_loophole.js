@@ -28,8 +28,8 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
             label_id: [],
             key_word: '',
             level: '',
-            startDate: moment().subtract(90, "days").unix(),
-            endDate: moment().unix(),
+            startDate: '',
+            endDate: '',
         };
 
         //漏洞级别
@@ -220,12 +220,12 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
         });
 
         //测试
-        /*item.label_new_name = [
-            {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'}]},
+       /* item.label_new_name = [
+            {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'},{label_name:'11141'},{label_name:'2222212222'},{label_name:'12111'}]},
             {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]},
             {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]}]
-        item.reference_information = ['11111111111','22222222222','3333333333','1111111ew1111','222222w22222','3w3334333333']
-        item.nvd = ['11111111111','22222222222','3333333333','1111111ew1111','222222w22222','3w3334333333']
+        item.reference_information = ['https://47.https://47.105.196.251:8443/vehicleintelligence/special105.196.251:8443/vehicleintelligence/special','https://47.105.196.251:8443/vehicleintelligence/special11']
+        item.nvd = ['https://47.httpwwws://47.105.//47.105.19//47.105.19196.251:8443/vehicleintelligence/special105.19','22222222222','https://47.https://47.105.196.251:8443/vehicleintelligence/special105.19','1111111ew1111','222222w22222','3w3334333333']
         //测试*/
 
         $scope.label_item_data = item;
@@ -236,8 +236,10 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
         zeroModal.show({
             title: "",
             content: vehicle_loophole,
+         /* width: W + "px",
+            height: H + "px",*/
             width: W + "px",
-            height: H + "px",
+            height: "90%",
             ok: false,
             cancel: false,
             drag: false,

@@ -571,12 +571,14 @@ button:active {
     border-radius: 4px;
     text-decoration: none;
     padding: 4px 4px;
-    border: 1px solid #0070ff;
+    /* border: 1px solid #0070ff; */
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
-    display: inline-block;
-    margin: 2px 6px 0 0;
+    display: block;
+    /* margin: 2px 6px 0 0; */
+    width: 450px;
+    text-overflow: ellipsis;
 }
 
 .l_mid .item .s_label_list{
@@ -587,22 +589,25 @@ button:active {
 
 .l_mid{
     border: 1px solid #ECECEC;
-    height: 500px;
+    /*   height: 500px;*/
+    /* overflow-y: auto;
+     overflow-x: auto;*/
+}
+.zeromodal-body{
     overflow-y: auto;
-    overflow-x: hidden;
 }
 
-.l_mid::-webkit-scrollbar {
+.zeromodal-body::-webkit-scrollbar {
     width: 4px;
     height: 1px;
 }
 
-.l_mid::-webkit-scrollbar-thumb {
+.zeromodal-body::-webkit-scrollbar-thumb {
     background: #0070FF;
     border-radius: 2px;
 }
 
-.l_mid::-webkit-scrollbar-track {
+.zeromodal-body::-webkit-scrollbar-track {
     background: #fff;
     border-radius: 2px;
 }

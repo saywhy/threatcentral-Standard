@@ -188,24 +188,24 @@ $this->title = '漏洞情报';
                         <h4 class="title">建议处理措施：</h4>
                         <span class="stance s_content" ng-bind="label_item_data.treatment_measures"></span>
                     </li>
-                    <li class="item" style="display:flex">
-                        <div class="i_img_div" style="width:32px;">
-                          <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_8.png" alt=""/>
-                        </div>
-                        <h4 class="title" style="line-height: 28px;">参考信息：</h4>
-                        <span class="stance" style="flex:1">
-                           <span class=" s_refer" ng-repeat="item in label_item_data.reference_information">{{item}}</span>
-                        </span>
-                    </li>
-                    <li class="item" style="display:flex">
-                        <div class="i_img_div" style="width:32px;">
-                           <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_10.png" alt=""/>
-                        </div>
-                        <h4 class="title" style="line-height: 28px;">NVD关联：</h4>
-                        <span class="stance" style="flex:1">
-                            <span class="s_refer" ng-repeat="item in label_item_data.nvd">{{item}}</span>
-                        </span>
-                    </li>
+                   <li class="item" style="display:flex">
+                       <div class="i_img_div" style="width:32px;">
+                         <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_8.png" alt=""/>
+                       </div>
+                       <h4 class="title" style="line-height: 28px;width:150px;">参考信息：</h4>
+                       <span class="stance" style="flex;">
+                          <span class="s_refer" ng-repeat="item in label_item_data.reference_information" ng-attr-title="{{item}}">{{item}}</span>
+                       </span>
+                   </li>
+                   <li class="item" style="display:flex;">
+                       <div class="i_img_div" style="width:32px;">
+                          <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_10.png" alt=""/>
+                       </div>
+                       <h4 class="title" style="line-height: 28px;width:150px;">NVD关联：</h4>
+                       <span class="stance" style="flex:1">
+                           <span class="s_refer" ng-repeat="item in label_item_data.nvd" ng-attr-title="{{item}}">{{item}}</span>
+                       </span>
+                   </li>
                     <li class="item">
                         <img class="i_img" src="/images/loophole/sp6.png" alt=""/>
                         <h4 class="title">标签：</h4>
