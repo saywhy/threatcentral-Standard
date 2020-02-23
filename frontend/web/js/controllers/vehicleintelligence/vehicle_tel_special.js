@@ -30,7 +30,7 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
             key_word: '',
             level: '',
             startDate: moment().subtract(90, "days").unix(),
-            endDate: moment().unix(),
+            endDate: moment().unix()
         };
 
         //漏洞级别
@@ -62,23 +62,22 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
     //初始化时间
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
+                singleDatePicker: true,
                 showDropdowns: true,
-                timePicker: false,
+                timePicker: true,
                 timePicker24Hour: true,
                 drops: "down",
-                opens: "right",
-                maxDate: $scope.searchTime.endDate,
-                startDate: $scope.searchTime.startDate,
-                endDate: $scope.searchTime.endDate,
+                opens: "center",
+                autoUpdateInput: false,
                 locale: {
                     applyLabel: "确定",
                     cancelLabel: "取消",
-                    format: "YYYY-MM-DD"
+                    format: "YYYY-MM-DD HH:mm:ss"
                 }
             },
             function (start, end, label) {
-                $scope.seach_data.startDate = start.unix();
-                $scope.seach_data.endDate = end.unix();
+                $("#picker_search").data('daterangepicker').autoUpdateInput = true
+                $scope.edit_item.first_seen_time = start.unix()
             }
         );
     };
