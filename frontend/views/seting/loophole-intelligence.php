@@ -150,11 +150,11 @@ $this->title = '漏洞情报管理';
   <!-- 添加新增弹窗 -->
   <div class="pop_box" ng-show="pop_show.add">
     <div class="pop_contnet">
-      <div class="pop_box_container">
-        <div class="contnet_title_box">
+          <div class="contnet_title_box">
           <p class="pop_contnet_title">漏洞情报录入</p>
           <img src="/images/set/closed_pop.png" ng-click="add_cancel()" class="closed_img" alt="">
         </div>
+      <div class="pop_box_container">
         <div class="contnet">
           <div class="contnet_item">
             <div class="contnet_item_left">
@@ -354,11 +354,11 @@ $this->title = '漏洞情报管理';
   <!-- 编辑弹窗 -->
   <div class="pop_box" ng-show="pop_show.edit">
     <div class="pop_contnet">
-      <div class="pop_box_container">
-        <div class="contnet_title_box">
+          <div class="contnet_title_box">
           <p class="pop_contnet_title">漏洞情报编辑</p>
           <img src="/images/set/closed_pop.png" ng-click="edit_cancel()" class="closed_img" alt="">
         </div>
+      <div class="pop_box_container">
         <div class="contnet">
           <div class="contnet_item">
             <div class="contnet_item_left">

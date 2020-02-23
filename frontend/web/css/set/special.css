@@ -596,6 +596,7 @@ select {
   width: 100%;
   overflow-y: auto;
   height: 95%;
+  margin-top: 24px;
 }
 
 .pop_contnet {
@@ -633,7 +634,6 @@ select {
 .contnet {
   border: 1px solid #ECECEC;
   padding: 15px;
-  margin-top: 24px;
   background-color: #fff;
 }
 
