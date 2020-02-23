@@ -553,13 +553,14 @@ button:active {
 }
 
 .l_mid .item .stance.s_content{
-    padding: 6px 0 0 32px;
+    padding: 0px 0 0 184px;
     color: #666;
     font-size: 14px;
     line-height: 18px;
     height: 60px;
     overflow: hidden;
     display: block;
+    margin-top: -20px;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -621,7 +622,7 @@ button:active {
 
 }
 .l_mid .item .s_label .s_name{
-    width: 120px;
+    width: 154px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
