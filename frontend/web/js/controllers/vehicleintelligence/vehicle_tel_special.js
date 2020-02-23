@@ -56,7 +56,6 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         $scope.get_loophole_source();
         $scope.get_lab_list();
         $scope.get_page();
-
     }
 
     //初始化时间

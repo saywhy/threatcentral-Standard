@@ -58,7 +58,6 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
     }
 
     //初始化时间
-    //初始化时间
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
                 showDropdowns: true,
