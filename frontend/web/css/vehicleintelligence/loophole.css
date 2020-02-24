@@ -500,7 +500,7 @@ button:active {
     border-color: #0070ff;
 }
 
-/**************************************/
+/******************以下是弹框样式********************/
 .zeromodal-container{
     background: #F8F8F8;
 }
@@ -548,10 +548,6 @@ button:active {
     color: #0070ff;
 }
 
-.l_mid .item .stance.s_affected{
-
-}
-
 .l_mid .item .stance.s_content{
     padding: 0px 0 0 184px;
     color: #666;
@@ -588,8 +584,6 @@ button:active {
 .l_mid{
     border: 1px solid #ECECEC;
     /*   height: 500px;*/
-    /* overflow-y: auto;
-     overflow-x: auto;*/
     overflow-y: auto;
     height: 484px;
 }

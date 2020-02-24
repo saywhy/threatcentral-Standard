@@ -485,7 +485,8 @@ button:active {
     border-color: #0070ff;
 }
 
-/**************************************/
+/*****************以下是弹框样式*********************/
+
 .zeromodal-container{
     background: #F8F8F8;
 }
@@ -579,7 +580,7 @@ button:active {
 
 .l_mid{
     border: 1px solid #ECECEC;
- /*   height: 500px;*/
+   /* height: 500px;*/
    /* overflow-y: auto;
     overflow-x: auto;*/
     overflow-y: auto;
