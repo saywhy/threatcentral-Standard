@@ -236,10 +236,10 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
         zeroModal.show({
             title: "",
             content: vehicle_loophole,
-         /* width: W + "px",
-            height: H + "px",*/
             width: W + "px",
-            height: "90%",
+            height: H + "px",
+          /*  width: W + "px",
+            height: "90%",*/
             ok: false,
             cancel: false,
             drag: false,

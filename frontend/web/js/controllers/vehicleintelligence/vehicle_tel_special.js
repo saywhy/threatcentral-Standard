@@ -231,8 +231,10 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         zeroModal.show({
             title: "",
             content: vehicle_special,
-            width: W + 'px',
-            height: "90%",
+            /*width: W + 'px',
+            height: "90%",*/
+            width: W + "px",
+            height: H + "px",
             ok: false,
             cancel: false,
             drag: false,
