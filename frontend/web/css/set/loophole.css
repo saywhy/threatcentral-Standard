@@ -579,12 +579,12 @@ select {
 .pop_contnet {
   color: red;
   width: 60%;
-  height: 80%;
+  height: 85%;
   padding: 24px 36px;
   background: #F8F8F8;
   border-radius: 8px;
   position: fixed;
-  top: 100px;
+  top: 80px;
   margin-bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
@@ -613,7 +613,7 @@ select {
 .pop_box_container {
   width: 100%;
   overflow-y: auto;
-  height: 95%;
+  height: 80%;
   margin-top: 24px;
 }
 

@@ -152,10 +152,10 @@ $this->title = '行业情报管理';
   <!-- 添加新增弹窗 -->
   <div class="pop_box" ng-show="pop_show.add">
     <div class="pop_contnet">
-       <div class="contnet_title_box">
-          <p class="pop_contnet_title">行业情报录入</p>
-          <img src="/images/set/closed_pop.png" ng-click="add_cancel()" class="closed_img" alt="">
-        </div>
+      <div class="contnet_title_box">
+        <p class="pop_contnet_title">行业情报录入</p>
+        <img src="/images/set/closed_pop.png" ng-click="add_cancel()" class="closed_img" alt="">
+      </div>
       <div class="pop_box_container">
         <div class="contnet">
           <div class="contnet_item">
@@ -332,11 +332,20 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in add_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text" placeholder="请选择NVD关联" ng-model='item.name' ng-focus="add_focus('NVD',index)"
-                    ng-blur="add_blur('NVD',index);" class="item_right_input" readonly>
+                  <input type="text"
+                  placeholder="请选择NVD关联"
+                  id="{{'input'+index}}"
+                  ng-change="add_nvd_change(item.name)"
+                  ng-keyup="add_nvd_mykey($event,item,index)"
+                  ng-model='item.name'
+                  ng-focus="add_nvd_focus(index,item)"
+                  ng-blur="add_blur('NVD',index);"
+                  class="item_right_input">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                  <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
-                    <li ng-repeat="key in add_item.nvd_list" ng-mousedown="choose_item(key.cve,index,'NVD');">
+                  <ul class="select_list_box" style="margin-top:0" id="{{'nvd'+index}}" ng-if="item.nvd_ul">
+                    <li ng-repeat="key in nvd_list"
+                       ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                     ng-mousedown="choose_nvd_item(key,index);">
                       {{key.cve}}
                     </li>
                   </ul>
@@ -351,20 +360,20 @@ $this->title = '行业情报管理';
             </div>
           </div>
         </div>
-        <div class="alert_btn_box">
+      </div>
+           <div class="alert_btn_box">
           <button class="alert_btn_ok" ng-click="add_sure()">保存</button>
           <button class="alert_btn_cancel" ng-click="add_cancel()">取消</button>
         </div>
-      </div>
     </div>
   </div>
   <!-- 编辑弹窗 -->
   <div class="pop_box" ng-show="pop_show.edit">
     <div class="pop_contnet">
-         <div class="contnet_title_box">
-          <p class="pop_contnet_title">行业情报编辑</p>
-          <img src="/images/set/closed_pop.png" ng-click="edit_cancel()" class="closed_img" alt="">
-        </div>
+      <div class="contnet_title_box">
+        <p class="pop_contnet_title">行业情报编辑</p>
+        <img src="/images/set/closed_pop.png" ng-click="edit_cancel()" class="closed_img" alt="">
+      </div>
       <div class="pop_box_container">
         <div class="contnet">
           <div class="contnet_item">
@@ -540,11 +549,20 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in edit_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text" placeholder="请选择NVD关联" ng-model='item.name' ng-focus="edit_focus('NVD',index)"
-                    ng-blur="edit_blur('NVD',index);" class="item_right_input" readonly>
+                  <input type="text"
+                   placeholder="请选择NVD关联"
+                    id="{{'input_edit'+index}}"
+                    ng-change="edit_nvd_change(item.name)"
+                        ng-keyup="edit_nvd_mykey($event,item,index)"
+                    ng-model='item.name'
+                      ng-model='item.name'
+                  ng-focus="edit_nvd_focus(index,item)"
+                    ng-blur="edit_blur('NVD',index);" class="item_right_input">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                  <ul class="select_list_box" style="margin-top:0" ng-if="item.nvd_ul">
-                    <li ng-repeat="key in edit_item.nvd_list" ng-mousedown="choose_item_edit(key.cve,index,'NVD');">
+                  <ul class="select_list_box" style="margin-top:0" id="{{'nvd_edit'+index}}" ng-if="item.nvd_ul">
+                    <li ng-repeat="key in nvd_list"
+                         ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                        ng-mousedown="choose_nvd_item_edit(key,index);">
                       {{key.cve}}
                     </li>
                   </ul>
@@ -559,10 +577,10 @@ $this->title = '行业情报管理';
             </div>
           </div>
         </div>
-        <div class="alert_btn_box">
-          <button class="alert_btn_ok" ng-click="edit_sure()">保存</button>
-          <button class="alert_btn_cancel" ng-click="edit_cancel()">取消</button>
-        </div>
+      </div>
+   <div class="alert_btn_box">
+        <button class="alert_btn_ok" ng-click="edit_sure()">保存</button>
+        <button class="alert_btn_cancel" ng-click="edit_cancel()">取消</button>
       </div>
     </div>
 

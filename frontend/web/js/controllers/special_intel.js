@@ -265,13 +265,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
-    $scope.get_nvd = function () {
+    $scope.get_nvd = function (cve) {
         $http({
             method: "get",
             url: "/site/cve-list",
+            params: {
+                cve: cve
+            }
         }).then(
             function (data) {
                 $scope.nvd_list = data.data;
+                angular.forEach($scope.nvd_list, function (item) {
+                    item.active = false
+                })
+                console.log($scope.nvd_list);
             },
             function () {}
         );
@@ -328,6 +335,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                             $scope.edit_item_data = item;
                         }
                     })
+                    $scope.edit_item_data.detail = $scope.edit_item_data.detail.replace(/[\r\n]/g, "");;
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
                     // $scope.edit_item_str.publish_time = 0;
@@ -450,7 +458,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
                         angular.forEach($scope.edit_item_str.nvd, function (item, index) {
                             var obj = {
-                                name: item,
+                                name: item.cve,
+                                id: item.id,
                                 nvd_ul: false,
                                 icon: false
                             }
@@ -463,6 +472,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     } else {
                         $scope.edit_item.NVD.push({
                             name: '',
+                            id: 0,
                             nvd_ul: false,
                             icon: true
                         })
@@ -598,8 +608,16 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.pop_show.edit = false;
         $scope.enter_show = true;
     };
+    $scope.arrayUnique2 = function (arr, name) {
+        var hash = {};
+        return arr.reduce(function (item, next) {
+            hash[next[name]] ? '' : hash[next[name]] = true && item.push(next);
+            return item;
+        }, []);
+    }
     // 添加录入情报
     $scope.add_sure = function () {
+        console.log($scope.add_item);
         if ($scope.add_item.title == '') {
             zeroModal.error('请输入标题')
             return false
@@ -637,10 +655,15 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         })
         var NVD_Array = [];
         angular.forEach($scope.add_item.NVD, function (item) {
-            if (item.name != '') {
-                NVD_Array.push(item.name);
+            if (item.name != '' && item.id) {
+                NVD_Array.push({
+                    cve: item.name,
+                    id: item.id,
+                });
             }
         })
+        $scope.NVD_Array_cn = $scope.arrayUnique2(NVD_Array, 'id')
+        console.log($scope.NVD_Array_cn);
         var loading = zeroModal.loading(4);
         $http({
             method: "post",
@@ -652,7 +675,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 sourse: $scope.add_item.sourse,
                 link: $scope.add_item.link,
                 detail: $scope.add_item.detail,
-                nvd: NVD_Array,
+                nvd: $scope.NVD_Array_cn,
                 reference_information: $scope.add_item.reference_information,
                 original_intelligence: $scope.add_item.original_intelligence,
                 label_id: {
@@ -724,7 +747,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.get_page_show = true;
         $scope.edit_item_data = item;
         $scope.get_lab_list();
-
+        console.log(item);
     };
     $scope.edit_sure = function () {
         if ($scope.edit_item.title == '') {
@@ -759,10 +782,15 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         })
         angular.forEach($scope.edit_item.NVD, function (item, index) {
-            if (item.name != '') {
-                params_edit.nvd.push(item.name)
+            if (item.name != '' && item.id) {
+                params_edit.nvd.push({
+                    cve: item.name,
+                    id: item.id
+                })
             }
         })
+        $scope.params_edit_cn = [];
+        $scope.params_edit_cn = $scope.arrayUnique2(params_edit.nvd, 'id')
         angular.forEach($scope.edit_item.tag, function (item, index) {
             if (item.name != '') {
                 params_edit.label_name.push(item.name)
@@ -784,7 +812,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 detail: $scope.edit_item.detail,
                 original_intelligence: $scope.edit_item.original_intelligence,
                 reference_information: $scope.edit_item.reference_information,
-                nvd: params_edit.nvd,
+                nvd: $scope.params_edit_cn,
                 label_name: params_edit.label_name,
             }
         }).then(
@@ -1393,6 +1421,149 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
         }
     }
+    // nvd 增加
+    $scope.add_nvd_change = function (name) {
+        $scope.get_nvd(name)
+        $scope.tag_key_add.active_index = -1;
+    }
+    $scope.add_nvd_mykey = function (e, item, index) {
+        $scope.id = 'nvd' + index
+        $scope.input_id = 'input' + index
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            $("#" + $scope.input_id).blur();
+            angular.forEach($scope.add_item.NVD, function (key, value) {
+                if (value == index) {
+                    key.nvd_ul = false;
+                }
+            })
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_key_add.active_index == ($scope.nvd_list.length - 1)) {
+                $scope.tag_key_add.active_index = 0
+            } else {
+                $scope.tag_key_add.active_index++
+            }
+            item.name = $scope.nvd_list[$scope.tag_key_add.active_index].cve;
+            item.id = $scope.nvd_list[$scope.tag_key_add.active_index].id;
+            console.log(1111);
+
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_key_add.active_index === 0 || $scope.tag_key_add.active_index === -1) {
+                $scope.tag_key_add.active_index = $scope.nvd_list.length - 1;
+            } else {
+                $scope.tag_key_add.active_index--;
+            }
+            item.name = $scope.nvd_list[$scope.tag_key_add.active_index].cve;
+            item.id = $scope.nvd_list[$scope.tag_key_add.active_index].id;
+        }
+        var scrollTop = 0;
+        if ($scope.tag_key_add.listHeight < $scope.tag_key_add.listItemHeight *
+            ($scope.tag_key_add.active_index + 1)) {
+            scrollTop = $scope.tag_key_add.listItemHeight *
+                ($scope.tag_key_add.active_index + 1) - $scope.tag_key_add.listHeight;
+        }
+        $scope.id = 'nvd' + index
+        document.getElementById($scope.id).scrollTop = scrollTop;
+    }
+    $scope.add_nvd_focus = function (index, item) {
+        $scope.tag_key_add.active_index = -1;
+        $scope.get_nvd(item.name)
+        angular.forEach($scope.add_item.NVD, function (key, value) {
+            if (value == index) {
+                key.nvd_ul = true;
+            } else {
+                key.nvd_ul = false;
+            }
+        })
+    }
+
+    $scope.choose_nvd_item = function (item, index) {
+        console.log(item);
+        angular.forEach($scope.add_item.NVD, function (key, value) {
+            if (value == index) {
+                key.name = item.cve;
+                key.nvd_ul = false;
+                key.id = item.id;
+            }
+        })
+    }
+
+    // nvd 编辑
+    $scope.edit_nvd_change = function (name) {
+        $scope.get_nvd(name)
+        $scope.tag_key_add.active_index = -1;
+    }
+    $scope.edit_nvd_mykey = function (e, item, index) {
+        $scope.id = 'nvd_edit' + index
+        $scope.input_id = 'input_edit' + index
+        var keycode = window.event ? e.keyCode : e.which; //获取按键编码
+        if (keycode == 13) {
+            $("#" + $scope.input_id).blur();
+            angular.forEach($scope.edit_item.NVD, function (key, value) {
+                if (value == index) {
+                    key.nvd_ul = false;
+                }
+            })
+        } else if (keycode == 40) {
+            //下键
+            if ($scope.tag_key_add.active_index == ($scope.nvd_list.length - 1)) {
+                $scope.tag_key_add.active_index = 0
+            } else {
+                $scope.tag_key_add.active_index++
+            }
+            item.name = $scope.nvd_list[$scope.tag_key_add.active_index].cve;
+            item.id = $scope.nvd_list[$scope.tag_key_add.active_index].id;
+            console.log(1111);
+
+        } else if (keycode == 38) {
+            //上键
+            if ($scope.tag_key_add.active_index === 0 || $scope.tag_key_add.active_index === -1) {
+                $scope.tag_key_add.active_index = $scope.nvd_list.length - 1;
+            } else {
+                $scope.tag_key_add.active_index--;
+            }
+            item.name = $scope.nvd_list[$scope.tag_key_add.active_index].cve;
+            item.id = $scope.nvd_list[$scope.tag_key_add.active_index].id;
+        }
+        var scrollTop = 0;
+        if ($scope.tag_key_add.listHeight < $scope.tag_key_add.listItemHeight *
+            ($scope.tag_key_add.active_index + 1)) {
+            scrollTop = $scope.tag_key_add.listItemHeight *
+                ($scope.tag_key_add.active_index + 1) - $scope.tag_key_add.listHeight;
+        }
+        document.getElementById($scope.id).scrollTop = scrollTop;
+    }
+    $scope.edit_nvd_focus = function (index, item) {
+        $scope.tag_key_add.active_index = -1;
+        $scope.get_nvd(item.name)
+        angular.forEach($scope.edit_item.NVD, function (key, value) {
+            if (value == index) {
+                key.nvd_ul = true;
+            } else {
+                key.nvd_ul = false;
+            }
+        })
+    }
+
+    $scope.choose_nvd_item_edit = function (item, index) {
+        console.log(item);
+        angular.forEach($scope.edit_item.NVD, function (key, value) {
+            if (value == index) {
+                key.name = item.cve;
+                key.nvd_ul = false;
+                key.id = item.id;
+            }
+        })
+    }
+    // NVD: [{
+    //     name: '',
+    //     icon: true,
+    //     nvd_ul: false,
+    // }],
+    //     nvd_list: $scope.nvd_list,
+
     $scope.init();
 
 });

@@ -220,37 +220,42 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
         });
 
         //测试
-       /* item.label_new_name = [
-            {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'},{label_name:'11141'},{label_name:'2222212222'},{label_name:'12111'}]},
-            {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]},
-            {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]}]
-        item.reference_information = ['https://47.https://47.105.196.251:8443/vehicleintelligence/special105.196.251:8443/vehicleintelligence/special','https://47.105.196.251:8443/vehicleintelligence/special11']
-        item.nvd = ['https://47.httpwwws://47.105.//47.105.19//47.105.19196.251:8443/vehicleintelligence/special105.19','22222222222','https://47.https://47.105.196.251:8443/vehicleintelligence/special105.19','1111111ew1111','222222w22222','3w3334333333']
-        //测试*/
+        /* item.label_new_name = [
+             {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'},{label_name:'11141'},{label_name:'2222212222'},{label_name:'12111'}]},
+             {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]},
+             {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]}]
+         item.reference_information = ['https://47.https://47.105.196.251:8443/vehicleintelligence/special105.196.251:8443/vehicleintelligence/special','https://47.105.196.251:8443/vehicleintelligence/special11']
+         item.nvd = ['https://47.httpwwws://47.105.//47.105.19//47.105.19196.251:8443/vehicleintelligence/special105.19','22222222222','https://47.https://47.105.196.251:8443/vehicleintelligence/special105.19','1111111ew1111','222222w22222','3w3334333333']
+         //测试*/
 
         $scope.label_item_data = item;
+        console.log($scope.label_item_data);
+        $scope.label_item_data.detail = $scope.label_item_data.detail.trim();
+        $scope.label_item_data.detail = $scope.label_item_data.detail.replace(/[\r\n]/g, "");;
+        $scope.pop_show = true;
+        // var W = 740;
+        // var H = 593;
 
-        var W = 740;
-        var H = 593;
-
-        zeroModal.show({
-            title: "",
-            content: vehicle_loophole,
-            width: W + "px",
-            height: H + "px",
-          /*  width: W + "px",
-            height: "90%",*/
-            ok: false,
-            cancel: false,
-            drag: false,
-            okFn: function () {},
-            onOpen: function () {},
-            onCleanup: function () {
-                vehicle_loophole_box.appendChild(vehicle_loophole);
-            }
-        });
+        // zeroModal.show({
+        //     title: "",
+        //     content: vehicle_loophole,
+        //     width: W + "px",
+        //     height: H + "px",
+        //   /*  width: W + "px",
+        //     height: "90%",*/
+        //     ok: false,
+        //     cancel: false,
+        //     drag: false,
+        //     okFn: function () {},
+        //     onOpen: function () {},
+        //     onCleanup: function () {
+        //         vehicle_loophole_box.appendChild(vehicle_loophole);
+        //     }
+        // });
     }
-
+    $scope.pop_cancel = function () {
+        $scope.pop_show = false;
+    }
     //标签管理搜索enter事件
     $scope.vehicle_key_up = function ($event) {
 
@@ -314,7 +319,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
         var loading = zeroModal.loading(4);
         var params_data = {
             source: '',
-            level:'',
+            level: '',
             label_id: []
         }
         if ($scope.seach_data.source != '全部') {
