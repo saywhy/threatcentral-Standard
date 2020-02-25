@@ -95,7 +95,7 @@ $this->title = '行业情报';
             <span class="item"><img class="covenant_img" src="/images/loophole/user.png" alt="" /><span
                 class="ct person">{{item.publish_user}}</span></span>
             <span class="item"><img class="cov_img" src="/images/loophole/loop_8.png" alt="" />
-              <span class="ct time">{{item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
+              <span class="ct time">{{item.first_seen_time=='0'?'':item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span></span>
             <span class="item"><img class="cov_img" src="/images/loophole/loop_5.png" alt="" /><span
                 class="ct twitter">{{item.sourse}}</span></span>
           </p>
@@ -130,7 +130,7 @@ $this->title = '行业情报';
               <span>发现时间:</span>
             </div>
             <div class="contnet_item_right">
-              <span>{{label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span>
+              <span>{{label_item_data.first_seen_time =='0'?'':label_item_data.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</span>
             </div>
           </div>
           <div class="contnet_item">
