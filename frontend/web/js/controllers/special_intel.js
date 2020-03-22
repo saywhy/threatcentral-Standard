@@ -798,6 +798,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         })
         var loading = zeroModal.loading(4);
         console.log($scope.edit_item);
+        console.log($scope.edit_item.first_seen_time);
 
         $http({
             method: "put",
@@ -806,7 +807,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 id: $scope.edit_item.id,
                 title: $scope.edit_item.title,
                 level: params_edit.level,
-                publish_time: $scope.edit_item.first_seen_time / 1000,
+                publish_time: $scope.edit_item.first_seen_time,
                 sourse: $scope.edit_item.sourse,
                 link: $scope.edit_item.link,
                 detail: $scope.edit_item.detail,

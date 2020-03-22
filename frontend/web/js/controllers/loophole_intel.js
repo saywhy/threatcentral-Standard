@@ -240,10 +240,13 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
-    $scope.get_nvd = function () {
+    $scope.get_nvd = function (cve) {
         $http({
             method: "get",
             url: "/site/cve-list",
+            params: {
+                cve: cve
+            }
         }).then(
             function (data) {
                 $scope.nvd_list = data.data;
