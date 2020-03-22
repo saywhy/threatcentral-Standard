@@ -84,7 +84,7 @@ $this->title = '行业情报';
         <span class="tack">共有<span class="num">{{pages.count}}</span>条结果</span>
       </p>
       <ul class="covenant_lists">
-        <li class="covenant_lists_item" ng-repeat="item in pages.data">
+        <li class="covenant_lists_item" ng-repeat="item in pages.data" ng-click="list_item_click($event,item);">
           <p class="covenant_1">
             <img class="status" src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
             <img class="status" src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
@@ -99,7 +99,7 @@ $this->title = '行业情报';
             <span class="item"><img class="cov_img" src="/images/loophole/loop_5.png" alt="" /><span
                 class="ct twitter">{{item.sourse}}</span></span>
           </p>
-          <p class="covenant_3" ng-click="list_item_click($event,item);">{{item.detail}}</p>
+          <p class="covenant_3">{{item.detail}}</p>
           <p class="covenant_4"><a ng-repeat="tm in item.label_name" class="covenant_btn">{{tm}}</a></p>
         </li>
       </ul>
@@ -163,18 +163,8 @@ $this->title = '行业情报';
               </div>
             </div>
           </div>
+
           <div class="contnet_item bg_item">
-            <div class="contnet_item_left">
-              <img src="/images/set/add_icon_7.png" alt="">
-              <span>原始情报:</span>
-            </div>
-            <div class="contnet_item_right">
-              <div class="detail_box">
-                <p>{{label_item_data.original_intelligence}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="contnet_item">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_8.png" alt="">
               <span>参考信息:</span>
@@ -187,7 +177,7 @@ $this->title = '行业情报';
               </div>
             </div>
           </div>
-          <div class="contnet_item bg_item">
+          <div class="contnet_item ">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_9.png" alt="">
               <span>标签:</span>
@@ -203,7 +193,7 @@ $this->title = '行业情报';
               </div>
             </div>
           </div>
-          <div class="contnet_item">
+          <div class="contnet_item bg_item">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_10.png" alt="">
               <span>NVD关联:</span>

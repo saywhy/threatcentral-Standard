@@ -383,6 +383,7 @@ button:active {
 .covenant_lists .covenant_lists_item {
   border-bottom: 1px solid #ECECEC;
   padding: 0 0 30px;
+  cursor: pointer;
 }
 
 .covenant_lists .covenant_lists_item:last-child {
