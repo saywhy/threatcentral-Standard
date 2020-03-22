@@ -103,6 +103,31 @@ $this->title = '行业情报';
           <p class="covenant_4"><a ng-repeat="tm in item.label_name" class="covenant_btn">{{tm}}</a></p>
         </li>
       </ul>
+
+      <div style="padding: 0px; position: relative;height:60px;">
+        <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-if="pages.pageNow>1">上一页</a>
+          </li>
+          <li><a href="javascript:void(0);" ng-click="get_page(1)" ng-if="pages.pageNow>1">1</a>
+          </li>
+          <li><a href="javascript:void(0);" ng-if="pages.pageNow>4">...</a></li>
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-2)" ng-bind="pages.pageNow-2"
+              ng-if="pages.pageNow>3"></a></li>
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-bind="pages.pageNow-1"
+              ng-if="pages.pageNow>2"></a></li>
+          <li class="active"><a href="javascript:void(0);" ng-bind="pages.pageNow"></a></li>
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow+1)" ng-bind="pages.pageNow+1"
+              ng-if="pages.pageNow<pages.maxPage-1"></a></li>
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow+2)" ng-bind="pages.pageNow+2"
+              ng-if="pages.pageNow<pages.maxPage-2"></a></li>
+          <li><a href="javascript:void(0);" ng-if="pages.pageNow<pages.maxPage-3">...</a></li>
+
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.maxPage)" ng-bind="pages.maxPage"
+              ng-if="pages.pageNow<pages.maxPage"></a></li>
+          <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow+1)"
+              ng-if="pages.pageNow<pages.maxPage">下一页</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
