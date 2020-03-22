@@ -675,6 +675,14 @@ select {
   top: 12px;
 }
 
+.item_left_time_icon {
+  position: absolute;
+  left: 10px;
+  width: 18px;
+  top: 12px;
+  cursor: pointer;
+}
+
 .item_right_input {
   min-height: 42px;
   background: #F8F8F8;
@@ -743,13 +751,15 @@ select {
 }
 
 .add_icon_box {
-  width: 30px;
+  width: 60px;
 }
 
 .add_icon {
   width: 16px;
+  margin-right: 10px;
   cursor: pointer;
 }
+
 
 .tag_item {
   margin-right: 10px;

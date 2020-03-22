@@ -421,28 +421,34 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                             })
                         })
                     } else {
-                        $scope.edit_item.tag.push({
-                            category: '',
-                            name: '',
-                            tag_name_list: [],
-                            category_ul: false,
-                            name_ul: false,
-                            icon: true,
-                            id: '0'
+                        angular.forEach($scope.label_data, function (item) {
+                            var obj = {
+                                category: item.name,
+                                name: '',
+                                tag_name_list: item.label,
+                                category_ul: false,
+                                name_ul: false,
+                                icon: true,
+                                id: '0'
+                            }
+                            $scope.edit_item.tag.push(obj)
                         })
                     }
                     if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
                         angular.forEach($scope.edit_item_str.nvd, function (item, index) {
-                            var obj = {
-                                name: item.cve,
-                                id: item.id,
-                                nvd_ul: false,
-                                icon: false
+                            if (item.cve) {
+                                var obj = {
+                                    name: item.cve,
+                                    id: item.id,
+                                    nvd_ul: false,
+                                    icon: false
+                                }
+                                if (index == $scope.edit_item_str.nvd.length - 1) {
+                                    obj.icon = true
+                                }
+                                $scope.edit_item.NVD.push(obj)
                             }
-                            if (index == $scope.edit_item_str.nvd.length - 1) {
-                                obj.icon = true
-                            }
-                            $scope.edit_item.NVD.push(obj)
+
                         })
 
                     } else {
@@ -550,15 +556,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 nvd_ul: false,
             }],
             nvd_list: $scope.nvd_list,
-            tag: [{
-                category: '',
-                name: '',
-                tag_name_list: [],
-                category_ul: false,
-                name_ul: false,
-                icon: true,
-                id: ''
-            }],
+            tag: [],
             label_category: [],
             first_seen_time: moment().unix(),
             sourse: '',
@@ -566,6 +564,18 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             treatment_measures: '',
             exist: [],
         }
+        angular.forEach($scope.label_data, function (item) {
+            var obj = {
+                category: item.name,
+                name: '',
+                tag_name_list: item.label,
+                category_ul: false,
+                name_ul: false,
+                icon: true,
+                id: ''
+            }
+            $scope.add_item.tag.push(obj)
+        })
     };
     //   取消弹窗
     $scope.add_cancel = function () {
@@ -600,10 +610,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             default:
                 break;
         }
+        if ($scope.add_item.first_seen_time == '') {
+            zeroModal.error('请输入公开日期')
+            return false
+        }
         if ($scope.add_item.sourse == '') {
             zeroModal.error('请选择情报来源')
             return false
         }
+
         angular.forEach($scope.add_item.tag, function (item, index) {
             if (item.name != '') {
                 $scope.add_item.exist.push(item.id * 1)
@@ -661,7 +676,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                     zeroModal.error(data.data.errorMessage);
                 }
             },
-            function () {}
+            function () {
+                console.log(data);
+                zeroModal.close(loading);
+            }
         );
     };
     // 发布情报
@@ -717,6 +735,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_sure = function () {
         if ($scope.edit_item.title == '') {
             zeroModal.error('请输入标题')
+            return false
+        }
+        if ($scope.edit_item.first_seen_time == 0 || $scope.edit_item.first_seen_time == '') {
+            zeroModal.error('请输入公开时间')
             return false
         }
         if ($scope.edit_item.sourse == '请选择') {
@@ -795,7 +817,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 }
                 $scope.get_page($scope.pageNow);
             },
-            function () {}
+            function () {
+                console.log(data);
+                zeroModal.close(loading);
+            }
         );
     }
     // ---------------录入情报来源
@@ -924,7 +949,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.affected, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.affected.push({
+                $scope.add_item.affected.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -933,7 +958,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.reference, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.reference.push({
+                $scope.add_item.reference.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -942,7 +967,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.NVD, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.NVD.push({
+                $scope.add_item.NVD.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -951,7 +976,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.tag, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.tag.push({
+                $scope.add_item.tag.splice((index + 1), 0, {
                     category: '',
                     name: '',
                     tag_name_list: [],
@@ -968,15 +993,31 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.delete_input_list = function (name, index) {
         switch (name) {
             case 'affected':
+                if ($scope.add_item.affected.length == 1) {
+                    $scope.add_item.affected[0].name = ''
+                    return false
+                }
                 $scope.add_item.affected.splice(index, 1);
                 break;
             case 'reference':
+                if ($scope.add_item.reference.length == 1) {
+                    $scope.add_item.reference[0].name = ''
+                    return false
+                }
                 $scope.add_item.reference.splice(index, 1);
                 break;
             case 'NVD':
+                if ($scope.add_item.NVD.length == 1) {
+                    $scope.add_item.NVD[0].name = ''
+                    return false
+                }
                 $scope.add_item.NVD.splice(index, 1);
                 break;
             case 'tag':
+                if ($scope.add_item.tag.length == 1) {
+                    $scope.add_item.tag[0].name = ''
+                    return false
+                }
                 $scope.add_item.tag.splice(index, 1);
                 break;
             default:
@@ -1147,7 +1188,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.affected, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.affected.push({
+                $scope.edit_item.affected.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -1156,7 +1197,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.reference, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.reference.push({
+                $scope.edit_item.reference.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -1165,7 +1206,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.NVD, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.NVD.push({
+                $scope.edit_item.NVD.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -1174,7 +1215,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.tag, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.tag.push({
+                $scope.edit_item.tag.splice((index + 1), 0, {
                     category: '',
                     name: '',
                     tag_name_list: [],
@@ -1191,15 +1232,31 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_delete_input_list = function (name, index) {
         switch (name) {
             case 'affected':
+                if ($scope.edit_item.affected.length == 1) {
+                    $scope.edit_item.affected[0].name = ''
+                    return false
+                }
                 $scope.edit_item.affected.splice(index, 1);
                 break;
             case 'reference':
+                if ($scope.edit_item.reference.length == 1) {
+                    $scope.edit_item.reference[0].name = ''
+                    return false
+                }
                 $scope.edit_item.reference.splice(index, 1);
                 break;
             case 'NVD':
+                if ($scope.edit_item.NVD.length == 1) {
+                    $scope.edit_item.NVD[0].name = ''
+                    return false
+                }
                 $scope.edit_item.NVD.splice(index, 1);
                 break;
             case 'tag':
+                if ($scope.edit_item.tag.length == 1) {
+                    $scope.edit_item.tag[0].name = ''
+                    return false
+                }
                 $scope.edit_item.tag.splice(index, 1);
                 break;
             default:

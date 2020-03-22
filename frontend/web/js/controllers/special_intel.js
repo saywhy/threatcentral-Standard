@@ -339,11 +339,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
                     // $scope.edit_item_str.publish_time = 0;
+                    console.log($scope.edit_item_str.publish_time);
                     if ($scope.edit_item_str.publish_time == 0) {
-                        $scope.edit_item_str.publish_time = 0
+                        $scope.edit_item_str.publish_time = '无原始情报时间'
                     } else {
-                        $scope.edit_item_str.publish_time = $scope.edit_item_str.publish_time * 1000
+                        $scope.edit_item_str.publish_time = $filter("date")($scope.edit_item_str.publish_time * 1000, "yyyy-MM-dd");
                     }
+
                     $scope.edit_item = {
                         id: $scope.edit_item_str.id,
                         title: $scope.edit_item_str.title,
@@ -371,9 +373,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         nvd_list: $scope.nvd_list,
                         tag: [],
                         label_category: [],
-                        first_seen_time: $scope.edit_item_str.publish_time,
+                        first_seen_time: $scope.edit_item_str.publish_time_b,
                         sourse: $scope.edit_item_str.sourse,
                         detail: $scope.edit_item_str.detail,
+                        publish_time_b: '',
+                        publish_time: $scope.edit_item_str.publish_time,
                         exist: [],
                     }
                     switch ($scope.edit_item_str.level) {
@@ -428,6 +432,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                                 id: item
                             }
                             $scope.edit_item.tag.push(obj)
+                        } else {
+
                         }
                     })
                     if ($scope.edit_item.tag.length != 0) {
@@ -445,28 +451,34 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                             })
                         })
                     } else {
-                        $scope.edit_item.tag.push({
-                            category: '',
-                            name: '',
-                            tag_name_list: [],
-                            category_ul: false,
-                            name_ul: false,
-                            icon: true,
-                            id: '0'
+                        angular.forEach($scope.label_data, function (item) {
+                            var obj = {
+                                category: item.name,
+                                name: '',
+                                tag_name_list: item.label,
+                                category_ul: false,
+                                name_ul: false,
+                                icon: true,
+                                id: '0'
+                            }
+                            $scope.edit_item.tag.push(obj)
                         })
                     }
                     if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
+                        console.log($scope.edit_item_str.nvd);
                         angular.forEach($scope.edit_item_str.nvd, function (item, index) {
-                            var obj = {
-                                name: item.cve,
-                                id: item.id,
-                                nvd_ul: false,
-                                icon: false
+                            if (item.cve) {
+                                var obj = {
+                                    name: item.cve,
+                                    id: item.id,
+                                    nvd_ul: false,
+                                    icon: false
+                                }
+                                if (index == $scope.edit_item_str.nvd.length - 1) {
+                                    obj.icon = true
+                                }
+                                $scope.edit_item.NVD.push(obj)
                             }
-                            if (index == $scope.edit_item_str.nvd.length - 1) {
-                                obj.icon = true
-                            }
-                            $scope.edit_item.NVD.push(obj)
                         })
 
                     } else {
@@ -478,10 +490,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         })
                     }
                     $scope.pop_show.edit = true;
-                    if ($scope.edit_item_str.publish_time == 0) {
-                        $scope.picker_edit(0)
+                    console.log($scope.edit_item.first_seen_time);
+                    if ($scope.edit_item.first_seen_time == 0) {
+                        $scope.picker_edit('')
                     } else {
-                        $scope.picker_edit(moment(new Date($scope.edit_item_str.publish_time)));
+                        $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time * 1000)));
                     }
                     $scope.get_page_show = false;
                 }
@@ -577,24 +590,27 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 nvd_ul: false,
             }],
             nvd_list: $scope.nvd_list,
-            tag: [{
-                category: '',
-                name: '',
-                tag_name_list: [],
-                category_ul: false,
-                name_ul: false,
-                icon: true,
-                id: ''
-            }],
+            tag: [],
             label_category: [],
             first_seen_time: '',
             sourse: '',
             detail: '',
             exist: [],
         }
-        $scope.add_item.first_seen_time = ''
         $scope.start_time_picker();
-
+        console.log($scope.label_data);
+        angular.forEach($scope.label_data, function (item) {
+            var obj = {
+                category: item.name,
+                name: '',
+                tag_name_list: item.label,
+                category_ul: false,
+                name_ul: false,
+                icon: true,
+                id: ''
+            }
+            $scope.add_item.tag.push(obj)
+        })
 
     };
     //   取消弹窗
@@ -639,6 +655,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             default:
                 break;
         }
+        if ($scope.add_item.first_seen_time == '') {
+            zeroModal.error('请输入发现时间')
+            return false
+        }
         if ($scope.add_item.sourse == '') {
             zeroModal.error('请选择情报来源')
             return false
@@ -671,7 +691,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             data: {
                 title: $scope.add_item.title,
                 level: $scope.add_item.level_cn,
-                publish_time: $scope.add_item.first_seen_time,
+                publish_time_b: $scope.add_item.first_seen_time,
                 sourse: $scope.add_item.sourse,
                 link: $scope.add_item.link,
                 detail: $scope.add_item.detail,
@@ -695,7 +715,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     zeroModal.error(data.data.errorMessage);
                 }
             },
-            function () {}
+            function (data) {
+                console.log(data);
+                zeroModal.close(loading);
+            }
         );
     };
     // 发布情报
@@ -754,10 +777,15 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             zeroModal.error('请输入标题')
             return false
         }
+        if ($scope.edit_item.first_seen_time == 0 || $scope.edit_item.first_seen_time == '') {
+            zeroModal.error('请输入发现时间')
+            return false
+        }
         if ($scope.edit_item.sourse == '请选择') {
             zeroModal.error('请选择情报来源')
             return false
         }
+
         var params_edit = {
             level: '',
             nvd: [],
@@ -807,7 +835,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 id: $scope.edit_item.id,
                 title: $scope.edit_item.title,
                 level: params_edit.level,
-                publish_time: $scope.edit_item.first_seen_time,
+                publish_time_b: $scope.edit_item.first_seen_time,
                 sourse: $scope.edit_item.sourse,
                 link: $scope.edit_item.link,
                 detail: $scope.edit_item.detail,
@@ -828,7 +856,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 }
                 $scope.get_page($scope.pageNow);
             },
-            function () {}
+            function (data) {
+                console.log(data);
+                zeroModal.close(loading);
+            }
         );
     }
     // ---------------录入情报来源
@@ -957,7 +988,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.reference, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.reference.push({
+                $scope.add_item.reference.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -966,7 +997,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.NVD, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.NVD.push({
+                $scope.add_item.NVD.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -975,7 +1006,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.tag, function (item) {
                     item.icon = false;
                 })
-                $scope.add_item.tag.push({
+                $scope.add_item.tag.splice((index + 1), 0, {
                     category: '',
                     name: '',
                     tag_name_list: [],
@@ -992,12 +1023,24 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.delete_input_list = function (name, index) {
         switch (name) {
             case 'reference':
+                if ($scope.add_item.reference.length == 1) {
+                    $scope.add_item.reference[0].name = ''
+                    return false
+                }
                 $scope.add_item.reference.splice(index, 1);
                 break;
             case 'NVD':
+                if ($scope.add_item.NVD.length == 1) {
+                    $scope.add_item.NVD[0].name = ''
+                    return false
+                }
                 $scope.add_item.NVD.splice(index, 1);
                 break;
             case 'tag':
+                if ($scope.add_item.tag.length == 1) {
+                    $scope.add_item.tag[0].name = ''
+                    return false
+                }
                 $scope.add_item.tag.splice(index, 1);
                 break;
             default:
@@ -1168,7 +1211,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.reference, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.reference.push({
+                $scope.edit_item.reference.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -1177,7 +1220,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.NVD, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.NVD.push({
+                $scope.edit_item.NVD.splice((index + 1), 0, {
                     name: '',
                     icon: true
                 })
@@ -1186,7 +1229,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.tag, function (item) {
                     item.icon = false;
                 })
-                $scope.edit_item.tag.push({
+                $scope.edit_item.tag.splice((index + 1), 0, {
                     category: '',
                     name: '',
                     tag_name_list: [],
@@ -1203,12 +1246,24 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_delete_input_list = function (name, index) {
         switch (name) {
             case 'reference':
+                if ($scope.edit_item.reference.length == 1) {
+                    $scope.edit_item.reference[0].name = ''
+                    return false
+                }
                 $scope.edit_item.reference.splice(index, 1);
                 break;
             case 'NVD':
+                if ($scope.edit_item.NVD.length == 1) {
+                    $scope.edit_item.NVD[0].name = ''
+                    return false
+                }
                 $scope.edit_item.NVD.splice(index, 1);
                 break;
             case 'tag':
+                if ($scope.edit_item.tag.length == 1) {
+                    $scope.edit_item.tag[0].name = ''
+                    return false
+                }
                 $scope.edit_item.tag.splice(index, 1);
                 break;
             default:

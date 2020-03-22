@@ -90,12 +90,11 @@ $this->title = '零配件资产';
             <ul class="t_head">
                 <li class="t_head_frist"></li>
                 <li class="t_head_flex">PN ID</li>
-                <li class="t_head_flex">PN名称</li>
+                <li class="" style="width:200px;">PN名称</li>
                 <li class="t_head_flex">供应商名称</li>
                 <li class="t_head_flex">硬件版本</li>
                 <li class="t_head_flex">软件版本</li>
                 <li class="t_head_flex">操作系统名称</li>
-                <li class="t_head_flex"></li>
                 <li class="t_head_flex"></li>
             </ul>
             <div class="t_body" ng-repeat="item in table_list.data">
@@ -106,7 +105,7 @@ $this->title = '零配件资产';
                             <img src="/images/assets/label_down.png" class="label_right" ng-if="item.show" alt="">
                         </span>
                         <span class="t_head_flex"> {{item.id}}</span>
-                        <span class="t_head_flex"> {{item.name}}</span>
+                        <span class="" style="width:200px;"> {{item.name}}</span>
                         <span class="t_head_flex"> {{item.supplier_name}}</span>
                         <span class="t_head_flex"> {{item.hardware}}</span>
                         <span class="t_head_flex"> {{item.software}}</span>
@@ -118,7 +117,7 @@ $this->title = '零配件资产';
                             ng-show='item.show'>
                             <span class="t_head_frist"></span>
                             <span class="t_head_flex"> {{key.vehicle_id}}</span>
-                            <span class="t_head_flex"> {{key.manufactory}}</span>
+                            <span class="" style="width:200px;"> {{key.manufactory}}</span>
                             <span class="t_head_flex"> {{key.brand}}</span>
                             <span class="t_head_flex"> {{key.series}}</span>
                             <span class="t_head_flex"> {{key.code}}</span>

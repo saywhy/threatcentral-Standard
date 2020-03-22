@@ -111,7 +111,7 @@ $this->title = '行业情报管理';
             <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
           </button>
         </td>
-        <td>{{item.first_seen_time ==0 ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
         <td>{{item.status=='0'? '未发布':'已发布'}}</td>
         <td class="td_operation th_id">
           <button ng-class="item.status=='0'? 'btn_operation':'btn_unoperation'" ng-disabled="item.status=='1'"
@@ -278,9 +278,13 @@ $this->title = '行业情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('reference',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('reference',index)" ng-if="!item.icon"
                     class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length!=1"
+                    ng-click="delete_input_list('reference',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.reference.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length==1&&item.name!=''"
+                    ng-click="delete_input_list('reference',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -316,10 +320,15 @@ $this->title = '行业情报管理';
                   </ul>
                 </div>
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)" ng-if="item.icon"
-                    class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('tag',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)" class="add_icon"
+                    alt="">
+ <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length!=1"
+                    ng-click="delete_input_list('tag',index)" class="add_icon" alt="">
+   <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.tag.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length==1&&item.name!=''"
+                    ng-click="delete_input_list('tag',index)" class="add_icon" alt="">
+
                 </div>
               </div>
             </div>
@@ -332,39 +341,36 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in add_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text"
-                  placeholder="请选择NVD关联"
-                  id="{{'input'+index}}"
-                  ng-change="add_nvd_change(item.name)"
-                  ng-keyup="add_nvd_mykey($event,item,index)"
-                  ng-model='item.name'
-                  ng-focus="add_nvd_focus(index,item)"
-                  ng-blur="add_blur('NVD',index);"
-                  class="item_right_input">
+                  <input type="text" placeholder="请选择NVD关联" id="{{'input'+index}}" ng-change="add_nvd_change(item.name)"
+                    ng-keyup="add_nvd_mykey($event,item,index)" ng-model='item.name'
+                    ng-focus="add_nvd_focus(index,item)" ng-blur="add_blur('NVD',index);" class="item_right_input">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
                   <ul class="select_list_box" style="margin-top:0" id="{{'nvd'+index}}" ng-if="item.nvd_ul">
-                    <li ng-repeat="key in nvd_list"
-                       ng-class="{'add_bg':tag_key_add.active_index == $index}"
-                     ng-mousedown="choose_nvd_item(key,index);">
+                    <li ng-repeat="key in nvd_list" ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                      ng-mousedown="choose_nvd_item(key,index);">
                       {{key.cve}}
                     </li>
                   </ul>
                 </div>
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('NVD',index)" ng-if="item.icon"
-                    class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('NVD',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('NVD',index)" class="add_icon"
+                    alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.NVD.length!=1"
+                    ng-click="delete_input_list('NVD',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.NVD.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.NVD.length==1&&item.name!=''"
+                    ng-click="delete_input_list('NVD',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-           <div class="alert_btn_box">
-          <button class="alert_btn_ok" ng-click="add_sure()">保存</button>
-          <button class="alert_btn_cancel" ng-click="add_cancel()">取消</button>
-        </div>
+      <div class="alert_btn_box">
+        <button class="alert_btn_ok" ng-click="add_sure()">保存</button>
+        <button class="alert_btn_cancel" ng-click="add_cancel()">取消</button>
+      </div>
     </div>
   </div>
   <!-- 编辑弹窗 -->
@@ -412,6 +418,7 @@ $this->title = '行业情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
+              <img src="/images/set/loop_icon_7.png" ng-attr-title={{edit_item.publish_time}}  alt="" class="item_left_time_icon">
               <input class="item_right_input" type="text" placeholder="请选择发现时间" id="picker_edit" readonly>
             </div>
           </div>
@@ -495,9 +502,13 @@ $this->title = '行业情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('reference',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('reference',index)"
-                    ng-if="!item.icon" class="add_icon" alt="">
+                    class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.reference.length!=1"
+                    ng-click="edit_delete_input_list('reference',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.reference.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.reference.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('reference',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -533,10 +544,17 @@ $this->title = '行业情报管理';
                   </ul>
                 </div>
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('tag',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('tag',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('tag',index)" class="add_icon"
+                    alt="">
+   <img src="/images/set/cel_icon.png" ng-if="edit_item.tag.length!=1"
+                    ng-click="edit_delete_input_list('tag',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.tag.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.tag.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('tag',index)" class="add_icon" alt="">
+
+
+
                 </div>
               </div>
             </div>
@@ -549,36 +567,34 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in edit_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text"
-                   placeholder="请选择NVD关联"
-                    id="{{'input_edit'+index}}"
-                    ng-change="edit_nvd_change(item.name)"
-                        ng-keyup="edit_nvd_mykey($event,item,index)"
-                    ng-model='item.name'
-                      ng-model='item.name'
-                  ng-focus="edit_nvd_focus(index,item)"
+                  <input type="text" placeholder="请选择NVD关联" id="{{'input_edit'+index}}"
+                    ng-change="edit_nvd_change(item.name)" ng-keyup="edit_nvd_mykey($event,item,index)"
+                    ng-model='item.name' ng-model='item.name' ng-focus="edit_nvd_focus(index,item)"
                     ng-blur="edit_blur('NVD',index);" class="item_right_input">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
                   <ul class="select_list_box" style="margin-top:0" id="{{'nvd_edit'+index}}" ng-if="item.nvd_ul">
-                    <li ng-repeat="key in nvd_list"
-                         ng-class="{'add_bg':tag_key_add.active_index == $index}"
-                        ng-mousedown="choose_nvd_item_edit(key,index);">
+                    <li ng-repeat="key in nvd_list" ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                      ng-mousedown="choose_nvd_item_edit(key,index);">
                       {{key.cve}}
                     </li>
                   </ul>
                 </div>
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('NVD',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('NVD',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('NVD',index)" class="add_icon"
+                    alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.NVD.length!=1"
+                    ng-click="edit_delete_input_list('NVD',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.NVD.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.NVD.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('NVD',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-   <div class="alert_btn_box">
+      <div class="alert_btn_box">
         <button class="alert_btn_ok" ng-click="edit_sure()">保存</button>
         <button class="alert_btn_cancel" ng-click="edit_cancel()">取消</button>
       </div>

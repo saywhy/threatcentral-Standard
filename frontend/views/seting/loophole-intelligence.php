@@ -228,9 +228,16 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('affected',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('affected',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  class="add_icon" alt="">
+
+ <img src="/images/set/cel_icon.png" ng-if="add_item.affected.length!=1"
+                    ng-click="delete_input_list('affected',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.affected.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.affected.length==1&&item.name!=''"
+                    ng-click="delete_input_list('affected',index)" class="add_icon" alt="">
+
+
                 </div>
               </div>
             </div>
@@ -270,9 +277,13 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('reference',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('reference',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  class="add_icon" alt="">
+  <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length!=1"
+                    ng-click="delete_input_list('reference',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.reference.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length==1&&item.name!=''"
+                    ng-click="delete_input_list('reference',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -309,10 +320,14 @@ $this->title = '漏洞情报管理';
                   </ul>
                 </div>
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)" ng-if="item.icon"
+                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)"
                     class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('tag',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+               <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length!=1"
+                    ng-click="delete_input_list('tag',index)" class="add_icon" alt="">
+   <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.tag.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length==1&&item.name!=''"
+                    ng-click="delete_input_list('tag',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -342,15 +357,16 @@ $this->title = '漏洞情报管理';
                       {{key.cve}}
                     </li>
                   </ul>
-
-
-
                 </div>
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('NVD',index)" ng-if="item.icon"
+                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('NVD',index)"
                     class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="delete_input_list('NVD',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                       <img src="/images/set/cel_icon.png" ng-if="add_item.NVD.length!=1"
+                    ng-click="delete_input_list('NVD',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="add_item.NVD.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="add_item.NVD.length==1&&item.name!=''"
+                    ng-click="delete_input_list('NVD',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -444,9 +460,14 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('affected',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('affected',index)"
-                    ng-if="!item.icon" class="add_icon" alt="">
+                  class="add_icon" alt="">
+
+                     <img src="/images/set/cel_icon.png" ng-if="edit_item.affected.length!=1"
+                    ng-click="edit_delete_input_list('affected',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.affected.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.affected.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('affected',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -486,9 +507,13 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('reference',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('reference',index)"
-                    ng-if="!item.icon" class="add_icon" alt="">
+                  class="add_icon" alt="">
+            <img src="/images/set/cel_icon.png" ng-if="edit_item.reference.length!=1"
+                    ng-click="edit_delete_input_list('reference',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.reference.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.reference.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('reference',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -526,9 +551,13 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('tag',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('tag',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                   class="add_icon" alt="">
+                    <img src="/images/set/cel_icon.png" ng-if="edit_item.tag.length!=1"
+                    ng-click="edit_delete_input_list('tag',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.tag.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.tag.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('tag',index)" class="add_icon" alt="">
                 </div>
               </div>
             </div>
@@ -562,9 +591,14 @@ $this->title = '漏洞情报管理';
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('NVD',index)"
-                    ng-if="item.icon" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-click="edit_delete_input_list('NVD',index)" ng-if="!item.icon"
-                    class="add_icon" alt="">
+                  class="add_icon" alt="">
+        <img src="/images/set/cel_icon.png" ng-if="edit_item.NVD.length!=1"
+                    ng-click="edit_delete_input_list('NVD',index)" class="add_icon" alt="">
+                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                    ng-if="edit_item.NVD.length==1&&item.name==''" class="add_icon" alt="">
+                  <img src="/images/set/cel_icon.png" ng-if="edit_item.NVD.length==1&&item.name!=''"
+                    ng-click="edit_delete_input_list('NVD',index)" class="add_icon" alt="">
+
                 </div>
               </div>
             </div>
