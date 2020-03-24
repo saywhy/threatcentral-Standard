@@ -168,7 +168,16 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
                 $scope.add_item.first_seen_time = start.unix()
             }
-        );
+        ).on('cancel.daterangepicker', function (ev, picker) {}).on('apply.daterangepicker', function (ev, picker) {
+            $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
+            console.log(ev.timeStamp);
+            if ($scope.add_item.first_seen_time == '') {
+                $('#start_time_picker').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD HH:mm:ss'));
+                $scope.add_item.first_seen_time = parseInt(ev.timeStamp / 1000)
+            } else {
+                $('#start_time_picker').val(moment(new Date($scope.add_item.first_seen_time * 1000)).format('YYYY-MM-DD HH:mm:ss'));
+            }
+        });
     };
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
@@ -558,7 +567,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             nvd_list: $scope.nvd_list,
             tag: [],
             label_category: [],
-            first_seen_time: moment().unix(),
+            first_seen_time: '',
             sourse: '',
             detail: '',
             treatment_measures: '',

@@ -147,6 +147,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     // 初始化时间
     $scope.start_time_picker = function () {
         $('#start_time_picker').val('');
+        console.log($scope.add_item.first_seen_time);
         $("#start_time_picker").daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -167,7 +168,23 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
                 $scope.add_item.first_seen_time = start.unix()
             }
-        );
+        ).on('cancel.daterangepicker', function (ev, picker) {
+            console.log(11111);
+            // $("#date1").val("请选择日期");
+            // $("#submitDate").val("");
+        }).on('apply.daterangepicker', function (ev, picker) {
+            console.log(11212121);
+            $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
+            // if ($scope.edit_item.first_seen_time == ev.timeStamp) {
+            // $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time)));
+            console.log(ev.timeStamp);
+            if ($scope.add_item.first_seen_time == '') {
+                $('#start_time_picker').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD HH:mm:ss'));
+                $scope.add_item.first_seen_time = parseInt(ev.timeStamp / 1000)
+            } else {
+                $('#start_time_picker').val(moment(new Date($scope.add_item.first_seen_time * 1000)).format('YYYY-MM-DD HH:mm:ss'));
+            }
+        });
 
     };
     $scope.picker_search = function () {
@@ -194,11 +211,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.picker_edit = function (startDate) {
         console.log(startDate);
         if (startDate == '0') {
-            // $('#picker_edit').val('');
+            $('#picker_edit').val('');
             $('#picker_edit').siblings().click(function () {
                 $('#picker_edit').val('');
             })
-            console.log($scope.edit_item.first_seen_time);
+            // console.log($scope.edit_item.first_seen_time);
             $("#picker_edit").daterangepicker({
                     singleDatePicker: true,
                     showDropdowns: true,
@@ -226,6 +243,18 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }).on('apply.daterangepicker', function (ev, picker) {
                 console.log(11212121);
                 $("#picker_edit").data('daterangepicker').autoUpdateInput = true
+                // if ($scope.edit_item.first_seen_time == ev.timeStamp) {
+                // $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time)));
+                console.log(ev.timeStamp);
+                console.log($scope.edit_item.first_seen_time);
+                if ($scope.edit_item.first_seen_time == 0) {
+                    $('#picker_edit').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD HH:mm:ss'));
+                    $scope.edit_item.first_seen_time = parseInt(ev.timeStamp / 1000)
+                } else {
+                    $('#picker_edit').val(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD HH:mm:ss'));
+                }
+                // $('#picker_edit').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD'));
+                // }
                 // $("#submitDate").val(picker.startDate.format('YYYY-MM-DD'));
                 // $("#date1").val(picker.startDate.format('YYYY-MM-DD'));
             });
@@ -247,16 +276,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 function (start, end, label) {
                     $scope.edit_item.first_seen_time = start.unix()
                 }
-            ).on('cancel.daterangepicker', function (ev, picker) {
-                console.log(7777);
-
-                // $("#date1").val("请选择日期");
-                // $("#submitDate").val("");
-            }).on('apply.daterangepicker', function (ev, picker) {
-                console.log(99999);
-                // $("#submitDate").val(picker.startDate.format('YYYY-MM-DD'));
-                // $("#date1").val(picker.startDate.format('YYYY-MM-DD'));
-            });
+            ).on('cancel.daterangepicker', function (ev, picker) {}).on('apply.daterangepicker', function (ev, picker) {});
         }
 
     };
@@ -515,8 +535,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     }
                     $scope.pop_show.edit = true;
                     console.log($scope.edit_item.first_seen_time);
+                    // $scope.edit_item.first_seen_time = 0
                     if ($scope.edit_item.first_seen_time == 0) {
-                        console.log(44444);
                         $scope.picker_edit('0')
                     } else {
                         $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time * 1000)));
