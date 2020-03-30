@@ -198,6 +198,9 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         });
         //向后端传递的label_id（每个类别的id数组的组合）
         $scope.seach_data.label_id = attr;
+
+        $scope.get_page();
+
     };
 
     //行业情报事件详情
@@ -220,35 +223,6 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         $scope.label_item_data.detail = $scope.label_item_data.detail.trim();
         $scope.label_item_data.detail = $scope.label_item_data.detail.replace(/[\r\n]/g, "");;
         $scope.pop_show = true;
-        // angular.forEach(JSON.parse($scope.label_item_data.label_new_name), function (item, index) {})
-        //测试
-        /*   item.label_new_name = [
-               {name:'非阿萨得2222222222222',value:[{label_name:'1111'},{label_name:'222222222'},{label_name:'11141'},{label_name:'2222212222'},{label_name:'12111'}]},
-               {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]},
-               {name:'非阿萨得',value:[{label_name:'1111'},{label_name:'222222222'}]}]
-           item.reference_information = ['https://47.https://47.105.196.251:8443/vehicleintelligence/special105.196.251:8443/vehicleintelligence/special','https://47.105.196.251:8443/vehicleintelligence/special11']
-           item.nvd = ['https://47.httpwwws://47.105.//47.105.19//47.105.19196.251:8443/vehicleintelligence/special105.19','22222222222','https://47.https://47.105.196.251:8443/vehicleintelligence/special105.19','1111111ew1111','222222w22222','3w3334333333']
-           //测试*/
-
-        // var W = 740;
-        // var H = 589;
-
-        // zeroModal.show({
-        //     title: "",
-        //     content: vehicle_special,
-        //     /*width: W + 'px',
-        //     height: "90%",*/
-        //     width: W + "px",
-        //     height: H + "px",
-        //     ok: false,
-        //     cancel: false,
-        //     drag: false,
-        //     okFn: function () {},
-        //     onOpen: function () {},
-        //     onCleanup: function () {
-        //         vehicle_special_box.appendChild(vehicle_special);
-        //     }
-        // });
     }
     $scope.pop_cancel = function () {
         $scope.pop_show = false;
