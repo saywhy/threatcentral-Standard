@@ -22,6 +22,10 @@ $this->title = '标签管理';
                   </div>
                   <div class="tog_list">
                     <div class="tog_edit_seat">
+                         <img ng-if="item.name != ''" class="tog_img tog_img_edit" src="/images/set/label_remove.png"
+                          title="删除标签类别" ng-click="cate_edit_delete($event,item);"/>
+                    </div>
+                    <div class="tog_edit_seat">
                          <img ng-if="item.name != ''" class="tog_img tog_img_edit" src="/images/set/label_edit.png"
                           title="编辑标签类别" ng-click="category_edit($event,item);"/>
                     </div>
@@ -147,7 +151,7 @@ $this->title = '标签管理';
             <div class="cate_btn_box">
                 <button class="cate_btn_ok" ng-click="cate_edit_save();">保存</button>
                 <button class="cate_btn_cancel" ng-click="cate_edit_cancel();">取消</button>
-                <button class="cate_btn_delete" ng-click="cate_edit_delete();">删除类别</button>
+                <!--<button class="cate_btn_delete" ng-click="cate_edit_delete();">删除类别</button>-->
             </div>
         </div>
     </div>
