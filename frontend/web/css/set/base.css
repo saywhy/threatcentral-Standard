@@ -275,7 +275,7 @@ select {
 }
 /*补充*/
 .th_id{
-    width: 45%;
+    width: 15%;
     text-align: left;
 }
 
@@ -285,24 +285,33 @@ select {
     height: 20px;
 }
 
-@media (min-width:1600px) {
-    .th_id{
-        width: 55%;
-    }
-}
 
 .td_operation{
     width: 160px;
     text-align: center!important;
 }
 
-.th_id_detail{
+.th_id_cav{
     ont-family: PingFangSC-Regular;
     font-size: 14px;
-    color: #0070FF;
     line-height: 16px;
     margin-left: 5px;
 }
+
+.td_detail {
+    width: 560px;
+}
+
+
+@media screen and (min-width: 1600px){
+    .td_detail {
+        width: 900px;
+    }
+}
+.th_id_cav, .th_id_detail{
+    cursor: pointer;
+}
+
 
 
 .btn_operation {

@@ -39,8 +39,8 @@ $this->title = '基础情报管理';
     <div class="loophole_table_content" ng-click="blur_input()">
         <table class="table table-striped ng-cloak">
             <tr class="loophole_table_tr">
-                <th class="th_id" style="padding-left:40px;">漏洞描述</th>
-                <th>CVEID</th>
+                <th class="th_id" style="padding-left:40px;">CVEID</th>
+                <th class="td_detail">漏洞描述</th>
                 <th>发现时间</th>
                 <th>更新时间</th>
                 <th class="td_operation">查看原始情报</th>
@@ -59,11 +59,12 @@ $this->title = '基础情报管理';
                    </div>
                    <div ng-if="item.level === ''" class="th_id_img">
                    </div>
-                   <span class="th_id_detail" ng-attr-title="{{item.detail}}" ng-bind="item.detail"></span>
+                   <span class="th_id_cav" ng-bind="item.cve" ng-click="list_item_click($event,item)"></span>
                 </td>
-                <td ng-bind="item.cve"></td>
-               <!-- <td>{{item.created_at*1000 | date : 'yyyy-MM-dd'}}</td>
-                <td>{{item.updated_at*1000 | date : 'yyyy-MM-dd'}}</td> -->
+                <td class="td_detail">
+                  <span class="th_id_detail" ng-bind="item.detail" ng-attr-title="{{item.detail}}"
+                  ng-click="list_item_click($event,item)"></span>
+                </td>
                 <td>{{item.publishedDate.substring(0,10)}}</td>
                 <td>{{item.lastModifiedDate.substring(0,10)}}</td>
                 <td class="td_operation">
