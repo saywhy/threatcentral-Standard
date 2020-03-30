@@ -452,9 +452,10 @@ button:active {
 
 .covenant_3 {
   margin-top: 10px;
-  line-height: 24px;
+  line-height: 30px;
   min-height: 60px;
   color: #666;
+  font-size: 16px;
   cursor: pointer;
   text-align: justify;
 }
@@ -805,7 +806,7 @@ button:active {
 }
 
 .bg_item {
-  background: #F8F8F8
+  background: #F8F8F8;
 }
 
 .detail_box {
@@ -813,6 +814,7 @@ button:active {
   height: 80px;
   overflow-y: auto;
 }
+
 
 .detail_box::-webkit-scrollbar-track-piece {
   border-radius: 10px;
@@ -836,7 +838,7 @@ button:active {
 
 
 .detail_box p {
-  line-height: 20px;
+  line-height: 25px;
   word-break: break-all;
   word-wrap: break-word;
   white-space: pre-wrap;
