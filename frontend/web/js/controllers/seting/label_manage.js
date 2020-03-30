@@ -718,7 +718,14 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
     };
 
     //编辑标签类别删除按钮弹窗
-    $scope.cate_edit_delete = function () {
+    $scope.cate_edit_delete = function ($event,item) {
+
+        $event.stopPropagation();
+
+        //长度一定大于0
+        $scope.category.id = item.label[0].category_id;
+        $scope.category.label_id = item.label[0].id;
+        $scope.category.name = item.name;
 
         var W = 552;
         var H = 248;
