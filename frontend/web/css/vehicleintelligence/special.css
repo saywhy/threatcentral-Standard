@@ -64,7 +64,8 @@ button:active {
 
 .select_list_box {
   position: absolute;
-  height: 156px;
+  height: auto;
+  min-height: 34px;
   background: #fff;
   width: 100%;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);

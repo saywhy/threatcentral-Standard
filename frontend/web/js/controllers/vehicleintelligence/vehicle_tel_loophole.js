@@ -38,6 +38,10 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
                 status: '全部'
             },
             {
+                num: '暂缺',
+                status: '暂缺'
+            },
+            {
                 num: '高',
                 status: '高'
             },

@@ -33,10 +33,14 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
             endDate: ''
         };
 
-        //漏洞级别
+        //情报级别
         $scope.search_level = [{
                 num: '',
                 status: '全部'
+            },
+            {
+                num: '暂缺',
+                status: '暂缺'
             },
             {
                 num: '高',
