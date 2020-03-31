@@ -977,7 +977,8 @@ button:active {
   white-space: nowrap;
   overflow: hidden;
 }
-.info_mation_nvd{
+
+.info_mation_nvd, .info_mation_nvd:hover{
   color: #0070FF;
   cursor: pointer;
 }
