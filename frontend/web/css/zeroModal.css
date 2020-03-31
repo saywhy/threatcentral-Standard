@@ -50,7 +50,7 @@
     margin-bottom: 18px;
     color: #666;
     font-size: 20px;
-    position: relative;
+    /*position: relative;*/
 }
 
 .zeromodal-progress-content {
@@ -158,10 +158,10 @@
     padding: 0;
     cursor: pointer;
     border: 0;
-    top: -6px;
+    top: 24px;
     width: 24px;
     height: 24px;
-    right: 0;
+    right: 24px;
    /* outline: none;
     float: right;
     font-size: 21px;
