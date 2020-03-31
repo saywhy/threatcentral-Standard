@@ -462,21 +462,26 @@ button:active {
 }
 
 .covenant_4 {
-  line-height: 40px;
+  margin: 8px 0;
 }
 
 .covenant_4 .covenant_btn {
   color: #0070ff;
   font-size: 12px;
-  line-height: 26px;
+  cursor: default;
+  line-height: 20px;
   border-radius: 4px;
   font-weight: bold;
   text-decoration: none;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
+  width: 80px;
+  text-align: center;
+  display: inline-block;
   margin-right: 10px;
   border: 1px solid #0070ff;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .daterangepicker.dropdown-menu {
@@ -713,13 +718,12 @@ button:active {
 
 .pop_contnet {
   width: 60%;
-  height: 80%;
+  height: 500px;
   padding: 24px 36px;
   background: #F8F8F8;
   border-radius: 8px;
   position: fixed;
-  top: 80px;
-  margin-bottom: 100px;
+  top:calc((100vh - 564px)/2 + 64px);
   left: 50%;
   transform: translateX(-50%);
 }

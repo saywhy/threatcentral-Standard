@@ -718,13 +718,12 @@ button:active {
 
 .pop_contnet {
   width: 60%;
-  height: 80%;
+  height: 592px;
   padding: 24px 36px;
   background: #F8F8F8;
   border-radius: 8px;
   position: fixed;
-  top: 80px;
-  margin-bottom: 100px;
+  top:calc((100vh - 656px)/2 + 64px);
   left: 50%;
   transform: translateX(-50%);
 }
