@@ -28,7 +28,7 @@ $this->title = '报表生成';
     }
 
     .i-checks input:checked+i {
-        border-color: #3c8dbc;
+        border-color: #0070ff;
     }
 
     .i-checks>i {
@@ -50,7 +50,7 @@ $this->title = '报表生成';
         left: 4px;
         width: 10px;
         height: 10px;
-        background-color: #3c8dbc;
+        background-color: #0070ff;
     }
 
     .i-checks>i:before {

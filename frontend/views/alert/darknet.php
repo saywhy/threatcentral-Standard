@@ -70,7 +70,7 @@ $this->title = '暗网预警';
     }
 
     .active_dark_net {
-        background-color: #3c8dbc;
+        background-color: #0070ff;
         color: #fff !important;
     }
 

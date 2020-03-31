@@ -158,7 +158,7 @@
 }
 
 .children {
-  height: 42px;
+  /* height: 42px; */
   line-height: 48px;
   display: flex;
   background: #F8F8F8;

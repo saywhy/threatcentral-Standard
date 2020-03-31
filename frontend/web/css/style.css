@@ -261,7 +261,7 @@
 }
 
 .tgl-flip+.tgl-btn:before {
-    background: #3c8dbc;
+    background: #0070ff;
     content: attr(data-tg-off);
 }
 

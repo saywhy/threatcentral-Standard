@@ -11,7 +11,7 @@ $this->title = '情报源管理';
 
     .item_box {
         height: 208px;
-        padding: 0 10px;
+        padding: 0 4px;
         margin-bottom: 20px;
     }
 
@@ -21,7 +21,7 @@ $this->title = '情报源管理';
         border-radius: 8px;
         height: 208px;
         position: relative;
-        padding: 15px 10px 10px 14px;
+      padding: 10px 7px 10px 7px;
     }
 
     .img_bg {
@@ -170,7 +170,8 @@ $this->title = '情报源管理';
     <div class="manage_container">
         <div ng-if="select.model=='1'">
             <div class="row">
-                <div class="col-md-3 item_box" ng-repeat="item in source_data.red | source_filter_red" ng-click="detail(item)">
+                <div class="col-md-3 item_box" ng-repeat="item in source_data.red | source_filter_red"
+               ng-mousedown="skipDown($event)" ng-mouseup="skipUp($event,item)" >
                     <!-- <div class="col-md-3 item_box" ng-repeat="item in source_data.red track by $index"> -->
                     <div class="item">
                         <img class="img_bg" src="/images/agent/hoohoolab.png" alt="">
@@ -178,6 +179,7 @@ $this->title = '情报源管理';
                             <div class="item_info_top">
                                 <p class="item_info_title item_info_top_p">
                                     <span class="item_info_title_num"
+                                     ng-click="$event.stopPropagation();"
                                         ng-class="{'green':($index+1)%2==0,'blue_light':($index+1)%2==1,'orange':($index+1)%4==0,'blue':($index+1)%4==1 }">{{item.confidence}}</span>
                                 </p>
                                 <div class="switch_box" style="height: 52px;line-height: 52px;">
@@ -186,23 +188,29 @@ $this->title = '情报源管理';
                                     <label class="tgl-btn" for="{{item.name}}"
                                         ng-click="aaa();$event.stopPropagation();"
                                         style="margin-top: 16px;margin-right: 10px; float: left;"></label>
-                                    <span style="float:left;" ng-if="item.choose">启用</span>
-                                    <span style="float:left;" ng-if="!item.choose">禁用</span>
+                                    <span style="float:left;" ng-click="$event.stopPropagation();" ng-if="item.choose">启用</span>
+                                    <span style="float:left;" ng-click="$event.stopPropagation();" ng-if="!item.choose">禁用</span>
                                 </div>
                             </div>
-                            <p class="item_info_title_name">{{item.key}}</p>
-                            <p class="item_info_title_value">{{item.name}}</p>
-                            <p class="item_info_title_time">
-                                <span>上次更新时间:</span>
-                                <span>{{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                            <p class="item_info_title_name" >
+                            <span  ng-mousedown="skipDown()" ng-mouseup="skipUp($index)"  style="cursor: pointer;" data-toggle="modal">
+                             {{item.key}}
+                            </span>
                             </p>
-                            <p class="item_info_title_time">
-                                <span>上次成功更新时间:</span>
-                                <span>{{item.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                            <p class="item_info_title_value" ng-click="$event.stopPropagation();">
+                               <span ng-click="$event.stopPropagation();"> {{item.name}}</span>
+                            </p>
+                            <p class="item_info_title_time"   >
+                                <span >上次更新时间:</span>
+                                <span >{{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                            </p>
+                            <p class="item_info_title_time"  >
+                                <span ng-click="$event.stopPropagation();">上次成功更新时间:</span>
+                                <span ng-click="$event.stopPropagation();"> {{item.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_res">
-                                <span> 结果：</span>
-                                <span> {{item.sub_state_cn}}</span>
+                                <span ng-click="$event.stopPropagation();"> 结果：</span>
+                                <span ng-click="$event.stopPropagation();"> {{item.sub_state_cn}}</span>
                             </p>
                         </div>
                     </div>
@@ -211,37 +219,39 @@ $this->title = '情报源管理';
         </div>
         <div ng-if="select.model=='2'">
             <div class="row">
-                <div class="col-md-3 item_box" ng-repeat="item in source_data.green | source_filter_green" ng-click="detail(item)">
+                <div class="col-md-3 item_box" ng-repeat="item in source_data.green | source_filter_green"
+                 ng-mousedown="skipDown($event)" ng-mouseup="skipUp($event,item)" >
                     <div class="item">
                         <img class="img_bg" src="/images/agent/hoohoolab.png" alt="">
                         <div class="item_info">
                             <div class="item_info_top">
                                 <p class="item_info_title item_info_top_p">
                                     <span class="item_info_title_num"
-                                        ng-class="{'green':($index+1)%2==0,'blue_light':($index+1)%2==1,'orange':($index+1)%4==0,'blue':($index+1)%4==1 }">{{item.confidence}}</span>
+                                        ng-bind="item.confidence"
+                                        ng-class="{'green':($index+1)%2==0,'blue_light':($index+1)%2==1,'orange':($index+1)%4==0,'blue':($index+1)%4==1 }"></span>
                                 </p>
                                 <div class="switch_box" style="height: 52px;line-height: 52px;">
                                     <input class="tgl tgl-ios" type="checkbox" value="item.choose"
-                                        ng-checked="item.choose" ng-click="choose_open(item)" id="{{item.name}}">
+                                        ng-checked="item.choose" ng-click="choose_open(item);$event.stopPropagation();" id="{{item.name}}">
                                     <!-- ng-click="item.choose !=item.choose"> -->
                                     <label class="tgl-btn" for="{{item.name}}"
                                      ng-click="aaa();$event.stopPropagation();"
                                         style="margin-top: 16px;margin-right: 10px; float: left;"></label>
-                                    <span style="float:left;" ng-if="item.choose">启用</span>
+                                    <span style="float:left;"  ng-if="item.choose">启用</span>
                                     <span style="float:left;" ng-if="!item.choose">禁用</span>
                                 </div>
                             </div>
                             <p class="item_info_title_name">{{item.key}}</p>
                             <p class="item_info_title_value">{{item.name}}</p>
-                            <p class="item_info_title_time">
+                            <p class="item_info_title_time" >
                                 <span>上次更新时间:</span>
                                 <span>{{item.last_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
                             </p>
-                            <p class="item_info_title_time">
-                                <span>上次成功更新时间:</span>
-                                <span>{{item.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                            <p class="item_info_title_time new" >
+                                <span >上次成功更新时间:</span>
+                                <span >{{item.last_successful_run |date:'yyyy/MM/dd hh:mm:ss'}}</span>
                             </p>
-                            <p class="item_info_title_res">
+                            <p class="item_info_title_res new" >
                                 <span> 结果：</span>
                                 <span> {{item.sub_state_cn}}</span>
                             </p>

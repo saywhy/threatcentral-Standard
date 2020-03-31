@@ -31,7 +31,6 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                 $scope.full_data = [];
                 $scope.full_cyberhunt_data = [];
                 if (rsp.data.result) {
-                    console.log("full");
                     console.log(rsp.data.result.nodes);
                     console.log(rsp.data.result);
                     $scope.full_version = rsp.data.result.version;
@@ -407,6 +406,31 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                 }
             );
     };
+    // 按下按钮触发的方法 获取按下按钮的时间
+    $scope.skipDown = function (e) {
+        $scope.oldPositon = {
+            x: '',
+            y: ''
+        }
+        $scope.newPositon = {
+            x: '',
+            y: ''
+        }
+        var el = e.target || event.srcElement;
+        $scope.oldPositon.x = e.clientX - el.offsetLeft;
+        $scope.oldPositon.y = e.clientY - el.offsetTop;
+        console.log($scope.oldPositon);
+    }
+    // 松开按钮的触发方法 获取松开按钮的时间
+    $scope.skipUp = function (e, item) {
+        var el = e.target || event.srcElement;
+        $scope.newPositon.x = e.clientX - el.offsetLeft;
+        $scope.newPositon.y = e.clientY - el.offsetTop;
+        console.log($scope.newPositon);
+        if ($scope.oldPositon.x == $scope.newPositon.x) {
+            $scope.detail(item);
+        }
+    }
     $scope.init();
 });
 
@@ -461,3 +485,21 @@ myApp.filter('source_filter_red', function () {
         return array;
     }
 });
+myApp.directive('newStr', function () {
+    console.log('2222');
+    return {
+        restrict: 'AE',
+        //阻止事件冒泡需要加$event参数
+        template: `<div ng-click="child($event)">123</div>`,
+        link: function (scope, ele, attr) {
+            ele.on('click', function (e) {
+                console.log('1')
+            })
+            scope.child = function ($event) {
+                //阻止事件冒泡
+                $event.stopPropagation();
+                console.log('2')
+            }
+        }
+    }
+})

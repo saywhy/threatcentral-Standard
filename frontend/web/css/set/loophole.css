@@ -54,7 +54,7 @@ button:active {
 }
 
 .input_box {
-  width: 290px;
+  width: 215px;
   height: 42px;
   border: 1px solid #ECECEC;
   border-radius: 4px;
@@ -192,12 +192,15 @@ button:active {
 }
 
 .button_add {
+  float: right;
   border: 1px solid #0070FF;
   color: #0070FF;
   border-radius: 4px;
   font-size: 16px;
   height: 42px;
   width: 124px;
+  margin-top: 26px;
+  margin-right: 44px;
   margin-left: 2px;
 }
 
@@ -437,7 +440,7 @@ select {
 }
 
 .td_operation {
-  width: 250px;
+  width: 180px;
   text-align: right;
 }
 
@@ -814,4 +817,20 @@ select {
   bottom: 0;
   height: 42px;
   width: 100px;
+}
+
+.set_img_icon {
+  width: 16px;
+  margin: 0 5px;
+}
+
+.btn-primary {
+  background-color: #0070FF;
+  border-color: #0070FF;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.hover {
+  background-color: #0070FF
 }

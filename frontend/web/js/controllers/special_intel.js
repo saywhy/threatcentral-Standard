@@ -188,25 +188,52 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     };
     $scope.picker_search = function () {
+
         $("#picker_search").daterangepicker({
+                autoUpdateInput: false,
+                'locale': {
+                    "format": 'YYYY-MM-DD',
+                    "separator": " - ",
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "fromLabel": "起始时间",
+                    "toLabel": "结束时间'",
+                    "customRangeLabel": "自定义",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                ranges: {
+                    '最近7天': [moment().subtract(6, 'days'), moment()],
+                    '最近30天': [moment().subtract(29, 'days'), moment()],
+                    '今年': [moment().startOf('year'), moment()],
+                    '去年': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year')
+                        .endOf('year')
+                    ],
+                },
                 showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
+                "alwaysShowCalendars": true,
+                timePickerSeconds: false,
                 drops: "down",
                 opens: "right",
                 autoUpdateInput: false,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm"
-                }
             },
             function (start, end, label) {
-                $("#picker_search").data('daterangepicker').autoUpdateInput = true
                 $scope.seach_data.startDate = start.unix();
                 $scope.seach_data.endDate = end.unix();
-            }
-        );
+                console.log($scope.seach_data.startDate);
+                console.log($scope.seach_data.endDate);
+            },
+        )
+        $('#picker_search').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        });
+        $('#picker_search').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+            $scope.seach_data.startDate = ''
+            $scope.seach_data.endDate = ''
+        });
     };
     $scope.picker_edit = function (startDate) {
         console.log(startDate);
@@ -372,6 +399,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function (data) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
+                console.log($scope.pages);
+                angular.forEach($scope.pages.data, function (item) {
+                    if (item.label_name.length != 0) {
+                        item.label_title = item.label_name.join(',')
+                    }
+                })
+
                 if ($scope.get_page_show) {
                     $scope.enter_show = false;
                     angular.forEach($scope.pages.data, function (item) {
@@ -767,48 +801,65 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         );
     };
     // 发布情报
-    $scope.release = function (id) {
+    $scope.release = function (id, num) {
         var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
             data: {
-                id: id
+                id: id,
+                status: num
             }
         }).then(
             function (data) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
-                    zeroModal.success("发布成功");
+                    $scope.get_page($scope.pageNow);
+                    if (num == '1') {
+                        zeroModal.success("发布成功");
+                    } else {
+                        zeroModal.success("撤回成功");
+                    }
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
-                $scope.get_page($scope.pageNow);
             },
             function () {}
         );
     }
     // 删除情报
     $scope.delete = function (id) {
-        var loading = zeroModal.loading(4);
-        $http({
-            method: "delete",
-            url: "/seting/special-intelligence-del",
-            data: {
-                id: id
-            }
-        }).then(
-            function (data) {
-                zeroModal.close(loading);
-                if (data.data.status == 'success') {
-                    zeroModal.success("删除成功");
-                } else {
-                    zeroModal.error(data.data.errorMessage);
-                }
-                $scope.get_page($scope.pageNow);
+        var W = 552;
+        var H = 185;
+        var box = null;
+        box = zeroModal.confirm({
+            content: '是否删除情报',
+            width: W + "px",
+            height: H + "px",
+            ok: false,
+            cancel: false,
+            okFn: function () {
+                var loading = zeroModal.loading(4);
+                $http({
+                    method: "delete",
+                    url: "/seting/special-intelligence-del",
+                    data: {
+                        id: id
+                    }
+                }).then(
+                    function (data) {
+                        zeroModal.close(loading);
+                        if (data.data.status == 'success') {
+                            zeroModal.success("删除成功");
+                        } else {
+                            zeroModal.error(data.data.errorMessage);
+                        }
+                        $scope.get_page($scope.pageNow);
+                    },
+                    function () {}
+                );
             },
-            function () {}
-        );
+        });
     }
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
@@ -1048,6 +1099,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 })
                 break;
             case 'tag':
+                if ($scope.add_item.tag.length >= 500) {
+                    zeroModal.error("标签最多可以添加500个");
+                    return false
+                }
                 angular.forEach($scope.add_item.tag, function (item) {
                     item.icon = false;
                 })
@@ -1071,22 +1126,32 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if ($scope.add_item.reference.length == 1) {
                     $scope.add_item.reference[0].name = ''
                     return false
+                } else if ($scope.add_item.reference[index].name != '') {
+                    $scope.add_item.reference[index].name = '';
+                } else {
+                    $scope.add_item.reference.splice(index, 1);
                 }
-                $scope.add_item.reference.splice(index, 1);
                 break;
             case 'NVD':
                 if ($scope.add_item.NVD.length == 1) {
                     $scope.add_item.NVD[0].name = ''
                     return false
+                } else if ($scope.add_item.NVD[index].name != '') {
+                    $scope.add_item.NVD[index].name = '';
+                } else {
+                    $scope.add_item.NVD.splice(index, 1);
                 }
-                $scope.add_item.NVD.splice(index, 1);
                 break;
             case 'tag':
+                console.log(name);
                 if ($scope.add_item.tag.length == 1) {
                     $scope.add_item.tag[0].name = ''
                     return false
+                } else if ($scope.add_item.tag[index].name != '') {
+                    $scope.add_item.tag[index].name = '';
+                } else {
+                    $scope.add_item.tag.splice(index, 1);
                 }
-                $scope.add_item.tag.splice(index, 1);
                 break;
             default:
                 break;
@@ -1271,6 +1336,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 })
                 break;
             case 'tag':
+                if ($scope.edit_item.tag.length >= 500) {
+                    zeroModal.error("标签最多可以添加500个");
+                    return false
+                }
                 angular.forEach($scope.edit_item.tag, function (item) {
                     item.icon = false;
                 })
@@ -1294,22 +1363,31 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if ($scope.edit_item.reference.length == 1) {
                     $scope.edit_item.reference[0].name = ''
                     return false
+                } else if ($scope.edit_item.reference[index].name != '') {
+                    $scope.edit_item.reference[index].name = '';
+                } else {
+                    $scope.edit_item.reference.splice(index, 1);
                 }
-                $scope.edit_item.reference.splice(index, 1);
                 break;
             case 'NVD':
                 if ($scope.edit_item.NVD.length == 1) {
                     $scope.edit_item.NVD[0].name = ''
                     return false
+                } else if ($scope.edit_item.NVD[index].name != '') {
+                    $scope.edit_item.NVD[index].name = '';
+                } else {
+                    $scope.edit_item.NVD.splice(index, 1);
                 }
-                $scope.edit_item.NVD.splice(index, 1);
                 break;
             case 'tag':
                 if ($scope.edit_item.tag.length == 1) {
                     $scope.edit_item.tag[0].name = ''
                     return false
+                } else if ($scope.edit_item.tag[index].name != '') {
+                    $scope.edit_item.tag[index].name = '';
+                } else {
+                    $scope.edit_item.tag.splice(index, 1);
                 }
-                $scope.edit_item.tag.splice(index, 1);
                 break;
             default:
                 break;

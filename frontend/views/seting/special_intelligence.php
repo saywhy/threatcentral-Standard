@@ -10,11 +10,15 @@ $this->title = '行业情报管理';
   </div>
   <div class="intel_loophole">
     <div class="intel_box_top">
-      <div class="search_input_box">
+      <div class="search_input_box"  style="width: 165px;">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
         <input type="text" class="intel_search_input" ng-focus="get_intel_search_focus()"
-          ng-blur="get_intel_search_blur()" ng-keyup="myKeyup_intel_search(seach_data.client_ip)" placeholder="输入关键字"
+          ng-blur="get_intel_search_blur()" ng-keyup="myKeyup_intel_search(seach_data.client_ip)" placeholder="情报标题/情报描述"
           ng-model="seach_data.key_word">
+      </div>
+        <div class="intel_search_time ">
+        <img src="/images/report/time.png" class="time_icon_search" alt="">
+        <input class="input_box" id="picker_search" type="text" placeholder="时间">
       </div>
       <!-- 来源 -->
       <div class="search_input_box">
@@ -52,10 +56,7 @@ $this->title = '行业情报管理';
           </li>
         </ul>
       </div>
-      <div class="intel_search_time ">
-        <img src="/images/report/time.png" class="time_icon_search" alt="">
-        <input class="input_box" id="picker_search" readonly type="text" placeholder="时间">
-      </div>
+
       <button class="button_search" ng-click="get_page()">搜索</button>
       <button class="button_add" ng-click="add_loop_box()">情报录入</button>
     </div>
@@ -83,13 +84,11 @@ $this->title = '行业情报管理';
     <table class="table table-striped ng-cloak">
       <tr class="loophole_table_tr">
         <th></th>
-        <th>情报 ID</th>
         <th>情报标题</th>
-        <th>情报描述</th>
         <th>情报来源</th>
-        <th class="tag_th">标签类型</th>
-        <th class="th_time">获取时间</th>
-        <th>状态</th>
+        <th class="tag_th">标签</th>
+        <th class="th_time" style="width:150px">日期</th>
+        <th style="width:100px">状态</th>
         <th class="td_operation th_id">操作</th>
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
@@ -99,25 +98,30 @@ $this->title = '行业情报管理';
           <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
           <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
         </td>
-        <td>
-          <span ng-bind="item.id"> </span>
-        </td>
-        <td ng-bind="item.title"></td>
-        <td ng-bind="item.detail"></td>
+        <td  ng-attr-title="{{item.detail}}"  ng-click="edit_loop_box(item)"  ng-bind="item.title"></td>
         <td ng-bind="item.sourse"></td>
-        <td>
+        <td  ng-attr-title="{{item.label_title}}" >
           <button class="btn_loophole" ng-repeat="it in item.label_name">
             {{it}}
             <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
           </button>
         </td>
-        <td>{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
-        <td>{{item.status=='0'? '未发布':'已发布'}}</td>
+        <td style="width:120px">{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:80px">{{item.status=='0'? '未发布':'已发布'}}</td>
         <td class="td_operation th_id">
-          <button ng-class="item.status=='0'? 'btn_operation':'btn_unoperation'" ng-disabled="item.status=='1'"
+          <img class="set_img_icon" ng-if="item.status=='0'"
+          ng-click="release(item.id,'1')" title="发布" src="/images/set/sq_release_i.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status!='0'" title="发布" src="/images/set/sq_release_o.png" alt="" alt="">
+          <!-- <img src="" class="loop_img" src="/images/set/sq_release_o.png" alt="" alt=""> -->
+          <img class="set_img_icon" ng-if="item.status!='0'"
+          ng-click="release(item.id,'0')"  title="撤回" src="/images/set/sq_recall_i.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status=='0'"  title="撤回" src="/images/set/sq_recall_o.png" alt="" alt="">
+          <img class="set_img_icon" ng-click="edit_loop_box(item)" title="编辑" src="/images/set/sq_edit_i.png" alt="" alt="">
+          <img class="set_img_icon" ng-click="delete(item.id)" title="删除" src="/images/set/sq_del_i.png" alt="" alt="">
+          <!-- <button ng-class="item.status=='0'? 'btn_operation':'btn_unoperation'" ng-disabled="item.status=='1'"
             ng-click="release(item.id)">发布</button>
           <button class="btn_operation" ng-click="edit_loop_box(item)">编辑</button>
-          <button class="btn_operation" ng-click="delete(item.id)">删除</button>
+          <button class="btn_operation" ng-click="delete(item.id)">删除</button> -->
         </td>
       </tr>
     </table>
