@@ -1,5 +1,5 @@
 var myApp = angular.module("myApp", []);
-myApp.controller("labelCtrl", function($scope, $http, $timeout) {
+myApp.controller("labelCtrl", function($scope, $http, $timeout,$document) {
 
 
 
@@ -189,7 +189,9 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                             }
                         }
                     });
+
                 }
+
             },
             function errorCallback(data) {}
         );
@@ -389,6 +391,7 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
                         onClosed: function () {
                         }
                     });
+
                 } else {
                     $scope.label_name_merge();
                 }
@@ -961,6 +964,12 @@ myApp.controller("labelCtrl", function($scope, $http, $timeout) {
 
 
     $scope.init();
+
+    document.onclick = function (e) {
+        if(e.target.className == 'zeromodal-overlay'){
+            zeroModal.closeAll();
+        }
+    }
 
 });
 

@@ -350,4 +350,11 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
     }
 
     $scope.init();
+
+
+    document.onclick = function (e) {
+        if(e.target.className == 'zeromodal-overlay'){
+            zeroModal.closeAll();
+        }
+    }
 });
