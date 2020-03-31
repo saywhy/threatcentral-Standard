@@ -224,11 +224,11 @@ $this->title = '行业情报';
               <span>NVD关联:</span>
             </div>
             <div class="contnet_item_right" style="flex-direction: column;">
-   <div class="info_mation"  style="flex-direction: column;">
-                <div class="info_mation_item" ng-repeat="item in label_item_data.nvd">
-                <p>{{item.cve}}</p>
+                <div class="info_mation" style="flex-direction: column;">
+                  <div class="info_mation_item" ng-repeat="item in label_item_data.nvd">
+                    <a class="info_mation_nvd" ng-click="list_item_click_nvd($event,item.cve)">{{item.cve}}</p>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -237,5 +237,56 @@ $this->title = '行业情报';
   </div>
 
 
+
+  <!-- NVD详情弹窗 -->
+  <div style="display:none;" id="vehicle_loophole_box_nvd">
+      <div id="vehicle_loophole_nvd">
+          <ul class="l_nvd_mid">
+            <li class="item">
+                  <img class="i_img" src="/images/loophole/sp9.png" alt=""/>
+                  <h4 class="title">CVEID：</h4>
+                  <span class="stance" ng-bind="base_data.cve"></span>
+            </li>
+            <li class="item">
+                  <img class="i_img" src="/images/loophole/sp10.png" alt=""/>
+                  <h4 class="title">CVSS v2：</h4>
+                  <span class="stance">{{base_data.cvss_v2}}<span style="margin-left:10px;" ng-hide="base_data.cvss_v2== ''">Critical</span></span>
+            </li>
+             <li class="item">
+                  <img class="i_img" src="/images/loophole/sp10.png" alt=""/>
+                  <h4 class="title">CVSS v3：</h4>
+                  <span class="stance">{{base_data.cvss_v3}}<span style="margin-left:10px;" ng-hide="base_data.cvss_v3== ''">High</span></span>
+              </li>
+              <li class="item">
+                  <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
+                  <h4 class="title">漏洞情报级别：</h4>
+                  <span class="stance">{{base_data.level}}<span ng-hide="base_data.level== ''">危</span></span>
+              </li>
+               <li class="item">
+                  <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
+                  <h4 class="title">发现时间：</h4>
+                  <span class="stance">{{base_data.publishedDate.substring(0,10)}}</span>
+              </li>
+              <li class="item">
+                  <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
+                  <h4 class="title">更新时间：</h4>
+                  <span class="stance">{{base_data.lastModifiedDate.substring(0,10)}}</span>
+              </li>
+              <li class="item">
+                  <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
+                  <h4 class="title">关联地址：</h4>
+                  <a class="stance s_active" target="_blank" ng-href="https://nvd.nist.gov/vuln/detail/{{base_data.cve}}">
+                    https://nvd.nist.gov/vuln/detail/{{base_data.cve}}
+                  </a>
+              </li>
+              <li class="item">
+                  <img class="i_img" src="/images/loophole/sp5.png" alt=""/>
+                  <h4 class="title">漏洞描述：</h4>
+                  <span class="stance s_content" ng-bind="base_data.detail"  ng-attr-title="{{base_data.detail}}"></span>
+              </li>
+
+          </ul>
+      </div>
+  </div>
 </section>
 <script src="/js/controllers/vehicleintelligence/vehicle_tel_special.js"></script>
