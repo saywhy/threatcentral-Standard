@@ -894,7 +894,94 @@ button:active {
   line-height: 25px;
   margin-top: 10px;
   color: #0070FF;
-  padding: 0px 8px;
+  padding: 0 8px;
   border: 1px solid #0070FF;
   border-radius: 4px;
+}
+
+.info_mation_nvd{
+  color: #0070FF;
+  cursor: pointer;
+}
+
+
+/*****************************CVE*******************************/
+
+
+#vehicle_loophole_nvd{
+  padding-left: 20px;
+  padding-right: 4px;
+  margin-top: 30px;
+}
+
+.l_nvd_mid{
+  border: 1px solid #ECECEC;
+}
+.l_nvd_mid .item{
+  padding: 10px 10px;
+}
+.l_nvd_mid .item:nth-child(odd){
+  background: #fff;
+}
+
+.l_nvd_mid .item .i_img{
+  display: inline-block;
+  transform: scale(0.8);
+  margin: 0 5px;
+  vertical-align: sub;
+}
+.l_nvd_mid .item .title{
+  width: 150px;
+  color: #666;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  font-family: PingFangSC-Medium;
+}
+.l_nvd_mid .item .stance{
+  display: inline-block;
+  font-family: PingFangSC-Regular;
+}
+
+.l_nvd_mid .item .stance.s_active{
+  color: #0070ff;
+}
+
+.l_nvd_mid .item .stance.s_content{
+  padding: 6px 0 0 32px;
+  color: #666;
+  font-size: 14px;
+  line-height: 18px;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  display: block;
+  -webkit-box-orient: vertical;
+  font-family: PingFangSC-Regular;
+}
+
+.l_nvd_mid .item .s_label{
+  height: 34px;
+  line-height: 34px;
+  display: flex;
+}
+.l_nvd_mid .item .s_label .s_name{
+  width: 100px;
+}
+.l_nvd_mid .item .s_label .s_lab{
+  flex: 1;
+  font-size: 0;
+}
+
+.l_nvd_mid .item .s_label .s_lab .s_lab_val{
+  color: #0070ff;
+  font-size: 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  padding: 3px 8px;
+  margin-right: 5px;
+  border: 1px solid #0070ff;
+  white-space: nowrap;
+  overflow: hidden;
 }

@@ -1,5 +1,5 @@
 var myApp = angular.module("myApp", []);
-myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
+myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$document) {
 
     $scope.init = function () {
         $scope.label_data = [];
@@ -310,6 +310,48 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
         }
     }
 
+
+    //nvd详情
+    $scope.list_item_click_nvd = function (e, items) {
+
+        e.preventDefault();
+
+        $http({
+            method: "get",
+            url: "/site/cve-list",
+            params: {
+                cve: items,
+            }
+        }).then(function (resp) {
+                $scope.base_data = resp.data[0];
+
+                console.log($scope.base_data)
+
+                var W = 740;
+                var H = 484;
+
+                zeroModal.show({
+                    title: "",
+                    content: vehicle_loophole_nvd,
+                    width: W + "px",
+                    height: H + "px",
+                    ok: false,
+                    cancel: false,
+                    drag: false,
+                    okFn: function () {},
+                    onOpen: function () {},
+                    onCleanup: function () {
+                        vehicle_loophole_box_nvd.appendChild(vehicle_loophole_nvd);
+                    }
+                });
+            },
+            function () {}
+        );
+
+
+
+    };
+
     // 获取列表
     $scope.get_page = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;
@@ -351,10 +393,14 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter) {
 
     $scope.init();
 
-
     document.onclick = function (e) {
         if(e.target.className == 'zeromodal-overlay'){
             zeroModal.closeAll();
+        }else if(e.target.className == 'pop_box ng-scope'){
+            var appElement = document.querySelector('[ng-controller=vehicleTelLoopholeCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $scope.pop_show = false;
+            $scope.$apply();
         }
     }
 });
