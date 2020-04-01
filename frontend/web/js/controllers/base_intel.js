@@ -16,6 +16,10 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
                 status: '全部'
             },
             {
+                num: '暂缺',
+                status: '暂缺'
+            },
+            {
                 num: '高',
                 status: '高'
             },
@@ -35,10 +39,9 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
             level: false,
         };
 
+        $scope.page_num = 1;
+
         $scope.picker_search();
-
-        $scope.page_num = 10;
-
         $scope.get_page();
     }
 
@@ -174,7 +177,9 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
         $scope.params_data = JSON.parse(params_data);
 
         if ($scope.params_data.level == '全部') {
-            $scope.params_data.level = ''
+            $scope.params_data.level = 'all';
+        }else if($scope.params_data.level == '暂缺'){
+            $scope.params_data.level = '';
         }
 
         //console.log($scope.params_data)

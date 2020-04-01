@@ -55,6 +55,9 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
             }
         ];
 
+        $scope.page_num = 1;
+        $scope.pop_show = false;
+
         $scope.picker_search();
         $scope.get_loophole_source();
         $scope.get_lab_list();
@@ -324,9 +327,6 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
             }
         }).then(function (resp) {
                 $scope.base_data = resp.data[0];
-
-                console.log($scope.base_data)
-
                 var W = 740;
                 var H = 484;
 
@@ -361,12 +361,29 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
             level: '',
             label_id: []
         }
+
+        if(pageNow < 1){
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
+        if($scope.pages && pageNow > $scope.pages.maxPage){
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
         if ($scope.seach_data.source != '全部') {
             params_data.source = $scope.seach_data.source
         }
-        if ($scope.seach_data.level != '全部') {
-            params_data.level = $scope.seach_data.level
+
+        if ($scope.seach_data.level == '全部') {
+            params_data.level = 'all';
+        }else if($scope.seach_data.level == '暂缺'){
+            params_data.level = '';
+        }else {
+            params_data.level = $scope.seach_data.level;
         }
+
         $http({
             method: "get",
             url: "/vehicleintelligence/loophole-intelligence-list",

@@ -55,6 +55,7 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                 status: '低'
             }
         ];
+        $scope.page_num = 1;
         $scope.pop_show = false;
         $scope.picker_search();
         $scope.get_loophole_source();
@@ -223,7 +224,6 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
 
         $scope.label_item_data = item;
 
-        console.log($scope.label_item_data);
         $scope.label_item_data.detail = $scope.label_item_data.detail.trim();
         $scope.label_item_data.detail = $scope.label_item_data.detail.replace(/[\r\n]/g, "");;
         $scope.pop_show = true;
@@ -300,8 +300,6 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         }).then(function (resp) {
                 $scope.base_data = resp.data[0];
 
-                console.log($scope.base_data)
-
                 var W = 740;
                 var H = 484;
 
@@ -332,6 +330,16 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         pageNow = pageNow ? pageNow : 1;
         var loading = zeroModal.loading(4);
 
+        if(pageNow < 1){
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
+        if($scope.pages && pageNow > $scope.pages.maxPage){
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
         var params_data = {
             source: '',
             level: '',
@@ -340,9 +348,15 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         if ($scope.seach_data.source != '全部') {
             params_data.source = $scope.seach_data.source;
         }
-        if ($scope.seach_data.level != '全部') {
+
+        if ($scope.seach_data.level == '全部') {
+            params_data.level = 'all';
+        }else if($scope.seach_data.level == '暂缺'){
+            params_data.level = '';
+        }else {
             params_data.level = $scope.seach_data.level;
         }
+
         $http({
             method: "get",
             url: "/vehicleintelligence/special-intelligence-list",
@@ -369,13 +383,10 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                     }
 
                 });
-
-
                 //datas.data[0].label_name = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18']
 
                 $scope.pages = datas;
 
-                // console.log($scope.pages)
             },
             function () {}
         );

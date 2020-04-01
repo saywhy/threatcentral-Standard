@@ -904,6 +904,30 @@ button:active {
   cursor: pointer;
 }
 
+.pagination_info {
+  padding: 0px;
+  position: relative;
+  height:60px;
+  text-align: right;
+}
+
+.leave_page{
+  display: inline-block;
+  margin: 24px 24px 24px 0;
+  vertical-align: top;
+}
+.leave_page_num{
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  color: #606266;
+  width: 40px;
+  margin: 0 8px;
+  text-align: center;
+}
+
+.pagination{
+  display: inline-block;
+}
 
 /*****************************CVE*******************************/
 

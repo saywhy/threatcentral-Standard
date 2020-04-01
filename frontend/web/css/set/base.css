@@ -663,11 +663,9 @@ select {
     position: relative;
     height:60px;
     text-align: right;
-    border:1px solid red;
 }
 
 .leave_page{
-    display: inline-block;
     display: inline-block;
     margin: 24px 24px 24px 0;
     vertical-align: top;

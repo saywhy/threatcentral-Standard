@@ -19,7 +19,7 @@ $this->title = '基础情报管理';
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
                 <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
                     ng-blur="search_blur('level');" class="search_input" readonly>
-                <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0">
+                <ul class="select_list_box" ng-if="search_box_ul.level" style="height:170px;margin:0">
                     <li ng-mousedown="search_choose_item(item.status,'level');"
                         ng-repeat="item in search_level track by $index">
                         {{item.status}}
@@ -76,7 +76,7 @@ $this->title = '基础情报管理';
             <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
         </p>
         <div class="pagination_info">
-            <p class="leave_page" ng-if="pages.pageNow>1">前往<input type="number" class="leave_page_num" ng-model="page_num"
+            <p class="leave_page" ng-show="pages.maxPage>1">前往<input type="number" class="leave_page_num" ng-model="page_num"
             ng-blur="get_page(page_num)">页</p>
             <ul class="pagination pagination-sm ng-cloak" style="margin-right:36px;">
                 <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-if="pages.pageNow>1">上一页</a>

@@ -104,7 +104,9 @@ $this->title = '行业情报';
         </li>
       </ul>
 
-      <div style="padding: 0px; position: relative;height:60px;">
+      <div class="pagination_info">
+        <p class="leave_page" ng-show="pages.maxPage>1">前往<input type="number" class="leave_page_num" ng-model="page_num"
+                  ng-blur="get_page(page_num)">页</p>
         <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
           <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-if="pages.pageNow>1">上一页</a>
           </li>
