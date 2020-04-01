@@ -985,32 +985,24 @@ myApp.filter('labelNull',function(){
     }
 });
 
-/*无用代码*/
-myApp.directive('onBlankHide',function(){
+myApp.directive("inputLimit",function () {
     return{
         restrict:'A',
-        link: function(scope,element,attr){
-
-            console.log(element);
-
-            element.on('click',function (e) {
-
-                console.log(scope.label_category_select.status)
-                //e.stopPropagation();
-                scope.label_category_select.status = false;
-            })
-            element.on('click',function(e){
-                //阻止底层冒泡
-                e.stopPropagation();
-                angular.element('#'+scope.pop).show();
+        scope:{
+            model : '=ngModel'
+        },
+        link:function (scope,elm,attrs) {
+            scope.$watch('model',  function(newValue, oldValue) {
+                if(newValue == undefined){
+                    scope.model ='';
+                }else{
+                    if(scope.model.length > Number(attrs.inputLimit)){
+                        scope.model = oldValue;
+                        return false;
+                    }
+                }
             });
-            angular.element('body').click(function(){
-                angular.element('#'+scope.pop).hide();
-            });
-            angular.element('#'+scope.pop).click(function(e){
-                //阻止底层冒泡
-                e.stopPropagation();
-            })
         }
     }
 });
+
