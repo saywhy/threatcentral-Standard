@@ -85,11 +85,10 @@ $this->title = '漏洞情报管理';
       <tr class="loophole_table_tr">
         <th></th>
         <th>情报标题</th>
-        <th>情报摘要</th>
         <th>情报来源</th>
-        <th class="tag_th">标签类型</th>
-        <th class="th_time">获取时间</th>
-        <th>状态</th>
+        <th class="tag_th">标签</th>
+        <th  style="width:150px" class="th_time">公开日期</th>
+        <th style="width:100px">状态</th>
         <th class="td_operation th_id">操作</th>
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
@@ -100,20 +99,18 @@ $this->title = '漏洞情报管理';
           <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
         </td>
         <td>
-          <span ng-bind="item.title"> </span>
+          <span ng-bind="item.title"  ng-attr-title="{{item.detail}}"  ng-click="edit_loop_box(item)"> </span>
         </td>
-        <td ng-bind="item.detail"></td>
         <td ng-bind="item.sourse"></td>
-        <td>
+        <td ng-attr-title="{{item.label_title}}">
           <button class="btn_loophole" ng-repeat="it in item.label_name">
             {{it}}
             <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
           </button>
         </td>
-        <td>{{item.open_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
-        <td>{{item.status=='0'? '未发布':'已发布'}}</td>
+        <td style="width:150px">{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:100px">{{item.status=='0'? '未发布':'已发布'}}</td>
         <td class="td_operation th_id">
-
     <img class="set_img_icon" ng-if="item.status=='0'"
           ng-click="release(item.id,'1')" title="发布" src="/images/set/sq_release_i.png" alt="" alt="">
           <img class="set_img_icon" ng-if="item.status!='0'" title="发布" src="/images/set/sq_release_o.png" alt="" alt="">
@@ -199,7 +196,7 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
-              <input class="item_right_input" type="text" placeholder="请选择公开日期" id="start_time_picker" readonly>
+              <input class="item_right_input" type="text" placeholder="请选择公开日期" id="start_time_picker" >
             </div>
           </div>
           <!-- 情报来源 -->
@@ -431,7 +428,7 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
-              <input class="item_right_input" type="text" placeholder="请选择公开日期" id="picker_edit" readonly>
+              <input class="item_right_input" type="text" placeholder="请选择公开日期" id="picker_edit" >
             </div>
           </div>
           <!-- 情报来源 -->

@@ -106,7 +106,7 @@ $this->title = '行业情报管理';
             <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
           </button>
         </td>
-        <td style="width:120px">{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:120px">{{item.publish_time_b =='0' ?'': item.publish_time_b*1000 | date : 'yyyy-MM-dd'}}</td>
         <td style="width:80px">{{item.status=='0'? '未发布':'已发布'}}</td>
         <td class="td_operation th_id">
           <img class="set_img_icon" ng-if="item.status=='0'"
@@ -198,7 +198,7 @@ $this->title = '行业情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
-              <input class="item_right_input" type="text" placeholder="请选择发现时间" id="start_time_picker" readonly>
+              <input class="item_right_input" type="text" placeholder="请选择发现时间" id="start_time_picker">
             </div>
           </div>
           <div class="contnet_item">
@@ -423,7 +423,7 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
               <img src="/images/set/loop_icon_7.png" ng-attr-title={{edit_item.publish_time}}  alt="" class="item_left_time_icon">
-              <input class="item_right_input" type="text" placeholder="请选择发现时间" id="picker_edit" readonly>
+              <input class="item_right_input" type="text" placeholder="请选择发现时间" id="picker_edit">
             </div>
           </div>
           <div class="contnet_item">

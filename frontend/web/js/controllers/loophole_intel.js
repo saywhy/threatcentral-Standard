@@ -149,35 +149,44 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     };
     // 初始化时间
     $scope.start_time_picker = function () {
-        $('#start_time_picker').val('');
+        $scope.add_item.first_seen_time = ''
+        // $('#start_time_picker').val('');
         $("#start_time_picker").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                drops: "down",
-                opens: "center",
                 autoUpdateInput: false,
                 locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm"
-                }
+                    "format": 'YYYY-MM-DD',
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "customRangeLabel": "自定义",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                ranges: {
+                    '今日': [moment()],
+                },
+                singleDatePicker: true,
+                showDropdowns: true,
+                "timePicker": false,
+                timePickerSeconds: false,
+                drops: "down",
+                opens: "right",
+                autoApply: true
             },
             function (start, end, label) {
-                $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
                 $scope.add_item.first_seen_time = start.unix()
-            }
-        ).on('cancel.daterangepicker', function (ev, picker) {}).on('apply.daterangepicker', function (ev, picker) {
-            $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
-            console.log(ev.timeStamp);
-            if ($scope.add_item.first_seen_time == '') {
-                $('#start_time_picker').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD HH:mm:ss'));
-                $scope.add_item.first_seen_time = parseInt(ev.timeStamp / 1000)
-            } else {
-                $('#start_time_picker').val(moment(new Date($scope.add_item.first_seen_time * 1000)).format('YYYY-MM-DD HH:mm:ss'));
-            }
+            },
+        )
+        $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD'));
+            $scope.add_item.first_seen_time = picker.startDate.unix()
         });
+        $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
+            $scope.add_item.first_seen_time = ''
+            $('#start_time_picker').val('');
+        });
+
     };
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
@@ -229,23 +238,50 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
 
     $scope.picker_edit = function (startDate) {
         $("#picker_edit").daterangepicker({
+                locale: {
+                    "format": 'YYYY-MM-DD',
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "weekLabel": "W",
+                    "customRangeLabel": "自定义",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                ranges: {
+                    '今日': [moment()],
+                },
                 singleDatePicker: true,
                 showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
+                "timePicker": false,
+                timePickerSeconds: false,
                 drops: "down",
-                opens: "center",
-                startDate: startDate,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
-                }
+                opens: "right",
             },
             function (start, end, label) {
                 $scope.edit_item.first_seen_time = start.unix()
-            }
-        );
+            },
+        )
+        if (startDate == '0') {
+            $scope.edit_item.first_seen_time = ''
+            $('#picker_edit').val('');
+            $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $scope.edit_item.first_seen_time = picker.startDate.unix()
+            });
+            $('#picker_edit').on('cancel.daterangepicker', function (ev, picker) {
+                $scope.edit_item.first_seen_time = ''
+                $('#picker_edit').val('');
+            });
+        } else {
+            console.log($scope.edit_item.first_seen_time);
+            $('#picker_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $scope.edit_item.first_seen_time = picker.startDate.unix()
+            });
+        }
     };
     // 获取情报来源
     $scope.get_loophole_source = function (source) {
@@ -336,6 +372,11 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                 console.log(data);
                 // zeroModal.close(loading);
                 $scope.pages = data.data;
+                angular.forEach($scope.pages.data, function (item) {
+                    if (item.label_name.length != 0) {
+                        item.label_title = item.label_name.join(',')
+                    }
+                })
                 if ($scope.get_page_show) {
                     angular.forEach($scope.pages.data, function (item) {
                         if (item.id == $scope.edit_item_data.id) {
@@ -345,7 +386,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                     $scope.enter_show = false;
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
-                    $scope.picker_edit(moment(new Date($scope.edit_item_str.open_time * 1000)));
                     console.log($scope.edit_item_str);
                     $scope.edit_item = {
                         id: $scope.edit_item_str.id,
@@ -378,6 +418,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                         treatment_measures: $scope.edit_item_str.treatment_measures,
                         exist: [],
                     }
+
                     switch ($scope.edit_item_str.level) {
                         case '高':
                             $scope.edit_item.level = '高危'
@@ -495,6 +536,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
                             icon: true
                         })
                     }
+                    $scope.picker_edit(moment(new Date($scope.edit_item_str.open_time * 1000)));
                     $scope.pop_show.edit = true;
                     $scope.get_page_show = false;
                 }
@@ -556,8 +598,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
     }
     // 情报录入-弹窗
     $scope.add_loop_box = function (item) {
-        $scope.start_time_picker();
-
         $scope.enter_show = false;
         $scope.pop_show.add = true;
         $scope.add_item = {
@@ -612,6 +652,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http, $filter) {
             }
             $scope.add_item.tag.push(obj)
         })
+        $scope.start_time_picker();
     };
     //   取消弹窗
     $scope.add_cancel = function () {

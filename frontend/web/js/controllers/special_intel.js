@@ -146,49 +146,45 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     // 初始化时间
     $scope.start_time_picker = function () {
-        $('#start_time_picker').val('');
-        console.log($scope.add_item.first_seen_time);
+        $scope.add_item.first_seen_time = ''
+        // $('#start_time_picker').val('');
         $("#start_time_picker").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                drops: "down",
-                opens: "center",
-                // startDate: null,
-                // endDate: null,
                 autoUpdateInput: false,
                 locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm"
-                }
+                    "format": 'YYYY-MM-DD',
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "customRangeLabel": "自定义",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                ranges: {
+                    '今日': [moment()],
+                },
+                singleDatePicker: true,
+                showDropdowns: true,
+                "timePicker": false,
+                timePickerSeconds: false,
+                drops: "down",
+                opens: "right",
+                autoApply: true
             },
             function (start, end, label) {
-                $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
                 $scope.add_item.first_seen_time = start.unix()
-            }
-        ).on('cancel.daterangepicker', function (ev, picker) {
-            console.log(11111);
-            // $("#date1").val("请选择日期");
-            // $("#submitDate").val("");
-        }).on('apply.daterangepicker', function (ev, picker) {
-            console.log(11212121);
-            $("#start_time_picker").data('daterangepicker').autoUpdateInput = true
-            // if ($scope.edit_item.first_seen_time == ev.timeStamp) {
-            // $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time)));
-            console.log(ev.timeStamp);
-            if ($scope.add_item.first_seen_time == '') {
-                $('#start_time_picker').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD HH:mm:ss'));
-                $scope.add_item.first_seen_time = parseInt(ev.timeStamp / 1000)
-            } else {
-                $('#start_time_picker').val(moment(new Date($scope.add_item.first_seen_time * 1000)).format('YYYY-MM-DD HH:mm:ss'));
-            }
+            },
+        )
+        $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD'));
+            $scope.add_item.first_seen_time = picker.startDate.unix()
         });
-
+        $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
+            $scope.add_item.first_seen_time = ''
+            $('#start_time_picker').val('');
+        });
     };
     $scope.picker_search = function () {
-
         $("#picker_search").daterangepicker({
                 autoUpdateInput: false,
                 'locale': {
@@ -237,75 +233,51 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     $scope.picker_edit = function (startDate) {
         console.log(startDate);
-        if (startDate == '0') {
-            $('#picker_edit').val('');
-            $('#picker_edit').siblings().click(function () {
-                $('#picker_edit').val('');
-            })
-            // console.log($scope.edit_item.first_seen_time);
-            $("#picker_edit").daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true,
-                    timePicker: true,
-                    timePicker24Hour: true,
-                    drops: "down",
-                    opens: "center",
-                    autoUpdateInput: false,
-                    locale: {
-                        applyLabel: "确定",
-                        cancelLabel: "取消",
-                        format: "YYYY-MM-DD HH:mm:ss"
-                    }
+        $("#picker_edit").daterangepicker({
+                locale: {
+                    "format": 'YYYY-MM-DD',
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "weekLabel": "W",
+                    "customRangeLabel": "自定义",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
                 },
-                function (start, end, label) {
-                    console.log(888888);
-                    $("#picker_edit").data('daterangepicker').autoUpdateInput = true
-                    $scope.edit_item.first_seen_time = start.unix()
-                    console.log($scope.edit_item.first_seen_time);
-                }
-            ).on('cancel.daterangepicker', function (ev, picker) {
-                console.log(11111);
-                // $("#date1").val("请选择日期");
-                // $("#submitDate").val("");
-            }).on('apply.daterangepicker', function (ev, picker) {
-                console.log(11212121);
-                $("#picker_edit").data('daterangepicker').autoUpdateInput = true
-                // if ($scope.edit_item.first_seen_time == ev.timeStamp) {
-                // $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time)));
-                console.log(ev.timeStamp);
-                console.log($scope.edit_item.first_seen_time);
-                if ($scope.edit_item.first_seen_time == 0) {
-                    $('#picker_edit').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD HH:mm:ss'));
-                    $scope.edit_item.first_seen_time = parseInt(ev.timeStamp / 1000)
-                } else {
-                    $('#picker_edit').val(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD HH:mm:ss'));
-                }
-                // $('#picker_edit').val(moment(new Date(ev.timeStamp)).format('YYYY-MM-DD'));
-                // }
-                // $("#submitDate").val(picker.startDate.format('YYYY-MM-DD'));
-                // $("#date1").val(picker.startDate.format('YYYY-MM-DD'));
+                ranges: {
+                    '今日': [moment()],
+                },
+                singleDatePicker: true,
+                showDropdowns: true,
+                "timePicker": false,
+                timePickerSeconds: false,
+                drops: "down",
+                opens: "right",
+            },
+            function (start, end, label) {
+                $scope.edit_item.first_seen_time = start.unix()
+            },
+        )
+        if (startDate == '0') {
+            $scope.edit_item.first_seen_time = ''
+            $('#picker_edit').val('');
+            $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $scope.edit_item.first_seen_time = picker.startDate.unix()
+            });
+            $('#picker_edit').on('cancel.daterangepicker', function (ev, picker) {
+                $scope.edit_item.first_seen_time = ''
+                $('#picker_edit').val('');
             });
         } else {
-            $("#picker_edit").daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true,
-                    timePicker: true,
-                    timePicker24Hour: true,
-                    drops: "down",
-                    opens: "center",
-                    startDate: startDate,
-                    locale: {
-                        applyLabel: "确定",
-                        cancelLabel: "取消",
-                        format: "YYYY-MM-DD HH:mm:ss"
-                    }
-                },
-                function (start, end, label) {
-                    $scope.edit_item.first_seen_time = start.unix()
-                }
-            ).on('cancel.daterangepicker', function (ev, picker) {}).on('apply.daterangepicker', function (ev, picker) {});
+            console.log($scope.edit_item.first_seen_time);
+            $('#picker_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $scope.edit_item.first_seen_time = picker.startDate.unix()
+            });
         }
-
     };
     // 获取情报来源
     $scope.get_loophole_source = function (source) {
@@ -416,14 +388,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.edit_item_data.detail = $scope.edit_item_data.detail.replace(/[\r\n]/g, "");;
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
-                    // $scope.edit_item_str.publish_time = 0;
-                    console.log($scope.edit_item_str.publish_time);
+
                     if ($scope.edit_item_str.publish_time == 0) {
                         $scope.edit_item_str.publish_time = '无原始情报时间'
+                        console.log('无原始情报时间');
                     } else {
+                        console.log('有原始情报时间');
                         $scope.edit_item_str.publish_time = $filter("date")($scope.edit_item_str.publish_time * 1000, "yyyy-MM-dd");
                     }
-
                     $scope.edit_item = {
                         id: $scope.edit_item_str.id,
                         title: $scope.edit_item_str.title,
@@ -568,8 +540,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         })
                     }
                     $scope.pop_show.edit = true;
-                    console.log($scope.edit_item.first_seen_time);
-                    // $scope.edit_item.first_seen_time = 0
                     if ($scope.edit_item.first_seen_time == 0) {
                         $scope.picker_edit('0')
                     } else {
@@ -734,7 +704,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             default:
                 break;
         }
-        if ($scope.add_item.first_seen_time == '') {
+        if ($scope.add_item.first_seen_time == '' || $('#start_time_picker').val() == '') {
             zeroModal.error('请输入发现时间')
             return false
         }
@@ -869,11 +839,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         console.log(item);
     };
     $scope.edit_sure = function () {
+
+        console.log($('#picker_edit').val());
+        console.log($scope.edit_item.first_seen_time);
         if ($scope.edit_item.title == '') {
             zeroModal.error('请输入标题')
             return false
         }
-        if ($scope.edit_item.first_seen_time == 0 || $scope.edit_item.first_seen_time == '') {
+        if ($scope.edit_item.first_seen_time == 0 || $scope.edit_item.first_seen_time == '' || $('#picker_edit').val() == '') {
             zeroModal.error('请输入发现时间')
             return false
         }
