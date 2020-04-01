@@ -91,7 +91,7 @@ $this->title = '漏洞情报';
   </p>
 
   <div class="loophole_table_content">
-    <table class="table table-striped ng-cloak">
+    <table class="table table-striped table-bordered ng-cloak">
       <tr class="loophole_table_tr">
         <th style="padding-left:48px;">漏洞标题</th>
         <th>漏洞描述</th>
