@@ -191,4 +191,11 @@ input:focus {
   border-top: 3px solid #0070ff;
   border-radius: 4px;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 
+input[type="number"] {
+  -moz-appearance: textfield;
+}

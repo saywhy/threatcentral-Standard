@@ -37,6 +37,8 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
 
         $scope.picker_search();
 
+        $scope.page_num = 10;
+
         $scope.get_page();
     }
 
@@ -156,6 +158,16 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
 
         var loading = zeroModal.loading(4);
 
+        if(pageNow < 1){
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
+        if($scope.pages && pageNow > $scope.pages.maxPage){
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
         pageNow = pageNow ? pageNow : 1;
         // var loading = zeroModal.loading(4);
         var params_data = JSON.stringify($scope.seach_data);
@@ -181,7 +193,6 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
             function (data) {
                 zeroModal.close(loading);
                 console.log(data);
-
                 $scope.pages = data.data;
             },
             function () {}
