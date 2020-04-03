@@ -41,9 +41,9 @@ $this->title = '基础情报管理';
             <tr class="loophole_table_tr">
                 <th class="th_id" style="padding-left:40px;">CVEID</th>
                 <th class="td_detail">漏洞描述</th>
-                <th>发现时间</th>
-                <th>更新时间</th>
-                <th class="td_operation">查看原始情报</th>
+                <th style="width:100px;">发现时间</th>
+                <th style="width:100px;">更新时间</th>
+                <th style="width:120px;" class="td_operation">查看原始情报</th>
             </tr>
             <tr class="loophole_table_tr" ng-repeat="item in pages.data track by $index"
                 ng-click="detail(item)">
