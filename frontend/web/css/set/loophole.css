@@ -92,18 +92,6 @@ button:active {
   color: #fff;
 }
 
-.daterangepicker {
-  right: auto;
-  width: 260px;
-  padding-top: 10px;
-  transform: translateX(0);
-}
-
-.daterangepicker td,
-.daterangepicker th {
-  padding: 1px !important;
-}
-
 .time_icon {
   width: 20px;
   height: 20px;
@@ -296,26 +284,6 @@ select {
   border-radius: 4px;
 }
 
-.daterangepicker.dropdown-menu {
-  z-index: 99999;
-}
-
-
-.daterangepicker {
-  width: auto;
-  padding-top: 10px;
-  transform: translateX(0);
-}
-
-.daterangepicker .calendar th,
-.daterangepicker .calendar td {
-  width: auto;
-}
-
-.daterangepicker td.active,
-.daterangepicker td.active:hover {
-  background-color: #0070ff;
-}
 
 .btn-success,
 .btn-success:active:focus {
@@ -342,10 +310,6 @@ select {
   width: 100px;
 }
 
-.daterangepicker .input-mini.active {
-  border: 1px solid #0070ff;
-  border-radius: 4px;
-}
 
 .tag_list_box {
   position: absolute;

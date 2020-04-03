@@ -14,6 +14,11 @@ $this->title = '基础情报管理';
                 <input type="text" class="intel_search_input" ng-keyup="search_keyup($event)"
                     placeholder="漏洞关键字" ng-model="seach_data.key_word">
             </div>
+              <!-- 发现时间 -->
+            <div class="intel_search_time ">
+                 <img src="/images/report/time.png" class="time_icon_search" alt="">
+          <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="发现时间">
+            </div>
             <!-- 漏洞级别 -->
             <div class="search_input_box">
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
@@ -25,11 +30,6 @@ $this->title = '基础情报管理';
                         {{item.status}}
                     </li>
                 </ul>
-            </div>
-            <!-- 发现时间 -->
-            <div class="intel_search_time ">
-                <img src="/images/report/time.png" class="time_icon_search" alt="">
-                <input class="input_box" id="picker_search" readonly type="text" placeholder="发现时间">
             </div>
             <button class="button_search" ng-click="get_page()">搜索</button>
         </div>
