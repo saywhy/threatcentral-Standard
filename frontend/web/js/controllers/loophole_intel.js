@@ -695,7 +695,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $( '#label_auto_complate_'+index ).autocomplete({
                     appendTo:'.tag_item_'+index,
                     source: new_label,
-                    delay:500,
+                    delay: 100,
                     max: 10,
                     minLength : 0,
                     autoFill:true,
@@ -703,30 +703,29 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
                     },
+                    change: function( event, ui ) {
+                        let length = $scope.add_item.tag[index].label_id_attr.length;
+                         if(length == 0){
+                             $(this).val('');
+                             zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                             return false;
+                         }
+                    },
                     search: function( event, ui ) {
                         //console.log('search')
                         $scope.add_item.tag[index].label_id_attr = [];
                         $scope.add_item.tag[index].name = '';
                     },
                 }).focus(function() {
-                    console.log('focus')
+                    $(this).val('');
+                    $scope.add_item.tag[index].label_id_attr = [];
+                    $scope.add_item.tag[index].name = '';
                     $(this).autocomplete("search", "");
                     return false;
-                }).blur(function () {
-
-                    let length =  $scope.add_item.tag[index].label_id_attr.length;
-                    if(length == 0){
-                        console.log('blur')
-                        $(this).val('');
-                        zeroModal.error('您未选中下拉列表，请选择！');
-                        return false;
-                    }
                 }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
                     return $( "<li>"  + item.label + "</li>" ).appendTo( ul );
                 };
-
             })
-
         },0)
     };
     //auto-complete初始化(编辑)
@@ -755,27 +754,24 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                         $scope.edit_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.edit_item.tag[index].name = ui.item.label;
                     },
+                    change: function( event, ui ) {
+                        let length = $scope.edit_item.tag[index].label_id_attr.length;
+                        if(length == 0){
+                            $(this).val('');
+                            zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                            return false;
+                        }
+                    },
                     search: function( event, ui ) {
-                        //console.log('search')
                         $scope.edit_item.tag[index].label_id_attr = [];
                         $scope.edit_item.tag[index].name = '';
                     },
                 }).focus(function() {
-                    console.log('focus')
                     $(this).val('');
                     $scope.edit_item.tag[index].label_id_attr = [];
                     $scope.edit_item.tag[index].name = '';
                     $(this).autocomplete("search", "");
                     return false;
-                }).blur(function () {
-
-                    let length = $scope.edit_item.tag[index].label_id_attr.length;
-                    if(length == 0){
-                        console.log('blur')
-                        $(this).val('');
-                        zeroModal.error('您未选中下拉列表，请选择！');
-                        return false;
-                    }
                 }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
                     return $( "<li>"  + item.label + "</li>" ).appendTo( ul );
                 };
@@ -783,7 +779,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             })
 
         },0)
-    }
+    };
 
     //   取消弹窗
     $scope.add_cancel = function () {
@@ -800,7 +796,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         var params_edit = {
             label_id_attr: []
         }
-
         if ($scope.add_item.title == '') {
             zeroModal.error('请输入标题')
             return false
@@ -868,7 +863,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
         params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
 
-        console.log(params_edit.label_id_attr)
+        //console.log(params_edit.label_id_attr)
 
         $http({
             method: "post",
@@ -1246,6 +1241,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     icon: true,
                     label_id_attr:[]
                 })
+
+                $scope.init_auto_complete();
                 break;
             default:
                 break;
@@ -1293,6 +1290,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.add_item.tag[index].label_id_attr = [];
                 } else {
                     $scope.add_item.tag.splice(index, 1);
+                    $scope.init_auto_complete();
                 }
                 break;
             default:
@@ -1505,6 +1503,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     icon: true,
                     label_id_attr:[]
                 })
+                $scope.init_edit_complete();
                 break;
             default:
                 break;
@@ -1552,6 +1551,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.edit_item.tag[index].label_id_attr = [];
                 } else {
                     $scope.edit_item.tag.splice(index, 1);
+                    $scope.init_edit_complete();
                 }
                 break;
             default:
