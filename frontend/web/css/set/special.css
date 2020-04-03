@@ -670,6 +670,13 @@ select {
   top: 12px;
 }
 
+.item_right_time_icon_cancel {
+  position: absolute;
+  right: 36px;
+  width: 16px;
+  top: 14px;
+}
+
 .item_left_time_icon {
   position: absolute;
   left: 10px;
@@ -826,4 +833,49 @@ select {
 .btn-primary:active,
 .btn-primary.hover {
   background-color: #0070FF
+}
+
+pre {
+  height: 42px;
+  overflow: hidden;
+  padding: 5px 10px 5px;
+  border: none;
+  white-space: pre-wrap;
+  /*css-3*/
+  white-space: -moz-pre-wrap;
+  /*Mozilla,since1999*/
+  white-space: -pre-wrap;
+  /*Opera4-6*/
+  white-space: -o-pre-wrap;
+  /*Opera7*/
+  word-wrap: break-word;
+  /*InternetExplorer5.5+*/
+}
+
+.string {
+  color: #666;
+}
+
+.number {
+  color: darkorange;
+}
+
+.boolean {
+  color: blue;
+}
+
+.null {
+  color: magenta;
+}
+
+.key {
+  color: #71A13F;
+}
+
+th {
+  border-right: 1px solid #ececec;
+}
+
+th:nth-last-child(1) {
+  border: none;
 }

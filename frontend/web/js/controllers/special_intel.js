@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ["ngSanitize"]);
 myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.init = function () {
         $scope.searchTime = {
@@ -151,7 +151,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $("#start_time_picker").daterangepicker({
                 autoUpdateInput: false,
                 locale: {
-                    "format": 'YYYY-MM-DD',
+                    "format": 'YYYY/MM/DD',
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
                     "customRangeLabel": "自定义",
@@ -169,14 +169,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 timePickerSeconds: false,
                 drops: "down",
                 opens: "right",
-                autoApply: true
             },
             function (start, end, label) {
                 $scope.add_item.first_seen_time = start.unix()
             },
         )
         $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('YYYY-MM-DD'));
+            $(this).val(picker.startDate.format('YYYY/MM/DD'));
             $scope.add_item.first_seen_time = picker.startDate.unix()
         });
         $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
@@ -188,7 +187,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $("#picker_search").daterangepicker({
                 autoUpdateInput: false,
                 'locale': {
-                    "format": 'YYYY-MM-DD',
+                    "format": 'YYYY/MM/DD',
                     "separator": " - ",
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
@@ -223,7 +222,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             },
         )
         $('#picker_search').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
         });
         $('#picker_search').on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
@@ -235,7 +234,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         console.log(startDate);
         $("#picker_edit").daterangepicker({
                 locale: {
-                    "format": 'YYYY-MM-DD',
+                    "format": 'YYYY/MM/DD',
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
                     "weekLabel": "W",
@@ -262,7 +261,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             $scope.edit_item.first_seen_time = ''
             $('#picker_edit').val('');
             $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
-                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $(this).val(picker.startDate.format('YYYY/MM/DD'));
                 $scope.edit_item.first_seen_time = picker.startDate.unix()
             });
             $('#picker_edit').on('cancel.daterangepicker', function (ev, picker) {
@@ -271,14 +270,24 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             });
         } else {
             console.log($scope.edit_item.first_seen_time);
-            $('#picker_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD'));
-            $('#picker_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY/MM/DD'));
+            $('#picker_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY/MM/DD'));
             $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
-                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $(this).val(picker.startDate.format('YYYY/MM/DD'));
                 $scope.edit_item.first_seen_time = picker.startDate.unix()
             });
         }
     };
+
+    $scope.picker_edit_cancel = function () {
+        $scope.edit_item.first_seen_time = ''
+        $('#picker_edit').val('');
+    }
+    $scope.picker_add_cancel = function () {
+        $scope.add_item.first_seen_time = ''
+        $('#start_time_picker').val('');
+    }
+
     // 获取情报来源
     $scope.get_loophole_source = function (source) {
         source = source ? source : '';
@@ -372,6 +381,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
                 console.log($scope.pages);
+                $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
                     if (item.label_name.length != 0) {
                         item.label_title = item.label_name.join(',')
@@ -401,9 +411,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         title: $scope.edit_item_str.title,
                         level: '',
                         link: $scope.edit_item_str.link,
-                        original_intelligence: $scope.edit_item_str.data,
+                        type: $scope.edit_item_str.type,
+                        // original_intelligence: $scope.edit_item_str.original_intelligence,
+                        original_intelligence_auto: '',
+                        original_intelligence_manual: '',
                         original_intelligence_cn: '',
-                        original_intelligence_more: $scope.edit_item_str.data,
+                        original_intelligence_more: '',
                         level_list: [{
                                 name: '高危',
                                 num: '高危'
@@ -429,6 +442,21 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         publish_time_b: '',
                         publish_time: $scope.edit_item_str.publish_time,
                         exist: [],
+                    }
+                    // console.log(JSON.parse($scope.edit_item_str.original_intelligence, null, 2));
+                    // console.log($scope.edit_item.original_intelligence);
+
+                    function escape2Html(str) {
+                        var arrEntities = {
+                            'lt': '<',
+                            'gt': '>',
+                            'nbsp': ' ',
+                            'amp': '&',
+                            'quot': '"'
+                        };
+                        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+                            return arrEntities[t];
+                        });
                     }
                     switch ($scope.edit_item_str.level) {
                         case '高':
@@ -460,14 +488,24 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                             icon: true
                         });
                     }
-                    if ($scope.edit_item.original_intelligence) {
-                        if ($scope.edit_item.original_intelligence.length > 25) {
-                            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
-                        } else {
-                            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+                    // 原始情报
+                    if ($scope.edit_item_str.original_intelligence && $scope.edit_item_str.original_intelligence != '') {
+                        // 手动
+                        if ($scope.edit_item.type == 'manual') {
+                            $scope.edit_item.original_intelligence_manual = $scope.edit_item_str.original_intelligence
+                            $scope.edit_item.original_intelligence_more = $scope.edit_item_str.original_intelligence
+                            if ($scope.edit_item.original_intelligence_manual.length > 55) {
+                                $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual.substring(0, 55) + '...';
+                            } else {
+                                $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual
+                            }
                         }
-                    } else {
-                        $scope.edit_item.original_intelligence = ''
+                        // 自动  manual  auto
+                        if ($scope.edit_item.type == 'auto') {
+                            $scope.edit_item.original_intelligence_auto = $scope.JsonFormat(
+                                JSON.parse(escape2Html(unescape($scope.edit_item_str.original_intelligence.replace(/\\u/g, "%u"))))
+                            )
+                        }
                     }
                     // 匹配标签
                     angular.forEach(JSON.parse($scope.edit_item_str.label_id), function (item, index) {
@@ -550,6 +588,28 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             },
             function () {}
         );
+    }
+    // 转化json格式
+    $scope.JsonFormat = function (json) {
+        if (typeof json != 'string') {
+            json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/\\n\\r/g, '<br>');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
     }
 
     //=---- 修改搜索框
@@ -683,6 +743,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     // 添加录入情报
     $scope.add_sure = function () {
         console.log($scope.add_item);
+
+        console.log($('#start_time_picker').val());
+        if ($('#start_time_picker').val() != '') {
+            $scope.add_item.first_seen_time = moment($('#start_time_picker').val()).unix()
+        }
         if ($scope.add_item.title == '') {
             zeroModal.error('请输入标题')
             return false
@@ -747,10 +812,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 nvd: $scope.NVD_Array_cn,
                 reference_information: $scope.add_item.reference_information,
                 original_intelligence: $scope.add_item.original_intelligence,
-                label_id: {
-                    exist: $scope.add_item.exist,
-                    unexist: []
-                }
+                label_id: $scope.add_item.exist
             }
         }).then(
             function (data) {
@@ -835,12 +897,17 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_loop_box = function (item) {
         $scope.get_page_show = true;
         $scope.edit_item_data = item;
+        $scope.pop_show.edit_old_box = true;
+        $scope.edit_auto_box = true;
         $scope.get_lab_list();
         console.log(item);
     };
     $scope.edit_sure = function () {
 
         console.log($('#picker_edit').val());
+        if ($('#picker_edit').val() != '') {
+            $scope.edit_item.first_seen_time = moment($('#picker_edit').val()).unix()
+        }
         console.log($scope.edit_item.first_seen_time);
         if ($scope.edit_item.title == '') {
             zeroModal.error('请输入标题')
@@ -858,7 +925,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         var params_edit = {
             level: '',
             nvd: [],
-            label_name: []
+            label_id: []
         }
         switch ($scope.edit_item.level) {
             case '高危':
@@ -890,17 +957,15 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.params_edit_cn = $scope.arrayUnique2(params_edit.nvd, 'id')
         angular.forEach($scope.edit_item.tag, function (item, index) {
             if (item.name != '') {
-                params_edit.label_name.push(item.name)
+                params_edit.label_id.push(item.id * 1)
             }
         })
         var loading = zeroModal.loading(4);
         console.log($scope.edit_item);
         console.log($scope.edit_item.first_seen_time);
 
-        $http({
-            method: "put",
-            url: "/seting/special-intelligence-edit",
-            data: {
+        if ($scope.edit_item.type == 'auto') {
+            var params = {
                 id: $scope.edit_item.id,
                 title: $scope.edit_item.title,
                 level: params_edit.level,
@@ -908,11 +973,29 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 sourse: $scope.edit_item.sourse,
                 link: $scope.edit_item.link,
                 detail: $scope.edit_item.detail,
-                original_intelligence: $scope.edit_item.original_intelligence,
                 reference_information: $scope.edit_item.reference_information,
                 nvd: $scope.params_edit_cn,
-                label_name: params_edit.label_name,
+                label_id: params_edit.label_id,
             }
+        } else {
+            var params = {
+                id: $scope.edit_item.id,
+                title: $scope.edit_item.title,
+                level: params_edit.level,
+                publish_time_b: $scope.edit_item.first_seen_time,
+                sourse: $scope.edit_item.sourse,
+                link: $scope.edit_item.link,
+                detail: $scope.edit_item.detail,
+                original_intelligence: $scope.edit_item.original_intelligence_manual,
+                reference_information: $scope.edit_item.reference_information,
+                nvd: $scope.params_edit_cn,
+                label_id: params_edit.label_id,
+            }
+        }
+        $http({
+            method: "put",
+            url: "/seting/special-intelligence-edit",
+            data: params
         }).then(
             function (data) {
                 zeroModal.close(loading);
@@ -1500,7 +1583,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.original_blur = function () {
         $scope.pop_show.add_original_input = false;
         if ($scope.add_item.original_intelligence.length > 20) {
-            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence.substring(0, 25) + '...';
+            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence.substring(0, 55) + '...';
         } else {
             $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence
         }
@@ -1519,7 +1602,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.pop_show.add_old_box = false;
         setTimeout(function () {
             var textarea = document.getElementById('text');
-            console.log($scope.add_item.original_intelligence);
             if ($scope.add_item.original_intelligence == '') {
                 textarea.style.height = '42px';
                 $('.pickup_box')[0].style.height = '42px';
@@ -1532,8 +1614,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.pickup = function () {
         $scope.pop_show.add_old_box = true;
         $scope.pop_show.add_original_input = false;
-        if ($scope.add_item.original_intelligence.length > 20) {
-            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence.substring(0, 25) + '...';
+        if ($scope.add_item.original_intelligence.length > 55) {
+            $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence.substring(0, 55) + '...';
         } else {
             $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence
         }
@@ -1541,10 +1623,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     // 编辑原始情报信息 展开 折叠
     $scope.edit_original_blur = function () {
         $scope.pop_show.edit_original_input = false;
-        if ($scope.edit_item.original_intelligence.length > 25) {
-            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+        if ($scope.edit_item.original_intelligence_manual.length > 55) {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual.substring(0, 55) + '...';
         } else {
-            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual
         }
     }
     $scope.edit_original_focus = function () {
@@ -1567,12 +1649,29 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.edit_pickup = function () {
         $scope.pop_show.edit_old_box = true;
         $scope.pop_show.edit_original_input = false;
-        if ($scope.edit_item.original_intelligence.length > 25) {
-            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence.substring(0, 25) + '...';
+        if ($scope.edit_item.original_intelligence_manual.length > 55) {
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual.substring(0, 55) + '...';
         } else {
-            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence
+            $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual
         }
     }
+
+    // 获取的展开
+    $scope.edit_auto_more = function () {
+        $scope.edit_auto_box = false
+        $('#pre_box').css({
+            height: 'auto'
+        })
+    }
+    // 获取的收起
+    $scope.edit_auto_pickup = function () {
+        $scope.edit_auto_box = true;
+        $('#pre_box').css({
+            height: '42px'
+        })
+    }
+
+
     // nvd 增加
     $scope.add_nvd_change = function (name) {
         $scope.get_nvd(name)

@@ -723,7 +723,7 @@ button:active {
   background: #F8F8F8;
   border-radius: 8px;
   position: fixed;
-  top:calc((100vh - 656px)/2 + 64px);
+  top: calc((100vh - 656px)/2 + 64px);
   left: 50%;
   transform: translateX(-50%);
 }
@@ -899,7 +899,8 @@ button:active {
   border-radius: 4px;
 }
 
-.info_mation_nvd, .info_mation_nvd:hover{
+.info_mation_nvd,
+.info_mation_nvd:hover {
   color: #0070FF;
   cursor: pointer;
 }
@@ -907,16 +908,17 @@ button:active {
 .pagination_info {
   padding: 0px;
   position: relative;
-  height:60px;
+  height: 60px;
   text-align: right;
 }
 
-.leave_page{
+.leave_page {
   display: inline-block;
   margin: 24px 24px 24px 0;
   vertical-align: top;
 }
-.leave_page_num{
+
+.leave_page_num {
   border: 1px solid #dcdfe6;
   border-radius: 4px;
   color: #606266;
@@ -925,36 +927,39 @@ button:active {
   text-align: center;
 }
 
-.pagination{
+.pagination {
   display: inline-block;
 }
 
 /*****************************CVE*******************************/
 
 
-#vehicle_loophole_nvd{
+#vehicle_loophole_nvd {
   padding-left: 20px;
   padding-right: 4px;
   margin-top: 30px;
 }
 
-.l_nvd_mid{
+.l_nvd_mid {
   border: 1px solid #ECECEC;
 }
-.l_nvd_mid .item{
+
+.l_nvd_mid .item {
   padding: 10px 10px;
 }
-.l_nvd_mid .item:nth-child(odd){
+
+.l_nvd_mid .item:nth-child(odd) {
   background: #fff;
 }
 
-.l_nvd_mid .item .i_img{
+.l_nvd_mid .item .i_img {
   display: inline-block;
   transform: scale(0.8);
   margin: 0 5px;
   vertical-align: sub;
 }
-.l_nvd_mid .item .title{
+
+.l_nvd_mid .item .title {
   width: 150px;
   color: #666;
   font-size: 14px;
@@ -962,16 +967,17 @@ button:active {
   display: inline-block;
   font-family: PingFangSC-Medium;
 }
-.l_nvd_mid .item .stance{
+
+.l_nvd_mid .item .stance {
   display: inline-block;
   font-family: PingFangSC-Regular;
 }
 
-.l_nvd_mid .item .stance.s_active{
+.l_nvd_mid .item .stance.s_active {
   color: #0070ff;
 }
 
-.l_nvd_mid .item .stance.s_content{
+.l_nvd_mid .item .stance.s_content {
   padding: 6px 0 0 32px;
   color: #666;
   font-size: 14px;
@@ -985,20 +991,22 @@ button:active {
   font-family: PingFangSC-Regular;
 }
 
-.l_nvd_mid .item .s_label{
+.l_nvd_mid .item .s_label {
   height: 34px;
   line-height: 34px;
   display: flex;
 }
-.l_nvd_mid .item .s_label .s_name{
+
+.l_nvd_mid .item .s_label .s_name {
   width: 100px;
 }
-.l_nvd_mid .item .s_label .s_lab{
+
+.l_nvd_mid .item .s_label .s_lab {
   flex: 1;
   font-size: 0;
 }
 
-.l_nvd_mid .item .s_label .s_lab .s_lab_val{
+.l_nvd_mid .item .s_label .s_lab .s_lab_val {
   color: #0070ff;
   font-size: 14px;
   border-radius: 4px;
@@ -1008,4 +1016,12 @@ button:active {
   border: 1px solid #0070ff;
   white-space: nowrap;
   overflow: hidden;
+}
+
+th {
+  border-right: 1px solid #ececec;
+}
+
+th:nth-last-child(1) {
+  border: none;
 }
