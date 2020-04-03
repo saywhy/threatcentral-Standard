@@ -28,18 +28,18 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
             status: '',
             label_id: [],
             key_word: '',
-            level: '',
+            level: '全部',
             startDate: '',
             endDate: ''
         };
 
         //情报级别
         $scope.search_level = [{
-                num: '',
-                status: '全部'
-            },
+            num: '全部',
+            status: '全部'
+        },
             {
-                num: '暂缺',
+                num: '',
                 status: '暂缺'
             },
             {
@@ -54,7 +54,7 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                 num: '低',
                 status: '低'
             }
-        ];
+        ]
         $scope.page_num = 1;
         $scope.pop_show = false;
         $scope.picker_search();

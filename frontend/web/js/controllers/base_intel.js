@@ -7,16 +7,16 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
         };
         $scope.seach_data = {
             key_word: '',
-            level: '',
+            level: '全部',
             startDate: '',
             endDate: '',
         };
         $scope.search_level = [{
-                num: '',
-                status: '全部'
-            },
+            num: '全部',
+            status: '全部'
+        },
             {
-                num: '暂缺',
+                num: '',
                 status: '暂缺'
             },
             {
@@ -176,13 +176,15 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
         var params_data = JSON.stringify($scope.seach_data);
         $scope.params_data = JSON.parse(params_data);
 
-        if ($scope.params_data.level == '全部') {
-            $scope.params_data.level = 'all';
-        }else if($scope.params_data.level == '暂缺'){
-            $scope.params_data.level = '';
-        }
+        let params_data_level = 'all';
 
-        //console.log($scope.params_data)
+        if ($scope.params_data.level == '全部') {
+            params_data_level = 'all';
+        }else if($scope.params_data.level == '暂缺'){
+            params_data_level = '';
+        }else {
+            params_data_level = $scope.params_data.level;
+        }
         $http({
             method: "get",
             url: "/seting/base-intelligence-list",
@@ -190,7 +192,7 @@ myApp.controller("baseIntelCtrl", function ($scope, $http, $filter) {
                 stime: $scope.params_data.startDate,
                 etime: $scope.params_data.endDate,
                 key_word: $scope.params_data.key_word,
-                level: $scope.params_data.level,
+                level: params_data_level,
                 page: pageNow,
                 rows: 10,
             }

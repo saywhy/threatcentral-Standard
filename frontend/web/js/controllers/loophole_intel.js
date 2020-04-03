@@ -12,7 +12,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             stauts: '',
             label_id: [],
             key_word: '',
-            level: 'all',
+            level: '全部',
             startDate: '',
             // startDate: moment().subtract(90, "days").unix(),
             // endDate: moment().unix(),
@@ -32,7 +32,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             }
         ]
         $scope.search_level = [{
-                num: 'all',
+                num: '全部',
                 status: '全部'
             },
             {
@@ -353,13 +353,11 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 break;
         }
 
-
         if ($scope.params_data.source == '全部') {
             $scope.params_data.source = ''
         }
 
         let params_data_level = 'all';
-
         if ($scope.params_data.level == '全部') {
             params_data_level = 'all';
         }else if($scope.params_data.level == '暂缺'){

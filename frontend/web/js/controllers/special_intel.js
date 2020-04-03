@@ -10,7 +10,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             stauts: '',
             label_id: [],
             key_word: '',
-            level: '',
+            level: '全部',
             startDate: '',
             endDate: '',
         };
@@ -28,8 +28,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         ]
         $scope.search_level = [{
+            num: '全部',
+            status: '全部'
+        },
+            {
                 num: '',
-                status: '全部'
+                status: '暂缺'
             },
             {
                 num: '高',
@@ -358,8 +362,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if ($scope.params_data.source == '全部') {
             $scope.params_data.source = ''
         }
+        let params_data_level = 'all';
         if ($scope.params_data.level == '全部') {
-            $scope.params_data.level = ''
+            params_data_level = 'all';
+        }else if($scope.params_data.level == '暂缺'){
+            params_data_level = '';
+        }else {
+            params_data_level = $scope.params_data.level;
         }
         var loading = zeroModal.loading(4);
         $http({
@@ -370,7 +379,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 etime: $scope.params_data.endDate,
                 sourse: $scope.params_data.source,
                 status: $scope.params_data.stauts,
-                level: $scope.params_data.level,
+                level: params_data_level,
                 label_id: JSON.stringify($scope.params_data.label_id),
                 key_word: $scope.params_data.key_word,
                 page: pageNow,
