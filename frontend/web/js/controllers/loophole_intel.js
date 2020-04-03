@@ -1836,4 +1836,18 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
     $scope.init();
 
+
+
+    document.onclick = function (e) {
+        if(e.target.className == 'zeromodal-overlay'){
+            zeroModal.closeAll();
+        }else if(e.target.className == 'pop_box'){
+            var appElement = document.querySelector('[ng-controller=loopholeIntelCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $scope.pop_show.add = false;
+            $scope.pop_show.edit = false;
+            $scope.$apply();
+        }
+    }
+
 });
