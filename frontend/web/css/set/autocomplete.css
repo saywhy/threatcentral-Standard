@@ -1,0 +1,28 @@
+/*** autocomplete ***/
+.ui-widget-content {
+    background-color: #fff;
+    z-index: 999999;
+    border: 1px solid #ECECEC!important;
+}
+
+.ui-autocomplete > .ui-menu-item{
+    padding: 0 24px!important;
+    height: 34px!important;
+    line-height: 34px!important;
+    border: 1px solid #fff !important;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #E0EEFF !important;
+    background: #E0EEFF !important;
+    height: 34px!important;
+    line-height: 34px!important;
+    clear: both;
+    font-weight: normal;
+    white-space: nowrap;
+}

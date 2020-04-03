@@ -49,7 +49,7 @@ $this->title = '漏洞情报管理';
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
           ng-blur="search_blur('level');" class="search_input" readonly>
-        <ul class="select_list_box" ng-if="search_box_ul.level" style="height:107px;margin:0">
+        <ul class="select_list_box" ng-if="search_box_ul.level" style="height:170px;margin:0">
           <li ng-mousedown="search_choose_item(item.status,$index,'level');"
             ng-repeat="item in search_level track by $index">
             {{item.status}}
@@ -268,6 +268,7 @@ $this->title = '漏洞情报管理';
                 ng-model="add_item.treatment_measures" name="" id="" cols="30" rows="3"></textarea>
             </div>
           </div>
+
           <!-- 参考信息 -->
           <div class="contnet_item">
             <div class="contnet_item_left">
@@ -282,11 +283,11 @@ $this->title = '漏洞情报管理';
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('reference',index)"
                   class="add_icon" alt="">
-  <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length!=1"
+                    <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length!=1"
                     ng-click="delete_input_list('reference',index)" class="add_icon" alt="">
-                  <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                   <img src="/images/set/del_grey.png" style="cursor:not-allowed"
                     ng-if="add_item.reference.length==1&&item.name==''" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length==1&&item.name!=''"
+                   <img src="/images/set/cel_icon.png" ng-if="add_item.reference.length==1&&item.name!=''"
                     ng-click="delete_input_list('reference',index)" class="add_icon" alt="">
                 </div>
               </div>
@@ -299,7 +300,7 @@ $this->title = '漏洞情报管理';
               <span>标签:</span>
             </div>
             <div class="contnet_item_right" style="flex-direction: column;">
-              <div style="flex:1; display:flex;margin-bottom:10px;" ng-repeat="(index,item) in add_item.tag">
+              <div style="flex:1; display:flex;margin-bottom:10px;" ng-repeat="(index,item) in add_item.tag track by $index">
                 <div class="tag_item">
                   <input type="text" placeholder="请选择标签类别" ng-model="item.category"
                     ng-focus="add_focus('tag_category',index)" ng-blur="add_blur('tag_category',index);"
@@ -312,7 +313,7 @@ $this->title = '漏洞情报管理';
                     </li>
                   </ul>
                 </div>
-                <div class="tag_item">
+                <!--<div class="tag_item">
                   <input type="text" placeholder="请选择标签名称" ng-focus="add_focus('tag_name',index)"
                     ng-blur="add_blur('tag_name',index);" ng-disabled="item.category==''" ng-model="item.name"
                     class="item_right_input" readonly>
@@ -322,15 +323,22 @@ $this->title = '漏洞情报管理';
                       {{key.label_name}}
                     </li>
                   </ul>
+                </div>-->
+
+                <div class="tag_item tag_item_{{$index}}" >
+                  <input type="text" placeholder="请选择标签名称"  ng-model="item.name"
+                  class="item_right_input label_auto_complate" id="label_auto_complate_{{$index}}">
+                  <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt=""/>
                 </div>
+
                 <div class="add_icon_box">
-                  <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)"
+                    <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)"
                     class="add_icon" alt="">
-               <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length!=1"
+                    <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length!=1"
                     ng-click="delete_input_list('tag',index)" class="add_icon" alt="">
-   <img src="/images/set/del_grey.png" style="cursor:not-allowed"
+                   <img src="/images/set/del_grey.png" style="cursor:not-allowed"
                     ng-if="add_item.tag.length==1&&item.name==''" class="add_icon" alt="">
-                  <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length==1&&item.name!=''"
+                   <img src="/images/set/cel_icon.png" ng-if="add_item.tag.length==1&&item.name!=''"
                     ng-click="delete_input_list('tag',index)" class="add_icon" alt="">
                 </div>
               </div>
@@ -542,7 +550,7 @@ $this->title = '漏洞情报管理';
                     </li>
                   </ul>
                 </div>
-                <div class="tag_item">
+                <!-- <div class="tag_item">
                   <input type="text" placeholder="请选择标签名称" ng-focus="edit_focus('tag_name',index)"
                     ng-blur="edit_blur('tag_name',index);" ng-disabled="item.category==''" ng-model="item.name"
                     class="item_right_input" readonly>
@@ -552,7 +560,14 @@ $this->title = '漏洞情报管理';
                       {{key.label_name}}
                     </li>
                   </ul>
+                </div>-->
+
+                 <div class="tag_item edit_item_{{$index}}" >
+                  <input type="text" placeholder="请选择标签名称" ng-model="item.name"
+                  class="item_right_input label_edit_complate" id="edit_auto_complate_{{$index}}">
+                  <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt=""/>
                 </div>
+
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('tag',index)"
                    class="add_icon" alt="">

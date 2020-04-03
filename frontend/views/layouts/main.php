@@ -79,6 +79,8 @@ function getPath($path)
 
   <link rel="stylesheet" href="/css/zeroModal.css">
 
+
+
   <script type="text/javascript" src="/plugins/angular/angular.min.js"></script>
   <script src="/js/controllers/news.js"></script>
 
@@ -92,10 +94,15 @@ function getPath($path)
 
   <link rel="stylesheet" href="/plugins/iCheck/minimal/_all.css">
 
+  <!-- lele -->
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/sider.css">
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/plugins/ztree/zTreeStyle.css">
+  <link rel="stylesheet" href="/css/set/autocomplete.css">
+
    <!-- <link rel="stylesheet" href="/plugins/switch/bootstrap-switch.css"> -->
 
 </head>
