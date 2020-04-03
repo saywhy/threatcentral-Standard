@@ -149,7 +149,7 @@ button:active {
 }
 
 .input_box {
-  width: 290px;
+  width: 210px;
   height: 42px;
   border: 1px solid #ECECEC;
   border-radius: 4px;
@@ -166,21 +166,6 @@ button:active {
   color: #fff;
   margin: 0 0 0 24px;
   font-size: 14px;
-}
-
-.daterangepicker td,
-.daterangepicker th {
-  padding: 1px !important;
-}
-
-.daterangepicker {
-  width: auto;
-  padding-top: 10px;
-  transform: translateX(0);
-}
-
-.daterangepicker .ranges {
-  display: contents;
 }
 
 .time_icon {
@@ -484,31 +469,6 @@ button:active {
   text-overflow: ellipsis;
 }
 
-.daterangepicker.dropdown-menu {
-  z-index: 99999;
-}
-
-.daterangepicker {
-  width: auto;
-  padding-top: 10px;
-  transform: translateX(0);
-}
-
-.daterangepicker .calendar th,
-.daterangepicker .calendar td {
-  width: auto;
-}
-
-.daterangepicker td.active,
-.daterangepicker td.active:hover {
-  background-color: #0070ff;
-}
-
-.daterangepicker .input-mini.active {
-  border: 1px solid #0070ff;
-  border-radius: 4px;
-}
-
 .btn-success,
 .btn-success:hover,
 .btn-success:active:focus {
@@ -723,7 +683,7 @@ button:active {
   background: #F8F8F8;
   border-radius: 8px;
   position: fixed;
-  top:calc((100vh - 564px)/2 + 64px);
+  top: calc((100vh - 564px)/2 + 64px);
   left: 50%;
   transform: translateX(-50%);
 }
@@ -901,28 +861,31 @@ button:active {
 }
 
 /*****************************CVE*******************************/
-#vehicle_loophole{
+#vehicle_loophole {
   padding-left: 20px;
   padding-right: 4px;
 }
 
-.l_mid{
+.l_mid {
   border: 1px solid #ECECEC;
 }
-.l_mid .item{
+
+.l_mid .item {
   padding: 10px 10px;
 }
-.l_mid .item:nth-child(odd){
+
+.l_mid .item:nth-child(odd) {
   background: #fff;
 }
 
-.l_mid .item .i_img{
+.l_mid .item .i_img {
   display: inline-block;
   transform: scale(0.8);
   margin: 0 5px;
   vertical-align: sub;
 }
-.l_mid .item .title{
+
+.l_mid .item .title {
   width: 150px;
   color: #666;
   font-size: 14px;
@@ -930,16 +893,17 @@ button:active {
   display: inline-block;
   font-family: PingFangSC-Medium;
 }
-.l_mid .item .stance{
+
+.l_mid .item .stance {
   display: inline-block;
   font-family: PingFangSC-Regular;
 }
 
-.l_mid .item .stance.s_active{
+.l_mid .item .stance.s_active {
   color: #0070ff;
 }
 
-.l_mid .item .stance.s_content{
+.l_mid .item .stance.s_content {
   padding: 6px 0 0 32px;
   color: #666;
   font-size: 14px;
@@ -953,20 +917,22 @@ button:active {
   font-family: PingFangSC-Regular;
 }
 
-.l_mid .item .s_label{
+.l_mid .item .s_label {
   height: 34px;
   line-height: 34px;
   display: flex;
 }
-.l_mid .item .s_label .s_name{
+
+.l_mid .item .s_label .s_name {
   width: 100px;
 }
-.l_mid .item .s_label .s_lab{
+
+.l_mid .item .s_label .s_lab {
   flex: 1;
   font-size: 0;
 }
 
-.l_mid .item .s_label .s_lab .s_lab_val{
+.l_mid .item .s_label .s_lab .s_lab_val {
   color: #0070ff;
   font-size: 14px;
   border-radius: 4px;
@@ -978,7 +944,8 @@ button:active {
   overflow: hidden;
 }
 
-.info_mation_nvd, .info_mation_nvd:hover{
+.info_mation_nvd,
+.info_mation_nvd:hover {
   color: #0070FF;
   cursor: pointer;
 }
@@ -986,16 +953,17 @@ button:active {
 .pagination_info {
   padding: 0px;
   position: relative;
-  height:60px;
+  height: 60px;
   text-align: right;
 }
 
-.leave_page{
+.leave_page {
   display: inline-block;
   margin: 24px 24px 24px 0;
   vertical-align: top;
 }
-.leave_page_num{
+
+.leave_page_num {
   border: 1px solid #dcdfe6;
   border-radius: 4px;
   color: #606266;
@@ -1004,7 +972,7 @@ button:active {
   text-align: center;
 }
 
-.pagination{
+.pagination {
   display: inline-block;
 }
 
@@ -1013,29 +981,32 @@ button:active {
 /*****************************CVE*******************************/
 
 
-#vehicle_loophole_nvd{
+#vehicle_loophole_nvd {
   padding-left: 20px;
   padding-right: 4px;
   margin-top: 30px;
 }
 
-.l_nvd_mid{
+.l_nvd_mid {
   border: 1px solid #ECECEC;
 }
-.l_nvd_mid .item{
+
+.l_nvd_mid .item {
   padding: 10px 10px;
 }
-.l_nvd_mid .item:nth-child(odd){
+
+.l_nvd_mid .item:nth-child(odd) {
   background: #fff;
 }
 
-.l_nvd_mid .item .i_img{
+.l_nvd_mid .item .i_img {
   display: inline-block;
   transform: scale(0.8);
   margin: 0 5px;
   vertical-align: sub;
 }
-.l_nvd_mid .item .title{
+
+.l_nvd_mid .item .title {
   width: 150px;
   color: #666;
   font-size: 14px;
@@ -1043,16 +1014,17 @@ button:active {
   display: inline-block;
   font-family: PingFangSC-Medium;
 }
-.l_nvd_mid .item .stance{
+
+.l_nvd_mid .item .stance {
   display: inline-block;
   font-family: PingFangSC-Regular;
 }
 
-.l_nvd_mid .item .stance.s_active{
+.l_nvd_mid .item .stance.s_active {
   color: #0070ff;
 }
 
-.l_nvd_mid .item .stance.s_content{
+.l_nvd_mid .item .stance.s_content {
   padding: 6px 0 0 32px;
   color: #666;
   font-size: 14px;
@@ -1066,20 +1038,22 @@ button:active {
   font-family: PingFangSC-Regular;
 }
 
-.l_nvd_mid .item .s_label{
+.l_nvd_mid .item .s_label {
   height: 34px;
   line-height: 34px;
   display: flex;
 }
-.l_nvd_mid .item .s_label .s_name{
+
+.l_nvd_mid .item .s_label .s_name {
   width: 100px;
 }
-.l_nvd_mid .item .s_label .s_lab{
+
+.l_nvd_mid .item .s_label .s_lab {
   flex: 1;
   font-size: 0;
 }
 
-.l_nvd_mid .item .s_label .s_lab .s_lab_val{
+.l_nvd_mid .item .s_label .s_lab .s_lab_val {
   color: #0070ff;
   font-size: 14px;
   border-radius: 4px;
@@ -1090,4 +1064,3 @@ button:active {
   white-space: nowrap;
   overflow: hidden;
 }
-

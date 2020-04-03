@@ -5,96 +5,92 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
         $scope.set_true = true;
 
         $scope.outTime = {
-            startDate: moment()
-                .subtract(90, "days")
-                .unix(),
-            endDate: moment().unix()
+            startDate: '',
+            endDate: ''
         };
         $scope.choosetime = {
-            startDate: moment().subtract(90, "days"),
-            endDate: moment()
+            startDate: ''
         };
-        $scope.start_time_picker();
-        $scope.end_time_picker();
+        $scope.picker_add();
         $scope.get_api_list(1);
     };
-    $scope.start_time_picker = function () {
-        $("#start_time_picker").daterangepicker({
-                singleDatePicker: true,
+
+    $scope.picker_add = function () {
+        $("#picker_add").daterangepicker({
+                autoUpdateInput: false,
+                'locale': {
+                    "format": 'YYYY/MM/DD',
+                    "separator": " - ",
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "fromLabel": "起始时间",
+                    "toLabel": "结束时间'",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
                 showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
+                "alwaysShowCalendars": true,
+                timePickerSeconds: false,
                 drops: "down",
-                opens: "center",
-                startDate: $scope.choosetime.startDate,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
-                }
+                opens: "right",
             },
             function (start, end, label) {
                 $scope.outTime.startDate = start.unix();
-            }
-        );
+                $scope.outTime.endDate = end.unix();
+                console.log($scope.outTime.startDate);
+                console.log($scope.outTime.endDate);
+            },
+        )
+        $('#picker_add').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+            $scope.outTime.startDate = picker.startDate.unix()
+            $scope.outTime.endDate = picker.endDate.unix()
+        });
+        $('#picker_add').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+            $scope.outTime.startDate = ''
+            $scope.outTime.endDate = ''
+        });
     };
-    $scope.edit_start_time_picker = function () {
-        $("#edit_start_time_picker").daterangepicker({
-                singleDatePicker: true,
+    $scope.picker_edit = function () {
+        $("#picker_edit").daterangepicker({
+                'locale': {
+                    "format": 'YYYY/MM/DD',
+                    "separator": " - ",
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "fromLabel": "起始时间",
+                    "toLabel": "结束时间'",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                startDate: moment(new Date($scope.edit_token_item.start_time * 1000)),
+                endDate: moment(new Date($scope.edit_token_item.end_time * 1000)),
                 showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
+                "alwaysShowCalendars": true,
+                timePickerSeconds: false,
                 drops: "down",
-                opens: "center",
-                startDate: $scope.edit_choosetime.startDate,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
-                }
+                opens: "right",
             },
             function (start, end, label) {
-                $scope.edit_outTime.startDate = start.unix();
-            }
-        );
-    };
-    $scope.end_time_picker = function () {
-        $("#end_time_picker").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                opens: "center",
-                startDate: $scope.choosetime.endDate,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
-                }
+                $scope.edit_token_item.start_time = start.unix();
+                $scope.edit_token_item.end_time = end.unix();
             },
-            function (start, end, label) {
-                $scope.outTime.endDate = start.unix();
-            }
-        );
-    };
-    $scope.edit_end_time_picker = function () {
-        $("#edit_end_time_picker").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
-                opens: "center",
-                startDate: $scope.edit_choosetime.endDate,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm:ss"
-                }
-            },
-            function (start, end, label) {
-                $scope.edit_outTime.endDate = start.unix();
-            }
-        );
+        )
+        $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+            $scope.edit_token_item.start_time = picker.startDate.unix()
+            $scope.edit_token_item.end_time = picker.endDate.unix()
+        });
+        $('#picker_edit').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+            $scope.edit_token_item.start_time = ''
+            $scope.edit_token_item.end_time = ''
+        });
     };
     $scope.net_choose = function (name) {
         if (name == "open") {
@@ -152,6 +148,9 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
             institution: "",
             search_count: ''
         };
+        $('#picker_add').val('');
+        $scope.outTime.startDate = ''
+        $scope.outTime.endDate = ''
         var W = 552;
         var H = 445;
         zeroModal.show({
@@ -237,15 +236,15 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
 
     //生成token
     $scope.token_save = function () {
-        $scope.add_token_data.start_time = $scope.outTime.startDate;
-        $scope.add_token_data.end_time = $scope.outTime.endDate;
-        if ($scope.add_token_data.end_time <= $scope.add_token_data.start_time) {
-            zeroModal.error("开始时间不能大于结束时间");
+        if ($scope.add_token_data.institution == '') {
+            zeroModal.error("请输入分支结构名称");
             return false;
         }
-        console.log($scope.add_token_data.search_count);
-        if ($scope.add_token_data.search_count === 0) {
-            zeroModal.error("查询次数不能为负数和0");
+        $scope.add_token_data.start_time = $scope.outTime.startDate;
+        $scope.add_token_data.end_time = $scope.outTime.endDate;
+        console.log($scope.outTime);
+        if ($scope.add_token_data.start_time == '' || $scope.add_token_data.end_time == '') {
+            zeroModal.error("请选择生效时间");
             return false;
         }
         if ($scope.add_token_data.search_count != '' &&
@@ -285,12 +284,6 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
             function errorCallback(data) {}
         );
     };
-    // $scope.add_token_blur = function () {
-    //     console.log($scope.add_token_data.search_count);
-    //     if ($scope.add_token_data.search_count === undefined) {
-    //         // $scope.add_token_data.search_count = 0
-    //     }
-    // }
     //  关闭生成token弹窗
     $scope.token_cancel = function () {
         zeroModal.closeAll();
@@ -370,22 +363,12 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
                 edit_token_box.appendChild(edit_token);
             }
         });
-        $scope.edit_choosetime = {
-            startDate: moment(new Date($scope.edit_token_item.start_time * 1000)),
-            endDate: moment(new Date($scope.edit_token_item.end_time * 1000))
-        };
-        console.log($scope.edit_choosetime);
-
-        $scope.edit_outTime = {
-            startDate: $scope.edit_token_item.start_time,
-            endDate: $scope.edit_token_item.end_time
-        };
-        $scope.edit_start_time_picker();
-        $scope.edit_end_time_picker();
+        console.log(moment(new Date($scope.edit_token_item.start_time * 1000)));
+        $scope.picker_edit()
     };
     $scope.edit_token_save = function () {
-        if ($scope.edit_outTime.endDate <= $scope.edit_outTime.startDate) {
-            zeroModal.error("开始时间不能大于结束时间");
+        if ($scope.edit_token_item.start_time == '' || $scope.edit_token_item.end_time == '') {
+            zeroModal.error("请选择生效时间");
             return false;
         }
         if ($scope.edit_token_item.rest_count === 0) {
@@ -409,8 +392,8 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
             url: "/api/edit-api",
             data: {
                 id: $scope.edit_token_item.id,
-                start_time: $scope.edit_outTime.startDate,
-                end_time: $scope.edit_outTime.endDate,
+                start_time: $scope.edit_token_item.start_time,
+                end_time: $scope.edit_token_item.start_time,
                 rest_count: $scope.edit_token_item.rest_count
             }
         }).then(

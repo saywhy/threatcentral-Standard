@@ -12,6 +12,11 @@ $this->title = '行业情报';
         <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="情报标题/情报描述"
           ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
       </span>
+          <!-- 获取时间 -->
+      <div class="vehicle_search_time">
+          <img src="/images/report/time.png" class="time_icon_search" alt="">
+          <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="发现时间">
+      </div>
       <!-- 漏洞来源 -->
       <div class="vehicle_icon_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
@@ -36,13 +41,6 @@ $this->title = '行业情报';
           </li>
         </ul>
       </div>
-
-      <!-- 获取时间 -->
-      <div class="vehicle_search_time">
-        <img src="/images/report/time.png" class="time_icon_search" alt="">
-        <input class="input_box" id="picker_search"  type="text" placeholder="时间">
-      </div>
-
       <!-- 搜索 -->
       <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
     </div>

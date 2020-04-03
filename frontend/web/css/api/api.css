@@ -90,7 +90,7 @@ table tr:nth-child(even) {
   background-color: #fff;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped>tbody>tr:nth-of-type(odd) {
   background-color: #eef6ff;
 }
 
@@ -113,12 +113,12 @@ th {
   text-align: left;
 }
 
-.pagination > .active > a,
-.pagination > .active > a:focus,
-.pagination > .active > a:hover,
-.pagination > .active > span,
-.pagination > .active > span:focus,
-.pagination > .active > span:hover {
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
   z-index: 3;
   color: #fff;
   cursor: default;
@@ -221,9 +221,9 @@ th {
 }
 
 .start_time_icon {
-  width: 16px;
+  width: 20px;
   position: absolute;
-  left: 185px;
+  right: 20px;
   top: 31px;
 }
 
@@ -232,24 +232,6 @@ th {
   right: 10px;
   width: 16px;
   top: 30px;
-}
-
-.daterangepicker.dropdown-menu {
-  max-width: none;
-  z-index: 19001;
-}
-
-.daterangepicker {
-  width: 260px;
-  padding-top: 10px;
-  transform: translateX(0);
-  /* left: 300px !important;
-  top: 225px !important; */
-}
-
-.daterangepicker td.active,
-.daterangepicker td.active:hover {
-  background-color: #0070ff;
 }
 
 .btn-success,
@@ -264,10 +246,8 @@ th {
   background-color: #0070ff;
 }
 
-.daterangepicker td,
-.daterangepicker th {
-  overflow: auto;
-  width: auto;
+.daterangepicker {
+  z-index: 9999999;
 }
 
 .token_btn_box {
@@ -292,11 +272,11 @@ th {
   margin-left: 36px;
 }
 
-.tgl-ios:checked + .tgl-btn {
+.tgl-ios:checked+.tgl-btn {
   background: #0070ff;
 }
 
-.tgl-ios + .tgl-btn {
+.tgl-ios+.tgl-btn {
   width: 30px;
   height: 18px;
 }

@@ -75,6 +75,8 @@ myApp.controller("reportCtrl", function ($scope, $http, $filter) {
         )
         $('#picker_search').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+            $scope.outTime.startDate = picker.startDate.unix()
+            $scope.outTime.endDate = picker.endDate.unix()
         });
         $('#picker_search').on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
@@ -91,15 +93,12 @@ myApp.controller("reportCtrl", function ($scope, $http, $filter) {
     };
     // 添加报表
     $scope.add_report = function () {
+        console.log($scope.report_data);
+        console.log($scope.outTime);
         if ($scope.report_data.report_name == "") {
             zeroModal.error("请填写报表名称");
             return false;
         }
-        if ($scope.outTime.endDate <= $scope.outTime.startDate) {
-            zeroModal.error("开始时间不能大于结束时间");
-            return false;
-        }
-        console.log($scope.outTime);
         if ($scope.word_true) {
             $scope.report_data.report_type = "doc";
             $scope.creat_word();
@@ -166,8 +165,10 @@ myApp.controller("reportCtrl", function ($scope, $http, $filter) {
                             console.log(data);
                             if (data.data.status == "success") {
                                 // 生成成功
-                                zeroModal.success("保存成功!");
                                 $scope.get_report_list(1);
+                                zeroModal.success("保存成功!");
+                            } else {
+                                zeroModal.error(data.data.errorMessage);
                             }
                         },
                         function errorCallback(data) {
@@ -199,8 +200,10 @@ myApp.controller("reportCtrl", function ($scope, $http, $filter) {
                 console.log(data);
                 if (data.data.status == "success") {
                     // 生成成功
-                    zeroModal.success("保存成功!");
                     $scope.get_report_list(1);
+                    zeroModal.success("保存成功!");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
                 }
                 zeroModal.close(loading);
             },

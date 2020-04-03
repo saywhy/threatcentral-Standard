@@ -19,7 +19,6 @@ $this->title = '行业情报管理';
         <div class="intel_search_time ">
         <img src="/images/report/time.png" class="time_icon_search" alt="">
         <input class="input_box" autocomplete="off"  id="picker_search" type="text" placeholder="时间">
-        <!-- autocomplete="off"  -->
       </div>
       <!-- 来源 -->
       <div class="search_input_box">

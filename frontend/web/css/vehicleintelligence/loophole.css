@@ -149,7 +149,7 @@ button:active {
 }
 
 .input_box {
-  width: 290px;
+  width: 210px;
   height: 42px;
   border: 1px solid #ECECEC;
   border-radius: 4px;
@@ -166,21 +166,6 @@ button:active {
   color: #fff;
   margin: 0 0 0 24px;
   font-size: 14px;
-}
-
-.daterangepicker td,
-.daterangepicker th {
-  padding: 1px !important;
-}
-
-.daterangepicker {
-  width: auto;
-  padding-top: 10px;
-  transform: translateX(0);
-}
-
-.daterangepicker .ranges {
-  display: contents;
 }
 
 .time_icon {
@@ -491,31 +476,6 @@ button:active {
   bottom: 0;
   background: #0070FF;
   border-radius: 2px 0 2px 0;
-}
-
-.daterangepicker.dropdown-menu {
-  z-index: 99999;
-}
-
-.daterangepicker {
-  width: auto;
-  padding-top: 10px;
-  transform: translateX(0);
-}
-
-.daterangepicker .calendar th,
-.daterangepicker .calendar td {
-  width: auto;
-}
-
-.daterangepicker td.active,
-.daterangepicker td.active:hover {
-  background-color: #0070ff;
-}
-
-.daterangepicker .input-mini.active {
-  border: 1px solid #0070ff;
-  border-radius: 4px;
 }
 
 .btn-success,

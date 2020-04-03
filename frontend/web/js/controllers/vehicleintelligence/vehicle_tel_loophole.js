@@ -1,5 +1,5 @@
 var myApp = angular.module("myApp", []);
-myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$document) {
+myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $document) {
 
     $scope.init = function () {
         $scope.label_data = [];
@@ -18,8 +18,8 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
         $scope.label_checked_list = [];
 
         $scope.searchTime = {
-            startDate: moment().subtract(90, "days"),
-            endDate: moment()
+            startDate: '',
+            endDate: ''
         };
 
         $scope.seach_data = {
@@ -34,9 +34,9 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
 
         //漏洞级别
         $scope.search_level = [{
-            num: '全部',
-            status: '全部'
-        },
+                num: '全部',
+                status: '全部'
+            },
             {
                 num: '',
                 status: '暂缺'
@@ -67,26 +67,50 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
     //初始化时间
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
+                autoUpdateInput: false,
+                'locale': {
+                    "format": 'YYYY/MM/DD',
+                    "separator": " - ",
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "fromLabel": "起始时间",
+                    "customRangeLabel": "自定义",
+                    "toLabel": "结束时间'",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
                 showDropdowns: true,
-                timePicker: true,
-                timePicker24Hour: true,
+                "alwaysShowCalendars": true,
+                timePickerSeconds: false,
                 drops: "down",
                 opens: "right",
-                autoUpdateInput: false,
-                locale: {
-                    applyLabel: "确定",
-                    cancelLabel: "取消",
-                    format: "YYYY-MM-DD HH:mm"
-                }
+                ranges: {
+                    '最近7天': [moment().subtract(6, 'days'), moment()],
+                    '最近30天': [moment().subtract(29, 'days'), moment()],
+                    '今年': [moment().startOf('year'), moment()],
+                    '去年': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year')
+                        .endOf('year')
+                    ],
+                },
             },
             function (start, end, label) {
-                $("#picker_search").data('daterangepicker').autoUpdateInput = true
                 $scope.seach_data.startDate = start.unix();
                 $scope.seach_data.endDate = end.unix();
-            }
-        );
+            },
+        )
+        $('#picker_search').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+            $scope.seach_data.startDate = picker.startDate.unix()
+            $scope.seach_data.endDate = picker.endDate.unix()
+        });
+        $('#picker_search').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+            $scope.seach_data.startDate = ''
+            $scope.seach_data.endDate = ''
+        });
     };
-
     // 漏洞来源下拉框
     $scope.get_loophole_source = function () {
         $http({
@@ -362,12 +386,12 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
             label_id: []
         }
 
-        if(pageNow < 1){
+        if (pageNow < 1) {
             pageNow = 1;
             $scope.page_num = 1;
         }
 
-        if($scope.pages && pageNow > $scope.pages.maxPage){
+        if ($scope.pages && pageNow > $scope.pages.maxPage) {
             pageNow = 1;
             $scope.page_num = 1;
         }
@@ -378,9 +402,9 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
 
         if ($scope.seach_data.level == '全部') {
             params_data.level = 'all';
-        }else if($scope.seach_data.level == '暂缺'){
+        } else if ($scope.seach_data.level == '暂缺') {
             params_data.level = '';
-        }else {
+        } else {
             params_data.level = $scope.seach_data.level;
         }
 
@@ -411,9 +435,9 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter,$doc
     $scope.init();
 
     document.onclick = function (e) {
-        if(e.target.className == 'zeromodal-overlay'){
+        if (e.target.className == 'zeromodal-overlay') {
             zeroModal.closeAll();
-        }else if(e.target.className == 'pop_box ng-scope'){
+        } else if (e.target.className == 'pop_box ng-scope') {
             var appElement = document.querySelector('[ng-controller=vehicleTelLoopholeCtrl]');
             var $scope = angular.element(appElement).scope();
             $scope.pop_show = false;

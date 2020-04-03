@@ -35,11 +35,10 @@ $this->title = '车联网预警';
             </span>
 
             <!-- 预警事件 -->
-            <div class="vehicle_alert_time">
-                <img src="/images/report/time.png" class="time_icon" alt="">
-                <input class="time_picker" id="picker_search" readonly type="text" placeholder="时间">
-            </div>
-
+              <div class="vehicle_alert_time ">
+        <img src="/images/report/time.png" class="start_time_icon" alt="">
+        <input class="time_picker" autocomplete="off" id="picker_search" type="text" placeholder="时间">
+      </div>
             <!-- 处理状态 -->
             <select class="vehicle_alert_select" ng-model="seach_data.level"
                 ng-options="x.num as x.status for x in search_level">
