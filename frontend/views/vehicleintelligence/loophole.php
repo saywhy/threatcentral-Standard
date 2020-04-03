@@ -85,7 +85,6 @@ $this->title = '漏洞情报';
       </a>
     </div>
   </div>
-
   <p>
     <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
   </p>

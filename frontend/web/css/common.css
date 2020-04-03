@@ -201,10 +201,16 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-th {
-  border-right: 1px solid #ececec;
+
+.table_th th {
+  border-right: 1px solid #ececec !important;
 }
 
-th:nth-last-child(1) {
-  border: none;
+.table_th th:nth-last-child(1) {
+  border-right: none !important;
+}
+
+.btn-primary {
+  background-color: #0070FF !important;
+  border-color: #0070FF !important;
 }
