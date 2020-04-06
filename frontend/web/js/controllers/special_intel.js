@@ -334,7 +334,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.nvd_list, function (item) {
                     item.active = false
                 })
-                console.log($scope.nvd_list);
             },
             function () {}
         );
@@ -389,7 +388,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function (data) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
-                console.log($scope.pages);
+                //console.log($scope.pages);
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
                     if (item.label_name.length != 0) {
@@ -526,7 +525,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                                 category_ul: false,
                                 name_ul: false,
                                 icon: false,
-                                id: item
+                                id: item,
+                                label_id_attr:[item]
                             }
                             $scope.edit_item.tag.push(obj)
                         } else {
@@ -556,7 +556,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                                 category_ul: false,
                                 name_ul: false,
                                 icon: true,
-                                id: '0'
+                                id: '0',
+                                label_id_attr:[]
                             }
                             $scope.edit_item.tag.push(obj)
                         })
@@ -593,6 +594,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         $scope.picker_edit(moment(new Date($scope.edit_item.first_seen_time * 1000)));
                     }
                     $scope.get_page_show = false;
+
+                    $scope.init_edit_complete();
                 }
             },
             function () {}
@@ -716,7 +719,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             exist: [],
         }
         $scope.start_time_picker();
-        console.log($scope.label_data);
         angular.forEach($scope.label_data, function (item) {
             var obj = {
                 category: item.name,
@@ -725,10 +727,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 category_ul: false,
                 name_ul: false,
                 icon: true,
-                id: ''
+                id: '',
+                label_id_attr:[]
             }
-            $scope.add_item.tag.push(obj)
+            $scope.add_item.tag.push(obj);
         })
+
+        this.init_auto_complete();
 
     };
     //   取消弹窗
@@ -751,9 +756,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 添加录入情报
     $scope.add_sure = function () {
-        console.log($scope.add_item);
 
-        console.log($('#start_time_picker').val());
+        var params_edit = {
+            label_id_attr: []
+        }
+
         if ($('#start_time_picker').val() != '') {
             $scope.add_item.first_seen_time = moment($('#start_time_picker').val()).unix()
         }
@@ -806,7 +813,18 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         })
         $scope.NVD_Array_cn = $scope.arrayUnique2(NVD_Array, 'id')
-        console.log($scope.NVD_Array_cn);
+
+        angular.forEach($scope.add_item.tag, function (item, index) {
+            if(item.label_id_attr.length > 0){
+                params_edit.label_id_attr = [...params_edit.label_id_attr,...item.label_id_attr];
+            }
+        })
+
+        console.log(params_edit.label_id_attr)
+
+        params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
+
+        console.log(params_edit.label_id_attr)
         var loading = zeroModal.loading(4);
         $http({
             method: "post",
@@ -821,7 +839,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 nvd: $scope.NVD_Array_cn,
                 reference_information: $scope.add_item.reference_information,
                 original_intelligence: $scope.add_item.original_intelligence,
-                label_id: $scope.add_item.exist
+                label_id: params_edit.label_id_attr
             }
         }).then(
             function (data) {
@@ -1016,7 +1034,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     $scope.edit_sure = function () {
 
-        console.log($('#picker_edit').val());
         if ($('#picker_edit').val() != '') {
             $scope.edit_item.first_seen_time = moment($('#picker_edit').val()).unix()
         }
@@ -1037,7 +1054,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         var params_edit = {
             level: '',
             nvd: [],
-            label_id: []
+            label_id: [],
+            label_id_attr: []
         }
         switch ($scope.edit_item.level) {
             case '高危':
@@ -1071,10 +1089,17 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             if (item.name != '') {
                 params_edit.label_id.push(item.id * 1)
             }
+            if(item.label_id_attr.length > 0){
+                params_edit.label_id_attr = [...params_edit.label_id_attr,...item.label_id_attr];
+            }
         })
         var loading = zeroModal.loading(4);
         console.log($scope.edit_item);
         console.log($scope.edit_item.first_seen_time);
+
+        console.log(params_edit.label_id_attr)
+        params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
+        console.log(params_edit.label_id_attr)
 
         if ($scope.edit_item.type == 'auto') {
             var params = {
@@ -1087,7 +1112,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 detail: $scope.edit_item.detail,
                 reference_information: $scope.edit_item.reference_information,
                 nvd: $scope.params_edit_cn,
-                label_id: params_edit.label_id,
+                label_id: params_edit.label_id_attr,
             }
         } else {
             var params = {
@@ -1101,7 +1126,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 original_intelligence: $scope.edit_item.original_intelligence_manual,
                 reference_information: $scope.edit_item.reference_information,
                 nvd: $scope.params_edit_cn,
-                label_id: params_edit.label_id,
+                label_id: params_edit.label_id_attr,
             }
         }
         $http({
@@ -1216,12 +1241,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     if (value == index) {
                         key.category = data;
                         key.name = '';
+                        key.label_id_attr = []
                     }
                 })
                 // 联动改变
                 angular.forEach($scope.label_data, function (key, value) {
                     if (key.name == data) {
                         $scope.add_item.tag[index].tag_name_list = key.label
+                        //console.log($scope.add_item.tag[index].tag_name_list)
                         $scope.init_auto_complete();
                     }
                 })
@@ -1281,7 +1308,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     tag_name_list: [],
                     category_ul: false,
                     name_ul: false,
-                    icon: true
+                    icon: true,
+                    label_id_attr:[]
                 })
                 $scope.init_auto_complete();
                 break;
@@ -1522,7 +1550,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     tag_name_list: [],
                     category_ul: false,
                     name_ul: false,
-                    icon: true
+                    icon: true,
+                    label_id_attr:[]
                 })
                 $scope.init_edit_complete();
                 break;
@@ -1630,7 +1659,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         });
                     });
                     $scope.label_data = labelAttr;
-                    console.log($scope.label_data);
                     if ($scope.get_page_show) {
                         $scope.get_page($scope.pageNow);
                     }

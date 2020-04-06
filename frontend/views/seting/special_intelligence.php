@@ -300,7 +300,8 @@ $this->title = '行业情报管理';
               <span>标签:</span>
             </div>
             <div class="contnet_item_right" style="flex-direction: column;">
-              <div style="flex:1; display:flex;margin-bottom:10px;" ng-repeat="(index,item) in add_item.tag">
+              <div style="flex:1; display:flex;margin-bottom:10px;"
+              ng-repeat="(index,item) in add_item.tag track by $index">
                 <div class="tag_item">
                   <input autocomplete="off" type="text" placeholder="请选择标签类别" ng-model="item.category"
                     ng-focus="add_focus('tag_category',index)" ng-blur="add_blur('tag_category',index);"
@@ -313,7 +314,7 @@ $this->title = '行业情报管理';
                     </li>
                   </ul>
                 </div>
-                <div class="tag_item">
+                <!-- <div class="tag_item">
                   <input  autocomplete="off" type="text" placeholder="请选择标签名称" ng-focus="add_focus('tag_name',index)"
                     ng-blur="add_blur('tag_name',index);" ng-disabled="item.category==''" ng-model="item.name"
                     class="item_right_input" readonly>
@@ -323,7 +324,14 @@ $this->title = '行业情报管理';
                       {{key.label_name}}
                     </li>
                   </ul>
+                </div>-->
+
+                <div class="tag_item tag_item_{{$index}}" >
+                  <input type="text" placeholder="请选择标签名称"  ng-model="item.name"
+                  class="item_right_input label_auto_complate" id="label_auto_complate_{{$index}}">
+                  <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt=""/>
                 </div>
+
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('tag',index)" class="add_icon"
                     alt="">
@@ -540,7 +548,8 @@ $this->title = '行业情报管理';
               <span>标签:</span>
             </div>
             <div class="contnet_item_right" style="flex-direction: column;">
-              <div style="flex:1; display:flex;margin-bottom:10px;" ng-repeat="(index,item) in edit_item.tag">
+              <div style="flex:1; display:flex;margin-bottom:10px;"
+              ng-repeat="(index,item) in edit_item.tag track by $index">
                 <div class="tag_item">
                   <input  autocomplete="off" type="text" placeholder="请选择标签类别" ng-model="item.category"
                     ng-focus="edit_focus('tag_category',index)" ng-blur="edit_blur('tag_category',index);"
@@ -553,7 +562,7 @@ $this->title = '行业情报管理';
                     </li>
                   </ul>
                 </div>
-                <div class="tag_item">
+                <!--<div class="tag_item">
                   <input  autocomplete="off" type="text" placeholder="请选择标签名称" ng-focus="edit_focus('tag_name',index)"
                     ng-blur="edit_blur('tag_name',index);" ng-disabled="item.category==''" ng-model="item.name"
                     class="item_right_input" readonly>
@@ -563,7 +572,14 @@ $this->title = '行业情报管理';
                       {{key.label_name}}
                     </li>
                   </ul>
+                </div>-->
+
+                <div class="tag_item edit_item_{{$index}}" >
+                  <input type="text" placeholder="请选择标签名称" ng-model="item.name"
+                  class="item_right_input label_edit_complate" id="edit_auto_complate_{{$index}}">
+                  <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt=""/>
                 </div>
+
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('tag',index)" class="add_icon"
                     alt="">
