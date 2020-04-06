@@ -373,7 +373,7 @@ $this->title = '暗网预警';
             <button class="search_btn" ng-click="get_dark_list(1)">搜索</button>
         </div>
         <div class="darknet_table">
-            <table class="table  table-striped ng-cloak">
+            <table class="table  table-striped table_th ng-cloak">
                 <tr style="text-algin:center" class="alert_table_tr">
                     <th style="width:200px;padding-left:36px;">预警时间</th>
                     <th >预警描述</th>

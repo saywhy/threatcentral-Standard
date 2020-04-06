@@ -23,7 +23,7 @@ $this->title = '许可证';
 
               <div class="row">
                 <div class="col-sm-12">
-                    <table class="table table-hover" style="border-bottom: 1px solid #f4f4f4;">
+                    <table class="table table-hover table_th" style="border-bottom: 1px solid #f4f4f4;">
                         <tr>
                           <th style="text-align:center;">序号</th>
                           <th>序列号</th>

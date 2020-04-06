@@ -123,14 +123,25 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
         }).then(function (resp) {
                 $scope.loop_source = [];
                 angular.forEach(resp.data, function (item) {
-                    $scope.loop_source.push(item.sourse);
+                    $scope.loop_source.push($scope.escape2Html(item.sourse));
                 })
                 $scope.loop_source.unshift('全部');
             },
             function () {}
         );
     }
-
+    $scope.escape2Html = function (str) {
+        var arrEntities = {
+            'lt': '<',
+            'gt': '>',
+            'nbsp': ' ',
+            'amp': '&',
+            'quot': '"'
+        };
+        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+            return arrEntities[t];
+        });
+    }
     // 获取标签列表
     $scope.get_lab_list = function () {
 
@@ -165,6 +176,14 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
                     });
 
                     $scope.label_data = labelAttr;
+                    angular.forEach($scope.label_data, function (item) {
+                        item.name = $scope.escape2Html(item.name)
+                        angular.forEach(item.label, function (key) {
+                            key.label_name = $scope.escape2Html(key.label_name)
+                            key.category_name = $scope.escape2Html(key.category_name)
+                            key.detail = $scope.escape2Html(key.detail)
+                        });
+                    });
                 }
             },
             function () {}
@@ -427,6 +446,21 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
                 zeroModal.close(loading);
                 $scope.pages = data.data;
                 console.log($scope.pages)
+                angular.forEach($scope.pages.data, function (item) {
+                    item.title = $scope.escape2Html(item.title)
+                    item.detail = $scope.escape2Html(item.detail)
+                    item.sourse = $scope.escape2Html(item.sourse)
+                    item.treatment_measures = $scope.escape2Html(item.treatment_measures)
+                    angular.forEach(item.affected_products, function (key, index) {
+                        item.affected_products[index] = $scope.escape2Html(key)
+                    })
+                    angular.forEach(item.reference_information, function (key, index) {
+                        item.reference_information[index] = $scope.escape2Html(key)
+                    })
+
+                })
+
+
             },
             function () {}
         );

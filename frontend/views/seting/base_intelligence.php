@@ -37,7 +37,7 @@ $this->title = '基础情报管理';
 
     <!-- 基础列表展示 -->
     <div class="loophole_table_content" ng-click="blur_input()">
-        <table class="table table-striped   ng-cloak">
+        <table class="table table-striped  table_th  ng-cloak">
             <tr class="loophole_table_tr">
                 <th class="th_id" style="padding-left:40px;">CVEID</th>
                 <th class="td_detail">漏洞描述</th>

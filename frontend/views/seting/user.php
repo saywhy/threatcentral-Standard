@@ -24,7 +24,7 @@ $this->title = '账号管理';
                     </div>
                 </div>
                 <div class="user_table" >
-                    <table class="table  domain_table ng-cloak" style="width:auto;">
+                    <table class="table  domain_table table_th ng-cloak" style="width:auto;">
                         <tr style="text-algin:center">
                             <th style="width:80px;">序号</th>
                             <th style="width:200px;">用户名</th>
@@ -106,7 +106,7 @@ $this->title = '账号管理';
                     </div>
                 </div>
                 <div class="user_table">
-                    <table class="table  domain_table ng-cloak">
+                    <table class="table  domain_table table_th ng-cloak">
                         <tr style="text-algin:center">
                             <th>角色名称</th>
                             <th>角色描述</th>

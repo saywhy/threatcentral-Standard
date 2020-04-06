@@ -1,5 +1,5 @@
 var rootScope;
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ['ngSanitize']);
 myApp.controller("reportCtrl", function ($scope, $http, $filter) {
     rootScope = $scope;
     $scope.init = function () {
@@ -229,12 +229,27 @@ myApp.controller("reportCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 $scope.report_list = data.data;
                 console.log($scope.report_list);
+                angular.forEach($scope.report_list.data, function (item) {
+                    item.report_name_cn = $scope.escape2Html(item.report_name)
+                });
             },
             function () {
                 zeroModal.close(loading);
             }
         );
     };
+    $scope.escape2Html = function (str) {
+        var arrEntities = {
+            'lt': '<',
+            'gt': '>',
+            'nbsp': ' ',
+            'amp': '&',
+            'quot': '"'
+        };
+        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+            return arrEntities[t];
+        });
+    }
     //   下载报表
     $scope.report_download = function (item) {
         var loading = zeroModal.loading(4);

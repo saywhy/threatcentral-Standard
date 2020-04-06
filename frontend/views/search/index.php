@@ -431,7 +431,7 @@ $this->title = '情报查询';
                                         </ul>
                                     </div>
                                     <div id="file" class="tab-pane ">
-                                        <table class="table ng-cloak domain_table">
+                                        <table class="table table_th ng-cloak domain_table">
                                             <tr style="font-size: 16px;color: #333;">
                                                 <th style="font-weight: normal;">THREAT</th>
                                                 <th style="font-weight: normal;">MD5</th>
@@ -478,7 +478,7 @@ $this->title = '情报查询';
                     </div>-->
 
                     <div class="loophole_contarner" style="padding-bottom: 20px;">
-                        <table class="table ng-cloak domain_table">
+                        <table class="table ng-cloak table_th domain_table">
                             <tr>
                                 <th>漏洞ID</th>
                                 <th>漏洞</th>
@@ -584,7 +584,7 @@ $this->title = '情报查询';
         <div id="custom_relation_alert">
             <div class="row" style="margin:0;padding:10px;">
                 <div class="row margin margintop" style="padding-top: 10px;">
-                    <table class="table table-hover ng-cloak">
+                    <table class="table table-hover table_th ng-cloak">
                         <tr>
                             <th>预警时间</th>
                             <th>资产</th>

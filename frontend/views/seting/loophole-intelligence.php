@@ -81,7 +81,7 @@ $this->title = '漏洞情报管理';
     </div>
   </div>
   <div class="loophole_table_content" ng-click="blur_input()">
-    <table class="table table-striped ng-cloak">
+    <table class="table table-striped table_th ng-cloak">
       <tr class="loophole_table_tr">
         <th></th>
         <th>情报标题</th>

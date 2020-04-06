@@ -103,7 +103,7 @@ $this->title = '共享情报提交';
     <div style="display: none;" id="manual_box">
         <div id="manual">
             <div class="table_overflow">
-                <table class="table  table-striped ng-cloak">
+                <table class="table  table-striped  table_th ng-cloak">
                     <tr style="text-algin:center" class="alert_table_tr">
                         <th style="width:80px;">
                             <img src="/images/alert/select_false.png" class="cursor" ng-if="!manual_choose_all"

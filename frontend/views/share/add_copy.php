@@ -65,7 +65,7 @@ $this->title = '共享';
 
             <div class="row margin">
 
-                <table class="table table-hover ng-cloak">
+                <table class="table table-hover table_th ng-cloak">
                     <tr >
                       <th>序号</th>
                       <th>指标值</th>
@@ -92,7 +92,7 @@ $this->title = '共享';
           <div class="tab-pane" ng-class="tab=='setData'?'active':''" id="setData">
             <div class="row margin">
 
-                <table class="table table-hover ng-cloak">
+                <table class="table table-hover table_th ng-cloak">
                     <tr >
                         <th>序号</th>
                         <th>指标值</th>

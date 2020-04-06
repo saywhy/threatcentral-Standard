@@ -124,12 +124,24 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
         }).then(function (resp) {
                 $scope.loop_source = [];
                 angular.forEach(resp.data, function (item) {
-                    $scope.loop_source.push(item.sourse);
+                    $scope.loop_source.push($scope.escape2Html(item.sourse));
                 })
                 $scope.loop_source.unshift('全部');
             },
             function () {}
         );
+    }
+    $scope.escape2Html = function (str) {
+        var arrEntities = {
+            'lt': '<',
+            'gt': '>',
+            'nbsp': ' ',
+            'amp': '&',
+            'quot': '"'
+        };
+        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+            return arrEntities[t];
+        });
     }
 
     // 获取标签列表
@@ -157,6 +169,14 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                     });
 
                     $scope.label_data = labelAttr;
+                    angular.forEach($scope.label_data, function (item) {
+                        item.name = $scope.escape2Html(item.name)
+                        angular.forEach(item.label, function (key) {
+                            key.label_name = $scope.escape2Html(key.label_name)
+                            key.category_name = $scope.escape2Html(key.category_name)
+                            key.detail = $scope.escape2Html(key.detail)
+                        });
+                    });
 
                 }
             },
@@ -412,6 +432,19 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                 //datas.data[0].label_name = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18']
 
                 $scope.pages = datas;
+                console.log($scope.pages);
+                angular.forEach($scope.pages.data, function (item) {
+                    item.title = $scope.escape2Html(item.title)
+                    item.detail = $scope.escape2Html(item.detail)
+                    item.link = $scope.escape2Html(item.link)
+                    item.original_intelligence = $scope.escape2Html(item.original_intelligence)
+                    item.sourse = $scope.escape2Html(item.sourse)
+                    angular.forEach(item.reference_information, function (key, index) {
+                        item.reference_information[index] = $scope.escape2Html(key)
+                    })
+
+                })
+
 
             },
             function () {}

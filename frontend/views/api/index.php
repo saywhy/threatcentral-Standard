@@ -29,7 +29,7 @@ $this->title = '情报API';
       </div>
     </div>
     <div>
-      <table class="table  table-striped ng-cloak">
+      <table class="table table_th  table-striped ng-cloak">
         <tr style="text-algin:center" class="alert_table_tr">
           <th style="width:150px;padding-left:48px;">分支机构</th>
           <th style="min-width:350px">Token</th>

@@ -48,7 +48,7 @@ $this->title = '车联网预警';
             <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>
         </div>
         <div class="vehicle_table">
-          <table class="table table-striped ng-cloak">
+          <table class="table table-striped table_th ng-cloak">
               <tr class="vehicle_table_tr">
                   <th>受影响资产</th>
                   <th>漏洞名称</th>

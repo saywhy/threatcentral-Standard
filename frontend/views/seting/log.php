@@ -40,7 +40,7 @@ $this->title = '审计日志';
     </div>
     <div class="log_box_table">
 
-      <table class="table  domain_table ng-cloak">
+      <table class="table  domain_table ng-cloak table_th">
         <tr style="text-algin:center">
           <th style="width:80px;">序号</th>
           <th style="width:200px;">时间</th>

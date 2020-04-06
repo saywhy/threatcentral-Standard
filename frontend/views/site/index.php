@@ -533,7 +533,7 @@ $this->title = '概览';
                         <span class="float_left box_title_text">受影响资产</span>
                     </p>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped table_th">
                     <tr style="height:42px;">
                         <th style="width:150px">资产名称</th>
                         <th></th>
@@ -611,7 +611,7 @@ $this->title = '概览';
                             ng-change="select_change(select_model)"></select>
                     </p>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped table_th">
                     <tr style="height:42px;" ng-if="select_model!='攻击情报'">
                         <th ng-repeat="item in title_list">{{item.name}}</th>
                     </tr>
@@ -645,7 +645,7 @@ $this->title = '概览';
                         <span class="float_left box_title_text">最新预警</span>
                     </p>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped table_th">
                     <tr style="height:42px;">
                           <th style="width: 150px">预警时间</th>
                                 <th style="width: 100px">预警类型</th>

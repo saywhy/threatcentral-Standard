@@ -161,7 +161,7 @@ $this->title = '情报聚合';
                 默认聚合
             </div>
             <div class="agent_top_table">
-                <table class="table ng-cloak domain_table">
+                <table class="table ng-cloak domain_table table_th">
                     <tr>
                         <th>节点名</th>
                         <th>指标</th>

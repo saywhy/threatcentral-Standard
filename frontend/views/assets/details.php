@@ -95,7 +95,7 @@ $this->title = '资产信息';
         </ul>
         <div class="tab-content">
             <div id="info" class="tab-pane active">
-                <table class="table  domain_table ng-cloak">
+                <table class="table  domain_table table_th ng-cloak">
                     <tr>
                         <th>受影响资产</th>
                         <th>所属分组</th>
@@ -175,7 +175,7 @@ $this->title = '资产信息';
                 </div>
             </div>
             <div id="loophole" class="tab-pane ">
-                <table class="table domain_table  ng-cloak">
+                <table class="table domain_table table_th  ng-cloak">
                     <tr>
                         <th>漏洞名称</th>
                         <th>受影响资产</th>

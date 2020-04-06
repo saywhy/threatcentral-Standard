@@ -365,7 +365,7 @@ $this->title = '预警详情';
                 <p class="domain_p">{{detail.attr.hoohoolab_domains}} </p>
             </div>
             <div id="file" class="tab-pane">
-                <table class="table ng-cloak domain_table">
+                <table class="table ng-cloak table_th domain_table">
                     <tr style="font-size: 16px;color: #333;">
                         <th style="font-weight: normal;">THREAT</th>
                         <th style="font-weight: normal;">MD5</th>

@@ -186,7 +186,7 @@ $this->title = '报表生成';
       <tr ng-repeat="item in report_list.data">
         <td ng-bind="$index + 1 + (report_list.pageNow - 1)*10">1</td>
         <td ng-bind="item.create_time">2018-05-09</td>
-        <td ng-bind="item.report_name">月报</td>
+        <td ng-bind="item.report_name_cn"></td>
         <td>
           <span ng-bind="item.stime"></span> -
           <span ng-bind="item.etime"></span>

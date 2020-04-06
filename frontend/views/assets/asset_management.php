@@ -276,7 +276,7 @@ $this->title = '资产管理';
 
             <div class="tab-content">
                 <div id="info" class="tab-pane active">
-                    <table class="table ng-cloak domain_table">
+                    <table class="table ng-cloak domain_table table_th">
                         <tr>
                             <th>资产名称</th>
                             <th style="min-width: 80px;">资产分组</th>
@@ -289,15 +289,13 @@ $this->title = '资产管理';
                         </tr>
                         <!-- <tr style="cursor: pointer;" ng-repeat="item in loophole.data"> -->
                         <tr style="cursor: pointer;" ng-repeat="item in domain_data.data">
-                            <td title={{item.asset_name}} >{{item.asset_name }}</td>
-                            <!-- <td title={{item.asset_cn}} ng-bind-html="item.asset_name | trustHtml"></td> -->
-                            <td title={{item.group_name}} >{{item.group_name}}</td>
-                            <!-- <td title={{item.group_name}} ng-bind-html="item.group_name | trustHtml"></td> -->
+                            <td title={{item.asset_name_cn}} >{{item.asset_name_cn }}</td>
+                            <td title={{item.group_name_cn}} >{{item.group_name_cn}}</td>
                             <td title={{item.status_code}} >{{item.status_code}}</td>
-                            <td title={{item.domain}}  ng-bind-html="item.domain | trustHtml"></td>
+                            <td title={{item.domain_cn}}  ng-bind-html="item.domain_cn"></td>
                             <td>{{item.in_type == 'api'?'自动导入':'手动导入'}}</td>
                             <td title={{item.addtime}}>{{item.addtime}}</td>
-                            <td title={{item.location}} ng-bind-html="item.location | trustHtml"></td>
+                            <td title={{item.location_cn}} ng-bind-html="item.location_cn"></td>
                             <td class="cursor">&nbsp;&nbsp;
                                 <button class="btn btn-xs btn-default" ng-disabled="item.in_type == 'api'"
                                     ng-click="del_domain(item.asset_name)" data-toggle="tooltip" title="删除资产">
@@ -343,7 +341,7 @@ $this->title = '资产管理';
                     </div>
                 </div>
                 <div id="loophole" class="tab-pane">
-                    <table class="table ng-cloak domain_table">
+                    <table class="table ng-cloak domain_table table_th">
                         <tr>
                             <th style="min-width: 80px;">主机地址</th>
                             <th style="min-width: 80px;">资产分组</th>
@@ -356,14 +354,14 @@ $this->title = '资产管理';
                             <th style="min-width: 80px;">操作</th>
                         </tr>
                         <tr style="cursor: pointer;" ng-repeat="item in host_data.data">
-                            <td title={{item.asset_name}}>{{item.asset_name}}</td>
-                            <td title={{item.group_name}}>{{item.group_name}}</td>
-                            <td title={{item.os}}>{{item.os}}</td>
-                            <td title={{item.is_alive}}>{{item.is_alive}}</td>
-                            <td title={{item.domain}}>{{item.domain}}</td>
+                            <td title={{item.asset_name_cn}}>{{item.asset_name_cn}}</td>
+                            <td title={{item.group_name_cn}}>{{item.group_name_cn}}</td>
+                            <td title={{item.os_cn}}>{{item.os_cn}}</td>
+                            <td title={{item.is_alive_cn}}>{{item.is_alive_cn}}</td>
+                            <td title={{item.domain_cn}}>{{item.domain_cn}}</td>
                             <td>{{item.in_type == 'api'?'自动导入':'手动导入'}}</td>
                             <td title={{item.addtime}}>{{item.addtime}}</td>
-                            <td title={{item.location}}>{{item.location}}</td>
+                            <td title={{item.location_cn}}>{{item.location_cn}}</td>
                             <td class="cursor">&nbsp;&nbsp;
                                 <button class="btn btn-xs btn-default" ng-disabled="item.in_type == 'api'"
                                     ng-click="del_host(item.asset_name)" data-toggle="tooltip" title="删除资产">

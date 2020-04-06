@@ -42,7 +42,7 @@ $this->title = '审计日志';
                                     </div>
                                 </div>
                                 <div class="row margin">
-                                    <table class="table table-hover ng-cloak" style="table-layout: fixed">
+                                    <table class="table table-hover table_th ng-cloak" style="table-layout: fixed">
                                         <tr>
                                             <th style="width:80px">序号</th>
                                             <th style="width:150px">时间</th>

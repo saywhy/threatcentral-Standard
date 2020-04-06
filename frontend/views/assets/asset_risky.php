@@ -248,7 +248,7 @@ $this->title = '受影响资产';
             </div>
         </div>
         <div class="myAsset_box_bom" ng-click="if_false()">
-            <table class="table domain_table ng-cloak">
+            <table class="table domain_table table_th ng-cloak">
                 <tr>
                     <th>受影响资产</th>
                     <th>资产分组</th>

@@ -471,7 +471,7 @@ border: 1px solid #0070FF;
             <button class="button_down" ng-click="download()">导出报表</button>
         </div>
         <div class="row" style="margin:0;padding:24px 0" ng-click="blur_input()">
-            <table class="table  table-striped ng-cloak">
+            <table class="table  table_th table-striped ng-cloak">
                 <tr style="text-algin:center" class="alert_table_tr">
                     <th style="text-algin:center;width:70px;padding-left:36px;">
                         <img src="/images/alert/select_false.png" class="cursor" ng-if="choose_all"
