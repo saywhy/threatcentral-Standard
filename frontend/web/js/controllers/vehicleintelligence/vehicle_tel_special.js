@@ -438,6 +438,7 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                 //datas.data[0].label_name = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18']
                 $scope.pages = datas;
                 console.log($scope.pages);
+                $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
                     item.title = $scope.escape2Html(item.title)
                     item.detail = $scope.escape2Html(item.detail)

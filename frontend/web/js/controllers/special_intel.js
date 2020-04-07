@@ -938,7 +938,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         var W = 552;
         var H = 248;
         zeroModal.show({
-            title: "是否删除情报",
+            title: "删除情报",
             content: cate_delete_2,
             width: W + "px",
             height: H + "px",
