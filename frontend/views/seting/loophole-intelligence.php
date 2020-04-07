@@ -12,18 +12,18 @@ $this->title = '漏洞情报管理';
     <div class="intel_box_top">
       <div class="search_input_box" style="width: 165px;">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-        <input type="text" class="intel_search_input" ng-focus="get_intel_search_focus()"
+        <input type="text" autocomplete="off"  class="intel_search_input" ng-focus="get_intel_search_focus()"
           ng-blur="get_intel_search_blur()" ng-keyup="myKeyup_intel_search(seach_data.client_ip)" placeholder="情报标题/情报描述"
           ng-model="seach_data.key_word">
       </div>
         <div class="intel_search_time ">
         <img src="/images/report/time.png" class="time_icon_search" alt="">
-        <input class="input_box" id="picker_search"  type="text" placeholder="时间">
+        <input autocomplete="off"  class="input_box" id="picker_search"  type="text" placeholder="公开日期">
       </div>
       <!-- 来源 -->
       <div class="search_input_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+        <input  autocomplete="off" type="text" placeholder="漏洞来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
           ng-blur="search_blur('source');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.source" style="height:107px;margin:0">
           <li ng-mousedown="search_choose_item(item.name,$index,'source');"
@@ -35,7 +35,7 @@ $this->title = '漏洞情报管理';
       <!-- 状态 -->
       <div class="search_input_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input type="text" placeholder="状态" ng-model="seach_data.stauts" ng-focus="search_focus('stauts')"
+        <input autocomplete="off"  type="text" placeholder="状态" ng-model="seach_data.stauts" ng-focus="search_focus('stauts')"
           ng-blur="search_blur('stauts');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.stauts" style="height:107px;margin:0">
           <li ng-mousedown="search_choose_item(item.status,$index,'stauts');"
@@ -47,7 +47,7 @@ $this->title = '漏洞情报管理';
       <!-- 情报级别 -->
       <div class="search_input_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
+        <input autocomplete="off"  type="text" placeholder="漏洞级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
           ng-blur="search_blur('level');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.level" style="height:170px;margin:0">
           <li ng-mousedown="search_choose_item(item.status,$index,'level');"
@@ -166,7 +166,7 @@ $this->title = '漏洞情报管理';
               <span>情报标题:</span>
             </div>
             <div class="contnet_item_right">
-              <input type="text" placeholder="请输入情报标题" ng-model="add_item.title" class="item_right_input">
+              <input autocomplete="off"  type="text" placeholder="请输入情报标题" ng-model="add_item.title" class="item_right_input">
             </div>
           </div>
           <div class="contnet_item">
@@ -177,7 +177,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right">
               <div class="tag_item" style="margin:0">
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                <input type="text" placeholder="请选择漏洞等级" ng-model="add_item.level" ng-focus="add_focus('level')"
+                <input autocomplete="off"  type="text" placeholder="请选择漏洞等级" ng-model="add_item.level" ng-focus="add_focus('level')"
                   ng-blur="add_blur('level');" class="item_right_input" readonly>
               </div>
               <ul class="select_list_box" ng-if="pop_show.add_level_list" style="height:107px">
@@ -196,7 +196,8 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
-              <input class="item_right_input" type="text" placeholder="请选择公开日期" id="start_time_picker" >
+               <img src="/images/set/closed_pop.png" alt="" ng-click="picker_add_cancel()" class="item_right_time_icon_cancel">
+              <input autocomplete="off"  class="item_right_input" type="text" placeholder="请选择公开日期" id="start_time_picker" >
             </div>
           </div>
           <!-- 情报来源 -->
@@ -207,7 +208,7 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-              <input class="item_right_input" id="input_source_add" ng-model="add_item.sourse"
+              <input autocomplete="off"  class="item_right_input" id="input_source_add" ng-model="add_item.sourse"
                 placeholder="请选择来源或按Enter键添加新来源" ng-keyup="add_source_mykey($event)" ng-focus="add_focus('source')"
                 ng-blur="add_blur('source');" ng-change="add_source_change(add_item.sourse)" type="text">
               <ul class="select_list_box" ng-if="pop_show.add_source_list" id="loop_source_add">
@@ -228,7 +229,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in add_item.affected" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text" placeholder="请输入影响产品" ng-model='item.name' class="item_right_input">
+                  <input autocomplete="off"  type="text" placeholder="请输入影响产品" ng-model='item.name' class="item_right_input">
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('affected',index)"
@@ -278,7 +279,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in add_item.reference" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text" placeholder="请输入参考信息" ng-model='item.name' class="item_right_input">
+                  <input autocomplete="off"  type="text" placeholder="请输入参考信息" ng-model='item.name' class="item_right_input">
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="add_input_list('reference',index)"
@@ -302,7 +303,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div style="flex:1; display:flex;margin-bottom:10px;" ng-repeat="(index,item) in add_item.tag track by $index">
                 <div class="tag_item">
-                  <input type="text" placeholder="请选择标签类别" ng-model="item.category"
+                  <input  autocomplete="off"  type="text" placeholder="请选择标签类别" ng-model="item.category"
                     ng-focus="add_focus('tag_category',index)" ng-blur="add_blur('tag_category',index);"
                     class="item_right_input" readonly>
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
@@ -326,7 +327,7 @@ $this->title = '漏洞情报管理';
                 </div>-->
 
                 <div class="tag_item tag_item_{{$index}}" >
-                  <input type="text" placeholder="请选择标签名称"  ng-model="item.name"
+                  <input  autocomplete="off" type="text" placeholder="请选择标签名称"  ng-model="item.name"
                   class="item_right_input label_auto_complate" id="label_auto_complate_{{$index}}">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt=""/>
                 </div>
@@ -352,7 +353,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in add_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
- <input type="text"
+ <input autocomplete="off"  type="text"
                   placeholder="请选择NVD关联"
                   id="{{'input'+index}}"
                   ng-change="add_nvd_change(item.name)"
@@ -406,7 +407,7 @@ $this->title = '漏洞情报管理';
               <span>情报标题:</span>
             </div>
             <div class="contnet_item_right">
-              <input type="text" placeholder="请输入情报标题" ng-model="edit_item.title" class="item_right_input">
+              <input  autocomplete="off"  type="text" placeholder="请输入情报标题" ng-model="edit_item.title" class="item_right_input">
             </div>
           </div>
           <div class="contnet_item">
@@ -417,7 +418,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right">
               <div class="tag_item" style="margin:0">
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                <input type="text" placeholder="请选择漏洞等级" ng-model="edit_item.level" ng-focus="edit_focus('level')"
+                <input autocomplete="off"  type="text" placeholder="请选择漏洞等级" ng-model="edit_item.level" ng-focus="edit_focus('level')"
                   ng-blur="edit_blur('level');" class="item_right_input" readonly>
               </div>
               <ul class="select_list_box" ng-if="pop_show.edit_level_list" style="height:107px">
@@ -436,7 +437,8 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/report/time.png" alt="" class="item_right_time_icon">
-              <input class="item_right_input" type="text" placeholder="请选择公开日期" id="picker_edit" >
+                <img src="/images/set/closed_pop.png" alt="" ng-click="picker_edit_cancel()" class="item_right_time_icon_cancel">
+              <input autocomplete="off"  class="item_right_input" type="text" placeholder="请选择公开日期" id="picker_edit" >
             </div>
           </div>
           <!-- 情报来源 -->
@@ -447,7 +449,7 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-              <input class="item_right_input" id="input_source_edit" ng-model="edit_item.sourse"
+              <input autocomplete="off"  class="item_right_input" id="input_source_edit" ng-model="edit_item.sourse"
                 placeholder="请选择来源或按Enter键添加新来源" ng-keyup="edit_source_mykey($event)" ng-focus="edit_focus('source')"
                 ng-blur="edit_blur('source');" ng-change="edit_source_change(edit_item.sourse)" type="text">
               <ul class="select_list_box" ng-if="pop_show.edit_source_list" id="loop_source_edit">
@@ -468,7 +470,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in edit_item.affected" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text" placeholder="请输入影响产品" ng-model='item.name' class="item_right_input">
+                  <input  autocomplete="off" type="text" placeholder="请输入影响产品" ng-model='item.name' class="item_right_input">
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('affected',index)"
@@ -515,7 +517,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in edit_item.reference" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-                  <input type="text" placeholder="请输入参考信息" ng-model='item.name' class="item_right_input">
+                  <input autocomplete="off"  type="text" placeholder="请输入参考信息" ng-model='item.name' class="item_right_input">
                 </div>
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('reference',index)"
@@ -539,7 +541,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div style="flex:1; display:flex;margin-bottom:10px;" ng-repeat="(index,item) in edit_item.tag">
                 <div class="tag_item">
-                  <input type="text" placeholder="请选择标签类别" ng-model="item.category"
+                  <input autocomplete="off"  type="text" placeholder="请选择标签类别" ng-model="item.category"
                     ng-focus="edit_focus('tag_category',index)" ng-blur="edit_blur('tag_category',index);"
                     class="item_right_input" readonly>
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
@@ -563,7 +565,7 @@ $this->title = '漏洞情报管理';
                 </div>-->
 
                  <div class="tag_item edit_item_{{$index}}" >
-                  <input type="text" placeholder="请选择标签名称" ng-model="item.name"
+                  <input autocomplete="off"  type="text" placeholder="请选择标签名称" ng-model="item.name"
                   class="item_right_input label_edit_complate" id="edit_auto_complate_{{$index}}">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt=""/>
                 </div>
@@ -590,7 +592,7 @@ $this->title = '漏洞情报管理';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div ng-repeat="(index,item) in edit_item.NVD" style="flex:1; display:flex;margin-bottom:10px;">
                 <div class="tag_item" style="flex:1;">
-  <input type="text"
+  <input type="text" autocomplete="off"
                    placeholder="请选择NVD关联"
                     id="{{'input_edit'+index}}"
                     ng-change="edit_nvd_change(item.name)"

@@ -31,13 +31,13 @@ $this->title = '车联网预警';
             <!-- 受影响资产 -->
             <span class="vehicle_alert_word">
                 <img src="/images/alert/search_icon.png" class="word_icon" alt="">
-                <input type="text" class="word_input" placeholder="输入关键字" ng-model="seach_data.key_word">
+                <input type="text" autocomplete="off"  class="word_input" placeholder="输入关键字" ng-model="seach_data.key_word">
             </span>
 
             <!-- 预警事件 -->
               <div class="vehicle_alert_time ">
         <img src="/images/report/time.png" class="start_time_icon" alt="">
-        <input class="time_picker" autocomplete="off" id="picker_search" type="text" placeholder="时间">
+        <input  class="time_picker" autocomplete="off" id="picker_search" type="text" placeholder="时间">
       </div>
             <!-- 处理状态 -->
             <select class="vehicle_alert_select" ng-model="seach_data.level"

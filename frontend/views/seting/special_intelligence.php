@@ -179,7 +179,7 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right">
               <div class="tag_item" style="margin:0">
                 <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                <input type="text" placeholder="请选择情报级别" ng-model="add_item.level" ng-focus="add_focus('level')"
+                <input type="text" placeholder="请选择情报级别" autocomplete="off"  ng-model="add_item.level" ng-focus="add_focus('level')"
                   ng-blur="add_blur('level');" class="item_right_input" readonly>
               </div>
               <ul class="select_list_box" ng-if="pop_show.add_level_list" style="height:107px">

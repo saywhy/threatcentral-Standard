@@ -635,6 +635,13 @@ select {
   position: relative;
 }
 
+.item_right_time_icon_cancel {
+  position: absolute;
+  right: 36px;
+  width: 16px;
+  top: 14px;
+}
+
 .item_right_time_icon {
   position: absolute;
   right: 10px;

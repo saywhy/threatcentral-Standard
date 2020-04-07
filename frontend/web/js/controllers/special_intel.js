@@ -227,6 +227,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         )
         $('#picker_search').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+            $scope.seach_data.startDate = picker.startDate.unix()
+            $scope.seach_data.endDate = picker.endDate.unix()
         });
         $('#picker_search').on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
@@ -1255,9 +1257,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.NVD, function (key, value) {
                     key.nvd_ul = false;
                 })
-                if(!$scope.add_cve_flag
-                    && $scope.nvd_list.length > 0
-                    && $scope.add_item.NVD[0].name != ''){
+                if (!$scope.add_cve_flag &&
+                    $scope.nvd_list.length > 0 &&
+                    $scope.add_item.NVD[0].name != '') {
                     zeroModal.error('您未选中触发的CVE列表，请选择！');
                     $scope.add_item.NVD[0].name = '';
                 }
@@ -1507,9 +1509,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     key.nvd_ul = false;
                 })
 
-                if(!$scope.edit_cve_flag &&
-                    $scope.nvd_list.length > 0
-                    && $scope.edit_item.NVD[0].name != ''){
+                if (!$scope.edit_cve_flag &&
+                    $scope.nvd_list.length > 0 &&
+                    $scope.edit_item.NVD[0].name != '') {
                     zeroModal.error('您未选中触发的CVE列表，请选择！');
                     $scope.edit_item.NVD[0].name = '';
                 }

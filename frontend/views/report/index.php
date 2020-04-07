@@ -164,7 +164,7 @@ $this->title = '报表生成';
     </div>
     <div class="report_container_bom">
       <div class="report_container_bom_left"> 报表名称</div>
-      <input class="input_bom_box" type="text" ng-model="report_data.report_name" placeholder="请输入报表名称">
+      <input  autocomplete="off" class="input_bom_box" type="text" ng-model="report_data.report_name" placeholder="请输入报表名称">
     </div>
     <div class="btn_box">
       <button class="save_btn" ng-click="add_report()">

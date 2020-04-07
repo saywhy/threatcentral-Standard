@@ -22,7 +22,7 @@ $this->title = '情报API';
     <div class="api_box_mid">
       <p class="api_box_mid_name">授权管理</p>
       <div class="api_box_mid_search_box">
-        <input class="api_box_mid_input" placeholder="请输入用户名" type="text" ng-model="token_institution">
+        <input autocomplete="off" class="api_box_mid_input" placeholder="请输入用户名" type="text" ng-model="token_institution">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
         <button class="api_box_mid_button_left" ng-click="token_search()">搜索</button>
         <button class="api_box_mid_button_right" ng-click="token_add()">生成TOKEN</button>
@@ -70,7 +70,7 @@ $this->title = '情报API';
             <span ng-if="item.rest_count!='0'">{{item.rest_count}}</span>
           </td>
           <td>
-            <input class="tgl tgl-ios" type="checkbox" value="item.choose" ng-checked="item.choose"
+            <input autocomplete="off" class="tgl tgl-ios" type="checkbox" value="item.choose" ng-checked="item.choose"
               ng-click="choose_open(item)" id="{{item.id}}">
             <label class="tgl-btn" for="{{item.id}}" style="margin-top: 3px;margin-right: 5px; float: left;"></label>
             <img src="/images/set/update.png" class="img_margin" ng-click="update_token(item)" alt="">
@@ -131,7 +131,7 @@ $this->title = '情报API';
     <div id="token">
       <div class="token_top">
         <p class="token_name">分支结构名称</p>
-        <input type="text" placeholder="请输入分支结构名称" class="token_top_input" ng-model="add_token_data.institution">
+        <input autocomplete="off" type="text" placeholder="请输入分支结构名称" class="token_top_input" ng-model="add_token_data.institution">
       </div>
       <div class="token_mid">
         <p class="token_name">生效时间</p>
@@ -142,7 +142,7 @@ $this->title = '情报API';
       </div>
       <div class="token_bom">
         <p class="token_name">查询次数</p>
-        <input type="number" ng-blur="add_token_blur()" placeholder="请输入查询次数" class="token_top_input"
+        <input autocomplete="off" type="number" ng-blur="add_token_blur()" placeholder="请输入查询次数" class="token_top_input"
           ng-model="add_token_data.search_count">
       </div>
       <div class="token_btn_box">
@@ -156,19 +156,19 @@ $this->title = '情报API';
     <div id="edit_token">
       <div class="token_top">
         <p class="token_name">分支结构名称</p>
-        <input type="text" placeholder="请输入分支结构名称" disabled="disabled" class="token_top_input"
+        <input autocomplete="off" type="text" placeholder="请输入分支结构名称" disabled="disabled" class="token_top_input"
           ng-model="edit_token_item.institution">
       </div>
       <div class="token_mid">
         <p class="token_name">生效时间</p>
         <div class="log_time">
           <img src="/images/report/time.png" class="start_time_icon" alt="">
-          <input class="token_top_input" autocomplete="off" id="picker_edit" type="text" placeholder="时间">
+          <input autocomplete="off" class="token_top_input" autocomplete="off" id="picker_edit" type="text" placeholder="时间">
         </div>
       </div>
       <div class="token_bom">
         <p class="token_name">查询次数</p>
-        <input type="number" ng-blur="edit_token_blur()" placeholder="请输入查询次数" class="token_top_input"
+        <input autocomplete="off" type="number" ng-blur="edit_token_blur()" placeholder="请输入查询次数" class="token_top_input"
           ng-model="edit_token_item.rest_count">
       </div>
       <div class="token_btn_box">

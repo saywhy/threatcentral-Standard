@@ -9,18 +9,18 @@ $this->title = '行业情报';
       <!-- 输入关键字 -->
       <span class="vehicle_icon_box">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-        <input type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="情报标题/情报描述"
+        <input  autocomplete="off" type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="情报标题/情报描述"
           ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
       </span>
           <!-- 获取时间 -->
       <div class="vehicle_search_time">
           <img src="/images/report/time.png" class="time_icon_search" alt="">
-          <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="发现时间">
+          <input autocomplete="off" class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="发现时间">
       </div>
       <!-- 漏洞来源 -->
       <div class="vehicle_icon_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+        <input autocomplete="off" type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
           ng-blur="search_blur('source');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.source" style="margin:0;overflow-x: hidden;">
           <li ng-mousedown="search_choose_item(item,$index,'source');" ng-repeat="item in loop_source track by $index">
@@ -32,7 +32,7 @@ $this->title = '行业情报';
       <!-- 漏洞级别 -->
       <div class="vehicle_icon_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input type="text" placeholder="情报级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
+        <input  autocomplete="off" type="text" placeholder="情报级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
           ng-blur="search_blur('level');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.level" style="height:170px;margin:0;overflow-x: hidden;">
           <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
@@ -103,7 +103,7 @@ $this->title = '行业情报';
       </ul>
 
       <div class="pagination_info">
-        <p class="leave_page" ng-show="pages.maxPage>1">前往<input type="number" class="leave_page_num" ng-model="page_num"
+        <p class="leave_page" ng-show="pages.maxPage>1">前往<input autocomplete="off"  type="number" class="leave_page_num" ng-model="page_num"
                   ng-blur="get_page(page_num)">页</p>
         <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
           <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-if="pages.pageNow>1">上一页</a>

@@ -72,8 +72,8 @@ $this->title = '漏洞关联';
     <div class="loop_connect_box">
         <div class="loop_connect_box_top">
             <div class="position_box">
-                <input type="text" placeholder="请输入漏洞日志名称" class="input_box" ng-model="search_data.risk_name">
-                <input type="text" placeholder="请输入漏洞情报名称" class="input_box" ng-model="search_data.title">
+                <input  autocomplete="off" type="text" placeholder="请输入漏洞日志名称" class="input_box" ng-model="search_data.risk_name">
+                <input  autocomplete="off" type="text" placeholder="请输入漏洞情报名称" class="input_box" ng-model="search_data.title">
                 <button class="search_btn" ng-click="get_loop_list()">搜索规则</button>
                 <button class="add_btn" ng-click="add_loop()">新建规则</button>
             </div>
@@ -150,11 +150,11 @@ $this->title = '漏洞关联';
         <div id="custom_add">
             <p class="edit_title">漏洞日志名称</p>
             <div>
-                <input class="input_box_bottom" placeholder="请输入漏洞日志名称" ng-model="add_lopp.risk_name" type="text">
+                <input autocomplete="off"  class="input_box_bottom" placeholder="请输入漏洞日志名称" ng-model="add_lopp.risk_name" type="text">
             </div>
             <p class="edit_title">漏洞情报名称</p>
             <div>
-                <input class="input_box_bottom" placeholder="请输入漏洞情报名称" ng-model="add_lopp.title" type="text">
+                <input autocomplete="off" class="input_box_bottom" placeholder="请输入漏洞情报名称" ng-model="add_lopp.title" type="text">
             </div>
             <div style="text-align: center;">
                 <button class="save_btn" ng-click="add_save()">保存</button>
@@ -167,11 +167,11 @@ $this->title = '漏洞关联';
         <div id="custom_edit">
             <p class="edit_title">漏洞日志名称</p>
             <div>
-                <input class="input_box_bottom" placeholder="请输入漏洞日志名称" ng-model="edit_lopp.risk_name" type="text">
+                <input autocomplete="off"  class="input_box_bottom" placeholder="请输入漏洞日志名称" ng-model="edit_lopp.risk_name" type="text">
             </div>
             <p class="edit_title">漏洞情报名称</p>
             <div>
-                <input class="input_box_bottom" placeholder="请输入漏洞情报名称" ng-model="edit_lopp.title" type="text">
+                <input autocomplete="off" class="input_box_bottom" placeholder="请输入漏洞情报名称" ng-model="edit_lopp.title" type="text">
             </div>
             <div style="text-align: center;">
                 <button class="save_btn" ng-click="edit_loop_save()">保存</button>
