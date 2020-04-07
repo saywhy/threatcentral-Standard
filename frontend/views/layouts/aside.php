@@ -35,7 +35,7 @@
 
     <!--情报-->
     <ul class="aside-lists" ng-show="indexCode === 1">
-        <li class="aside-item">
+        <li class="aside-item" ng-if="menu_aside_flag.search.system">
             <a class="aside-item-a" ng-click="menu_aside.search.system = !menu_aside.search.system">
                 <i class="fa fa-podcast"></i>
                 <span class="name">IT 系统情报</span>
@@ -75,7 +75,7 @@
             </ul>
         </li>
 
-        <li class="aside-item">
+        <li class="aside-item" ng-if="menu_aside_flag.search.vehicle">
              <a class="aside-item-a" ng-click="menu_aside.search.vehicle = !menu_aside.search.vehicle">
                 <i class="fa fa-podcast"></i>
                 <span class="name">车联网情报</span>
@@ -100,7 +100,7 @@
 
     <!--资产-->
     <ul class="aside-lists" ng-show="indexCode === 2">
-        <li class="aside-item">
+        <li class="aside-item" ng-if="menu_aside_flag.assets.system">
             <a class="aside-item-a" ng-click="menu_aside.assets.system = !menu_aside.assets.system">
                 <i class="fa fa-database"></i>
                 <span class="name">IT 资产</span>
@@ -122,7 +122,7 @@
             </ul>
         </li>
 
-        <li class="aside-item">
+        <li class="aside-item" ng-if="menu_aside_flag.assets.vehicle">
              <a class="aside-item-a" ng-click="menu_aside.assets.vehicle = !menu_aside.assets.vehicle">
                 <i class="fa fa-database"></i>
                 <span class="name">车联网资产</span>
@@ -147,7 +147,7 @@
 
     <!--预警-->
     <ul class="aside-lists" ng-show="indexCode === 3">
-        <li class="aside-item">
+        <li class="aside-item" ng-if="menu_aside_flag.alert.system">
             <a class="aside-item-a" ng-click="menu_aside.alert.system = !menu_aside.alert.system">
                 <i class="fa fa-heartbeat"></i>
                 <span class="name">IT 系统预警</span>
@@ -220,7 +220,7 @@
 
     <!--配置-->
     <ul class="aside-lists" ng-show="indexCode === 5">
-        <li class="aside-item">
+        <li class="aside-item" ng-if="menu_aside_flag.seting.system">
             <a class="aside-item-a" ng-click="menu_aside.seting.system = !menu_aside.seting.system">
                 <i class="fa fa-cog"></i>
                 <span class="name">IT 系统配置</span>
@@ -268,7 +268,7 @@
             </ul>
         </li>
 
-        <li class="aside-item">
+        <li class="aside-item"  ng-if="menu_aside_flag.seting.vehicle">
              <a class="aside-item-a" ng-click="menu_aside.seting.vehicle = !menu_aside.seting.vehicle">
                 <i class="fa fa-cog"></i>
                 <span class="name">车联网系统配置</span>
@@ -281,7 +281,7 @@
                         <span>标签管理</span>
                     </a>
                 </li>
-                <li class="aside-item-second">
+                <li class="aside-item-second" ng-if="menu_aside_flag.seting.manage.set">
                     <a class="aside-item-second-a"
                      ng-click="menu_aside.seting.manage.set = !menu_aside.seting.manage.set">
                         <span>情报管理</span>

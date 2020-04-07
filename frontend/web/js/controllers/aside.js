@@ -4,6 +4,38 @@ myApp.controller("asideCtrl", function($scope,$http) {
 
     $scope.indexCode = 0;
     $scope.alertDetail = false;
+
+    $scope.menu_aside_flag = {
+        site: {
+            system: false,
+            vehicle: false
+        },
+        search: {
+            system: false,
+            vehicle: false
+        },
+        assets: {
+            system: false,
+            vehicle: false
+        },
+        alert: {
+            system: false,
+            vehicle: false
+        },
+        report: {
+            system: false,
+            vehicle: false
+        },
+        seting: {
+            system: false,
+            vehicle: false,
+            manage:{
+                set: false
+            }
+        }
+
+    }
+
     $scope.menu_aside = {
         site: {
             system: true,
@@ -80,6 +112,75 @@ myApp.controller("asideCtrl", function($scope,$http) {
         set_loophole:false,
         set_base:false
     };
+
+
+
+    //通过权限控制显隐
+    $scope.init_aside_flag = function(){
+        let per_id = JSON.parse(localStorage.getItem('pemission_id'));
+        let icd = $scope.indexCode;
+
+        console.log(icd)
+        if(icd == 1){
+            if(per_id.includes('16')
+                || per_id.includes('24')
+                || per_id.includes('29')
+                || per_id.includes('46')
+                || per_id.includes('50')){
+                $scope.menu_aside_flag.search.system = true;
+            }
+
+            if(per_id.includes('186') || per_id.includes('187')){
+                $scope.menu_aside_flag.search.vehicle = true;
+            }
+
+        }else if(icd == 2){
+
+            if(per_id.includes('55') || per_id.includes('72')){
+                $scope.menu_aside_flag.assets.system = true;
+            }
+
+            if(per_id.includes('184') || per_id.includes('185')){
+                $scope.menu_aside_flag.assets.vehicle = true;
+            }
+
+        }else if(icd == 3){
+
+            if(per_id.includes('78') || per_id.includes('85') || per_id.includes('90')){
+                $scope.menu_aside_flag.alert.system = true;
+            }
+
+            /*if(per_id.includes('205')){
+                $scope.menu_aside_flag.alert.vehicle = true;
+            }*/
+
+        }else if(icd == 5){
+
+            if(per_id.includes('94')
+                || per_id.includes('97')
+                || per_id.includes('104')
+                || per_id.includes('110')
+                || per_id.includes('126')
+                || per_id.includes('130')
+                || per_id.includes('151')){
+                $scope.menu_aside_flag.seting.system = true;
+            }
+
+            if(per_id.includes('181')
+                || per_id.includes('182')
+                || per_id.includes('183')
+                || per_id.includes('209')){
+                $scope.menu_aside_flag.seting.vehicle = true;
+            }
+
+            if(per_id.includes('182')
+                || per_id.includes('183')
+                || per_id.includes('209')){
+                $scope.menu_aside_flag.seting.manage.set = true;
+            }
+        }
+
+    }
 
     $scope.get_status = function() {
         var name = window.document.location.pathname;
@@ -177,6 +278,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
             $scope.indexCode = 5;
         }
 
+        $scope.init_aside_flag();
     }
 
     $scope.get_menu = function() {
@@ -431,6 +533,8 @@ myApp.controller("asideCtrl", function($scope,$http) {
     };
 
     $scope.init = function() {
+
+
 
         //左侧栏显示设置
         $scope.init_code();
