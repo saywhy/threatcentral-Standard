@@ -1,6 +1,6 @@
 var myApp = angular.module("asideApp", []);
 
-myApp.controller("asideCtrl", function($scope,$http) {
+myApp.controller("asideCtrl", function($scope,$http,$timeout) {
 
     $scope.indexCode = 0;
     $scope.alertDetail = false;
