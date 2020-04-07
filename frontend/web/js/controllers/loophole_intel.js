@@ -1,6 +1,9 @@
 var myApp = angular.module("myApp", []);
 myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     $scope.init = function () {
+        $scope.add_cve_flag = false;
+        $scope.edit_cve_flag = false;
+
         $scope.searchTime = {
             startDate: '',
             // startDate: moment().subtract(90, "days"),
@@ -1177,6 +1180,12 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 angular.forEach($scope.add_item.NVD, function (key, value) {
                     key.nvd_ul = false;
                 })
+                if(!$scope.add_cve_flag
+                    && $scope.nvd_list.length > 0
+                    && $scope.add_item.NVD[0].name != ''){
+                    zeroModal.error('您未选中触发的CVE列表，请选择！');
+                    $scope.add_item.NVD[0].name = '';
+                }
                 break;
             case 'source':
                 $scope.pop_show.add_source_list = false;
@@ -1441,6 +1450,12 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 angular.forEach($scope.edit_item.NVD, function (key, value) {
                     key.nvd_ul = false;
                 })
+                if(!$scope.edit_cve_flag &&
+                    $scope.nvd_list.length > 0
+                && $scope.edit_item.NVD[0].name != ''){
+                    zeroModal.error('您未选中触发的CVE列表，请选择！');
+                    $scope.edit_item.NVD[0].name = '';
+                }
                 break;
             case 'source':
                 $scope.pop_show.edit_source_list = false;
@@ -1780,6 +1795,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         document.getElementById($scope.id).scrollTop = scrollTop;
     }
     $scope.add_nvd_focus = function (index, item) {
+        $scope.add_cve_flag = false;
         $scope.tag_key_add.active_index = -1;
         $scope.get_nvd(item.name)
         angular.forEach($scope.add_item.NVD, function (key, value) {
@@ -1798,6 +1814,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 key.name = item.cve;
                 key.nvd_ul = false;
                 key.id = item.id;
+                $scope.add_cve_flag = true;
             }
         })
     }
@@ -1848,6 +1865,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         document.getElementById($scope.id).scrollTop = scrollTop;
     }
     $scope.edit_nvd_focus = function (index, item) {
+        $scope.edit_cve_flag = false;
         $scope.tag_key_add.active_index = -1;
         $scope.get_nvd(item.name)
         angular.forEach($scope.edit_item.NVD, function (key, value) {
@@ -1866,6 +1884,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 key.name = item.cve;
                 key.nvd_ul = false;
                 key.id = item.id;
+                $scope.edit_cve_flag = true;
             }
         })
     }

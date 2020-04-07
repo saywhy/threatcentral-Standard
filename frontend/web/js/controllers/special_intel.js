@@ -292,6 +292,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $('#start_time_picker').val('');
     }
 
+    $scope.add_cve_flag = false;
+    $scope.edit_cve_flag = false;
+
     // 获取情报来源
     $scope.get_loophole_source = function (source) {
         source = source ? source : '';
@@ -419,7 +422,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     })
 
                 })
-                console.log($scope.pages.data);
                 if ($scope.get_page_show) {
                     $scope.enter_show = false;
                     angular.forEach($scope.pages.data, function (item) {
@@ -972,6 +974,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     }
                 });
 
+
                 $('#label_auto_complate_' + index).autocomplete({
                     appendTo: '.tag_item_' + index,
                     source: new_label,
@@ -1252,6 +1255,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.add_item.NVD, function (key, value) {
                     key.nvd_ul = false;
                 })
+                if(!$scope.add_cve_flag
+                    && $scope.nvd_list.length > 0
+                    && $scope.add_item.NVD[0].name != ''){
+                    zeroModal.error('您未选中触发的CVE列表，请选择！');
+                    $scope.add_item.NVD[0].name = '';
+                }
                 break;
             case 'source':
                 $scope.pop_show.add_source_list = false;
@@ -1497,6 +1506,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 angular.forEach($scope.edit_item.NVD, function (key, value) {
                     key.nvd_ul = false;
                 })
+
+                if(!$scope.edit_cve_flag &&
+                    $scope.nvd_list.length > 0
+                    && $scope.edit_item.NVD[0].name != ''){
+                    zeroModal.error('您未选中触发的CVE列表，请选择！');
+                    $scope.edit_item.NVD[0].name = '';
+                }
                 break;
             case 'source':
                 $scope.pop_show.edit_source_list = false;
@@ -1910,6 +1926,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         document.getElementById($scope.id).scrollTop = scrollTop;
     }
     $scope.add_nvd_focus = function (index, item) {
+        $scope.add_cve_flag = false;
         $scope.tag_key_add.active_index = -1;
         $scope.get_nvd(item.name)
         angular.forEach($scope.add_item.NVD, function (key, value) {
@@ -1928,6 +1945,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 key.name = item.cve;
                 key.nvd_ul = false;
                 key.id = item.id;
+
+                $scope.add_cve_flag = true;
             }
         })
     }
@@ -1978,6 +1997,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         document.getElementById($scope.id).scrollTop = scrollTop;
     }
     $scope.edit_nvd_focus = function (index, item) {
+        $scope.edit_cve_flag = false;
         $scope.tag_key_add.active_index = -1;
         $scope.get_nvd(item.name)
         angular.forEach($scope.edit_item.NVD, function (key, value) {
@@ -1996,6 +2016,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 key.name = item.cve;
                 key.nvd_ul = false;
                 key.id = item.id;
+                $scope.edit_cve_flag = true;
             }
         })
     }
