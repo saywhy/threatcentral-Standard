@@ -86,39 +86,40 @@ border-top-color:transparent;
     <ul class="nav nav-pills">
         <!-- 首页 -->
         <li role="presentation" class="dropdown <?=isActive(['/site/index', '/'])?> <?=isActive(['/map.html'])?> hover_li_title"  ng-if="menu_list.index">
-            <a class="dropdown-toggle nav_li_a" href="<?=getPath('/site/index')?>">
+            <!--<a class="dropdown-toggle nav_li_a" href="<?=getPath('/site/index')?>">-->
+            <a class="dropdown-toggle nav_li_a" ng-click="get_Path(1)">
                 <i class="fa fa-home"></i> 首页
             </a>
         </li>
         <!-- 情报 -->
         <li role="presentation" class="dropdown hover_li_title <?=isActive(['/search/index', '/agent/index', '/share/index', '/intelligence/source-management',
     '/vehicleintelligence/special', '/vehicleintelligence/loophole', '/search/apt-lib'])?> " ng-if="menu_list.intelligence">
-            <a class="dropdown-toggle nav_li_a"  href="<?=getPath('/search/index')?>">
+            <a class="dropdown-toggle nav_li_a"  ng-click="get_Path(15)">
                 <i class="fa fa-podcast"></i> 情报
             </a>
         </li>
         <!-- 资产 -->
         <li role="presentation" class="dropdown hover_li_title <?=isActive(['/assets/asset-management', '/assets/asset-risky', '/assets/details', '/assets/vehicle', '/assets/accessory'])?>" ng-if="menu_list.assets">
-            <a class="dropdown-toggle nav_li_a" href="<?=getPath('/assets/asset-management')?>">
+            <a class="dropdown-toggle nav_li_a" ng-click="get_Path(54)">
             <i class="fa fa-database"></i>
                  资产
             </a>
         </li>
         <!-- 预警 -->
         <li role="presentation" class="dropdown hover_li_title <?=isActive(['/alert/index', '/alert/loophole', '/alert/darknet', '/alert/loophole-detail', '/vehiclealert/index', '/vehiclealert/detail'])?>" ng-if="menu_list.warning">
-            <a class="dropdown-toggle nav_li_a" href="<?=getPath('/alert/index')?>">
+            <a class="dropdown-toggle nav_li_a" ng-click="get_Path(77)">
                 <i class="fa fa-heartbeat"></i> 预警
             </a>
         </li>
         <!-- 报表 -->
         <li role="presentation" class="dropdown hover_li_title <?=isActive(['/report/index', '/report/send'])?>" ng-if="menu_list.report">
-            <a class="dropdown-toggle nav_li_a"  href="<?=getPath('/report/index')?>">
+            <a class="dropdown-toggle nav_li_a"  ng-click="get_Path(127)">
                 <i class="fa fa-area-chart"></i> 报表
             </a>
         </li>
         <!-- 设置 -->
         <li role="presentation" class="dropdown hover_li_title <?=isActive(['/seting/network', '/seting/systemnotice', '/seting/custom-information-search', '/seting/centralmanager', '/seting/label-manage', '/seting/user', '/seting/log', '/api/index', '/seting/special-intelligence', '/seting/loophole-intelligence', '/seting/base-intelligence'])?> " ng-if="menu_list.set">
-            <a class="dropdown-toggle nav_li_a"  href="<?=getPath('/seting/network')?>" >
+            <a class="dropdown-toggle nav_li_a"  ng-click="get_Path(93)">
                 <i class="fa fa-cog"></i> 配置
             </a>
         </li>
