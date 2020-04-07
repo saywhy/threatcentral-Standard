@@ -999,7 +999,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         var H = 185;
         var box = null;
         box = zeroModal.confirm({
-            content: '是否删除情报',
+            content: '删除情报',
             width: W + "px",
             height: H + "px",
             ok: false,

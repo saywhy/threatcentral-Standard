@@ -452,6 +452,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
                 zeroModal.close(loading);
                 $scope.pages = data.data;
                 console.log($scope.pages)
+                $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
                     item.title = $scope.escape2Html(item.title)
                     item.detail = $scope.escape2Html(item.detail)
