@@ -79,7 +79,7 @@ $this->context->layout = false;
                     <button ng-click="login_in()" class="login_button">登录</button>
                 </div>
                 <div>
-                  <span style="color:#0070FF; position: absolute;bottom: 36px;left: 36px;">版本号v1.2</span>
+                  <span style="color:#00285e; position: absolute;bottom: 36px;left: 36px;">版本号v1.2</span>
                 </div>
             </div>
             <div class="col-md-6">
