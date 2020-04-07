@@ -221,19 +221,92 @@ myApp.controller("loginCtrl", function($scope, $http, $filter, $sce) {
 
               if (permission.status == "success") {
 
-                let pemission_id = [];
+                let per_id = [];
 
                 angular.forEach(permission.data, function(item) {
-                  pemission_id.push(item.permissions_id);
+                  per_id.push(item.permissions_id);
                   if(item.child_menu && item.child_menu.length > 0){
                     angular.forEach(item.child_menu,function (itm) {
-                      pemission_id.push(itm.permissions_id);
+                      per_id.push(itm.permissions_id);
                     })
                   }
                 });
 
-                localStorage.setItem("pemission_id",JSON.stringify(pemission_id));
-                window.location.href = "/site/index";
+                localStorage.setItem("pemission_id",JSON.stringify(per_id));
+               // window.location.href = "/site/index";
+                if(per_id.includes('1')){
+                  if(per_id.includes('2')){
+                    window.location.href = "/site/index";
+                  }else if(per_id.includes('14')){
+                    window.location.href = "/map.html";
+                  }
+                }else if(per_id.includes('15')){
+                  if(per_id.includes('16')){
+                    window.location.href = "/search/index";
+                  }else if(per_id.includes('24')){
+                    window.location.href = "/agent/index";
+                  }else if(per_id.includes('29')){
+                    window.location.href = "/share/index";
+                  }else if(per_id.includes('46')){
+                    window.location.href = "/intelligence/source-management";
+                  }else if(per_id.includes('50')){
+                    window.location.href = "/search/apt-lib";
+                  }else if(per_id.includes('186')){
+                    window.location.href = "/vehicleintelligence/special";
+                  }else if(per_id.includes('187')){
+                    window.location.href = "/vehicleintelligence/loophole";
+                  }
+                }else if(per_id.includes('54')){
+                  if(per_id.includes('55')){
+                    window.location.href = "/assets/asset-management";
+                  }else if(per_id.includes('72')){
+                    window.location.href = "/assets/asset-risky";
+                  }else if(per_id.includes('184')){
+                    window.location.href = "/assets/vehicle";
+                  }else if(per_id.includes('185')){
+                    window.location.href = "/assets/accessory";
+                  }
+                }else if(per_id.includes('77')){
+                  if(per_id.includes('78')){
+                    window.location.href = "/alert/index";
+                  }else if(per_id.includes('85')){
+                    window.location.href = "/alert/loophole";
+                  }else if(per_id.includes('90')){
+                    window.location.href = "/alert/darknet";
+                  }else if(per_id.includes('205')){
+                    window.location.href = "/vehiclealert/index";
+                  }
+                }else if(per_id.includes('127')){
+                  if(per_id.includes('128')){
+                    window.location.href = "/report/index";
+                  }else if(per_id.includes('129')){
+                    window.location.href = "/report/send";
+                  }
+                }else if(per_id.includes('93')){
+                  if(per_id.includes('94')){
+                    window.location.href = "/seting/network";
+                  }else if(per_id.includes('97')){
+                    window.location.href = "/seting/systemnotice";
+                  }else if(per_id.includes('104')){
+                    window.location.href = "/seting/custom-information-search";
+                  }else if(per_id.includes('110')){
+                    window.location.href = "/seting/user";
+                  }else if(per_id.includes('126')){
+                    window.location.href = "/seting/log";
+                  }else if(per_id.includes('130')){
+                    window.location.href = "/seting/centralmanager";
+                  }else if(per_id.includes('151')){
+                    window.location.href = "/api/index";
+                  } else if(per_id.includes('181')){
+                    window.location.href = "/seting/label-manage";
+                  }else if(per_id.includes('182')){
+                    window.location.href = "/seting/special-intelligence";
+                  }else if(per_id.includes('183')){
+                    window.location.href = "/seting/loophole-intelligence";
+                  }else if(per_id.includes('209')){
+                    window.location.href = "/seting/base-intelligence";
+                  }
+                }
               }
             })
           }
