@@ -238,6 +238,79 @@ $this->title = '行业情报';
 
 
 
+    <!-- 新增标签弹窗 -->
+    <div style="display:none;" id="vehicle_loophole_box">
+      <div id="vehicle_loophole">
+        <h1 class="l_top">{{label_item_data.title}}</h1>
+        <ul class="l_mid">
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp1.png" alt="" />
+            <h4 class="title">情报级别：</h4>
+            <span class="stance">{{label_item_data.level}}<span ng-hide="label_item_data.level==''">危</span></span>
+          </li>
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp2.png" alt="" />
+            <h4 class="title">公开日期：</h4>
+            <span class="stance">{{label_item_data.open_time*1000 | date : 'yyyy-MM-dd'}}</span>
+          </li>
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp3.png" alt="" />
+            <h4 class="title">情报来源：</h4>
+            <span class="stance">{{label_item_data.sourse}}</span>
+          </li>
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp4.png" alt="" />
+            <h4 class="title">影响产品：</h4>
+            <span class="stance s_affected" style="margin-right: 5px;"
+              ng-repeat="it in label_item_data.affected_products">{{it}}</span>
+          </li>
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp7.png" alt="" />
+            <h4 class="title">情报描述：</h4>
+            <span class="stance s_content" ng-bind="label_item_data.detail"></span>
+          </li>
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp8.png" alt="" />
+            <h4 class="title">建议处理措施：</h4>
+            <span class="stance s_content" ng-bind="label_item_data.treatment_measures"></span>
+          </li>
+          <li class="item" style="display:flex">
+            <div class="i_img_div" style="width:32px;">
+              <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_8.png"
+                alt="" />
+            </div>
+            <h4 class="title" style="line-height: 28px;width:150px;">参考信息：</h4>
+            <span class="stance" style="flex;">
+              <span class="s_refer" ng-repeat="item in label_item_data.reference_information"
+                ng-attr-title="{{item}}">{{item}}</span>
+            </span>
+          </li>
+          <li class="item" style="display:flex;">
+            <div class="i_img_div" style="width:32px;">
+              <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_10.png"
+                alt="" />
+            </div>
+            <h4 class="title" style="line-height: 28px;width:150px;">NVD关联：</h4>
+            <span class="stance" style="flex:1">
+              <span class="s_refer" ng-repeat="item in label_item_data.nvd" ng-attr-title="{{item}}">{{item}}</span>
+            </span>
+          </li>
+          <li class="item">
+            <img class="i_img" src="/images/loophole/sp6.png" alt="" />
+            <h4 class="title">标签：</h4>
+
+            <div class="s_label_list">
+              <p class="s_label" ng-repeat="item in label_item_data.label_new_name">
+                <span class="s_name">{{item.name}}：</span>
+                <span class="s_lab">
+                  <a ng-repeat="tm in item.value" class="s_lab_val">{{tm.label_name}}</a>
+                </span>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   <!-- NVD详情弹窗 -->
   <div style="display:none;" id="vehicle_loophole_box_nvd">
       <div id="vehicle_loophole_nvd">
