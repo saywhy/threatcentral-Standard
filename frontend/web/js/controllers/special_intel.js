@@ -352,7 +352,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             'amp': '&',
             'quot': '"'
         };
-        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+        return str.replace(/&(lt|gt|nbsp|amp|&amp|quot);/ig, function (all, t) {
             return arrEntities[t];
         });
     }
