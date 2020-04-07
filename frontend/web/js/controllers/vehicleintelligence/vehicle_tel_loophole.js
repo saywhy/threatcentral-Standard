@@ -179,9 +179,15 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
                     angular.forEach($scope.label_data, function (item) {
                         item.name = $scope.escape2Html(item.name)
                         angular.forEach(item.label, function (key) {
-                            key.label_name = $scope.escape2Html(key.label_name)
-                            key.category_name = $scope.escape2Html(key.category_name)
-                            key.detail = $scope.escape2Html(key.detail)
+                            if (key.label_name) {
+                                key.label_name = $scope.escape2Html(key.label_name)
+                            }
+                            if (key.category_name) {
+                                key.category_name = $scope.escape2Html(key.category_name)
+                            }
+                            if (key.detail) {
+                                key.detail = $scope.escape2Html(key.detail)
+                            }
                         });
                     });
                 }
@@ -467,15 +473,4 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
     }
 
     $scope.init();
-
-    document.onclick = function (e) {
-        if (e.target.className == 'zeromodal-overlay') {
-            zeroModal.closeAll();
-        } else if (e.target.className == 'pop_box ng-scope') {
-            var appElement = document.querySelector('[ng-controller=vehicleTelLoopholeCtrl]');
-            var $scope = angular.element(appElement).scope();
-            $scope.pop_show = false;
-            $scope.$apply();
-        }
-    }
 });

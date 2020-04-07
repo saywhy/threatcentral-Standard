@@ -679,24 +679,36 @@ select {
   top: 15px;
 }
 
+
 .select_list_box {
+  margin: 0;
   position: absolute;
-  height: 156px;
   background: #fff;
   width: 100%;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
-  margin-top: 45px;
+  margin-top: 5px;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 9990;
 }
 
+.select_list_box_height {
+  height: 156px;
+}
+
+.select_list_margin {
+  margin-top: 47px;
+}
+
 .select_list_box li {
   font-size: 12px;
-  line-height: 24px;
-  padding: 0 16px;
+  min-height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
   color: #666666;
   cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 .select_list_box li:hover {
@@ -830,4 +842,55 @@ select {
 
 .pagination {
   display: inline-block;
+}
+
+
+.cate_content {
+  text-align: center;
+  height: 90px;
+  line-height: 70px;
+}
+
+.cate_content .cate_tip {
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #333333;
+}
+
+.cate_btn_delete_box {
+  text-align: center;
+}
+
+.cate_btn_delete_box .cate_btn_aware {
+  color: #fff;
+  font-size: 16px;
+  background: #0070FF;
+  border-radius: 4px;
+  width: 180px;
+  height: 40px;
+  font-family: PingFangSC-Regular;
+}
+
+
+.cate_btn_delete_box .cate_btn_ok {
+  color: #fff;
+  font-size: 16px;
+  background: #0070FF;
+  border-radius: 4px;
+  width: 124px;
+  height: 40px;
+  margin: 0 20px;
+  font-family: PingFangSC-Regular;
+}
+
+.cate_btn_delete_box .cate_btn_cancel {
+  color: #0070FF;
+  font-size: 16px;
+  background: #fff;
+  border-radius: 4px;
+  width: 124px;
+  height: 40px;
+  margin: 0 20px;
+  border: 1px solid #0070FF;
+  font-family: PingFangSC-Regular;
 }

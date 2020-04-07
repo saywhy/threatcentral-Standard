@@ -976,16 +976,7 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
 
         });
     };
-
-
     $scope.init();
-
-    document.onclick = function (e) {
-        if (e.target.className == 'zeromodal-overlay') {
-            zeroModal.closeAll();
-        }
-    }
-
 });
 
 

@@ -915,9 +915,15 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (data.data.status == 'success') {
                     $scope.get_page($scope.pageNow);
                     if (num == '1') {
-                        zeroModal.success("发布成功");
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '发布成功'
+                        });
                     } else {
-                        zeroModal.success("撤回成功");
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '撤回成功'
+                        });
                     }
                 } else {
                     zeroModal.error(data.data.errorMessage);
@@ -928,38 +934,51 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 删除情报
     $scope.delete = function (id) {
+        $scope.id_del = id
         var W = 552;
-        var H = 185;
-        var box = null;
-        box = zeroModal.confirm({
-            content: '是否删除情报',
+        var H = 248;
+        zeroModal.show({
+            title: "是否删除情报",
+            content: cate_delete_2,
             width: W + "px",
             height: H + "px",
+            unique: '123',
             ok: false,
             cancel: false,
-            okFn: function () {
-                var loading = zeroModal.loading(4);
-                $http({
-                    method: "delete",
-                    url: "/seting/special-intelligence-del",
-                    data: {
-                        id: id
-                    }
-                }).then(
-                    function (data) {
-                        zeroModal.close(loading);
-                        if (data.data.status == 'success') {
-                            zeroModal.success("删除成功");
-                        } else {
-                            zeroModal.error(data.data.errorMessage);
-                        }
-                        $scope.get_page($scope.pageNow);
-                    },
-                    function () {}
-                );
-            },
+            okFn: function () {},
+            onCleanup: function () {
+                cate_delete_box_2.appendChild(cate_delete_2);
+            }
         });
     }
+    $scope.cate_delete_ok = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "delete",
+            url: "/seting/special-intelligence-del",
+            data: {
+                id: $scope.id_del
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.closeAll();
+                    zeroModal.success("删除成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
+                }
+
+                $scope.get_page($scope.pageNow);
+            },
+            function () {}
+        );
+    }
+    //删除弹窗取消事件
+    $scope.cate_delete_cancel = function () {
+        zeroModal.closeAll();
+    };
+
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
         $scope.get_page_show = true;
@@ -1271,7 +1290,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (!$scope.add_cve_flag &&
                     $scope.nvd_list.length > 0 &&
                     $scope.add_item.NVD[0].name != '') {
-                    zeroModal.error('您未选中触发的CVE列表，请选择！');
+                    zeroModal.error('您未选中NVD关联信息，请选择！');
                     $scope.add_item.NVD[0].name = '';
                 }
                 break;
@@ -1523,7 +1542,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (!$scope.edit_cve_flag &&
                     $scope.nvd_list.length > 0 &&
                     $scope.edit_item.NVD[0].name != '') {
-                    zeroModal.error('您未选中触发的CVE列表，请选择！');
+                    zeroModal.error('您未选中NVD关联信息，请选择！');
                     $scope.edit_item.NVD[0].name = '';
                 }
                 break;
@@ -1722,12 +1741,19 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         });
                     });
                     $scope.label_data = labelAttr;
+                    console.log($scope.label_data);
                     angular.forEach($scope.label_data, function (item) {
                         item.name = $scope.escape2Html(item.name)
                         angular.forEach(item.label, function (key) {
-                            key.label_name = $scope.escape2Html(key.label_name)
-                            key.category_name = $scope.escape2Html(key.category_name)
-                            key.detail = $scope.escape2Html(key.detail)
+                            if (key.label_name) {
+                                key.label_name = $scope.escape2Html(key.label_name)
+                            }
+                            if (key.category_name) {
+                                key.category_name = $scope.escape2Html(key.category_name)
+                            }
+                            if (key.detail) {
+                                key.detail = $scope.escape2Html(key.detail)
+                            }
                         });
                     });
 
@@ -2035,26 +2061,5 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         })
     }
-    // NVD: [{
-    //     name: '',
-    //     icon: true,
-    //     nvd_ul: false,
-    // }],
-    //     nvd_list: $scope.nvd_list,
-
     $scope.init();
-
-
-    document.onclick = function (e) {
-        if (e.target.className == 'zeromodal-overlay') {
-            zeroModal.closeAll();
-        } else if (e.target.className == 'pop_box') {
-            var appElement = document.querySelector('[ng-controller=specialIntelCtrl]');
-            var $scope = angular.element(appElement).scope();
-            $scope.pop_show.add = false;
-            $scope.pop_show.edit = false;
-            $scope.$apply();
-        }
-    }
-
 });

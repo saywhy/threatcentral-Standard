@@ -172,9 +172,15 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                     angular.forEach($scope.label_data, function (item) {
                         item.name = $scope.escape2Html(item.name)
                         angular.forEach(item.label, function (key) {
-                            key.label_name = $scope.escape2Html(key.label_name)
-                            key.category_name = $scope.escape2Html(key.category_name)
-                            key.detail = $scope.escape2Html(key.detail)
+                            if (key.label_name) {
+                                key.label_name = $scope.escape2Html(key.label_name)
+                            }
+                            if (key.category_name) {
+                                key.category_name = $scope.escape2Html(key.category_name)
+                            }
+                            if (key.detail) {
+                                key.detail = $scope.escape2Html(key.detail)
+                            }
                         });
                     });
 
@@ -430,7 +436,6 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
 
                 });
                 //datas.data[0].label_name = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18']
-
                 $scope.pages = datas;
                 console.log($scope.pages);
                 angular.forEach($scope.pages.data, function (item) {
@@ -442,28 +447,10 @@ myApp.controller("vehicleTelSpecialCtrl", function ($scope, $http, $filter) {
                     angular.forEach(item.reference_information, function (key, index) {
                         item.reference_information[index] = $scope.escape2Html(key)
                     })
-
                 })
-
-
             },
             function () {}
         );
     }
-
-
     $scope.init();
-
-
-    document.onclick = function (e) {
-        if (e.target.className == 'zeromodal-overlay') {
-            zeroModal.closeAll();
-        } else if (e.target.className == 'pop_box ng-scope') {
-            var appElement = document.querySelector('[ng-controller=vehicleTelSpecialCtrl]');
-            var $scope = angular.element(appElement).scope();
-            $scope.pop_show = false;
-            $scope.$apply();
-        }
-    }
-
 });

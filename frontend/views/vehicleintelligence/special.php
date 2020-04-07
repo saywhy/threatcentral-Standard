@@ -22,7 +22,7 @@ $this->title = '行业情报';
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
           ng-blur="search_blur('source');" class="search_input" readonly>
-        <ul class="select_list_box" ng-if="search_box_ul.source" style="margin:0;overflow-x: hidden;">
+        <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
           <li ng-mousedown="search_choose_item(item,$index,'source');" ng-repeat="item in loop_source track by $index">
             {{item}}
           </li>
@@ -34,7 +34,7 @@ $this->title = '行业情报';
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input  autocomplete="off" type="text" placeholder="情报级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
           ng-blur="search_blur('level');" class="search_input" readonly>
-        <ul class="select_list_box" ng-if="search_box_ul.level" style="height:170px;margin:0;overflow-x: hidden;">
+        <ul class="select_list_box" ng-if="search_box_ul.level">
           <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
             ng-repeat="item in search_level track by $index">
             {{item.status}}
