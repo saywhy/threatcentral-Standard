@@ -61,6 +61,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 status: '低'
             }
         ]
+        $scope.page_num = 1;
         $scope.pageNow = 1;
         $scope.enter_show = true;
         $scope.picker_search();
@@ -357,6 +358,16 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
     // 获取列表
     $scope.get_page = function (pageNow) {
+        if (pageNow < 1) {
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
+        if ($scope.pages && pageNow > $scope.pages.maxPage) {
+            pageNow = 1;
+            $scope.page_num = 1;
+        }
+
         pageNow = pageNow ? pageNow : 1;
         $scope.pageNow = pageNow;
         var params_data = JSON.stringify($scope.seach_data);

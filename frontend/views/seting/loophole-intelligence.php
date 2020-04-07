@@ -126,8 +126,10 @@ $this->title = '漏洞情报管理';
     <p>
       <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
     </p>
-    <div style="padding: 0px; position: relative;height:60px;">
-      <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
+    <div class="pagination_info">
+      <p class="leave_page" ng-show="pages.maxPage>1">前往<input type="number" class="leave_page_num" ng-model="page_num"
+      ng-blur="get_page(page_num)">页</p>
+      <ul class="pagination pagination-sm ng-cloak" style="margin-right:36px;">
         <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-if="pages.pageNow>1">上一页</a>
         </li>
         <li><a href="javascript:void(0);" ng-click="get_page(1)" ng-if="pages.pageNow>1">1</a>
