@@ -150,8 +150,11 @@ myApp.controller("asideCtrl", function($scope,$http) {
         var pathName = window.document.location.pathname;
 
         //预警详情去掉侧边栏
-        if(pathName === '/alert/detail' || pathName === '/alert/loophole-detail'
-            || pathName === '/alert/darknet-detail' || pathName === '/vehiclealert/detail'){
+        if(pathName === '/alert/detail'
+            || pathName === '/alert/loophole-detail'
+            || pathName === '/alert/darknet-detail'
+            || pathName === '/vehiclealert/detail'
+            || pathName === '/user/adduser-page'){
             $scope.alertDetail = true;
             return false;
         }else {
