@@ -178,7 +178,116 @@ myApp.controller("asideCtrl", function($scope,$http,$timeout) {
 
     $scope.get_menu = function() {
 
-        $http.get('/site/menu').then(function (resp) {
+        let per_id = JSON.parse(localStorage.getItem('pemission_id'));
+        //首页
+        if(per_id.includes('1')){
+            if (per_id.includes('2')) {
+                $scope.menu_list.index_overview = true;
+            }
+            if (per_id.includes('14')) {
+                $scope.menu_list.index_BigScreen = true;
+            }
+        }
+        //情报
+        if(per_id.includes('15')){
+            if (per_id.includes('16')) {
+                $scope.menu_list.intelligence_query = true;
+            }
+            if (per_id.includes('24')) {
+                $scope.menu_list.intelligence_extract = true;
+            }
+            if (per_id.includes('29')) {
+                $scope.menu_list.intelligence_share = true;
+            }
+            if (per_id.includes('46')) {
+                $scope.menu_list.intelligence_sourceAdmin = true;
+            }
+            if (per_id.includes('50')) {
+                $scope.menu_list.intelligence_apt = true;
+            }
+            if (per_id.includes('186')) {
+                $scope.menu_list.intelligence_special = true;
+            }
+            if (per_id.includes('187')) {
+                $scope.menu_list.intelligence_loophole = true;
+            }
+        }
+        //资产
+        if(per_id.includes('54')){
+            if (per_id.includes('55')) {
+                $scope.menu_list.assets_admin = true;
+            }
+            if (per_id.includes('72')) {
+                $scope.menu_list.assets_risk = true;
+            }
+            if (per_id.includes('184')) {
+                $scope.menu_list.assets_vehicle = true;
+            }
+            if (per_id.includes('185')) {
+                $scope.menu_list.assets_accessory = true;
+            }
+        }
+        //预警
+        if(per_id.includes('77')){
+            if (per_id.includes('78')) {
+                $scope.menu_list.warning_threat = true;
+            }
+            if (per_id.includes('85')) {
+                $scope.menu_list.warning_loophole = true;
+            }
+            if (per_id.includes('90')) {
+                $scope.menu_list.warning_drakNet = true;
+            }
+            if (per_id.includes('205')) {
+                $scope.menu_list.warning_vehicle = true;
+            }
+        }
+        //报表
+        if(per_id.includes('127')){
+            if (per_id.includes('128')) {
+                $scope.menu_list.report_creat = true;
+            }
+            if (per_id.includes('129')) {
+                $scope.menu_list.report_send = true;
+            }
+        }
+        //配置
+        if(per_id.includes('93')){
+            if (per_id.includes('94')) {
+                $scope.menu_list.set_sys = true;
+            }
+            if (per_id.includes('97')) {
+                $scope.menu_list.set_notice = true;
+            }
+            if (per_id.includes('104')) {
+                $scope.menu_list.set_loopholeRelation = true;
+            }
+            if (per_id.includes('130')) {
+                $scope.menu_list.set_admin = true;
+            }
+            if (per_id.includes('110')) {
+                $scope.menu_list.set_user = true;
+            }
+            if (per_id.includes('126')) {
+                $scope.menu_list.set_log = true;
+            }
+            if (per_id.includes('151')) {
+                $scope.menu_list.api = true;
+            }
+            if (per_id.includes('181')) {
+                $scope.menu_list.set_label = true;
+            }
+            if (per_id.includes('182')) {
+                $scope.menu_list.set_special = true;
+            }
+            if (per_id.includes('183')) {
+                $scope.menu_list.set_loophole = true;
+            }
+            if (per_id.includes('209')) {
+                $scope.menu_list.set_base = true;
+            }
+        }
+        /*$http.get('/site/menu').then(function (resp) {
 
             let permission = resp.data;
 
@@ -315,10 +424,7 @@ myApp.controller("asideCtrl", function($scope,$http,$timeout) {
                     }
                 });
             }
-        })
-
-
-
+        })*/
     };
 
     $scope.init = function() {
