@@ -235,35 +235,10 @@ function getPath($path)
          <li class="active"><?=$this->title?></li>
        </ol>
      </section>
-
-     <!-- Main content -->
      <?=$content?>
-     <!-- /.content -->
-     <!-- Content Wrapper. Contains page content -->
    </div>
-
-  <!-- /.content-wrapper -->
-
-  <!--
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>版本</b> 2.1.1
-    </div>
-    <strong>HooHooLab &copy; 2017 <a href="http://www.hoohoolab.com/" target="_blank">虎特信息科技(上海)有限公司</a>.</strong> All rights
-    reserved.
-  </footer>
-  -->
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <!-- <div class="control-sidebar-bg"></div> -->
 </div>
-<!--<div class="hoohoolab-footer">
-  <!-- <span>&copy; 2017 虎特信息科技(上海)有限公司 版权所有</span>
-  <span></span>
-</div>-->
-<!-- ./wrapper -->
-<!-- <script src="/js/controllers/main.js"></script>-->
+
 
 <!-- jQuery 2.2.3 -->
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
