@@ -1783,6 +1783,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         //向后端传递的label_id（每个类别的id数组的组合）
         $scope.seach_data.label_id = attr;
         console.log($scope.seach_data.label_id);
+
+        this.get_page();
     };
 
 
