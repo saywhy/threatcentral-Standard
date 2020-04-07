@@ -8,6 +8,12 @@ myApp.controller("myAssetsManagement", function (
 ) {
     $scope.$sce = $sce;
     $scope.init = function () {
+        // 禁止alert弹窗。 防止错误提醒
+        window.alert = function () {
+            console.log('111');
+
+            return false;
+        }
         $scope.host_add_acttiv_true = false;
         $scope.domain_add_acttiv_true = true;
         $scope.export_risk_data = true;
@@ -145,12 +151,11 @@ myApp.controller("myAssetsManagement", function (
                 $scope.domain_data = data.data.data;
                 console.log($scope.domain_data);
                 angular.forEach($scope.domain_data.data, function (item) {
-                    item.asset_name_cn = $scope.escape2Html(item.asset_name)
-                    item.group_name_cn = $scope.escape2Html(item.group_name)
-                    item.domain_cn = $scope.escape2Html(item.domain)
-                    item.location_cn = $scope.escape2Html(item.location)
-                    item.staff_name_cn = $scope.escape2Html(item.staff_name)
-                    console.log(item.asset_cn);
+                    item.asset_name = $scope.escape2Html(item.asset_name)
+                    item.group_name = $scope.escape2Html(item.group_name)
+                    item.domain = $scope.escape2Html(item.domain)
+                    item.location = $scope.escape2Html(item.location)
+                    item.staff_name = $scope.escape2Html(item.staff_name)
                 });
             },
             function () {}
@@ -319,14 +324,13 @@ myApp.controller("myAssetsManagement", function (
             function (data) {
                 $scope.host_data = data.data.data;
                 angular.forEach($scope.host_data.data, function (item) {
-                    item.asset_name_cn = $scope.escape2Html(item.asset_name)
-                    item.group_name_cn = $scope.escape2Html(item.group_name)
-                    item.os_cn = $scope.escape2Html(item.os)
-                    item.is_alive_cn = $scope.escape2Html(item.is_alive)
-                    item.domain_cn = $scope.escape2Html(item.domain)
-                    item.location_cn = $scope.escape2Html(item.location)
-                    item.staff_name_cn = $scope.escape2Html(item.staff_name)
-                    console.log(item.asset_cn);
+                    item.asset_name = $scope.escape2Html(item.asset_name)
+                    item.group_name = $scope.escape2Html(item.group_name)
+                    item.os = $scope.escape2Html(item.os)
+                    item.is_alive = $scope.escape2Html(item.is_alive)
+                    item.domain = $scope.escape2Html(item.domain)
+                    item.location = $scope.escape2Html(item.location)
+                    item.staff_name = $scope.escape2Html(item.staff_name)
                 });
             },
             function () {}

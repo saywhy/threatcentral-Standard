@@ -745,8 +745,8 @@
                 }
                 yearHtml += '</select>';
 
-                dateHtml = monthHtml + yearHtml;
-                // dateHtml = yearHtml + monthHtml;
+                // dateHtml = monthHtml + yearHtml;
+                dateHtml = yearHtml + monthHtml;
             }
 
             html += '<th colspan="5" class="month">' + dateHtml + '</th>';
