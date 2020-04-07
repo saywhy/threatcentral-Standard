@@ -213,7 +213,29 @@ myApp.controller("loginCtrl", function($scope, $http, $filter, $sce) {
               localStorage.setItem("username", $scope.user.username);
               localStorage.setItem("password", $scope.user.password);
             }
-            window.location.href = "/site/index";
+
+            $http.get('/site/menu').then(function (resp) {
+
+              let permission = resp.data;
+              localStorage.removeItem('permission_id');
+
+              if (permission.status == "success") {
+
+                let pemission_id = [];
+
+                angular.forEach(permission.data, function(item) {
+                  pemission_id.push(item.permissions_id);
+                  if(item.child_menu && item.child_menu.length > 0){
+                    angular.forEach(item.child_menu,function (itm) {
+                      pemission_id.push(itm.permissions_id);
+                    })
+                  }
+                });
+
+                localStorage.setItem("pemission_id",JSON.stringify(pemission_id));
+                window.location.href = "/site/index";
+              }
+            })
           }
           if (data.data.status_code == "1") {
             $scope.verCode();
