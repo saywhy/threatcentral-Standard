@@ -687,17 +687,16 @@ select {
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
   margin-top: 45px;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 9990;
 }
 
 .select_list_box li {
   font-size: 12px;
-  height: 34px;
-  line-height: 34px;
+  line-height: 24px;
   padding: 0 16px;
   color: #666666;
   cursor: pointer;
-  white-space: nowrap;
 }
 
 .select_list_box li:hover {
