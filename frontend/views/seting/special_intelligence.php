@@ -18,15 +18,15 @@ $this->title = '行业情报管理';
       </div>
       <div class="intel_search_time ">
         <img src="/images/report/time.png" class="time_icon_search" alt="">
-        <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="时间">
+        <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="日期">
       </div>
       <!-- 来源 -->
-      <div class="search_input_box">
+      <div class="search_input_box" style="width:180px">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="情报来源" ng-model="seach_data.source"
-          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" readonly>
+          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" style="width:180px" readonly>
         <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
-          <li ng-mousedown="search_choose_item(item.name,$index,'source');"
+          <li title={{item.name}} ng-mousedown="search_choose_item(item.name,$index,'source');"
             ng-repeat="item in loop_source track by $index">
             {{item.name}}
           </li>
@@ -74,9 +74,9 @@ $this->title = '行业情报管理';
       </li>
     </ul>
     <div class="search_toggle" ng-show="label_data.length > 0" style="width:140px;">
-      <a class="toggle" ng-class="{'active':toggleStatus}" ng-click="tog_count_change($event);">
+      <a class="toggle" ng-class="{'active':toggleStatus}"  style="cursor:pointer;" ng-click="tog_count_change($event);">
         <span class="caret"></span>
-        <span ng-show="!toggleStatus">展开</span><span ng-show="toggleStatus">收起</span>更多
+        <span ng-show="!toggleStatus" >展开</span><span ng-show="toggleStatus">收起</span>更多
       </a>
     </div>
   </div>
@@ -476,14 +476,16 @@ $this->title = '行业情报管理';
             <div class="contnet_item_right" ng-if="edit_item.type =='auto'">
               <pre style="flex:1" id="pre_box" ng-bind-html='edit_item.original_intelligence_auto'>
                 </pre>
+              <!-- <pre style="flex:1" id="pre_box" ng-bind-html='texe'>
+                </pre> -->
               <div class="more_original" ng-if="edit_auto_box">
                 <img src="/images/set/label_right.png" alt="">
-                <span ng-click="edit_auto_more()">展开更多</span>
+                <span ng-click="edit_auto_more()" style="cursor:pointer;">展开更多</span>
               </div>
               <div class="more_original" id="edit_pickup_box" ng-if="!edit_auto_box">
                 <div class="pickup_box_div">
                   <img src="/images/set/label_right.png" alt="">
-                  <span ng-click="edit_auto_pickup()">收起更多</span>
+                  <span ng-click="edit_auto_pickup()"  style="cursor:pointer;">收起更多</span>
                 </div>
               </div>
             </div>
@@ -504,12 +506,12 @@ $this->title = '行业情报管理';
               </div>
               <div class="more_original" ng-show="pop_show.edit_old_box">
                 <img src="/images/set/label_right.png" alt="">
-                <span ng-click="edit_more()">展开更多</span>
+                <span ng-click="edit_more()"  style="cursor:pointer;">展开更多</span>
               </div>
               <div class="more_original" id="edit_pickup_box" ng-if="!pop_show.edit_old_box">
                 <div class="pickup_box_div">
                   <img src="/images/set/label_right.png" alt="">
-                  <span ng-click="edit_pickup()">收起更多</span>
+                  <span ng-click="edit_pickup()"  style="cursor:pointer;">收起更多</span>
                 </div>
               </div>
             </div>
@@ -563,7 +565,6 @@ $this->title = '行业情报管理';
                     class="item_right_input label_edit_complate" id="edit_auto_complate_{{$index}}">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="" />
                 </div>
-
                 <div class="add_icon_box">
                   <img src="/images/set/add_input_icon.png" ng-click="edit_add_input_list('tag',index)" class="add_icon"
                     alt="">

@@ -9,21 +9,22 @@ $this->title = '漏洞情报';
       <!-- 输入关键字 -->
       <span class="vehicle_icon_box">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-        <input autocomplete="off"  type="text" style="padding-left:34px;" class="vehicle_search_input" placeholder="情报标题/情报描述"
-          ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
+        <input autocomplete="off" type="text" style="padding-left:34px;" class="vehicle_search_input"
+          placeholder="情报标题/情报描述" ng-model="seach_data.key_word" ng-keyup="vehicle_key_up($event)">
       </span>
-       <!-- 获取时间 -->
+      <!-- 获取时间 -->
       <div class="vehicle_search_time">
-          <img src="/images/report/time.png" class="time_icon_search" alt="">
-          <input  autocomplete="off"  class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="公开日期">
+        <img src="/images/report/time.png" class="time_icon_search" alt="">
+        <input autocomplete="off" class="input_box" autocomplete="off" id="picker_search" type="text"
+          placeholder="公开日期">
       </div>
       <!-- 漏洞来源 -->
-      <div class="vehicle_icon_box">
+      <div class="vehicle_icon_box" style="width:180px" >
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input autocomplete="off"  type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
-          ng-blur="search_blur('source');" class="search_input" readonly>
+        <input autocomplete="off" type="text" placeholder="情报来源" style="width:180px"  ng-model="seach_data.source"
+          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" readonly>
         <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
-          <li ng-mousedown="search_choose_item(item,$index,'source');" ng-repeat="item in loop_source track by $index">
+          <li  title={{item}} ng-mousedown="search_choose_item(item,$index,'source');" ng-repeat="item in loop_source track by $index">
             {{item}}
           </li>
         </ul>
@@ -31,8 +32,8 @@ $this->title = '漏洞情报';
       <!-- 漏洞级别 -->
       <div class="vehicle_icon_box">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input autocomplete="off"  type="text" placeholder="情报级别" ng-model="seach_data.level" ng-focus="search_focus('level')"
-          ng-blur="search_blur('level');" class="search_input" readonly>
+        <input autocomplete="off" type="text" placeholder="情报级别" ng-model="seach_data.level"
+          ng-focus="search_focus('level')" ng-blur="search_blur('level');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.level">
           <li ng-mousedown="search_choose_item(item.status, $index, 'level');"
             ng-repeat="item in search_level track by $index">
@@ -88,15 +89,16 @@ $this->title = '漏洞情报';
   <div class="loophole_table_content">
     <table class="table table-striped  table_th ng-cloak">
       <tr class="loophole_table_tr">
-        <th style="padding-left:48px;">漏洞标题</th>
-        <th>漏洞描述</th>
-        <th>情报来源</th>
+        <th></th>
+        <th style="width:180px;">漏洞标题</th>
+        <th style="width:200px;">漏洞描述</th>
+        <th style="width:180px;">情报来源</th>
         <th>标签类型</th>
-        <th>公开日期</th>
+        <th  style="width:120px;">公开日期</th>
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data"
         ng-click="list_item_click($event,item);">
-        <td style="color:#0070ff;">
+        <td>
           <div ng-if="item.level === '高'" class="th_id_img">
             <img src="/images/alert/h.png" alt="">
           </div>
@@ -108,22 +110,24 @@ $this->title = '漏洞情报';
           </div>
           <div ng-if="item.level === ''" class="th_id_img">
           </div>
+        </td>
+        <td  style="width:150px;color: #0070ff;">
           <span ng-bind="item.title"></span>
         </td>
-        <td ng-bind="item.detail"></td>
-        <td ng-bind="item.sourse"></td>
+        <td style="width:200px;" ng-bind="item.detail"></td>
+        <td style="width:180px;" ng-bind="item.sourse"></td>
         <td class="td_operation" style="white-space: nowrap;text-overflow: ellipsis;">
           <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name">
             <span ng-attr-title={{it}}>{{it}}</span>
             <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status">
           </button>
         </td>
-        <td>{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:120px;">{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
       </tr>
     </table>
     <div class="pagination_info">
-        <p class="leave_page" ng-show="pages.maxPage>1">前往<input autocomplete="off"  type="number" class="leave_page_num" ng-model="page_num"
-                  ng-blur="get_page(page_num)">页</p>
+      <p class="leave_page" ng-show="pages.maxPage>1">前往<input autocomplete="off" type="number" class="leave_page_num"
+          ng-model="page_num" ng-blur="get_page(page_num)">页</p>
       <ul class="pagination pagination-sm  pull-right ng-cloak" style="margin-right:36px;">
         <li><a href="javascript:void(0);" ng-click="get_page(pages.pageNow-1)" ng-if="pages.pageNow>1">上一页</a></li>
         <li><a href="javascript:void(0);" ng-click="get_page(1)" ng-if="pages.pageNow>1">1</a>
@@ -147,7 +151,7 @@ $this->title = '漏洞情报';
       </ul>
     </div>
   </div>
-
+  <!-- sasss -->
   <div class="pop_box" ng-if="pop_show">
     <div class="pop_contnet">
       <div class="contnet_title_box">
@@ -255,144 +259,67 @@ $this->title = '漏洞情报';
             <div class="contnet_item_right" style="flex-direction: column;">
               <div class="info_mation" style="flex-direction: column;">
                 <div class="info_mation_item" ng-repeat="item in label_item_data.nvd">
-                  <a class="info_mation_nvd" ng-click="list_item_click_nvd($event,item.cve)">{{item.cve}}</p>
+                  <a class="info_mation_nvd" ng-click="list_item_click_nvd($event,item.cve)">{{item.cve}}</a>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
+  </div>
+  <!-- NVD详情弹窗 -->
+  <div style="display:none;" id="vehicle_loophole_box_nvd">
+    <div id="vehicle_loophole_nvd">
+      <ul class="l_nvd_mid">
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp9.png" alt="" />
+          <h4 class="title">CVEID：</h4>
+          <span class="stance" ng-bind="base_data.cve"></span>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp10.png" alt="" />
+          <h4 class="title">CVSS v2：</h4>
+          <span class="stance">{{base_data.cvss_v2}}<span style="margin-left:10px;"
+              ng-hide="base_data.cvss_v2== ''">Critical</span></span>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp10.png" alt="" />
+          <h4 class="title">CVSS v3：</h4>
+          <span class="stance">{{base_data.cvss_v3}}<span style="margin-left:10px;"
+              ng-hide="base_data.cvss_v3== ''">High</span></span>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp1.png" alt="" />
+          <h4 class="title">漏洞情报级别：</h4>
+          <span class="stance">{{base_data.level}}<span ng-hide="base_data.level== ''">危</span></span>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp2.png" alt="" />
+          <h4 class="title">发现时间：</h4>
+          <span class="stance">{{base_data.publishedDate.substring(0,10)}}</span>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp2.png" alt="" />
+          <h4 class="title">更新时间：</h4>
+          <span class="stance">{{base_data.lastModifiedDate.substring(0,10)}}</span>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp4.png" alt="" />
+          <h4 class="title">关联地址：</h4>
+          <a class="stance s_active" target="_blank" ng-href="https://nvd.nist.gov/vuln/detail/{{base_data.cve}}">
+            https://nvd.nist.gov/vuln/detail/{{base_data.cve}}
+          </a>
+        </li>
+        <li class="item">
+          <img class="i_img" src="/images/loophole/sp5.png" alt="" />
+          <h4 class="title">漏洞描述：</h4>
+          <span class="stance s_content" ng-bind="base_data.detail" ng-attr-title="{{base_data.detail}}"></span>
+        </li>
 
-
-    <!-- 新增标签弹窗 -->
-    <div style="display:none;" id="vehicle_loophole_box">
-      <div id="vehicle_loophole">
-        <h1 class="l_top">{{label_item_data.title}}</h1>
-        <ul class="l_mid">
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp1.png" alt="" />
-            <h4 class="title">情报级别：</h4>
-            <span class="stance">{{label_item_data.level}}<span ng-hide="label_item_data.level==''">危</span></span>
-          </li>
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp2.png" alt="" />
-            <h4 class="title">公开日期：</h4>
-            <span class="stance">{{label_item_data.open_time*1000 | date : 'yyyy-MM-dd'}}</span>
-          </li>
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp3.png" alt="" />
-            <h4 class="title">情报来源：</h4>
-            <span class="stance">{{label_item_data.sourse}}</span>
-          </li>
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp4.png" alt="" />
-            <h4 class="title">影响产品：</h4>
-            <span class="stance s_affected" style="margin-right: 5px;"
-              ng-repeat="it in label_item_data.affected_products">{{it}}</span>
-          </li>
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp7.png" alt="" />
-            <h4 class="title">情报描述：</h4>
-            <span class="stance s_content" ng-bind="label_item_data.detail"></span>
-          </li>
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp8.png" alt="" />
-            <h4 class="title">建议处理措施：</h4>
-            <span class="stance s_content" ng-bind="label_item_data.treatment_measures"></span>
-          </li>
-          <li class="item" style="display:flex">
-            <div class="i_img_div" style="width:32px;">
-              <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_8.png"
-                alt="" />
-            </div>
-            <h4 class="title" style="line-height: 28px;width:150px;">参考信息：</h4>
-            <span class="stance" style="flex;">
-              <span class="s_refer" ng-repeat="item in label_item_data.reference_information"
-                ng-attr-title="{{item}}">{{item}}</span>
-            </span>
-          </li>
-          <li class="item" style="display:flex;">
-            <div class="i_img_div" style="width:32px;">
-              <img class="i_img" style="vertical-align: middle;margin-top: 6px;" src="/images/set/add_icon_10.png"
-                alt="" />
-            </div>
-            <h4 class="title" style="line-height: 28px;width:150px;">NVD关联：</h4>
-            <span class="stance" style="flex:1">
-              <span class="s_refer" ng-repeat="item in label_item_data.nvd" ng-attr-title="{{item}}">{{item}}</span>
-            </span>
-          </li>
-          <li class="item">
-            <img class="i_img" src="/images/loophole/sp6.png" alt="" />
-            <h4 class="title">标签：</h4>
-
-            <div class="s_label_list">
-              <p class="s_label" ng-repeat="item in label_item_data.label_new_name">
-                <span class="s_name">{{item.name}}：</span>
-                <span class="s_lab">
-                  <a ng-repeat="tm in item.value" class="s_lab_val">{{tm.label_name}}</a>
-                </span>
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
+      </ul>
     </div>
-
-    <!-- NVD详情弹窗 -->
-    <div style="display:none;" id="vehicle_loophole_box_nvd">
-        <div id="vehicle_loophole_nvd">
-            <ul class="l_nvd_mid">
-              <li class="item">
-                    <img class="i_img" src="/images/loophole/sp9.png" alt=""/>
-                    <h4 class="title">CVEID：</h4>
-                    <span class="stance" ng-bind="base_data.cve"></span>
-              </li>
-              <li class="item">
-                    <img class="i_img" src="/images/loophole/sp10.png" alt=""/>
-                    <h4 class="title">CVSS v2：</h4>
-                    <span class="stance">{{base_data.cvss_v2}}<span style="margin-left:10px;" ng-hide="base_data.cvss_v2== ''">Critical</span></span>
-              </li>
-               <li class="item">
-                    <img class="i_img" src="/images/loophole/sp10.png" alt=""/>
-                    <h4 class="title">CVSS v3：</h4>
-                    <span class="stance">{{base_data.cvss_v3}}<span style="margin-left:10px;" ng-hide="base_data.cvss_v3== ''">High</span></span>
-                </li>
-                <li class="item">
-                    <img class="i_img" src="/images/loophole/sp1.png" alt=""/>
-                    <h4 class="title">漏洞情报级别：</h4>
-                    <span class="stance">{{base_data.level}}<span ng-hide="base_data.level== ''">危</span></span>
-                </li>
-                 <li class="item">
-                    <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
-                    <h4 class="title">发现时间：</h4>
-                    <span class="stance">{{base_data.publishedDate.substring(0,10)}}</span>
-                </li>
-                <li class="item">
-                    <img class="i_img" src="/images/loophole/sp2.png" alt=""/>
-                    <h4 class="title">更新时间：</h4>
-                    <span class="stance">{{base_data.lastModifiedDate.substring(0,10)}}</span>
-                </li>
-                <li class="item">
-                    <img class="i_img" src="/images/loophole/sp4.png" alt=""/>
-                    <h4 class="title">关联地址：</h4>
-                    <a class="stance s_active" target="_blank" ng-href="https://nvd.nist.gov/vuln/detail/{{base_data.cve}}">
-                      https://nvd.nist.gov/vuln/detail/{{base_data.cve}}
-                    </a>
-                </li>
-                <li class="item">
-                    <img class="i_img" src="/images/loophole/sp5.png" alt=""/>
-                    <h4 class="title">漏洞描述：</h4>
-                    <span class="stance s_content" ng-bind="base_data.detail"  ng-attr-title="{{base_data.detail}}"></span>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-
-
-
-
-
+  </div>
 </section>
 <script src="/js/controllers/vehicleintelligence/vehicle_tel_loophole.js"></script>

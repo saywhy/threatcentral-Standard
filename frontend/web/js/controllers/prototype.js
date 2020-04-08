@@ -62,12 +62,12 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                                                     "."
                                                 )[1];
                                                 if (ele.last_successful_run) {
-                                                    obj.last_successful_run = ele.last_successful_run;
+                                                    obj.last_successful_run = parseInt(ele.last_successful_run / 1000);
                                                 } else {
                                                     obj.last_successful_run = "";
                                                 }
                                                 if (ele.last_run) {
-                                                    obj.last_run = ele.last_run;
+                                                    obj.last_run = parseInt(ele.last_run / 1000);
                                                 } else {
                                                     obj.last_run = "";
                                                 }

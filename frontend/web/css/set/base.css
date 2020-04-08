@@ -737,3 +737,11 @@ select {
   white-space: nowrap;
   overflow: hidden;
 }
+
+
+.loophole_table_content th:nth-child(1),
+.loophole_table_content td:nth-child(1) {
+  width: 40px;
+  text-align: center;
+  padding: 0;
+}

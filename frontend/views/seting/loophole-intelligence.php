@@ -21,12 +21,12 @@ $this->title = '漏洞情报管理';
         <input autocomplete="off" class="input_box" id="picker_search" type="text" placeholder="公开日期">
       </div>
       <!-- 来源 -->
-      <div class="search_input_box">
+      <div class="search_input_box"  style="width:180px">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="漏洞来源" ng-model="seach_data.source"
-          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" readonly>
+          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input"  style="width:180px" readonly>
         <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
-          <li ng-mousedown="search_choose_item(item.name,$index,'source');"
+          <li  title={{item.name}} ng-mousedown="search_choose_item(item.name,$index,'source');"
             ng-repeat="item in loop_source track by $index">
             {{item.name}}
           </li>
@@ -74,7 +74,7 @@ $this->title = '漏洞情报管理';
       </li>
     </ul>
     <div class="search_toggle" ng-show="label_data.length > 0" style="width:140px;">
-      <a class="toggle" ng-class="{'active':toggleStatus}" ng-click="tog_count_change($event);">
+      <a class="toggle" ng-class="{'active':toggleStatus}"  style="cursor:pointer;" ng-click="tog_count_change($event);">
         <span class="caret"></span>
         <span ng-show="!toggleStatus">展开</span><span ng-show="toggleStatus">收起</span>更多
       </a>

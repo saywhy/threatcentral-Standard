@@ -154,20 +154,19 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.add_item.first_seen_time = ''
         // $('#start_time_picker').val('');
         $("#start_time_picker").daterangepicker({
-                autoUpdateInput: false,
                 locale: {
                     "format": 'YYYY/MM/DD',
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
-                    "customRangeLabel": "自定义",
+                    // "customRangeLabel": "自定义",
                     "weekLabel": "W",
                     "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
                     "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                     "firstDay": 1
                 },
-                ranges: {
-                    '今日': [moment()],
-                },
+                // ranges: {
+                //     '今日': [moment()],
+                // },
                 singleDatePicker: true,
                 showDropdowns: true,
                 "timePicker": false,
@@ -179,14 +178,17 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.add_item.first_seen_time = start.unix()
             },
         )
-        $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('YYYY/MM/DD'));
-            $scope.add_item.first_seen_time = picker.startDate.unix()
-        });
-        $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
-            $scope.add_item.first_seen_time = ''
+        if ($scope.add_item.first_seen_time == '') {
             $('#start_time_picker').val('');
-        });
+            $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY/MM/DD'));
+                $scope.add_item.first_seen_time = picker.startDate.unix()
+            });
+            $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
+                $scope.add_item.first_seen_time = ''
+                $('#start_time_picker').val('');
+            });
+        }
     };
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
@@ -245,14 +247,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
                     "weekLabel": "W",
-                    "customRangeLabel": "自定义",
+                    // "customRangeLabel": "自定义",
                     "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
                     "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                     "firstDay": 1
                 },
-                ranges: {
-                    '今日': [moment()],
-                },
+                // ranges: {
+                //     '今日': [moment()],
+                // },
                 singleDatePicker: true,
                 showDropdowns: true,
                 "timePicker": false,
@@ -265,21 +267,27 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             },
         )
         if (startDate == '0') {
+            console.log('12323');
+
             $scope.edit_item.first_seen_time = ''
             $('#picker_edit').val('');
             $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('YYYY/MM/DD'));
                 $scope.edit_item.first_seen_time = picker.startDate.unix()
+                console.log('5555');
             });
             $('#picker_edit').on('cancel.daterangepicker', function (ev, picker) {
                 $scope.edit_item.first_seen_time = ''
                 $('#picker_edit').val('');
+                console.log('6666');
             });
         } else {
+            console.log('7777');
             console.log($scope.edit_item.first_seen_time);
             $('#picker_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY/MM/DD'));
             $('#picker_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY/MM/DD'));
             $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
+                console.log('8888');
                 $(this).val(picker.startDate.format('YYYY/MM/DD'));
                 $scope.edit_item.first_seen_time = picker.startDate.unix()
             });
@@ -426,7 +434,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     }
                     item.sourse = $scope.escape2Html(item.sourse)
                     item.link = $scope.escape2Html(item.link)
-                    item.original_intelligence = $scope.escape2Html(item.original_intelligence)
+                    if (item.type == 'manual') {
+                        item.original_intelligence = $scope.escape2Html(item.original_intelligence)
+                    }
                     angular.forEach(item.reference_information, function (key, index) {
                         item.reference_information[index] = $scope.escape2Html(key)
                     })
@@ -491,7 +501,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         exist: [],
                     }
                     // console.log(JSON.parse($scope.edit_item_str.original_intelligence, null, 2));
-                    // console.log($scope.edit_item.original_intelligence);
+                    console.log($scope.edit_item_str.original_intelligence);
 
                     function escape2Html(str) {
                         var arrEntities = {
@@ -538,6 +548,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     // 原始情报
                     if ($scope.edit_item_str.original_intelligence && $scope.edit_item_str.original_intelligence != '') {
                         // 手动
+                        // manual
                         if ($scope.edit_item.type == 'manual') {
                             $scope.edit_item.original_intelligence_manual = $scope.edit_item_str.original_intelligence
                             $scope.edit_item.original_intelligence_more = $scope.edit_item_str.original_intelligence
@@ -547,11 +558,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                                 $scope.edit_item.original_intelligence_cn = $scope.edit_item.original_intelligence_manual
                             }
                         }
-                        // 自动  manual  auto
+                        // 自动   auto
                         if ($scope.edit_item.type == 'auto') {
+                            console.log(JSON.parse($scope.edit_item_str.original_intelligence))
+                            console.log('2222');
                             $scope.edit_item.original_intelligence_auto = $scope.JsonFormat(
-                                JSON.parse(escape2Html(unescape($scope.edit_item_str.original_intelligence.replace(/\\u/g, "%u"))))
+                                JSON.parse($scope.edit_item_str.original_intelligence)
                             )
+                            console.log($scope.edit_item.original_intelligence_auto);
                         }
                     }
                     // 匹配标签
@@ -1005,8 +1019,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         value: data.label_name
                     }
                 });
-
-
                 $('#label_auto_complate_' + index).autocomplete({
                     appendTo: '.tag_item_' + index,
                     source: new_label,
@@ -1015,6 +1027,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     minLength: 0,
                     autoFill: true,
                     select: function (event, ui) {
+                        console.log($scope.add_item.tag[index].name);
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
                     },

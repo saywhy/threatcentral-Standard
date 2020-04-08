@@ -18,12 +18,12 @@ $this->title = '行业情报';
           <input autocomplete="off" class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="发现时间">
       </div>
       <!-- 漏洞来源 -->
-      <div class="vehicle_icon_box">
+      <div class="vehicle_icon_box" style="width:180px" >
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-        <input autocomplete="off" type="text" placeholder="情报来源" ng-model="seach_data.source" ng-focus="search_focus('source')"
+        <input autocomplete="off" type="text" placeholder="情报来源" style="width:180px"  ng-model="seach_data.source" ng-focus="search_focus('source')"
           ng-blur="search_blur('source');" class="search_input" readonly>
         <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
-          <li ng-mousedown="search_choose_item(item,$index,'source');" ng-repeat="item in loop_source track by $index">
+          <li  title={{item}} ng-mousedown="search_choose_item(item,$index,'source');" ng-repeat="item in loop_source track by $index">
             {{item}}
           </li>
         </ul>
@@ -188,7 +188,6 @@ $this->title = '行业情报';
               </div>
             </div>
           </div>
-
           <div class="contnet_item bg_item">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_8.png" alt="">
@@ -202,7 +201,7 @@ $this->title = '行业情报';
               </div>
             </div>
           </div>
-          <div class="contnet_item ">
+          <div class="contnet_item" style="min-height:100px;">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_9.png" alt="">
               <span>标签:</span>
@@ -226,7 +225,7 @@ $this->title = '行业情报';
             <div class="contnet_item_right" style="flex-direction: column;">
                 <div class="info_mation" style="flex-direction: column;">
                   <div class="info_mation_item" ng-repeat="item in label_item_data.nvd">
-                    <a class="info_mation_nvd" ng-click="list_item_click_nvd($event,item.cve)">{{item.cve}}</p>
+                    <a class="info_mation_nvd" ng-click="list_item_click_nvd($event,item.cve)">{{item.cve}}</a>
                   </div>
                 </div>
             </div>
@@ -235,9 +234,6 @@ $this->title = '行业情报';
       </div>
     </div>
   </div>
-
-
-
     <!-- 新增标签弹窗 -->
     <div style="display:none;" id="vehicle_loophole_box">
       <div id="vehicle_loophole">
@@ -298,7 +294,6 @@ $this->title = '行业情报';
           <li class="item">
             <img class="i_img" src="/images/loophole/sp6.png" alt="" />
             <h4 class="title">标签：</h4>
-
             <div class="s_label_list">
               <p class="s_label" ng-repeat="item in label_item_data.label_new_name">
                 <span class="s_name">{{item.name}}：</span>

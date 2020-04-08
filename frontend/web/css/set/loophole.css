@@ -133,8 +133,8 @@ button:active {
 .loophole_table_tr>th:nth-child(1),
 .loophole_table_tr>td:nth-child(1) {
   width: 40px;
-  text-align: left;
-  padding-left: 20px;
+  text-align: center;
+  padding: 0;
 }
 
 .loophole_table_tr>td {
@@ -693,7 +693,7 @@ select {
 }
 
 .select_list_box_height {
-  height: 156px;
+  max-height: 156px;
 }
 
 .select_list_margin {
@@ -702,7 +702,10 @@ select {
 
 .select_list_box li {
   font-size: 12px;
-  min-height: 34px;
+  height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 34px;
   padding: 0 10px;
   color: #666666;

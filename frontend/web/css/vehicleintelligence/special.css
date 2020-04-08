@@ -75,7 +75,7 @@ button:active {
 }
 
 .select_list_box_height {
-  height: 156px;
+  max-height: 156px;
 }
 
 .select_list_margin {
@@ -84,7 +84,10 @@ button:active {
 
 .select_list_box li {
   font-size: 12px;
-  min-height: 34px;
+  height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 34px;
   padding: 0 10px;
   color: #666666;
@@ -689,14 +692,14 @@ button:active {
 
 .pop_contnet {
   width: 60%;
-  height: 500px;
+  height: 75%;
   padding: 24px 36px;
   background: #F8F8F8;
   border-radius: 8px;
-  position: fixed;
-  top: calc((100vh - 564px)/2 + 64px);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
+  transform: translate(-50%, -50%);
 }
 
 .contnet_title_box {
@@ -787,7 +790,7 @@ button:active {
 
 .detail_box {
   margin-top: 5px;
-  height: 80px;
+  height: 200px;
   overflow-y: auto;
 }
 

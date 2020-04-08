@@ -39,6 +39,7 @@ $this->title = '基础情报管理';
     <div class="loophole_table_content" ng-click="blur_input()">
         <table class="table table-striped  table_th  ng-cloak">
             <tr class="loophole_table_tr">
+              <th></th>
                 <th class="th_id" style="padding-left:40px;">CVEID</th>
                 <th class="td_detail">漏洞描述</th>
                 <th style="width:100px;">发现时间</th>
@@ -47,7 +48,7 @@ $this->title = '基础情报管理';
             </tr>
             <tr class="loophole_table_tr" ng-repeat="item in pages.data track by $index"
                 ng-click="detail(item)">
-                <td class="th_id" style="padding-left:10px;">
+                <td>
                    <div ng-if="item.level === '高'" class="th_id_img">
                     <img src="/images/alert/h.png"  alt="">
                    </div>
@@ -59,6 +60,8 @@ $this->title = '基础情报管理';
                    </div>
                    <div ng-if="item.level === ''" class="th_id_img">
                    </div>
+                </td>
+                <td class="th_id" style="padding-left:10px;">
                    <span class="th_id_cav" ng-bind="item.cve" ng-click="list_item_click($event,item)"></span>
                 </td>
                 <td class="td_detail">
