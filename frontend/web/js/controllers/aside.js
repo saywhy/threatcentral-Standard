@@ -255,7 +255,8 @@ myApp.controller("asideCtrl", function($scope,$http) {
             || pathName === '/alert/loophole-detail'
             || pathName === '/alert/darknet-detail'
             || pathName === '/vehiclealert/detail'
-            || pathName === '/user/adduser-page'){
+            || pathName === '/user/adduser-page'
+            || pathName === '/user/addrole-page'){
             $scope.alertDetail = true;
             return false;
         }else {
