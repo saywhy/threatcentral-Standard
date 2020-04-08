@@ -86,7 +86,7 @@ $this->title = '标签管理';
             <div class="lab_mid">
                 <p class="lab_name">标签名称<span class="lab_tab">*</span></p>
                 <div class="lab_item">
-                   <input type="text" class="lab_mid_name" input-limit="25"  placeholder="请输入标签名称(长度限制为25个字)"  ng-model="label.label_name" required>
+                   <input type="text" class="lab_mid_name" input-limit="25"  placeholder="请输入标签名称(长度限制为25个字),不允许输入特殊字符"  ng-model="label.label_name" required>
                 </div>
             </div>
             <div class="lab_bom">

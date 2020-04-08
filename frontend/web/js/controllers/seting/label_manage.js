@@ -199,11 +199,15 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
 
     //保存标签按钮
     $scope.lab_save = function () {
-
         if ($scope.label.label_name == "" || $scope.label.label_name == undefined) {
             zeroModal.alert("标签名称不能为空。");
         } else {
-
+            var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+            if (pattern.test($scope.label.label_name)) {
+                console.log(true);
+                zeroModal.alert("标签名称不能包含特殊字符");
+                return false
+            }
             var loading = zeroModal.loading(4);
 
             let params = {
@@ -468,7 +472,12 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
 
     //编辑更新或者合并
     $scope.label_name_merge = function () {
-
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+        if (pattern.test($scope.label.label_name)) {
+            console.log(true);
+            zeroModal.alert("标签名称不能包含特殊字符");
+            return false
+        }
         var loading = zeroModal.loading(4);
 
         //let updateData = Object.assign($scope.label_data_info,{id:$scope.label_id});
