@@ -202,11 +202,11 @@ $this->title = '情报源管理';
                             </p>
                             <p class="item_info_title_time"   >
                                 <span >上次更新时间:</span>
-                                <span ng-if="item.last_run!=''">{{item.last_run*1000 |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span ng-if="item.last_run!=''">{{item.last_run*1000 |date:'yyyy/MM/dd HH:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_time"  >
                                 <span >上次成功更新时间:</span>
-                                <span ng-if="item.last_successful_run!=''"> {{item.last_successful_run*1000 |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span ng-if="item.last_successful_run!=''"> {{item.last_successful_run*1000 |date:'yyyy/MM/dd HH:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_res">
                                 <span > 结果：</span>
@@ -245,11 +245,11 @@ $this->title = '情报源管理';
                             <p class="item_info_title_value">{{item.name}}</p>
                             <p class="item_info_title_time" >
                                 <span>上次更新时间:</span>
-                                <span ng-if="item.last_run!=''" >{{item.last_run*1000 |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span ng-if="item.last_run!=''" >{{item.last_run*1000 |date:'yyyy/MM/dd HH:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_time new" >
                                 <span >上次成功更新时间:</span>
-                                <span ng-if="item.last_successful_run!=''" >{{item.last_successful_run*1000 |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span ng-if="item.last_successful_run!=''" >{{item.last_successful_run*1000 |date:'yyyy/MM/dd HH:mm:ss'}}</span>
                             </p>
                             <p class="item_info_title_res new" >
                                 <span> 结果：</span>
@@ -301,7 +301,7 @@ $this->title = '情报源管理';
                             </li>
                             <li>
                                 <span class="sensor-detail-title" style="width: 140px;">最后一次更新成功时间:</span>
-                                <span ng-if="detail_info.last_successful_run!=''">{{detail_info.last_successful_run*1000 |date:'yyyy/MM/dd hh:mm:ss'}}</span>
+                                <span ng-if="detail_info.last_successful_run!=''">{{detail_info.last_successful_run*1000 |date:'yyyy/MM/dd HH:mm:ss'}}</span>
                             </li>
                         </ul>
                     </div>

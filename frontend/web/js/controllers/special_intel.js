@@ -1,9 +1,11 @@
 var myApp = angular.module("myApp", ["ngSanitize"]);
 myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.init = function () {
+        console.log(11111222);
+
         $scope.searchTime = {
-            startDate: moment().subtract(90, "days"),
-            endDate: moment()
+            startDate: '',
+            endDate: ''
         };
         $scope.seach_data = {
             source: '',

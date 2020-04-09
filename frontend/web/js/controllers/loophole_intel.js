@@ -166,15 +166,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     "format": 'YYYY-MM-DD',
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
-                    "customRangeLabel": "自定义",
+                    // "customRangeLabel": "自定义",
                     "weekLabel": "W",
                     "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
                     "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                     "firstDay": 1
                 },
-                ranges: {
-                    '今日': [moment()],
-                },
+                // ranges: {
+                //     '今日': [moment()],
+                // },
                 singleDatePicker: true,
                 showDropdowns: true,
                 "timePicker": false,
@@ -187,15 +187,17 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.add_item.first_seen_time = start.unix()
             },
         )
-        $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('YYYY-MM-DD'));
-            $scope.add_item.first_seen_time = picker.startDate.unix()
-        });
-        $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
-            $scope.add_item.first_seen_time = ''
+        if ($scope.add_item.first_seen_time == '') {
             $('#start_time_picker').val('');
-        });
-
+            $('#start_time_picker').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY/MM/DD'));
+                $scope.add_item.first_seen_time = picker.startDate.unix()
+            });
+            $('#start_time_picker').on('cancel.daterangepicker', function (ev, picker) {
+                $scope.add_item.first_seen_time = ''
+                $('#start_time_picker').val('');
+            });
+        }
     };
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
@@ -254,14 +256,14 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     "applyLabel": "确定",
                     "cancelLabel": "清空",
                     "weekLabel": "W",
-                    "customRangeLabel": "自定义",
+                    // "customRangeLabel": "自定义",
                     "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
                     "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                     "firstDay": 1
                 },
-                ranges: {
-                    '今日': [moment()],
-                },
+                // ranges: {
+                //     '今日': [moment()],
+                // },
                 singleDatePicker: true,
                 showDropdowns: true,
                 "timePicker": false,
