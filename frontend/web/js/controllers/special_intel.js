@@ -1014,6 +1014,12 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
 
+
+                datas = datas.filter(function (item) {
+                    return item.id != null;
+                });
+
+
                 let new_label = datas.map(data => {
                     return {
                         ...data,
@@ -1021,6 +1027,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         value: data.label_name
                     }
                 });
+
                 $('#label_auto_complate_' + index).autocomplete({
                     appendTo: '.tag_item_' + index,
                     source: new_label,
@@ -1067,7 +1074,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
                 let datas = $scope.edit_item.tag[index].tag_name_list;
 
-                console.log($scope.edit_item.tag)
+
+                datas = datas.filter(function (item) {
+                    return item.id != null;
+                });
 
                 let new_label = datas.map(data => {
                     return {

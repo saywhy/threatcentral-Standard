@@ -743,6 +743,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
 
+                datas = datas.filter(function (item) {
+                    return item.id != null;
+                });
+
                 let new_label = datas.map(data => {
                     return {
                         ...data,
@@ -796,7 +800,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
                 let datas = $scope.edit_item.tag[index].tag_name_list;
 
-                console.log($scope.edit_item.tag)
+                datas = datas.filter(function (item) {
+                    return item.id != null;
+                });
 
                 let new_label = datas.map(data => {
                     return {
