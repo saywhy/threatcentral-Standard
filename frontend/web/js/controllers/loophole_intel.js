@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ['ngSanitize']);
 myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     $scope.init = function () {
         $scope.add_cve_flag = false;
@@ -161,7 +161,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         $scope.add_item.first_seen_time = ''
         // $('#start_time_picker').val('');
         $("#start_time_picker").daterangepicker({
-                autoUpdateInput: false,
                 locale: {
                     "format": 'YYYY-MM-DD',
                     "applyLabel": "确定",
@@ -852,16 +851,21 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
     //   取消弹窗
     $scope.add_cancel = function () {
+        $('.pop_box_container').scrollTop(0)
         $scope.pop_show.add = false;
         $scope.enter_show = true;
     };
     //   取消编辑弹窗
     $scope.edit_cancel = function () {
+        $('.pop_box_container').scrollTop(0)
         $scope.pop_show.edit = false;
         $scope.enter_show = true;
     };
     // 添加录入情报
     $scope.add_sure = function () {
+        $scope.add_item.affected_products = [];
+        $scope.add_item.reference_information = [];
+
         var params_edit = {
             label_id_attr: []
         }
@@ -1072,6 +1076,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         $scope.get_lab_list();
     };
     $scope.edit_sure = function () {
+        $scope.edit_item.affected_products = [];
+        $scope.edit_item.reference_information = [];
         if ($scope.edit_item.title == '') {
             zeroModal.error('请输入标题')
             return false
@@ -1125,19 +1131,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         })
         $scope.params_edit_cn = []
         $scope.params_edit_cn = $scope.arrayUnique2(params_edit.nvd, 'id')
-
-
         angular.forEach($scope.edit_item.tag, function (item, index) {
             if (item.name != '') {
                 params_edit.label_name.push(item.name)
                 // $scope.edit_item.tag[index].label_id_attr.push(item.name);
             }
-
             if (item.label_id_attr.length > 0) {
                 params_edit.label_id_attr = [...params_edit.label_id_attr, ...item.label_id_attr];
             }
         })
-
         console.log(params_edit.label_id_attr)
         params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
         console.log(params_edit.label_id_attr)

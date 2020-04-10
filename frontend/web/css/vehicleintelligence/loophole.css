@@ -682,19 +682,24 @@ button:active {
 .pop_box_container {
   width: 100%;
   overflow-y: auto;
-  height: 85%;
+  max-height: 80%;
   margin-top: 24px;
+  z-index: 1;
 }
 
 .pop_contnet {
   width: 60%;
-  height: 75%;
+  max-height: 75%;
+  flex-direction: column;
+  display: flex;
   padding: 24px 36px;
   background: #F8F8F8;
   border-radius: 8px;
+  overflow: hidden;
   top: 50%;
   left: 50%;
   position: fixed;
+  z-index: 22;
   transform: translate(-50%, -50%);
 }
 
@@ -786,8 +791,10 @@ button:active {
 
 .detail_box {
   margin-top: 5px;
-  height: 150px;
+  max-height: 150px;
+  min-height: 42px;
   overflow-y: auto;
+  margin-top: 5px;
 }
 
 .detail_box::-webkit-scrollbar-track-piece {

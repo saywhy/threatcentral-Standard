@@ -201,7 +201,7 @@ $this->title = '行业情报';
               </div>
             </div>
           </div>
-          <div class="contnet_item" style="min-height:100px;">
+          <div class="contnet_item" style="min-height:42px;">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_9.png" alt="">
               <span>标签:</span>
@@ -232,6 +232,9 @@ $this->title = '行业情报';
           </div>
         </div>
       </div>
+      <!-- <div class="pop_box_footer">
+
+      </div> -->
     </div>
   </div>
     <!-- 新增标签弹窗 -->

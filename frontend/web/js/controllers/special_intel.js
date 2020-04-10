@@ -1,8 +1,7 @@
 var myApp = angular.module("myApp", ["ngSanitize"]);
 myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.init = function () {
-        console.log(11111222);
-
+        console.log(555);
         $scope.searchTime = {
             startDate: '',
             endDate: ''
@@ -226,8 +225,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function (start, end, label) {
                 $scope.seach_data.startDate = start.unix();
                 $scope.seach_data.endDate = end.unix();
-                console.log($scope.seach_data.startDate);
-                console.log($scope.seach_data.endDate);
             },
         )
         $('#picker_search').on('apply.daterangepicker', function (ev, picker) {
@@ -242,7 +239,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         });
     };
     $scope.picker_edit = function (startDate) {
-        console.log(startDate);
         $("#picker_edit").daterangepicker({
                 locale: {
                     "format": 'YYYY/MM/DD',
@@ -269,27 +265,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             },
         )
         if (startDate == '0') {
-            console.log('12323');
-
             $scope.edit_item.first_seen_time = ''
             $('#picker_edit').val('');
             $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('YYYY/MM/DD'));
                 $scope.edit_item.first_seen_time = picker.startDate.unix()
-                console.log('5555');
             });
             $('#picker_edit').on('cancel.daterangepicker', function (ev, picker) {
                 $scope.edit_item.first_seen_time = ''
                 $('#picker_edit').val('');
-                console.log('6666');
             });
         } else {
-            console.log('7777');
-            console.log($scope.edit_item.first_seen_time);
             $('#picker_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY/MM/DD'));
             $('#picker_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_seen_time * 1000)).format('YYYY/MM/DD'));
             $('#picker_edit').on('apply.daterangepicker', function (ev, picker) {
-                console.log('8888');
                 $(this).val(picker.startDate.format('YYYY/MM/DD'));
                 $scope.edit_item.first_seen_time = picker.startDate.unix()
             });
@@ -392,7 +381,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             case '未发布':
                 $scope.params_data.stauts = 0
                 break;
-
             default:
                 break;
         }
@@ -437,7 +425,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     item.sourse = $scope.escape2Html(item.sourse)
                     item.link = $scope.escape2Html(item.link)
                     if (item.type == 'manual') {
-                        item.original_intelligence = $scope.escape2Html(item.original_intelligence)
+                        // item.original_intelligence = $scope.escape2Html(item.original_intelligence)
                     }
                     angular.forEach(item.reference_information, function (key, index) {
                         item.reference_information[index] = $scope.escape2Html(key)
@@ -503,7 +491,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         exist: [],
                     }
                     // console.log(JSON.parse($scope.edit_item_str.original_intelligence, null, 2));
-                    console.log($scope.edit_item_str.original_intelligence);
 
                     function escape2Html(str) {
                         var arrEntities = {
@@ -562,12 +549,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         }
                         // 自动   auto
                         if ($scope.edit_item.type == 'auto') {
-                            console.log(JSON.parse($scope.edit_item_str.original_intelligence))
-                            console.log('2222');
-                            $scope.edit_item.original_intelligence_auto = $scope.JsonFormat(
-                                JSON.parse($scope.edit_item_str.original_intelligence)
-                            )
-                            console.log($scope.edit_item.original_intelligence_auto);
+                            $scope.edit_item.original_intelligence_auto = $scope.JsonFormat($scope.edit_item_str.original_intelligence)
                         }
                     }
                     // 匹配标签
@@ -590,7 +572,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     })
                     if ($scope.edit_item.tag.length != 0) {
                         $scope.edit_item.tag[$scope.edit_item.tag.length - 1].icon = true;
-                        console.log($scope.edit_item.tag);
                         angular.forEach($scope.edit_item.tag, function (item) {
                             angular.forEach($scope.label_data, function (key) {
                                 angular.forEach(key.label, function (k) {
@@ -619,7 +600,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         })
                     }
                     if ($scope.edit_item_str.nvd && $scope.edit_item_str.nvd.length != 0) {
-                        console.log($scope.edit_item_str.nvd);
                         angular.forEach($scope.edit_item_str.nvd, function (item, index) {
                             if (item.cve) {
                                 var obj = {
@@ -662,7 +642,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if (typeof json != 'string') {
             json = JSON.stringify(json, undefined, 2);
         }
-        json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/\\n\\r/g, '<br>');
+        json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/\\n/g, '<br>').replace(/\n/g, '<br>').replace(/\\"/g, '"').replace(/\\\u/g, '').replace(/\\r/g, '<br>');
+
         return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
             var cls = 'number';
             if (/^"/.test(match)) {
@@ -676,7 +657,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             } else if (/null/.test(match)) {
                 cls = 'null';
             }
-            return '<span class="' + cls + '">' + match + '</span>';
+            if (cls == 'key') {
+                return '<br><span class="' + cls + '">' + match + '</span>';
+            } else {
+                return '<span class="' + cls + '">' + match + '</span>';
+            }
         });
     }
 
@@ -794,12 +779,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     };
     //   取消弹窗
     $scope.add_cancel = function () {
+        $('.pop_box_container').scrollTop(0)
         $scope.pop_show.add = false;
         $scope.enter_show = true;
-
     };
     //   取消编辑弹窗
     $scope.edit_cancel = function () {
+        $('.pop_box_container').scrollTop(0)
         $scope.pop_show.edit = false;
         $scope.enter_show = true;
     };
@@ -875,12 +861,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 params_edit.label_id_attr = [...params_edit.label_id_attr, ...item.label_id_attr];
             }
         })
-
-        console.log(params_edit.label_id_attr)
-
         params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
-
-        console.log(params_edit.label_id_attr)
         var loading = zeroModal.loading(4);
         $http({
             method: "post",
@@ -910,7 +891,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 }
             },
             function (data) {
-                console.log(data);
                 zeroModal.close(loading);
             }
         );
@@ -1001,8 +981,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.edit_item_data = item;
         $scope.pop_show.edit_old_box = true;
         $scope.edit_auto_box = true;
+        $('#pre_box').css({
+            height: '42px'
+        })
         $scope.get_lab_list();
-        console.log(item);
     };
 
     //auto-complete初始化(新增)
@@ -1036,7 +1018,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     minLength: 0,
                     autoFill: true,
                     select: function (event, ui) {
-                        console.log($scope.add_item.tag[index].name);
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
                     },
@@ -1130,7 +1111,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         if ($('#picker_edit').val() != '') {
             $scope.edit_item.first_seen_time = moment($('#picker_edit').val()).unix()
         }
-        console.log($scope.edit_item.first_seen_time);
         if ($scope.edit_item.title == '') {
             zeroModal.error('请输入标题')
             return false
@@ -1187,13 +1167,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         })
         var loading = zeroModal.loading(4);
-        console.log($scope.edit_item);
-        console.log($scope.edit_item.first_seen_time);
-
-        console.log(params_edit.label_id_attr)
         params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
-        console.log(params_edit.label_id_attr)
-
         if ($scope.edit_item.type == 'auto') {
             var params = {
                 id: $scope.edit_item.id,
@@ -1239,7 +1213,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.get_page($scope.pageNow);
             },
             function (data) {
-                console.log(data);
                 zeroModal.close(loading);
             }
         );
@@ -1440,7 +1413,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 }
                 break;
             case 'tag':
-                console.log(name);
                 if ($scope.add_item.tag.length == 1) {
                     $scope.add_item.tag[0].name = ''
                     return false
@@ -1766,7 +1738,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         });
                     });
                     $scope.label_data = labelAttr;
-                    console.log($scope.label_data);
                     angular.forEach($scope.label_data, function (item) {
                         item.name = $scope.escape2Html(item.name)
                         angular.forEach(item.label, function (key) {
@@ -1846,7 +1817,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         });
         //向后端传递的label_id（每个类别的id数组的组合）
         $scope.seach_data.label_id = attr;
-        console.log($scope.seach_data.label_id);
 
         this.get_page();
     };
@@ -1860,7 +1830,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         } else {
             $scope.add_item.original_intelligence_cn = $scope.add_item.original_intelligence
         }
-        console.log($scope.add_item.original_intelligence_cn);
     }
     $scope.original_focus = function () {
         $scope.pop_show.add_original_input = true;
@@ -1970,8 +1939,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
             item.name = $scope.nvd_list[$scope.tag_key_add.active_index].cve;
             item.id = $scope.nvd_list[$scope.tag_key_add.active_index].id;
-            console.log(1111);
-
         } else if (keycode == 38) {
             //上键
             if ($scope.tag_key_add.active_index === 0 || $scope.tag_key_add.active_index === -1) {
@@ -2005,7 +1972,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
 
     $scope.choose_nvd_item = function (item, index) {
-        console.log(item);
         angular.forEach($scope.add_item.NVD, function (key, value) {
             if (value == index) {
                 key.name = item.cve;
@@ -2042,8 +2008,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
             item.name = $scope.nvd_list[$scope.tag_key_add.active_index].cve;
             item.id = $scope.nvd_list[$scope.tag_key_add.active_index].id;
-            console.log(1111);
-
         } else if (keycode == 38) {
             //上键
             if ($scope.tag_key_add.active_index === 0 || $scope.tag_key_add.active_index === -1) {
@@ -2076,7 +2040,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
 
     $scope.choose_nvd_item_edit = function (item, index) {
-        console.log(item);
         angular.forEach($scope.edit_item.NVD, function (key, value) {
             if (value == index) {
                 key.name = item.cve;

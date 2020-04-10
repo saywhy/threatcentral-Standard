@@ -663,6 +663,35 @@ button:active {
   z-index: 999;
 }
 
+.pop_contnet {
+  width: 60%;
+  max-height: 75%;
+  flex-direction: column;
+  display: flex;
+  padding: 24px 36px;
+  background: #F8F8F8;
+  border-radius: 8px;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  z-index: 22;
+  transform: translate(-50%, -50%);
+}
+
+.pop_box_container {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 80%;
+  margin-top: 24px;
+  z-index: 1;
+}
+
+.pop_box_footer {
+  height: 200px;
+  background: #F8F8F8;
+}
+
 .pop_box_container::-webkit-scrollbar-track-piece {
   border-radius: 10px;
   background-color: #fff;
@@ -683,24 +712,8 @@ button:active {
   background: #0070FF;
 }
 
-.pop_box_container {
-  width: 100%;
-  overflow-y: auto;
-  height: 85%;
-  margin-top: 24px;
-}
 
-.pop_contnet {
-  width: 60%;
-  height: 75%;
-  padding: 24px 36px;
-  background: #F8F8F8;
-  border-radius: 8px;
-  top: 50%;
-  left: 50%;
-  position: fixed;
-  transform: translate(-50%, -50%);
-}
+
 
 .contnet_title_box {
   height: 24px;
@@ -790,7 +803,8 @@ button:active {
 
 .detail_box {
   margin-top: 5px;
-  height: 200px;
+  max-height: 150px;
+  min-height: 42px;
   overflow-y: auto;
 }
 

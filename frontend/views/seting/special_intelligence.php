@@ -21,10 +21,10 @@ $this->title = '行业情报管理';
         <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="日期">
       </div>
       <!-- 来源 -->
-      <div class="search_input_box" style="width:180px">
+      <div class="search_input_box" style="width:140px">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="情报来源" ng-model="seach_data.source"
-          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" style="width:180px" readonly>
+          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" style="width:140px" readonly>
         <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
           <li title={{item.name}} ng-mousedown="search_choose_item(item.name,$index,'source');"
             ng-repeat="item in loop_source track by $index">
@@ -33,9 +33,10 @@ $this->title = '行业情报管理';
         </ul>
       </div>
       <!-- 状态 -->
-      <div class="search_input_box">
+      <div class="search_input_box" style="width:110px">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="状态" ng-model="seach_data.stauts"
+        style="width:110px"
           ng-focus="search_focus('stauts')" ng-blur="search_blur('stauts');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.stauts" >
           <li ng-mousedown="search_choose_item(item.status,$index,'stauts');"
@@ -45,9 +46,10 @@ $this->title = '行业情报管理';
         </ul>
       </div>
       <!-- 情报级别 -->
-      <div class="search_input_box">
+      <div class="search_input_box" style="width:110px">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="情报级别" ng-model="seach_data.level"
+        style="width:110px"
           ng-focus="search_focus('level')" ng-blur="search_blur('level');" class="search_input" readonly>
         <ul class="select_list_box" ng-if="search_box_ul.level">
           <li ng-mousedown="search_choose_item(item.status,$index,'level');"
@@ -489,6 +491,7 @@ $this->title = '行业情报管理';
                 </div>
               </div>
             </div>
+
             <div class="contnet_item_right" ng-if="edit_item.type =='manual'">
               <div ng-if="pop_show.edit_old_box" class="add_old_box">
                 <input autocomplete="off" type="text" placeholder="请输入原始情报"
