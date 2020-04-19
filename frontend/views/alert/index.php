@@ -433,7 +433,7 @@ border: 1px solid #0070FF;
         cursor:pointer;
     }
 </style>
-<section class="content" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
+<section class="content" style="padding-bottom:30px;" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
     <div class="echarts_box">
         <div id="alarm_echart"></div>
     </div>

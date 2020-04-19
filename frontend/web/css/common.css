@@ -218,3 +218,20 @@ input[type="number"] {
 .daterangepicker {
   z-index: 9999999;
 }
+
+.hoohoolab-footer_cn {
+  height: 50px;
+  position: fixed;
+  bottom: 0px;
+  text-align: center;
+  color: #666;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  background: #ececec;
+  z-index: 9999;
+}
+
+.content-container {
+  /* padding-bottom: 29px; */
+}

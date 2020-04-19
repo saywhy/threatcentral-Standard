@@ -29,7 +29,8 @@ $this->context->layout = false;
         <div class="row login_box" id="login_enter" style="overflow:hidden;"  ng-click="click()">
             <div class="col-md-6" style="position: relative;height: 100%;">
                 <div class="logo_box">
-                    <img class="logo_img" src="/images/shangqi_logo1_sigin.png" alt="">
+                    <!-- <img class="logo_img" src="/images/shangqi_logo1_sigin.png" alt=""> -->
+                    <img class="logo_img" src="/images/hoohoolab-logo.png" alt="">
                 </div>
                 <div class="login_box_content">
                     <p class="login_box_content_tilte">威胁情报系统</p>
@@ -79,7 +80,7 @@ $this->context->layout = false;
                     <button ng-click="login_in()" class="login_button">登录</button>
                 </div>
                 <div>
-                  <span style="color:#00285e; position: absolute;bottom: 36px;left: 36px;">版本号v1.2</span>
+                  <!-- <span style="color:#00285e; position: absolute;bottom: 36px;left: 36px;">版本号v1.2</span> -->
                 </div>
             </div>
             <div class="col-md-6">

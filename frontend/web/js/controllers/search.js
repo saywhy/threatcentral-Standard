@@ -30,13 +30,12 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
                 css: "danger"
             }
         };
-
         $scope.level = '';
         //漏洞级别
         $scope.custom_level = [{
-            num: '',
-            status: '漏洞级别'
-        },
+                num: '',
+                status: '漏洞级别'
+            },
             {
                 num: '高',
                 status: '高'
@@ -48,14 +47,14 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
             {
                 num: '低',
                 status: '低'
-            }];
-
+            }
+        ];
         $scope.custom_edit_data = {};
         $scope.custom_list_get(1);
         $scope.loophole_get(1);
         $scope.enter();
         $scope.get_centralmanage_self();
-
+        $scope.get_lookup_license();
     };
 
     $scope.enter = function () {
@@ -104,7 +103,23 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
             },
             function errorCallback(data) {
                 zeroModal.close(loading);
+                zeroModal.error(data.data.message);
             }
+        );
+    };
+
+    //   获取license
+    $scope.get_lookup_license = function () {
+        console.log("12121");
+        $http({
+            method: "get",
+            url: "/intelligence/license"
+        }).then(
+            function successCallback(data) {
+                console.log(data);
+                $scope.lookup_license = data.data.data.result;
+            },
+            function errorCallback(data) {}
         );
     };
 
@@ -301,10 +316,6 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
                 console.log(data);
                 zeroModal.close(loading);
                 zeroModal.closeAll();
-                if (data.data.data == null) {
-                    zeroModal.error("没有查询到扩展信息");
-                    return false;
-                }
                 if (data.data.data.result == null) {
                     zeroModal.error("没有查询到扩展信息");
                     return false;
@@ -313,21 +324,17 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
                     switch (k) {
                         case "DomainGeneralInfo":
                             //   window.location.href = "/ExtendedQuery.html#/domain?name=" + obj;
-                            sessionStorage.setItem("DomainGeneralInfo", JSON.stringify(data.data.data));
                             window.open("/ExtendedQuery.html#/domain?name=" + obj);
                             break;
                         case "FileGeneralInfo":
                             //   window.location.href = "/ExtendedQuery.html#/hash?name=" + obj;
-                            sessionStorage.setItem("FileGeneralInfo", JSON.stringify(data.data.data));
                             window.open("/ExtendedQuery.html#/hash?name=" + obj);
                             break;
                         case "IpGeneralInfo":
-                            sessionStorage.setItem("IpGeneralInfo", JSON.stringify(data.data.data));
                             //   window.location.href = "/ExtendedQuery.html#/ip?name=" + obj;
                             window.open("/ExtendedQuery.html#/ip?name=" + obj);
                             break;
                         case "UrlGeneralInfo":
-                            sessionStorage.setItem("UrlGeneralInfo", JSON.stringify(data.data.data));
                             //   window.location.href = "/ExtendedQuery.html#/url?name=" + obj;
                             window.open("/ExtendedQuery.html#/url?name=" + obj);
                             break;
@@ -357,8 +364,7 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
             params: {
                 indicator: $scope.loophole_search,
                 rows: 10,
-                page: page,
-                //level:$scope.level
+                page: page
             }
         }).then(
             function (data) {
@@ -388,12 +394,10 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
         );
         // }
     };
-
     //一键导出
-    $scope.reputation_exp = function(){
+    $scope.reputation_exp = function () {
         window.open('/intelligence/export-loophole');
     }
-
 
     $scope.go_loophole_detail = function (html) {
         // localStorage.setItem("loop_detail_data", html);

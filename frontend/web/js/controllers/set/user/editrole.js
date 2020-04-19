@@ -4,6 +4,9 @@ myApp.controller("EditRoleController", [
     "$http",
     "$rootScope",
     function ($scope, $http, $rootScope) {
+        $scope.init = function () {
+            $scope.get_license_version()
+        }
         $scope.edit_role = JSON.parse(sessionStorage.getItem("edit_role"));
         $scope.new_edit_role = {
             name: $scope.edit_role.name,
@@ -11,179 +14,304 @@ myApp.controller("EditRoleController", [
             permissionsList: []
         };
         console.log($scope.edit_role);
-        // 数据类型如下
-        $scope.zNodes = [{
-                id: "1",
-                name: "首页",
-                children: [{
-                        name: "概览",
-                        id: "2"
-                    },
-                    {
-                        name: "可视化大屏",
-                        id: "14"
-                    }
-                ]
-            },
-            {
-                id: "15",
-                name: "情报",
-                children: [{
-                        name: "情报查询",
-                        id: "16"
-                    },
-                    {
-                        name: "情报提取",
-                        id: "24"
-                    },
-                    {
-                        name: "情报共享",
-                        id: "29"
-                    },
-                    {
-                        name: "情报源管理",
-                        id: "46"
-                    },
-                    {
-                        name: "APT武器库",
-                        id: "50"
-                    },
-                    {
-                        name: "行业情报",
-                        id: "186"
-                    },
-                    {
-                        name: "漏洞情报",
-                        id: "187"
-                    },
-                ]
-            },
-            {
-                name: "资产",
-                id: "54",
-                children: [{
-                        name: "资产管理",
-                        id: "55"
-                    },
-                    {
-                        name: "受影响资产",
-                        id: "72"
-                    },
-                    {
-                        name: "车辆资产",
-                        id: "184"
-                    },
-                    {
-                        name: "零配件资产",
-                        id: "185"
-                    }
-                ]
-            },
-            {
-                name: "预警",
-                id: "77",
-                children: [{
-                        name: "威胁预警",
-                        isSelected: false,
-                        id: "78"
-                    },
-                    {
-                        name: "漏洞预警",
-                        isSelected: false,
-                        id: "85"
-                    },
-                    {
-                        name: "暗网预警",
-                        isSelected: false,
-                        id: "90"
-                    },
-                    {
-                        name: "车联网预警",
-                        isSelected: false,
-                        id: "205"
-                    }
-                ]
-            },
-            {
-                name: "报表",
-                id: "127",
-                children: [{
-                        name: "报表生成",
-                        id: "128"
-                    },
-                    {
-                        name: "报表发送",
-                        id: "129"
-                    }
-                ]
-            },
-            {
-                name: "设置",
-                id: "93",
-                children: [{
-                        name: "网络配置",
-                        id: "94"
-                    },
-                    {
-                        name: "威胁通知",
-                        id: "97"
-                    },
-                    {
-                        name: "漏洞关联",
-                        id: "104"
-                    },
-                    {
-                        name: "集中管理",
-                        id: "130"
-                    },
-                    {
-                        name: "账号管理",
-                        id: "110"
-                    },
-                    {
-                        name: "审计日志",
-                        id: "126"
-                    },
-                    {
-                        name: "情报API",
-                        id: "151"
-                    },
-                    {
-                        name: "标签管理",
-                        id: "181"
-                    },
-                    {
-                        name: "行业情报管理",
-                        id: "182"
-                    },
-                    {
-                        name: "漏洞情报管理",
-                        id: "183"
-                    },
-                    {
-                        name: "基础情报管理",
-                        id: "209"
-                    },
-                ]
-            }
-        ];
-        if ($scope.edit_role.permissions_id != "") {
-            angular.forEach($scope.edit_role.permissions_id.split(","), function (
-                item
-            ) {
-                angular.forEach($scope.zNodes, function (item_node) {
-                    if (item == item_node.id) {
-                        item_node.checked = true;
-                    }
-                    angular.forEach(item_node.children, function (ele) {
-                        if (item == ele.id) {
-                            ele.checked = true;
+        $scope.get_license_version = function () {
+            $http.get('/site/license-version').then(function success(rsp) {
+                console.log(rsp.data.data.edition);
+                if (rsp.data.data.edition == 1) {
+                    console.log('1111');
+                    $scope.zNodes = [{
+                            id: "1",
+                            name: "首页",
+                            children: [{
+                                name: "概览",
+                                id: "2"
+                            }, ]
+                        },
+                        {
+                            id: "15",
+                            name: "情报",
+                            children: [{
+                                    name: "情报查询",
+                                    id: "16"
+                                },
+                                {
+                                    name: "情报提取",
+                                    id: "24"
+                                },
+                                {
+                                    name: "情报共享",
+                                    id: "29"
+                                },
+                                {
+                                    name: "情报源管理",
+                                    id: "46"
+                                },
+                                {
+                                    name: "APT武器库",
+                                    id: "50"
+                                },
+                            ]
+                        },
+                        {
+                            name: "资产",
+                            id: "54",
+                            children: [{
+                                    name: "资产管理",
+                                    id: "55"
+                                },
+                                {
+                                    name: "受影响资产",
+                                    id: "72"
+                                },
+                            ]
+                        },
+                        {
+                            name: "预警",
+                            id: "77",
+                            children: [{
+                                    name: "威胁预警",
+                                    isSelected: false,
+                                    id: "78"
+                                },
+                                {
+                                    name: "漏洞预警",
+                                    isSelected: false,
+                                    id: "85"
+                                },
+                                {
+                                    name: "暗网预警",
+                                    isSelected: false,
+                                    id: "90"
+                                },
+                            ]
+                        },
+                        {
+                            name: "报表",
+                            id: "127",
+                            children: [{
+                                    name: "报表生成",
+                                    id: "128"
+                                },
+                                {
+                                    name: "报表发送",
+                                    id: "129"
+                                }
+                            ]
+                        },
+                        {
+                            name: "设置",
+                            id: "93",
+                            children: [{
+                                    name: "网络配置",
+                                    id: "94"
+                                },
+                                {
+                                    name: "威胁通知",
+                                    id: "97"
+                                },
+                                {
+                                    name: "漏洞关联",
+                                    id: "104"
+                                },
+                                {
+                                    name: "集中管理",
+                                    id: "130"
+                                },
+                                {
+                                    name: "账号管理",
+                                    id: "110"
+                                },
+                                {
+                                    name: "审计日志",
+                                    id: "126"
+                                },
+                                {
+                                    name: "情报API",
+                                    id: "151"
+                                },
+                                {
+                                    name: "许可证",
+                                    id: "223"
+                                },
+                            ]
                         }
+                    ];
+                }
+                if (rsp.data.data.edition == 2) {
+                    $scope.zNodes = [{
+                            id: "1",
+                            name: "首页",
+                            children: [{
+                                name: "概览",
+                                id: "2"
+                            }, ]
+                        },
+                        {
+                            id: "15",
+                            name: "情报",
+                            children: [{
+                                    name: "情报查询",
+                                    id: "16"
+                                },
+                                {
+                                    name: "情报提取",
+                                    id: "24"
+                                },
+                                {
+                                    name: "情报共享",
+                                    id: "29"
+                                },
+                                {
+                                    name: "情报源管理",
+                                    id: "46"
+                                },
+                                {
+                                    name: "APT武器库",
+                                    id: "50"
+                                },
+                                {
+                                    name: "行业情报",
+                                    id: "186"
+                                },
+                                {
+                                    name: "漏洞情报",
+                                    id: "187"
+                                },
+                            ]
+                        },
+                        {
+                            name: "资产",
+                            id: "54",
+                            children: [{
+                                    name: "资产管理",
+                                    id: "55"
+                                },
+                                {
+                                    name: "受影响资产",
+                                    id: "72"
+                                },
+                                {
+                                    name: "车辆资产",
+                                    id: "184"
+                                },
+                                {
+                                    name: "零配件资产",
+                                    id: "185"
+                                }
+                            ]
+                        },
+                        {
+                            name: "预警",
+                            id: "77",
+                            children: [{
+                                    name: "威胁预警",
+                                    isSelected: false,
+                                    id: "78"
+                                },
+                                {
+                                    name: "漏洞预警",
+                                    isSelected: false,
+                                    id: "85"
+                                },
+                                {
+                                    name: "暗网预警",
+                                    isSelected: false,
+                                    id: "90"
+                                },
+                                {
+                                    name: "车联网预警",
+                                    isSelected: false,
+                                    id: "205"
+                                }
+                            ]
+                        },
+                        {
+                            name: "报表",
+                            id: "127",
+                            children: [{
+                                    name: "报表生成",
+                                    id: "128"
+                                },
+                                {
+                                    name: "报表发送",
+                                    id: "129"
+                                }
+                            ]
+                        },
+                        {
+                            name: "设置",
+                            id: "93",
+                            children: [{
+                                    name: "网络配置",
+                                    id: "94"
+                                },
+                                {
+                                    name: "威胁通知",
+                                    id: "97"
+                                },
+                                {
+                                    name: "漏洞关联",
+                                    id: "104"
+                                },
+                                {
+                                    name: "集中管理",
+                                    id: "130"
+                                },
+                                {
+                                    name: "账号管理",
+                                    id: "110"
+                                },
+                                {
+                                    name: "审计日志",
+                                    id: "126"
+                                },
+                                {
+                                    name: "情报API",
+                                    id: "151"
+                                },
+                                {
+                                    name: "许可证",
+                                    id: "223"
+                                },
+                                {
+                                    name: "标签管理",
+                                    id: "181"
+                                },
+                                {
+                                    name: "行业情报管理",
+                                    id: "182"
+                                },
+                                {
+                                    name: "漏洞情报管理",
+                                    id: "183"
+                                },
+                                {
+                                    name: "基础情报管理",
+                                    id: "209"
+                                },
+                            ]
+                        }
+                    ];
+                }
+                if ($scope.edit_role.permissions_id != "") {
+                    angular.forEach($scope.edit_role.permissions_id.split(","), function (
+                        item
+                    ) {
+                        angular.forEach($scope.zNodes, function (item_node) {
+                            if (item == item_node.id) {
+                                item_node.checked = true;
+                            }
+                            angular.forEach(item_node.children, function (ele) {
+                                if (item == ele.id) {
+                                    ele.checked = true;
+                                }
+                            });
+                        });
                     });
-                });
-            });
+                }
+                $.fn.zTree.init($("#tree"), $scope.setting, $scope.zNodes);
+            }, function err(rsp) {});
         }
-
         $scope.setting = {
             data: {
                 key: {
@@ -205,7 +333,7 @@ myApp.controller("EditRoleController", [
                 }
             }
         };
-        $.fn.zTree.init($("#tree"), $scope.setting, $scope.zNodes);
+
 
         $scope.save = function () {
             if ($scope.new_edit_role.name == "") {
@@ -256,5 +384,6 @@ myApp.controller("EditRoleController", [
         $scope.cancel = function () {
             window.location.href = "/seting/user";
         };
+        $scope.init()
     }
 ]);

@@ -44,6 +44,7 @@ function getPath($path)
 ?>
 <!DOCTYPE html>
 <html lang="<?=Yii::$app->language?>">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -103,213 +104,224 @@ function getPath($path)
   <link rel="stylesheet" href="/plugins/ztree/zTreeStyle.css">
   <link rel="stylesheet" href="/css/set/autocomplete.css">
 
-   <!-- <link rel="stylesheet" href="/plugins/switch/bootstrap-switch.css"> -->
+  <!-- <link rel="stylesheet" href="/plugins/switch/bootstrap-switch.css"> -->
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini" >
-<div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="/" class="logo" style="background-color: #374051;height:64px">
-      <span class="logo-lg" style="line-height: 62px;"><img src="/images/shangqi_logo.png" style="height: 38px;width:112px"></span>
-    </a>
-    <nav class="navbar navbar-static-top" style="background-color: #374051; ">
-      <div class="navbar-custom-menu" style="float: left;  ">
-        <ul class="nav navbar-nav">
-          <?php include 'nav.php';?>
-        </ul>
-      </div>
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- <?php include 'self.php';?>
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+
+    <header class="main-header">
+      <!-- Logo -->
+
+      <a href="/" class="logo"
+        style="background-color: #374051;height:64px;text-align: right;padding: 0 8px;text-decoration:none;">
+        <span class="logo-lg" style="line-height: 62px;">
+          <img src="/images/hoohoolab-logo.png" style="height: 50px;">
+          <span>Threatcentral</span>
+          <!-- <span style="color: #c4d0d9;font-weight: 500;">ThreatCentral</span> -->
+        </span>
+      </a>
+      <nav class="navbar navbar-static-top" style="background-color: #374051; ">
+        <div class="navbar-custom-menu" style="float: left;  ">
+          <ul class="nav navbar-nav">
+            <?php include 'nav.php';?>
+          </ul>
+        </div>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- <?php include 'self.php';?>
           <?php include 'news.php';?> -->
-          <?php include 'PersonalCenter.php';?>
-        </ul>
+            <?php include 'PersonalCenter.php';?>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="content-container"  >
+      <aside class="content-aside">
+        <?php include 'aside.php';?>
+      </aside>
+
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header"  style="height: 72px;background-color: #fff;padding:0;">
+          <h1 style="font-size: 20px;color:#333;line-height:72px;padding-left:48px;">
+            <?=$this->title?>
+            <small></small>
+          </h1>
+          <ol class="breadcrumb"
+            style="padding:0;padding-right:48px;top:0; font-size: 16px;color: #999999; line-height: 72px;">
+            <?php if (isActive(['/site/index']) == 'active') {?>
+            <li><a href="/site/index"><i class="fa fa-home"></i>首页</a></li>
+            <?php }?>
+            <?php if (isActive(['/search/index']) == 'active') {?>
+            <li><a href="/search/index'"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+            <?php if (isActive(['/agent/index']) == 'active') {?>
+            <li><a href="/agent/index"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+            <?php if (isActive(['/share/index']) == 'active') {?>
+            <li><a href="/share/index"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+            <?php if (isActive(['/intelligence/source-management']) == 'active') {?>
+            <li><a href="/intelligence/source-management"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+            <?php if (isActive(['/search/apt-lib']) == 'active') {?>
+            <li><a href="/search/apt-lib"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+
+            <?php if (isActive(['/vehicleintelligence/special']) == 'active') {?>
+            <li><a href="/vehicleintelligence/special"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+            <?php if (isActive(['/vehicleintelligence/loophole']) == 'active') {?>
+            <li><a href="/vehicleintelligence/loophole"><i class="fa fa-podcast"></i>情报</a></li>
+            <?php }?>
+
+            <?php if (isActive(['/assets/asset-management']) == 'active') {?>
+            <li><a href="/assets/asset-management"><i class="fa fa-database"></i>资产</a></li>
+            <?php }?>
+            <?php if (isActive(['/assets/asset-risky']) == 'active') {?>
+            <li><a href="/assets/asset-risky"><i class="fa fa-database"></i>资产</a></li>
+            <?php }?>
+
+            <?php if (isActive(['/assets/vehicle']) == 'active') {?>
+            <li><a href="/assets/vehicle"><i class="fa fa-database"></i>资产</a></li>
+            <?php }?>
+            <?php if (isActive(['/assets/accessory']) == 'active') {?>
+            <li><a href="/assets/accessory"><i class="fa fa-database"></i>资产</a></li>
+            <?php }?>
+
+
+            <?php if (isActive(['/alert/index']) == 'active') {?>
+            <li><a href="/alert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
+            <?php }?>
+            <?php if (isActive(['/alert/loophole']) == 'active') {?>
+            <li><a href="/alert/loophole"><i class="fa fa-heartbeat"></i>预警</a></li>
+            <?php }?>
+            <?php if (isActive(['/alert/darknet']) == 'active') {?>
+            <li><a href="/alert/darknet"><i class="fa fa-heartbeat"></i>预警</a></li>
+            <?php }?>
+            <?php if (isActive(['/vehiclealert/index']) == 'active') {?>
+            <li><a href="/vehiclealert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
+            <?php }?>
+
+
+            <?php if (isActive(['/report/index']) == 'active') {?>
+            <li><a href="/report/index"><i class="fa fa-area-chart"></i>报表</a></li>
+            <?php }?>
+            <?php if (isActive(['/report/send']) == 'active') {?>
+            <li><a href="/report/send"><i class="fa fa-area-chart"></i>报表</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/network']) == 'active') {?>
+            <li><a href="/seting/network"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/systemnotice']) == 'active') {?>
+            <li><a href="/seting/systemnotice"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/centralmanager']) == 'active') {?>
+            <li><a href="/seting/centralmanager"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/user']) == 'active') {?>
+            <li><a href="/seting/user"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/log']) == 'active') {?>
+            <li><a href="/seting/log"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+
+            <?php if (isActive(['/seting/label-manage']) == 'active') {?>
+            <li><a href="/seting/label-manage"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/special-intelligence']) == 'active') {?>
+            <li><a href="/seting/special-intelligence"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/loophole-intelligence']) == 'active') {?>
+            <li><a href="/seting/loophole-intelligence"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+            <?php if (isActive(['/seting/base-intelligence']) == 'active') {?>
+            <li><a href="/seting/base-intelligence"><i class="fa fa-cog"></i>配置</a></li>
+            <?php }?>
+
+            <li class="active"><?=$this->title?></li>
+          </ol>
+        </section>
+        <?=$content?>
+
+
       </div>
-    </nav>
-  </header>
- <div class="content-container">
-   <aside class="content-aside">
-     <?php include 'aside.php';?>
-   </aside>
-
-   <div class="content-wrapper">
-     <!-- Content Header (Page header) -->
-     <section class="content-header" style="height: 72px;background-color: #fff;padding:0;">
-       <h1 style="font-size: 20px;color:#333;line-height:72px;padding-left:48px;">
-         <?=$this->title?>
-         <small></small>
-       </h1>
-       <ol class="breadcrumb" style="padding:0;padding-right:48px;top:0; font-size: 16px;color: #999999; line-height: 72px;">
-         <?php if (isActive(['/site/index']) == 'active') {?>
-         <li><a href="/site/index"><i class="fa fa-home"></i>首页</a></li>
-         <?php }?>
-         <?php if (isActive(['/search/index']) == 'active') {?>
-         <li><a href="/search/index'"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-         <?php if (isActive(['/agent/index']) == 'active') {?>
-         <li><a href="/agent/index"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-         <?php if (isActive(['/share/index']) == 'active') {?>
-         <li><a href="/share/index"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-         <?php if (isActive(['/intelligence/source-management']) == 'active') {?>
-         <li><a href="/intelligence/source-management"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-         <?php if (isActive(['/search/apt-lib']) == 'active') {?>
-         <li><a href="/search/apt-lib"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-
-         <?php if (isActive(['/vehicleintelligence/special']) == 'active') {?>
-              <li><a href="/vehicleintelligence/special"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-         <?php if (isActive(['/vehicleintelligence/loophole']) == 'active') {?>
-              <li><a href="/vehicleintelligence/loophole"><i class="fa fa-podcast"></i>情报</a></li>
-         <?php }?>
-
-         <?php if (isActive(['/assets/asset-management']) == 'active') {?>
-         <li><a href="/assets/asset-management"><i class="fa fa-database"></i>资产</a></li>
-         <?php }?>
-         <?php if (isActive(['/assets/asset-risky']) == 'active') {?>
-         <li><a href="/assets/asset-risky"><i class="fa fa-database"></i>资产</a></li>
-         <?php }?>
-
-         <?php if (isActive(['/assets/vehicle']) == 'active') {?>
-             <li><a href="/assets/vehicle"><i class="fa fa-database"></i>资产</a></li>
-         <?php }?>
-         <?php if (isActive(['/assets/accessory']) == 'active') {?>
-             <li><a href="/assets/accessory"><i class="fa fa-database"></i>资产</a></li>
-         <?php }?>
+    </div>
+    <div class="hoohoolab-footer_cn">
+      <span>&copy;虎特信息科技（上海）有限公司 版权所有</span>
+      <span></span>
+    </div>
 
 
-         <?php if (isActive(['/alert/index']) == 'active') {?>
-         <li><a href="/alert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
-         <?php }?>
-         <?php if (isActive(['/alert/loophole']) == 'active') {?>
-         <li><a href="/alert/loophole"><i class="fa fa-heartbeat"></i>预警</a></li>
-         <?php }?>
-         <?php if (isActive(['/alert/darknet']) == 'active') {?>
-         <li><a href="/alert/darknet"><i class="fa fa-heartbeat"></i>预警</a></li>
-         <?php }?>
-         <?php if (isActive(['/vehiclealert/index']) == 'active') {?>
-          <li><a href="/vehiclealert/index"><i class="fa fa-heartbeat"></i>预警</a></li>
-         <?php }?>
+    <!-- jQuery 2.2.3 -->
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <!-- <script src="/js/jquery-ui.min.js"></script> -->
+    <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 
-
-         <?php if (isActive(['/report/index']) == 'active') {?>
-         <li><a href="/report/index"><i class="fa fa-area-chart"></i>报表</a></li>
-         <?php }?>
-         <?php if (isActive(['/report/send']) == 'active') {?>
-         <li><a href="/report/send"><i class="fa fa-area-chart"></i>报表</a></li>
-         <?php }?>
-         <?php if (isActive(['/seting/network']) == 'active') {?>
-         <li><a href="/seting/network"><i class="fa fa-cog"></i>配置</a></li>
-         <?php }?>
-         <?php if (isActive(['/seting/systemnotice']) == 'active') {?>
-         <li><a href="/seting/systemnotice"><i class="fa fa-cog"></i>配置</a></li>
-         <?php }?>
-         <?php if (isActive(['/seting/centralmanager']) == 'active') {?>
-         <li><a href="/seting/centralmanager"><i class="fa fa-cog"></i>配置</a></li>
-         <?php }?>
-         <?php if (isActive(['/seting/user']) == 'active') {?>
-         <li><a href="/seting/user"><i class="fa fa-cog"></i>配置</a></li>
-         <?php }?>
-         <?php if (isActive(['/seting/log']) == 'active') {?>
-         <li><a href="/seting/log"><i class="fa fa-cog"></i>配置</a></li>
-         <?php }?>
-
-         <?php if (isActive(['/seting/label-manage']) == 'active') {?>
-             <li><a href="/seting/label-manage"><i class="fa fa-cog"></i>配置</a></li>
-          <?php }?>
-          <?php if (isActive(['/seting/special-intelligence']) == 'active') {?>
-             <li><a href="/seting/special-intelligence"><i class="fa fa-cog"></i>配置</a></li>
-          <?php }?>
-          <?php if (isActive(['/seting/loophole-intelligence']) == 'active') {?>
-              <li><a href="/seting/loophole-intelligence"><i class="fa fa-cog"></i>配置</a></li>
-          <?php }?>
-          <?php if (isActive(['/seting/base-intelligence']) == 'active') {?>
-             <li><a href="/seting/base-intelligence"><i class="fa fa-cog"></i>配置</a></li>
-          <?php }?>
-
-         <li class="active"><?=$this->title?></li>
-       </ol>
-     </section>
-     <?=$content?>
-   </div>
-</div>
-
-
-<!-- jQuery 2.2.3 -->
-<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<!-- <script src="/js/jquery-ui.min.js"></script> -->
-<script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.6 -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Sparkline -->
-<script src="/plugins/sparkline/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
-<script src="/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="/plugins/knob/jquery.knob.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<!-- Slimscroll -->
-<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="/plugins/fastclick/fastclick.js"></script>
-<!-- date-range-picker -->
-<script src="/plugins/daterangepicker/moment.min.js"></script>
-<script src="/plugins/daterangepicker/moment-zh.js"></script>
-<script src="/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- zeroModal -->
-<script src="/js/zeroModal.min.js"></script>
-<!-- 引入图标 -->
-<script src="/js/iconfont.js"></script>
-<!-- Fileupload -->
-<!-- <script src="/js/jquery-ui.min.js"></script> -->
-<script src="/js/jquery.iframe-transport.js"></script>
-<script src="/js/jquery.fileupload.js"></script>
-<!-- Chart.js -->
-<script src="/plugins/chartjs/Chart.min.2.5.js"></script>
-<!-- canvasjs.js -->
-<script src="/plugins/canvasjs-1.9.8/canvasjs.min.js"></script>
-<!-- bootstrap-treeview -->
-<script src="/js/bootstrap-treeview.js"></script>
-<!-- echarts.min -->
-<script src="/plugins/echarts/echarts.min.js"></script>
-<!-- <script src="/plugins/echarts/echarts.js"></script> -->
-<!-- DataTables -->
-<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- autoTextarea -->
-<script src="/plugins/autoTextarea/autoTextarea.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/app.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/dist/js/demo.js"></script>
-<script src="/js/up.js"></script>
-<script src="/js/wangEditor.min.js"></script>
-<script src="/plugins/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="/plugins/ztree/jquery.ztree.all.js"></script>
-<script src="/plugins/ztree/jquery.ztree.exhide.js"></script>
+    <!-- Sparkline -->
+    <script src="/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="/plugins/knob/jquery.knob.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/plugins/fastclick/fastclick.js"></script>
+    <!-- date-range-picker -->
+    <script src="/plugins/daterangepicker/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/moment-zh.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- zeroModal -->
+    <script src="/js/zeroModal.min.js"></script>
+    <!-- 引入图标 -->
+    <script src="/js/iconfont.js"></script>
+    <!-- Fileupload -->
+    <!-- <script src="/js/jquery-ui.min.js"></script> -->
+    <script src="/js/jquery.iframe-transport.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>
+    <!-- Chart.js -->
+    <script src="/plugins/chartjs/Chart.min.2.5.js"></script>
+    <!-- canvasjs.js -->
+    <script src="/plugins/canvasjs-1.9.8/canvasjs.min.js"></script>
+    <!-- bootstrap-treeview -->
+    <script src="/js/bootstrap-treeview.js"></script>
+    <!-- echarts.min -->
+    <script src="/plugins/echarts/echarts.min.js"></script>
+    <!-- <script src="/plugins/echarts/echarts.js"></script> -->
+    <!-- DataTables -->
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- autoTextarea -->
+    <script src="/plugins/autoTextarea/autoTextarea.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/app.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/dist/js/demo.js"></script>
+    <script src="/js/up.js"></script>
+    <script src="/js/wangEditor.min.js"></script>
+    <script src="/plugins/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/plugins/ztree/jquery.ztree.all.js"></script>
+    <script src="/plugins/ztree/jquery.ztree.exhide.js"></script>
 
 
 
-<!-- <script src="/plugins/pdf/html2canvas.js"></script> -->
-<!-- <script src="/plugins/pdf/jspdf_debug.js"></script> -->
-<!-- <script src="/plugins/switch/bootstrap-switch.min.js"></script> -->
+    <!-- <script src="/plugins/pdf/html2canvas.js"></script> -->
+    <!-- <script src="/plugins/pdf/jspdf_debug.js"></script> -->
+    <!-- <script src="/plugins/switch/bootstrap-switch.min.js"></script> -->
 
 </body>
+
 </html>
-
-
-
-

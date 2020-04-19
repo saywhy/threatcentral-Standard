@@ -4,6 +4,7 @@
 
 .special_intel_container {
   padding-left: 24px;
+  padding-bottom: 24px;
 }
 
 ::-webkit-input-placeholder {

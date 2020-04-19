@@ -7,7 +7,7 @@
         <li class="aside-item">
             <a class="aside-item-a" ng-click="menu_aside.site.system = !menu_aside.site.system">
                 <i class="fa fa-home"></i>
-                <span class="name">IT 系统首页</span>
+                <span class="name">系统首页</span>
                 <span class="caret" ng-class="{'active':!menu_aside.site.system}"></span>
             </a>
             <ul class="aside-lists-second" ng-show="menu_aside.site.system">
@@ -16,11 +16,11 @@
                         <span>概览</span>
                     </a>
                 </li>
-                <li class="aside-item-second <?=isActive(['/map.html'])?>" ng-if="menu_list.index_BigScreen">
+                <!-- <li class="aside-item-second <?=isActive(['/map.html'])?>" ng-if="menu_list.index_BigScreen">
                     <a class="aside-item-second-a" href="<?=getPath('/map.html')?>">
                         <span>可视化大屏</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </li>
 
@@ -38,7 +38,7 @@
         <li class="aside-item" ng-if="menu_aside_flag.search.system">
             <a class="aside-item-a" ng-click="menu_aside.search.system = !menu_aside.search.system">
                 <i class="fa fa-podcast"></i>
-                <span class="name">IT 系统情报</span>
+                <span class="name">系统情报</span>
                 <span class="caret" ng-class="{'active':!menu_aside.search.system}"></span>
             </a>
             <ul class="aside-lists-second" ng-show="menu_aside.search.system">
@@ -78,7 +78,7 @@
         <li class="aside-item" ng-if="menu_aside_flag.search.vehicle">
              <a class="aside-item-a" ng-click="menu_aside.search.vehicle = !menu_aside.search.vehicle">
                 <i class="fa fa-podcast"></i>
-                <span class="name">车联网情报</span>
+                <span class="name">定制</span>
                 <span class="caret" ng-class="{'active':!menu_aside.search.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.search.vehicle">
@@ -103,7 +103,7 @@
         <li class="aside-item" ng-if="menu_aside_flag.assets.system">
             <a class="aside-item-a" ng-click="menu_aside.assets.system = !menu_aside.assets.system">
                 <i class="fa fa-database"></i>
-                <span class="name">IT 资产</span>
+                <span class="name">系统资产</span>
                 <span class="caret" ng-class="{'active':!menu_aside.assets.system}"></span>
             </a>
             <ul class="aside-lists-second" ng-show="menu_aside.assets.system">
@@ -125,7 +125,7 @@
         <li class="aside-item" ng-if="menu_aside_flag.assets.vehicle">
              <a class="aside-item-a" ng-click="menu_aside.assets.vehicle = !menu_aside.assets.vehicle">
                 <i class="fa fa-database"></i>
-                <span class="name">车联网资产</span>
+                <span class="name">定制</span>
                 <span class="caret" ng-class="{'active':!menu_aside.assets.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.assets.vehicle">
@@ -150,7 +150,7 @@
         <li class="aside-item" ng-if="menu_aside_flag.alert.system">
             <a class="aside-item-a" ng-click="menu_aside.alert.system = !menu_aside.alert.system">
                 <i class="fa fa-heartbeat"></i>
-                <span class="name">IT 系统预警</span>
+                <span class="name">系统预警</span>
                 <span class="caret" ng-class="{'active':!menu_aside.alert.system}"></span>
             </a>
             <ul class="aside-lists-second" ng-show="menu_aside.alert.system">
@@ -180,7 +180,7 @@
              <a class="aside-item-a <?=isActive(['/vehiclealert/index'])?>"
               href="<?=getPath('/vehiclealert/index')?>">
                 <i class="fa fa-heartbeat"></i>
-                <span class="name">车联网预警</span>
+                <span class="name">定制</span>
                 <!--<span class="caret"></span>-->
              </a>
         </li>
@@ -191,7 +191,7 @@
         <li class="aside-item">
             <a class="aside-item-a" ng-click="menu_aside.report.system = !menu_aside.report.system">
                 <i class="fa fa-area-chart"></i>
-                <span class="name">IT 系统报表</span>
+                <span class="name">系统报表</span>
                 <span class="caret" ng-class="{'active':!menu_aside.report.system}"></span>
             </a>
             <ul class="aside-lists-second" ng-show="menu_aside.report.system">
@@ -223,7 +223,7 @@
         <li class="aside-item" ng-if="menu_aside_flag.seting.system">
             <a class="aside-item-a" ng-click="menu_aside.seting.system = !menu_aside.seting.system">
                 <i class="fa fa-cog"></i>
-                <span class="name">IT 系统配置</span>
+                <span class="name">系统配置</span>
                 <span class="caret" ng-class="{'active':!menu_aside.seting.system}"></span>
             </a>
             <ul class="aside-lists-second" ng-show="menu_aside.seting.system">
@@ -265,13 +265,18 @@
                        <span>情报API</span>
                    </a>
                </li>
+               <li class="aside-item-second <?=isActive(['/seting/license'])?>" ng-if="menu_list.license">
+                   <a class="aside-item-second-a" href="<?=getPath('/seting/license')?>" >
+                       <span>许可证</span>
+                   </a>
+               </li>
             </ul>
         </li>
 
         <li class="aside-item"  ng-if="menu_aside_flag.seting.vehicle">
              <a class="aside-item-a" ng-click="menu_aside.seting.vehicle = !menu_aside.seting.vehicle">
                 <i class="fa fa-cog"></i>
-                <span class="name">车联网系统配置</span>
+                <span class="name">定制</span>
                 <span class="caret" ng-class="{'active':!menu_aside.seting.vehicle}"></span>
              </a>
              <ul class="aside-lists-second" ng-show="menu_aside.seting.vehicle">
