@@ -89,6 +89,7 @@ myApp.controller('LicenseCtrl', function ($scope, $http, $filter) {
                     } else {
                         $scope.License = rsp.data.license;
                         zeroModal.success('许可证导入成功!');
+                        window.location.reload()
                     }
                 } else {
                     zeroModal.error('许可证无效!');

@@ -106,6 +106,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
         set_admin: false,
         set_user: false,
         set_log: false,
+        set_syslog: false,
         api: false,
         set_label: false,
         set_special: false,
@@ -120,8 +121,13 @@ myApp.controller("asideCtrl", function ($scope, $http) {
     $scope.init_aside_flag = function () {
         let per_id = JSON.parse(localStorage.getItem('pemission_id'));
         let icd = $scope.indexCode;
+        console.log(per_id);
 
-        console.log(icd)
+
+
+
+
+
         if (icd == 1) {
             if (per_id.includes('16') ||
                 per_id.includes('24') ||
@@ -163,6 +169,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
                 per_id.includes('110') ||
                 per_id.includes('126') ||
                 per_id.includes('130') ||
+                per_id.includes('229') ||
                 per_id.includes('223') ||
                 per_id.includes('151')) {
                 $scope.menu_aside_flag.seting.system = true;
@@ -232,6 +239,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
             case '/seting/centralmanager':
             case '/seting/user':
             case '/seting/log':
+            case '/seting/syslog':
             case '/api/index':
             case '/seting/license':
                 $scope.menu_aside.seting.system = true;
@@ -380,6 +388,11 @@ myApp.controller("asideCtrl", function ($scope, $http) {
             if (per_id.includes('126')) {
                 $scope.menu_list.set_log = true;
             }
+            if (per_id.includes('229')) {
+                console.log('syslog');
+
+                $scope.menu_list.set_syslog = true;
+            }
             if (per_id.includes('151')) {
                 $scope.menu_list.api = true;
             }
@@ -402,16 +415,29 @@ myApp.controller("asideCtrl", function ($scope, $http) {
     };
 
     $scope.init = function () {
+        $http.get('/site/menu').then(function (resp) {
+            console.log(resp.data);
+            var permission = resp.data;
+            if (permission.status == "success") {
+                var per_id = []
+                angular.forEach(permission.data, function (item) {
+                    per_id.push(item.permissions_id);
+                    if (item.child_menu && item.child_menu.length > 0) {
+                        angular.forEach(item.child_menu, function (itm) {
+                            per_id.push(itm.permissions_id);
+                        })
+                    }
+                });
+                localStorage.setItem("pemission_id", JSON.stringify(per_id));
+                //左侧栏显示设置
+                $scope.init_code();
+                //左侧栏权限设置
+                $scope.get_menu();
+                //左侧栏三角状态
+                // $scope.get_status();
 
-
-
-        //左侧栏显示设置
-        $scope.init_code();
-        //左侧栏权限设置
-        $scope.get_menu();
-        //左侧栏三角状态
-        // $scope.get_status();
-
+            }
+        })
     };
 
     $scope.init();

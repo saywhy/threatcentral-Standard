@@ -162,7 +162,7 @@ $this->title = '情报源管理';
     }
 </style>
 <!-- Main content -->
-<section ng-app="myApp" ng-controller="PrototypeCtrl" ng-cloak>
+<section ng-app="myApp" ng-controller="PrototypeCtrl" style="padding-bottom:34px;" ng-cloak>
     <div class="select_container">
         <select class="alert_search_input" style="background-color: #fff;" ng-model="select.model"
             ng-options="x.num as x.type for x in select_model"></select>

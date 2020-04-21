@@ -126,6 +126,10 @@ myApp.controller("EditRoleController", [
                                     id: "126"
                                 },
                                 {
+                                    name: "SYSLOG配置",
+                                    id: "229"
+                                },
+                                {
                                     name: "情报API",
                                     id: "151"
                                 },
@@ -264,6 +268,10 @@ myApp.controller("EditRoleController", [
                                 {
                                     name: "审计日志",
                                     id: "126"
+                                },
+                                {
+                                    name: "SYSLOG配置",
+                                    id: "229"
                                 },
                                 {
                                     name: "情报API",

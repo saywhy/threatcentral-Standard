@@ -260,6 +260,11 @@
                        <span>审计日志</span>
                    </a>
                </li>
+               <li class="aside-item-second <?=isActive(['/seting/syslog'])?>" ng-if="menu_list.set_syslog">
+                   <a class="aside-item-second-a" href="<?=getPath('/seting/syslog')?>" >
+                       <span>SYSLOG配置</span>
+                   </a>
+               </li>
                <li class="aside-item-second <?=isActive(['/api/index'])?>" ng-if="menu_list.api">
                    <a class="aside-item-second-a" href="<?=getPath('/api/index')?>" >
                        <span>情报API</span>

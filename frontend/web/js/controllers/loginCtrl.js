@@ -293,6 +293,8 @@ myApp.controller("loginCtrl", function ($scope, $http, $filter, $sce) {
                                         window.location.href = "/seting/user";
                                     } else if (per_id.includes('126')) {
                                         window.location.href = "/seting/log";
+                                    } else if (per_id.includes('229')) {
+                                        window.location.href = "/seting/syslog";
                                     } else if (per_id.includes('130')) {
                                         window.location.href = "/seting/centralmanager";
                                     } else if (per_id.includes('223')) {

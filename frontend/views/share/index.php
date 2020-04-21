@@ -44,7 +44,7 @@ $this->title = '情报共享';
                         <img src="/images/share/del_icon.png"
                          ng-click="del(item,$index);$event.stopPropagation();" class="img_icon" alt="">
                     </span>
-                    <span class="tag_box_comment">
+                        <span class="tag_box_comment" ng-click="goto_comment(item);$event.stopPropagation();">
                         <img src="/images/share/comment.png" class="img_icon" alt="">
                         <span>{{item.cq}}</span>
                     </span>
