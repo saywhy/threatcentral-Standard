@@ -118,7 +118,7 @@ function getPath($path)
         style="background-color: #374051;height:64px;text-align: right;padding: 0 8px;text-decoration:none;">
         <span class="logo-lg" style="line-height: 62px;">
           <img src="/images/hoohoolab-logo.png" style="height: 50px;">
-          <span>Threatcentral</span>
+          <span style="font-weight: 500;">Threatcentral</span>
           <!-- <span style="color: #c4d0d9;font-weight: 500;">ThreatCentral</span> -->
         </span>
       </a>
@@ -138,10 +138,11 @@ function getPath($path)
       </nav>
     </header>
     <div class="content-container"  >
-      <aside class="content-aside">
+    <div class="content-aside-box">
+       <aside class="content-aside">
         <?php include 'aside.php';?>
       </aside>
-
+    </div>
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header"  style="height: 72px;background-color: #fff;padding:0;">

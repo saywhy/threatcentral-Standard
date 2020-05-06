@@ -202,7 +202,8 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
         if ($scope.label.label_name == "" || $scope.label.label_name == undefined) {
             zeroModal.alert("标签名称不能为空。");
         } else {
-            var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+            // var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+            var pattern = new RegExp("[<>]");
             if (pattern.test($scope.label.label_name)) {
                 console.log(true);
                 zeroModal.alert("标签名称不能包含特殊字符");
@@ -472,7 +473,8 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
 
     //编辑更新或者合并
     $scope.label_name_merge = function () {
-        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+        // var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+        var pattern = new RegExp("[<>]");
         if (pattern.test($scope.label.label_name)) {
             console.log(true);
             zeroModal.alert("标签名称不能包含特殊字符");
@@ -895,7 +897,7 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
                     $scope.label_data = labelAttr;
                     console.log($scope.label_data);
                     angular.forEach($scope.label_data, function (item) {
-                        console.log(item.name);
+                        //console.log(item.name);
                         item.name = $scope.escape2Html(item.name)
                         angular.forEach(item.label, function (key) {
                             key.label_name = $scope.escape2Html(key.label_name)
@@ -911,6 +913,7 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
         );
     };
     $scope.escape2Html = function (str) {
+        //console.log(str)
         var arrEntities = {
             'lt': '<',
             'gt': '>',
@@ -918,9 +921,11 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
             'amp': '&',
             'quot': '"'
         };
-        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
-            return arrEntities[t];
-        });
+        if (str != null) {
+            return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+                return arrEntities[t];
+            });
+        }
     }
 
     //拖拽与置顶初始化

@@ -10,6 +10,12 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             // endDate: moment(),
             endDate: ''
         };
+        $scope.org_num = 0;
+
+        $scope.edit_item = {
+            old_name: '',
+            old_id: ''
+        };
         $scope.seach_data = {
             source: '',
             stauts: '',
@@ -608,7 +614,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.pop_show.edit = true;
                     $scope.get_page_show = false;
 
-
                     $scope.init_edit_complete();
                 }
             },
@@ -733,12 +738,36 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
     };
 
+    $scope.my_add_num = 0;
+    $scope.my_edit_num = 0;
+
     //auto-complete初始化(新增)
     $scope.init_auto_complete = function () {
 
         setTimeout(function () {
 
+            if ($scope.my_add_num > 0) {
+
+                $('.label_auto_complate').each(function (index, elem) {
+                    let instance = $('#label_auto_complate_' + index).autocomplete('instance');
+                    if (instance) {
+                        $('#label_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
+                    }
+                });
+
+            }
+            $scope.my_add_num++;
+
+            let flag_add = false;
+
             $('.label_auto_complate').each(function (index, elem) {
+
+                $scope.add_item.tag.filter((items) => {
+                    return Object.assign(items, {
+                        change_name: items.name,
+                        change_attr_id: items.label_id_attr
+                    })
+                })
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
 
@@ -759,13 +788,21 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     source: new_label,
                     delay: 100,
                     max: 10,
+                    autoFocus: false,
                     minLength: 0,
                     autoFill: true,
                     select: function (event, ui) {
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
+
+                        $scope.add_item.tag[index].change_name = ui.item.label;
+                        $scope.add_item.tag[index].change_attr_id = [ui.item.id];
+
+                        flag_add = true;
+
+                        $(this).blur();
                     },
-                    change: function (event, ui) {
+                    /*change: function (event, ui) {
                         let length = $scope.add_item.tag[index].label_id_attr.length;
                         if (length == 0) {
                             $(this).val('');
@@ -774,29 +811,76 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                         }
                     },
                     search: function (event, ui) {
-                        //console.log('search')
                         $scope.add_item.tag[index].label_id_attr = [];
                         $scope.add_item.tag[index].name = '';
-                    },
+                    },*/
                 }).focus(function () {
-                    $(this).val('');
-                    $scope.add_item.tag[index].label_id_attr = [];
-                    $scope.add_item.tag[index].name = '';
-                    $(this).autocomplete("search", "");
+
+                    console.log('我是触发')
+                    $scope.add_item.old_name = $scope.add_item.tag[index].name;
+                    $scope.add_item.old_id = $scope.add_item.tag[index].label_id_attr;
+                    flag_add = false;
+                    $(this).autocomplete("search", '');
                     return false;
+
+
+                }).blur(function () {
+                    var myInput = document.getElementById("label_auto_complate_" + index);
+                    if (myInput == document.activeElement) {
+                        console.log('11112222');
+                    } else {
+                        if (!flag_add) {
+                            if (!$scope.add_item.tag[index].name == '') {
+                                zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                                $(this).val($scope.add_item.tag[index].change_name);
+                                $scope.add_item.tag[index].name = $scope.add_item.tag[index].change_name;
+                                $scope.add_item.tag[index].label_id_attr = $scope.add_item.tag[index].change_attr_id;
+                            } else {
+                                $(this).val('');
+                                $scope.add_item.tag[index].name = '';
+                                $scope.add_item.tag[index].label_id_attr = [];
+                            }
+                            flag_add = false;
+                            return false;
+                        }
+                    }
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
+                let that = this;
+                $('#label_auto_complate_' + index + '+.select_down_icon').click(function () {
+                    $(that).focus();
+                })
             })
-        }, 0)
+        }, 200)
     };
     //auto-complete初始化(编辑)
     $scope.init_edit_complete = function () {
 
         setTimeout(function () {
 
+            if ($scope.my_edit_num > 0) {
+
+                $('.label_edit_complate').each(function (index, elem) {
+                    let instance = $('#edit_auto_complate_' + index).autocomplete('instance');
+                    if (instance) {
+                        $('#edit_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
+                    }
+                });
+
+            }
+            $scope.my_edit_num++;
+
+            let flag_edit = false;
+
             $('.label_edit_complate').each(function (index, elem) {
 
+                $scope.edit_item.tag.filter((items) => {
+                    return Object.assign(items, {
+                        change_name: items.name,
+                        change_attr_id: items.label_id_attr
+                    })
+                })
                 let datas = $scope.edit_item.tag[index].tag_name_list;
 
                 datas = datas.filter(function (item) {
@@ -819,34 +903,65 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     minLength: 0,
                     autoFill: true,
                     select: function (event, ui) {
+                        //console.log('111')
                         $scope.edit_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.edit_item.tag[index].name = ui.item.label;
+
+                        $scope.edit_item.tag[index].change_name = ui.item.label;
+                        $scope.edit_item.tag[index].change_attr_id = [ui.item.id];
+
+                        flag_edit = true;
+
+                        $(this).blur();
                     },
-                    change: function (event, ui) {
-                        let length = $scope.edit_item.tag[index].label_id_attr.length;
-                        if (length == 0) {
-                            $(this).val('');
-                            zeroModal.error('您未选中触发的标签名称列表，请选择！');
-                            return false;
-                        }
-                    },
-                    search: function (event, ui) {
+                    /*search: function (event, ui) {
                         $scope.edit_item.tag[index].label_id_attr = [];
                         $scope.edit_item.tag[index].name = '';
-                    },
+                    },*/
                 }).focus(function () {
-                    $(this).val('');
-                    $scope.edit_item.tag[index].label_id_attr = [];
-                    $scope.edit_item.tag[index].name = '';
-                    $(this).autocomplete("search", "");
+                    console.log('我是触发')
+                    $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
+                    $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
+                    flag_edit = false;
+                    $(this).autocomplete("search", '');
                     return false;
+                }).blur(function () {
+                    var myInput = document.getElementById("edit_auto_complate_" + index);
+                    if (myInput == document.activeElement) {
+                        console.log('11112222');
+                    } else {
+                        if (!flag_edit) {
+                            if (!$scope.edit_item.tag[index].name == '') {
+                                zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                                $(this).val($scope.edit_item.tag[index].change_name);
+                                $scope.edit_item.tag[index].name = $scope.edit_item.tag[index].change_name;
+                                $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.tag[index].change_attr_id;
+                            } else {
+                                $(this).val('');
+                                $scope.edit_item.tag[index].name = '';
+                                $scope.edit_item.tag[index].label_id_attr = [];
+
+                                /*$scope.edit_item.old_name = '';
+                                $scope.edit_item.old_id = [];*/
+                            }
+                            flag_edit = false;
+                            return false;
+                        }
+                    }
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
 
+
+                let that = this;
+
+                $('#edit_auto_complate_' + index + '+.select_down_icon').click(function () {
+                    $(that).focus();
+                })
+
             })
 
-        }, 0)
+        }, 200)
     };
 
     //   取消弹窗
@@ -1230,11 +1345,16 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.pop_show.add_level_list = false;
                 break;
             case 'tag_category':
-                angular.forEach($scope.add_item.tag, function (key, value) {
-                    if (value == index) {
-                        key.category_ul = false;
-                    }
-                })
+                $scope.index_add = index
+                setTimeout(function () {
+                    angular.forEach($scope.add_item.tag, function (key, value) {
+                        if (value == $scope.index_add) {
+                            key.category_ul = false;
+                        }
+                    })
+                    $scope.$apply(); //需要手动刷新
+                }, 200)
+
                 break;
             case 'tag_name':
                 angular.forEach($scope.add_item.tag, function (key, value) {
@@ -1500,11 +1620,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.pop_show.edit_level_list = false;
                 break;
             case 'tag_category':
-                angular.forEach($scope.edit_item.tag, function (key, value) {
-                    if (value == index) {
-                        key.category_ul = false;
-                    }
-                })
+                $scope.index_edit = index
+                setTimeout(function () {
+                    angular.forEach($scope.edit_item.tag, function (key, value) {
+                        if (value == $scope.index_edit) {
+                            key.category_ul = false;
+                        }
+                    })
+                    $scope.$apply(); //需要手动刷新
+                }, 200)
                 break;
             case 'tag_name':
                 angular.forEach($scope.edit_item.tag, function (key, value) {

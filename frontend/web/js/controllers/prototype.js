@@ -299,6 +299,7 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
     };
     $scope.aaa = function () {
         console.log('aaa');
+        $scope.open_state = true;
     }
     // 卡片详情
     $scope.detail = function (item) {
@@ -328,6 +329,7 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
         });
     };
     $scope.detail_cancel = function () {
+        $scope.open_state = false;
         zeroModal.closeAll();
     }
     $("#inputFile_pkey").change(function () {
@@ -427,8 +429,13 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
         $scope.newPositon.x = e.clientX - el.offsetLeft;
         $scope.newPositon.y = e.clientY - el.offsetTop;
         console.log($scope.newPositon);
+        console.log(event.srcElement.className);
         if ($scope.oldPositon.x == $scope.newPositon.x) {
-            $scope.detail(item);
+            console.log(8888888);
+            if (event.srcElement.className != 'tgl-btn') {
+                $scope.detail(item);
+
+            }
         }
     }
     $scope.init();

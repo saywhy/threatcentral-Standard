@@ -4,7 +4,6 @@
 
 .special_intel_container {
   padding-left: 24px;
-  padding-bottom: 24px;
 }
 
 ::-webkit-input-placeholder {
@@ -819,6 +818,14 @@ select {
 .btn-primary:active,
 .btn-primary.hover {
   background-color: #0070FF
+}
+
+.label_edit_complate,
+.label_auto_complate,
+.item_right_input:focus {
+  background-image: url("../../images/set/label_triangle_down.png");
+  background-repeat: no-repeat;
+  background-position: 96%;
 }
 
 /**********************/

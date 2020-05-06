@@ -12,7 +12,7 @@ $this->title = '许可证';
   <div class="row">
     <div class="col-xs-12">
       <div class="nav-tabs-custom">
-        <div class="tab-content">
+        <div class="tab-content" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);">
           <div class="tab-pane active" id="License" ng-controller="LicenseCtrl">
             <section class="ng-cloak" ng-show="License.list">
               <h4 class="seting-header" style="margin-bottom: -1px;border:0;">
