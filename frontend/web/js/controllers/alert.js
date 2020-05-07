@@ -47,14 +47,12 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         ];
 
         $scope.check_alert_num = -1;
-        $scope.category_select = [{
-            num: "",
-            type: "请选择预警类型"
-        }];
-        $scope.company_select = [{
-            num: "",
-            type: "请选择资产分组"
-        }];
+        // $scope.category_select = [{
+        //     num: "",
+        //     type: "请选择预警类型"
+        // }];
+        $scope.category_select = [];
+        $scope.company_select = [];
         $scope.select_choose = "1";
         $scope.select_status = [{
                 num: "1",
@@ -92,7 +90,91 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         $scope.get_select_indicator();
         $scope.get_select_company();
         $scope.enter();
+        setTimeout(() => {}, 100);
+
     };
+    $scope.category_input = function (data) {
+        console.log(data);
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#category_select').selectPage({
+            showField: 'num',
+            keyField: 'index',
+            data: data,
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+        console.log(11212);
+
+        //获得选中项目的文本内容
+        $('#func1').click(function () {
+            alert($('#selectPage').selectPageText());
+        });
+        //清除所有选中的项目
+        $('#func2').click(function () {
+            $('#selectPage').selectPageClear();
+        });
+        //动态修改选中项目
+        $('#func3').click(function () {
+            $('#selectPage').val('20');
+            $('#selectPage').selectPageRefresh();
+        });
+        //设置插件禁用 / 启用
+        $('#funcDisabled').click(function () {
+            if ($('#selectPage').selectPageDisabled()) //判断当前状态
+                $('#selectPage').selectPageDisabled(false);
+            else
+                $('#selectPage').selectPageDisabled(true);
+        });
+
+
+    }
+    $scope.company_input = function (data) {
+        console.log(data);
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#company_input').selectPage({
+            showField: 'num',
+            keyField: 'index',
+            data: data,
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+        console.log(11212);
+
+        //获得选中项目的文本内容
+        $('#func1').click(function () {
+            alert($('#selectPage').selectPageText());
+        });
+        //清除所有选中的项目
+        $('#func2').click(function () {
+            $('#selectPage').selectPageClear();
+        });
+        //动态修改选中项目
+        $('#func3').click(function () {
+            $('#selectPage').val('20');
+            $('#selectPage').selectPageRefresh();
+        });
+        //设置插件禁用 / 启用
+        $('#funcDisabled').click(function () {
+            if ($('#selectPage').selectPageDisabled()) //判断当前状态
+                $('#selectPage').selectPageDisabled(false);
+            else
+                $('#selectPage').selectPageDisabled(true);
+        });
+
+
+    }
     $scope.enter = function () {
         document.onkeydown = function (e) {
             // 兼容FF和IE和Opera
@@ -139,12 +221,15 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         }).then(
             function (data) {
                 if (data.data.status == "success") {
-                    angular.forEach(data.data.data, function (item) {
+                    angular.forEach(data.data.data, function (item, index) {
                         var obj_category = {};
+                        obj_category.index = index;
                         obj_category.num = item.category;
                         obj_category.type = item.category;
                         $scope.category_select.push(obj_category);
                     });
+                    console.log($scope.category_select);
+                    $scope.category_input($scope.category_select);
                 }
             },
             function () {}
@@ -175,14 +260,16 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         }).then(
             function (data) {
                 if (data.data.status == "success") {
-                    angular.forEach(data.data.data, function (item) {
+                    angular.forEach(data.data.data, function (item, index) {
                         if (item.company != null && item.company != "") {
                             var obj_company = {};
+                            obj_company.index = index;
                             obj_company.num = item.company;
                             obj_company.type = item.company;
                             $scope.company_select.push(obj_company);
                         }
                     });
+                    $scope.company_input($scope.company_select);
                 }
             },
             function () {}

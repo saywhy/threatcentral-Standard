@@ -79,6 +79,9 @@ function getPath($path)
   <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
   <link rel="stylesheet" href="/css/zeroModal.css">
+  <link rel="stylesheet" href="/plugins/SelectPage/css/selectpage.css" type="text/css">
+
+
 
 
 
@@ -105,7 +108,6 @@ function getPath($path)
   <link rel="stylesheet" href="/css/set/autocomplete.css">
 
   <!-- <link rel="stylesheet" href="/plugins/switch/bootstrap-switch.css"> -->
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -137,15 +139,15 @@ function getPath($path)
         </div>
       </nav>
     </header>
-    <div class="content-container"  >
-    <div class="content-aside-box">
-       <aside class="content-aside">
-        <?php include 'aside.php';?>
-      </aside>
-    </div>
+    <div class="content-container">
+      <div class="content-aside-box">
+        <aside class="content-aside">
+          <?php include 'aside.php';?>
+        </aside>
+      </div>
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header"  style="height: 72px;background-color: #fff;padding:0;">
+        <section class="content-header" style="height: 72px;background-color: #fff;padding:0;">
           <h1 style="font-size: 20px;color:#333;line-height:72px;padding-left:48px;">
             <?=$this->title?>
             <small></small>
@@ -316,7 +318,7 @@ function getPath($path)
     <script src="/plugins/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="/plugins/ztree/jquery.ztree.all.js"></script>
     <script src="/plugins/ztree/jquery.ztree.exhide.js"></script>
-
+  <script type="text/javascript" src="/plugins/SelectPage/js/selectpage.js"></script>
 
 
     <!-- <script src="/plugins/pdf/html2canvas.js"></script> -->

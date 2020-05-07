@@ -257,6 +257,14 @@ $this->title = '漏洞预警';
         padding-left: 34px;
         margin-right: 16px;
     }
+     .alert_search_input_select {
+        border: 1px solid #ECECEC;
+        border-radius: 4px;
+        height: 42px;
+        width: 160px;
+        margin-right: 16px;
+        padding-left:10px;
+    }
 
     .alert_search_input::-webkit-input-placeholder {
         font-size: 14px;
@@ -588,7 +596,7 @@ $this->title = '漏洞预警';
                         </li>
                     </ul>
                 </span>
-                <select class="alert_search_input" style="background-color: #fff;" ng-model="loop_serch_data.company"
+                <select class="alert_search_input_select" style="background-color: #fff;" ng-model="loop_serch_data.company"
                     ng-options="x.num as x.type for x in company_select_loophole"></select>
                 <span class="search_icon_box">
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
@@ -603,7 +611,7 @@ $this->title = '漏洞预警';
                         </li>
                     </ul>
                 </span>
-                <select class="alert_search_input" style="background-color: #fff;" ng-model="loop_serch_data.poc"
+                <select class="alert_search_input_select" style="background-color: #fff;" ng-model="loop_serch_data.poc"
                     ng-options="x.num as x.type for x in poc_selsect"></select>
                 <button class="button_search" ng-click="loop_serch()">搜索</button>
                 <button class="button_down" ng-click="loop_download()">导出报表</button>
