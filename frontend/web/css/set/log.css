@@ -1,5 +1,6 @@
 .log_container {
-  padding: 36px 48px;
+  padding: 24px 36px;
+  padding-top: 0;
 }
 
 .log_box {

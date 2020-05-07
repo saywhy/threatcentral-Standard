@@ -4,6 +4,7 @@
 
 .vehicle_special_container {
   padding: 20px 24px;
+  padding-top: 0;
 }
 
 input::-webkit-input-placeholder {

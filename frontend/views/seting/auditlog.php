@@ -1,7 +1,4 @@
 <?php
-use yii\helpers\Url;
-use yii\grid\GridView;
-use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 
 $this->title = '审计日志';
@@ -59,7 +56,7 @@ $this->title = '审计日志';
                                         </tr>
                                     </table>
                                     <!-- angularjs分页 -->
-                                    <div style="border-top: 1px solid #f4f4f4;padding: 10px;">
+                                    <div style="padding: 10px;">
                                         <em>共有
                                             <span ng-bind="pages.count"></span>条</em>
                                         <!-- angularjs分页 -->

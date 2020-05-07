@@ -58,7 +58,8 @@ $this->title = '资产管理';
 
     /* 资产管理 */
     .Management_container {
-        padding: 36px 48px;
+        padding: 24px 36px;
+        padding-top:0;
     }
 
     .Management_main {
@@ -69,10 +70,10 @@ $this->title = '资产管理';
     }
 
     .Management_main_top {
-        height: 124px;
-        padding: 0 36px;
+        height: 42px;
         position: relative;
         z-index: 99;
+            margin-bottom: 24px;
     }
 
     .Management_main_top_box {
@@ -308,7 +309,7 @@ $this->title = '资产管理';
                             </td>
                         </tr>
                     </table>
-                    <div style="border-top: 1px solid #f4f4f4;padding: 20px;">
+                    <div >
                         <em style="font-size: 14px;color: #BBBBBB;">共有<span ng-bind="domain_data.count"></span>条资产</em>
                         <!-- angularjs分页 -->
                         <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
@@ -374,7 +375,7 @@ $this->title = '资产管理';
                             </td>
                         </tr>
                     </table>
-                    <div style="border-top: 1px solid #f4f4f4;padding: 20px;">
+                    <div style="padding: 20px;">
                         <em style="font-size: 14px;color: #BBBBBB;">共有<span ng-bind="host_data.count"></span>条资产</em>
                         <!-- angularjs分页 -->
                         <ul class="pagination pagination-sm no-margin pull-right ng-cloak">

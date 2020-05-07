@@ -42,6 +42,7 @@ $this->title = '情报聚合';
     /* 情报提取 */
     .agent_container {
         padding: 36px 48px;
+        padding-top:0;
     }
 
     .agent_top {
@@ -154,7 +155,7 @@ $this->title = '情报聚合';
     }
 </style>
 <!-- Main content -->
-<section ng-app="myApp" ng-controller="myCtrl">
+<section ng-app="myApp" ng-controller="myCtrl" style="margin-bottom: 40px;">
     <div class="agent_container">
         <div class="agent_top">
             <div class="agent_top_title">

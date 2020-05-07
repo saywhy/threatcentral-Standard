@@ -90,6 +90,7 @@ $this->title = '情报源管理';
 
     .select_container {
         padding: 10px 48px;
+          padding-top: 0;
     }
 
     .alert_search_input {

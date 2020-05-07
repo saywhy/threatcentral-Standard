@@ -412,7 +412,7 @@ $this->title = '概览';
 </style>
 
 <!-- Main content -->
-<section class="content" style="padding:24px 48px;background-color:#f2f2f2;" ng-app="myApp" ng-controller="indexCtrl" ng-cloak>
+<section class="content" style="padding:24px 48px;background-color:#f2f2f2;margin-bottom: 40px;" ng-app="myApp" ng-controller="indexCtrl" ng-cloak>
     <div class="row margin0 title_num" style="margin-bottom: 24px;">
         <div class="col-md-12 title_main" style="padding:0">
             <div class="title_li col-md-2 padding_left0" style="">

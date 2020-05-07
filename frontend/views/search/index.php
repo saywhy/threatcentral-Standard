@@ -7,7 +7,7 @@ $this->title = '情报查询';
 <style>
     /* 情报查询 */
     .search_container {
-        margin: 36px 48px;
+        margin: 0 48px;
         background: #fff;
         min-height: 200px;
         border-radius: 6px;
@@ -124,7 +124,8 @@ $this->title = '情报查询';
     .info_top {
         height: 120px;
         border-bottom: 1px solid #ececec;
-        padding: 36px;
+        padding: 36px 0;
+
 
     }
     .info_top_input {
@@ -343,7 +344,7 @@ $this->title = '情报查询';
         border-radius: 4px;
     }
 </style>
-<section ng-app="myApp" ng-controller="searchCtrl" ng-cloak>
+<section ng-app="myApp" ng-controller="searchCtrl" style="margin-bottom: 40px;" ng-cloak>
     <div class="search_container">
         <div>
             <ul class="nav nav-tabs detail_bom_nav">
@@ -506,7 +507,7 @@ $this->title = '情报查询';
                                 </td>
                             </tr>
                         </table>
-                        <div style="border-top: 1px solid #f4f4f4;padding: 10px;">
+                        <div style="padding: 10px;">
                             <em>共有<span ng-bind="loophole_res.count"></span>条漏洞</em>
                             <!-- angularjs分页 -->
                             <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
@@ -606,7 +607,7 @@ $this->title = '情报查询';
                             </td>
                         </tr>
                     </table>
-                    <div style="border-top: 1px solid #f4f4f4;padding: 10px;">
+                    <div style="padding: 10px;">
                         <em>共有<span ng-bind="get_relation_data.count"></span>条漏洞</em>
                         <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
                             <li><a href="javascript:void(0);" ng-click="get_relation(get_relation_data.pageNow-1)"

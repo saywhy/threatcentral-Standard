@@ -211,7 +211,7 @@ $this->title = '漏洞关联';
                     </td>
                 </tr>
             </table>
-            <div style="border-top: 1px solid #f4f4f4;padding: 10px;">
+            <div style="padding: 10px;">
                 <em>共有<span ng-bind="get_relation_data.count"></span>条漏洞</em>
                 <ul class="pagination pagination-sm no-margin pull-right ng-cloak">
                     <li><a href="javascript:void(0);" ng-click="get_relation(get_relation_data.pageNow-1)"

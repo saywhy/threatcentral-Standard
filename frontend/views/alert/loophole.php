@@ -163,7 +163,8 @@ $this->title = '漏洞预警';
 
     /* 漏洞 */
     .loop_content {
-        padding: 48px;
+        padding:24px 36px;
+    padding-top: 0;
     }
 
     .row,
@@ -246,11 +247,6 @@ $this->title = '漏洞预警';
         /* margin: 0 48px; */
         background-color: #fff;
         border-radius: 6px;
-        padding-top: 46px;
-    }
-
-    .alert_box_top {
-        padding-left: 18px;
     }
 
     .alert_search_input {

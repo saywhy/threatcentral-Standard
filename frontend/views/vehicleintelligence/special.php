@@ -3,7 +3,7 @@
 $this->title = '行业情报';
 ?>
 <link rel="stylesheet" href="/css/vehicleintelligence/special.css">
-<section class="vehicle_special_container" ng-app="myApp" ng-controller="vehicleTelSpecialCtrl" ng-cloak>
+<section class="vehicle_special_container" ng-app="myApp" style="margin-bottom: 40px;" ng-controller="vehicleTelSpecialCtrl" ng-cloak>
   <div class="vehicle_special">
     <div class="vehicle_box_top">
       <!-- 输入关键字 -->

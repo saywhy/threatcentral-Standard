@@ -8,9 +8,9 @@
 }
 
 .api_box_top {
-  height: 82px;
+  height: 70px;
   padding: 0 48px;
-  line-height: 82px;
+  line-height: 70px;
 }
 
 .choose_box {
@@ -35,6 +35,7 @@
 
 .api_box_mid {
   padding: 24px 48px;
+  padding-top: 0;
 }
 
 .api_box_mid_name {

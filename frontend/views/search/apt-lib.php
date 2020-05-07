@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 $this->title = 'APT武器库';
 ?>
-<section ng-app="myApp" ng-controller="aptCtrl" ng-cloak>
+<section ng-app="myApp" ng-controller="aptCtrl" style="margin-bottom: 40px;" ng-cloak>
 
     <div class="apt_header">
         <div class="apt_header_select_box">

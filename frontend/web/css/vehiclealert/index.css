@@ -17,10 +17,7 @@ input:focus {
 }
 
 /*********************/
-.vehicle_echarts {
-  margin: 10px 0;
-
-}
+.vehicle_echarts {}
 
 .vehicle_echarts_item {
   width: 428px;

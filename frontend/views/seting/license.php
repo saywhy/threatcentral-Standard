@@ -3,7 +3,7 @@
 
 $this->title = '许可证';
 ?>
-<section class="content" ng-app="myApp"  ng-cloak >
+<section class="content" ng-app="myApp" style="padding-top: 0;"  ng-cloak >
   <style type="text/css">
     .nav-tabs-custom {
       overflow: visible;
@@ -13,7 +13,7 @@ $this->title = '许可证';
     <div class="col-xs-12">
       <div class="nav-tabs-custom">
         <div class="tab-content" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);">
-          <div class="tab-pane active" id="License" ng-controller="LicenseCtrl">
+          <div class="tab-pane active" id="License"  ng-controller="LicenseCtrl">
             <section class="ng-cloak" ng-show="License.list">
               <h4 class="seting-header" style="margin-bottom: -1px;border:0;">
                 <i class="fa fa-key"></i>

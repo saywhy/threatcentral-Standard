@@ -4,7 +4,7 @@
 $this->title = '共享';
 ?>
 <!-- Main content -->
-<section class="content" ng-app="myApp" ng-controller="myCtrl">
+<section class="content" ng-app="myApp" ng-controller="myCtrl" style="margin-bottom: 40px;">
 
   <style type="text/css">
     .table>tbody>tr>th{

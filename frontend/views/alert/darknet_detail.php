@@ -9,7 +9,8 @@ $this->title = '暗网详情';
     }
 
     .darknet_content {
-        padding: 36px 48px;
+        padding:24px 36px;
+        padding-top:0;
     }
 
     .darknet_box_top {

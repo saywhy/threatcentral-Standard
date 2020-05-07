@@ -61,7 +61,8 @@ $this->title = '受影响资产';
 
     /* 受影响资产 */
     .myAsset_content {
-        padding: 36px 48px;
+        padding: 24px 36px;
+        padding-top:0;
     }
 
     .myAsset_box {
@@ -71,16 +72,16 @@ $this->title = '受影响资产';
     }
 
     .myAsset_box_top {
-        height: 124px;
-        padding: 0 36px;
+        height: 42px;
         position: relative;
+        margin-bottom:24px;
     }
 
     .myAsset_box_top_box {
         height: 42px;
         position: absolute;
         top: 50%;
-        left: 36px;
+        left: 0;
         transform: translateY(-50%);
     }
 

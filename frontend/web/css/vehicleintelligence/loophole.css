@@ -4,6 +4,7 @@
 
 .vehicle_loophole_container {
   padding: 20px 24px;
+  padding-top: 0;
 }
 
 ::-webkit-input-placeholder {

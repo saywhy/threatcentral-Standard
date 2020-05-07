@@ -8,12 +8,12 @@
 }
 
 .central_box_top {
-  padding: 36px 48px;
+  padding: 24px 36px;
+  padding-top: 0;
 }
 
 .central_box_top_role {
   height: 22px;
-  margin-bottom: 36px;
 }
 
 .central_box_top_company {

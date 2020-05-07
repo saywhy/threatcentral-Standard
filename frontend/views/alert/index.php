@@ -157,7 +157,8 @@ $this->title = '威胁预警';
 
     .echarts_box {
         height: 383px;
-        margin: 36px 48px;
+        margin: 36px;
+            margin-top: 0;
         background-color: #fff;
         border-radius: 6px;
     }
@@ -168,11 +169,6 @@ $this->title = '威胁预警';
         border-radius: 6px;
         padding-top: 46px;
     }
-
-    .alert_box_top {
-        padding-left: 18px;
-    }
-
     .alert_search_input {
         border: 1px solid #ECECEC;
         border-radius: 4px;
@@ -180,6 +176,14 @@ $this->title = '威胁预警';
         width: 160px;
         padding-left: 34px;
         margin-right: 16px;
+    }
+    .alert_search_input_select {
+        border: 1px solid #ECECEC;
+        border-radius: 4px;
+        height: 42px;
+        width: 160px;
+        margin-right: 16px;
+        padding-left:10px;
     }
 
     select:focus,
@@ -433,7 +437,7 @@ border: 1px solid #0070FF;
         cursor:pointer;
     }
 </style>
-<section class="content" style="padding-bottom:30px;" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
+<section class="content" style="margin-bottom: 40px;padding-top:0" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
     <div class="echarts_box">
         <div id="alarm_echart"></div>
     </div>
@@ -451,7 +455,7 @@ border: 1px solid #0070FF;
                     </li>
                 </ul>
             </span>
-            <select class="alert_search_input" style="background-color: #fff;" ng-model="searchData.category"
+            <select class="alert_search_input_select" style="background-color: #fff;" ng-model="searchData.category"
                 ng-options="x.num as x.type for x in category_select"></select>
             <span class="search_icon_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
@@ -465,7 +469,7 @@ border: 1px solid #0070FF;
                     </li>
                 </ul>
             </span>
-            <select class="alert_search_input" style="background-color: #fff;" ng-model="searchData.company"
+            <select class="alert_search_input_select" style="background-color: #fff;" ng-model="searchData.company"
                 ng-options="x.num as x.type for x in company_select"></select>
             <button class="button_search" ng-click="search()">搜索</button>
             <button class="button_down" ng-click="download()">导出报表</button>

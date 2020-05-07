@@ -239,7 +239,7 @@ $this->title = '预警详情';
         padding-left: 6px;
     } */
 </style>
-<section class="detail_content" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
+<section class="detail_content" ng-app="myApp" ng-controller="myCtrl" style="margin-bottom: 40px;" ng-cloak>
     <div class="detail_top">
         <!-- 上 -->
         <div class="detail_top_top">

@@ -3,7 +3,7 @@
 $this->title = '漏洞情报';
 ?>
 <link rel="stylesheet" href="/css/vehicleintelligence/loophole.css">
-<section class="vehicle_loophole_container" ng-app="myApp" ng-controller="vehicleTelLoopholeCtrl" ng-cloak>
+<section class="vehicle_loophole_container" ng-app="myApp" style="margin-bottom: 40px;" ng-controller="vehicleTelLoopholeCtrl" ng-cloak>
   <div class="vehicle_loophole">
     <div class="vehicle_box_top">
       <!-- 输入关键字 -->
