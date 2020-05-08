@@ -165,6 +165,7 @@ $this->title = '情报源管理';
 <!-- Main content -->
 <section ng-app="myApp" ng-controller="PrototypeCtrl" style="padding-bottom:34px;" ng-cloak>
     <div class="select_container">
+          <!-- <input type="text" class="selectPage_box"  id="model_select"> -->
         <select class="alert_search_input" style="background-color: #fff;" ng-model="select.model"
             ng-options="x.num as x.type for x in select_model"></select>
     </div>

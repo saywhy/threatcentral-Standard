@@ -50,23 +50,6 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
                 type: "已忽略"
             }
         ];
-        $scope.company_select_loophole = [{
-            num: "",
-            type: "请选择所属"
-        }];
-        $scope.poc_selsect = [{
-                num: "",
-                type: "请选择有无POC"
-            },
-            {
-                num: "有",
-                type: "有"
-            },
-            {
-                num: "无",
-                type: "无"
-            }
-        ];
         //   漏洞预警
         $scope.loop_top();
         $scope.loop_serch();
@@ -75,6 +58,7 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
         $scope.get_loophole_name();
         $scope.get_select_loophole_company();
         $scope.enter();
+        $scope.poc_select();
     };
     $scope.enter = function () {
         document.onkeydown = function (e) {
@@ -89,6 +73,47 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
             }
         };
     };
+    // 所属选择框
+    $scope.company_input = function (data) {
+        $('#company_input').selectPage({
+            showField: 'id',
+            keyField: 'company',
+            data: data,
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+        console.log(11212);
+    }
+    // poc
+    $scope.poc_select = function (data) {
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#poc_select').selectPage({
+            showField: 'type',
+            keyField: 'num',
+            data: [{
+                    num: "有",
+                    type: "有"
+                },
+                {
+                    num: "无",
+                    type: "无"
+                }
+            ],
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+    }
+
     //   获取受影响资产列表
     $scope.get_device_ip_list = function (ip) {
         $http({
@@ -132,6 +157,7 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
         }).then(
             function (data) {
                 if (data.data.status == "success") {
+                    $scope.company_select_loophole = []
                     angular.forEach(data.data.data, function (item) {
                         if (item.company != null && item.company != "") {
                             var obj_loop_company = {};
@@ -140,6 +166,7 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
                             $scope.company_select_loophole.push(obj_loop_company);
                         }
                     });
+                    $scope.company_input($scope.company_select_loophole)
                 }
             },
             function () {}
@@ -229,7 +256,7 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
         var input7 = $("<input>");
         input7.attr("type", "hidden");
         input7.attr("name", "poc");
-        input7.attr("value", $scope.loop_serch_data.poc);
+        input7.attr("value", $('#poc_select').selectPageText());
         form.append(input7);
         form.submit(); //表单提交
     };
@@ -242,13 +269,16 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
             page_now = 1;
         }
         $scope.loop_serch_data.page = page_now;
+        console.log($('#poc_select').selectPageText());
+        console.log($('#company_input').selectPageText());
+
         var params = {
-            poc: $scope.loop_serch_data.poc,
+            poc: $('#poc_select').selectPageText(),
             page: page_now,
             rows: 10,
             device_ip: $scope.loop_serch_data.device_ip,
             loophole_name: $scope.loop_serch_data.loophole_name,
-            company: $scope.loop_serch_data.company
+            company: $('#company_input').selectPageText()
         };
         $http({
             method: "get",

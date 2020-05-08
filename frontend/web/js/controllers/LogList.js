@@ -13,16 +13,28 @@ myApp.controller("logCtrl", function ($scope, $http, $filter) {
             rows: 10,
             role: ""
         };
-        $scope.select_type = [{
-            num: "",
-            type: "所有"
-        }];
+        $scope.select_type = [];
         $scope.select_name = "";
         $scope.picker_search();
         $scope.get_role_list();
         $scope.get_page_list();
     };
-
+    // 选择角色
+    $scope.role_select = function (data) {
+        console.log(data);
+        $('#role_select').selectPage({
+            showField: 'num',
+            keyField: 'type',
+            data: data,
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+        console.log(11212);
+    }
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
                 autoUpdateInput: false,
@@ -77,10 +89,7 @@ myApp.controller("logCtrl", function ($scope, $http, $filter) {
         $http.get("/user/role-list").then(
             function success(rsp) {
                 console.log(rsp);
-                $scope.select_type = [{
-                    num: "",
-                    type: "所有"
-                }];
+                $scope.select_type = [];
                 if (rsp.data.status == "success") {
                     $scope.role_list = rsp.data.data;
                     angular.forEach($scope.role_list, function (item) {
@@ -90,6 +99,7 @@ myApp.controller("logCtrl", function ($scope, $http, $filter) {
                         };
                         $scope.select_type.push(obj);
                     });
+                    $scope.role_select($scope.select_type)
                 }
             },
             function err(rsp) {}
@@ -99,7 +109,7 @@ myApp.controller("logCtrl", function ($scope, $http, $filter) {
     $scope.get_page_list = function (pageNow) {
         pageNow = pageNow ? pageNow : 1;
         $scope.parmas_data.page = pageNow;
-        $scope.parmas_data.role = $scope.select_name;
+        $scope.parmas_data.role = $('#role_select').selectPageText();
         var loading = zeroModal.loading(4);
         $http.post("/userlog/page", $scope.parmas_data).then(
             function success(rsp) {

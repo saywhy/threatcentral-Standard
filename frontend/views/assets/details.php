@@ -86,15 +86,16 @@ $this->title = '资产信息';
 <section class="details_content" ng-app="myApp" ng-cloak ng-controller="RiskyDetails">
     <div class="details_content_box">
         <ul class="nav nav-tabs detail_bom_nav">
-            <li role="presentation" class="active" ng-click="tab_active(1)">
+            <li role="presentation"  ng-class="{true : 'active',false : '' }[active_on]"
+            ng-click="tab_active(1)">
                 <a href="#info" data-toggle="tab">威胁预警</a>
             </li>
-            <li role="presentation" ng-click="tab_active(2)">
+            <li role="presentation" ng-class="{true : '',false : 'active' }[active_on]" ng-click="tab_active(2)">
                 <a href="#loophole" data-toggle="tab">漏洞预警</a>
             </li>
         </ul>
         <div class="tab-content">
-            <div id="info" class="tab-pane active">
+            <div id="info" class="tab-pane" ng-class="{true : 'active',false : '' }[active_on]">
                 <table class="table  domain_table table_th ng-cloak">
                     <tr>
                         <th>受影响资产</th>
@@ -174,7 +175,7 @@ $this->title = '资产信息';
                     </ul>
                 </div>
             </div>
-            <div id="loophole" class="tab-pane ">
+            <div id="loophole" class="tab-pane" ng-class="{true : '',false : 'active' }[active_on]">
                 <table class="table domain_table table_th  ng-cloak">
                     <tr>
                         <th>漏洞名称</th>

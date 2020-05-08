@@ -188,11 +188,6 @@ $this->title = '暗网预警';
         border: 1px solid #0070FF;
     }
 
-    .search_icon {
-        position: absolute;
-        top: 15px;
-        left: 13px;
-    }
 
     .darknet_table {
         min-height: 200px;
@@ -353,12 +348,23 @@ $this->title = '暗网预警';
     .cursor{
         cursor:pointer;
     }
+
+  .darknet_input_box{
+      padding-left:34px;
+          width: 200px;
+  }
+   .search_icon {
+        position: absolute;
+        top: 15px;
+        left: 13px;
+    }
+
 </style>
 <!-- Main content -->
 <section ng-app="myApp" class="darknet_content" ng-controller="AlertDarknetCtrl" ng-cloak>
     <div class="row darknet_row">
         <div class="darknet_top">
-            <div class="search_input_box">
+            <!-- <div class="search_input_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 <input type="text" class="search_input" placeholder="请输入预警描述" ng-model="searchData.theme"
                     ng-focus="get_loophole_name_focus()" ng-blur="get_loophole_name_blur();$event.stopPropagation();"
@@ -369,7 +375,9 @@ $this->title = '暗网预警';
                         {{item.theme}}
                     </li>
                 </ul>
-            </div>
+            </div> -->
+             <img src="/images/alert/search_icon.png" class="search_icon" alt="">
+              <input type="text" class="selectPage_box darknet_input_box" placeholder='请输入预警描述' id="darknet_input">
             <button class="search_btn" ng-click="get_dark_list(1)">搜索</button>
         </div>
         <div class="darknet_table">

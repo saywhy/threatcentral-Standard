@@ -235,3 +235,35 @@ input[type="number"] {
 .content-container {
   /* padding-bottom: 29px; */
 }
+
+/* 下拉框样式 */
+.sp_result_area {
+  z-index: 9999;
+  border: 1px solid #ECECEC;
+  z-index: 999;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.sp_result_area {
+  width: 160px;
+}
+
+.sp_container {
+  margin-right: 16px;
+}
+
+.selectPage_box {
+  box-shadow: none;
+  padding-left: 8px;
+  border: 1px solid #ECECEC;
+  border-radius: 4px;
+  height: 42px;
+  width: 160px;
+  margin-right: 16px;
+}
+
+.sp_input:focus {
+  border: 1px solid #0070FF;
+  border-radius: 4px;
+}

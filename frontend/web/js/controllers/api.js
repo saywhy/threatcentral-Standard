@@ -152,7 +152,7 @@ myApp.controller("myApi", function ($scope, $rootScope, $http, $filter) {
         $scope.outTime.startDate = ''
         $scope.outTime.endDate = ''
         var W = 552;
-        var H = 445;
+        var H = 400;
         zeroModal.show({
             title: "生成TOKEN",
             content: token,

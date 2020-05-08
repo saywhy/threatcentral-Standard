@@ -448,6 +448,10 @@ $this->title = '威胁预警';
   /* 下拉框样式 */
   .sp_result_area {
     z-index: 9999;
+    border: 1px solid #ECECEC;
+    z-index: 999;
+    background: #fff;
+    border-radius: 3px;
   }
 
   .sp_result_area {
@@ -471,6 +475,7 @@ $this->title = '威胁预警';
   </div>
   <div class="alert_box" ng-click="alert_box()">
     <div class="alert_box_top">
+          <input type="text" autocomplete="off" class="selectPage_box" placeholder='请输入受影响资产' ng-model="searchData.client_ip" id="client_ip_input">
       <span class="search_icon_box">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
         <input type="text" class="alert_search_input" ng-focus="get_client_ip_focus()" ng-blur="get_client_ip_blur()"
@@ -497,7 +502,7 @@ $this->title = '威胁预警';
           </li>
         </ul>
       </span>
-      <input type="text" class="selectPage_box" placeholder='请选择资产分组' id="company_input">
+      <input type="text" class="selectPage_box" placeholder='请选择资产分组'  id="company_input">
       <button class="button_search" ng-click="search()">搜索</button>
       <button class="button_down" ng-click="download()">导出报表</button>
     </div>

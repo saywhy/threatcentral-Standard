@@ -259,20 +259,20 @@ $this->title = '受影响资产';
                 </tr>
                 <tr ng-repeat="item in risk_data.data" >
                     <td>
-                        <span class="cursor" ng-click="list_detail(item)">
+                        <span class="cursor" ng-click="list_detail(item,'alert')">
                         {{item.asset_ip}}
                         </span>
                     </td>
                     <td>
-                            <span class="cursor" ng-click="list_detail(item)">
+                            <span class="cursor" ng-click="list_detail(item,'alert')">
                         {{item.company}}
                         </span>
                     </td>
                     <td>
-                               <span class="cursor" ng-click="list_detail(item)">
+                               <span class="cursor" ng-click="list_detail(item,'alert')">
                         {{item.total_count}}
                         </span>
-                    <td class="td_box" ng-click="list_detail(item)">
+                    <td class="td_box" ng-click="list_detail(item,'alert')">
                         <!-- <p style="padding:0;margin:0;"> -->
                         <span class="high_num">{{item.high_alert_count}}</span>
                         <span class="mid_num">{{item.medium_alert_count}}</span>
@@ -284,7 +284,7 @@ $this->title = '受影响资产';
                             <span class="low_line"></span>
                         </div>
                     </td>
-                    <td class="td_box" ng-click="list_detail(item)">
+                    <td class="td_box" ng-click="list_detail(item,'loophole')">
                         <p style="padding:0;margin:0;">
                             <span class="high_num">{{item.high_loophole_count}}</span>
                             <span class="mid_num">{{item.medium_loophole_count}}</span>

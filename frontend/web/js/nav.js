@@ -178,7 +178,7 @@ navApp.controller("mainNavCtrl", function ($scope, $rootScope, $http, $filter, $
     $scope.get_menu = function () {
 
         var per_id = JSON.parse(localStorage.getItem('pemission_id'));
-        console.log(per_id);
+        // console.log(per_id);
         if (per_id.includes('1')) {
             $scope.menu_list.index = true;
         }

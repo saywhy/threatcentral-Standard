@@ -23,6 +23,49 @@ myApp.controller("AlertDarknetCtrl", function ($scope, $http, $filter, $sce) {
             }
         };
     };
+
+    // 联想选择框
+    $scope.darknet_input = function (data) {
+        console.log(data);
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#category_select').selectPage({
+            showField: 'num',
+            keyField: 'index',
+            data: data,
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+        console.log(11212);
+
+        //获得选中项目的文本内容
+        $('#func1').click(function () {
+            alert($('#selectPage').selectPageText());
+        });
+        //清除所有选中的项目
+        $('#func2').click(function () {
+            $('#selectPage').selectPageClear();
+        });
+        //动态修改选中项目
+        $('#func3').click(function () {
+            $('#selectPage').val('20');
+            $('#selectPage').selectPageRefresh();
+        });
+        //设置插件禁用 / 启用
+        $('#funcDisabled').click(function () {
+            if ($('#selectPage').selectPageDisabled()) //判断当前状态
+                $('#selectPage').selectPageDisabled(false);
+            else
+                $('#selectPage').selectPageDisabled(true);
+        });
+
+
+    }
     // 暗网预警列表
     $scope.get_dark_list = function (page) {
         $scope.select_loophole_name_if = false;
@@ -54,8 +97,12 @@ myApp.controller("AlertDarknetCtrl", function ($scope, $http, $filter, $sce) {
             }
         }).then(
             function (data) {
+                console.log(data);
+
                 if (data.data.status == "success") {
                     $scope.theme_list = data.data.data;
+                    console.log($scope.theme_list);
+                    $scope.darknet_input($scope.theme_list)
                 }
             },
             function () {}

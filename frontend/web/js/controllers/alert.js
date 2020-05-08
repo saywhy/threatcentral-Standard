@@ -84,17 +84,20 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         $scope.alert_trend();
         $scope.search();
         // 获取受影响资产列表;
-        $scope.get_client_ip_list();
+        // $scope.get_client_ip_list();
         // 获取预警类型列表;
         $scope.get_select_category();
         $scope.get_select_indicator();
         $scope.get_select_company();
         $scope.enter();
-        setTimeout(() => {}, 100);
+        setTimeout(() => {
+            $scope.client_ip_input();
+
+        }, 100);
 
     };
+    // 告警类型选择框
     $scope.category_input = function (data) {
-        console.log(data);
         //showField：设置下拉列表中显示文本的列
         //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
         //data：数据源，可以是JSON数据格式，也可以是URL
@@ -110,32 +113,9 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
             multiple: false
         });
         console.log(11212);
-
-        //获得选中项目的文本内容
-        $('#func1').click(function () {
-            alert($('#selectPage').selectPageText());
-        });
-        //清除所有选中的项目
-        $('#func2').click(function () {
-            $('#selectPage').selectPageClear();
-        });
-        //动态修改选中项目
-        $('#func3').click(function () {
-            $('#selectPage').val('20');
-            $('#selectPage').selectPageRefresh();
-        });
-        //设置插件禁用 / 启用
-        $('#funcDisabled').click(function () {
-            if ($('#selectPage').selectPageDisabled()) //判断当前状态
-                $('#selectPage').selectPageDisabled(false);
-            else
-                $('#selectPage').selectPageDisabled(true);
-        });
-
-
     }
+    // 资产分组选择框
     $scope.company_input = function (data) {
-        console.log(data);
         //showField：设置下拉列表中显示文本的列
         //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
         //data：数据源，可以是JSON数据格式，也可以是URL
@@ -151,27 +131,35 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
             multiple: false
         });
         console.log(11212);
+    }
+    // 受影响资产联想搜索
+    $scope.client_ip_input = function (data) {
+        $('#client_ip_input').autocomplete({
+            source: function (request, response) {
+                console.log(request);
+                $scope.get_client_ip_list(request.term)
+            },
+            delay: 100,
+            max: 10,
+            minLength: 0,
+            autoFill: true,
+            select: function (event, ui) {
+                $(this).blur();
+            },
+            /*search: function (event, ui) {
+                $scope.edit_item.tag[index].label_id_attr = [];
+                $scope.edit_item.tag[index].name = '';
+            },*/
+        }).focus(function (event, ui) {
+            $scope.get_client_ip_list('')
+            return false;
+        }).blur(function () {
 
-        //获得选中项目的文本内容
-        $('#func1').click(function () {
-            alert($('#selectPage').selectPageText());
-        });
-        //清除所有选中的项目
-        $('#func2').click(function () {
-            $('#selectPage').selectPageClear();
-        });
-        //动态修改选中项目
-        $('#func3').click(function () {
-            $('#selectPage').val('20');
-            $('#selectPage').selectPageRefresh();
-        });
-        //设置插件禁用 / 启用
-        $('#funcDisabled').click(function () {
-            if ($('#selectPage').selectPageDisabled()) //判断当前状态
-                $('#selectPage').selectPageDisabled(false);
-            else
-                $('#selectPage').selectPageDisabled(true);
-        });
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            console.log(item);
+            console.log(ul);
+            return $("<li>" + item.client_ip + "</li>").appendTo(ul);
+        };
 
 
     }
@@ -202,12 +190,13 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
             method: "get",
             url: "/alert/select-client-ip",
             params: {
-                client_ip: $scope.searchData.client_ip
+                client_ip: ip
             }
         }).then(
             function (data) {
                 if (data.data.status == "success") {
                     $scope.select_client_ip = data.data.data;
+                    console.log($scope.select_client_ip);
                 }
             },
             function () {}
@@ -314,9 +303,9 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         $scope.select_indicator_if = false;
         $scope.postData = {
             client_ip: $scope.searchData.client_ip,
-            category: $scope.searchData.category,
+            category: $('#category_select').selectPageText(),
             indicator: $scope.searchData.indicator,
-            company: $scope.searchData.company,
+            company: $('#company_input').selectPageText(),
             page: 1,
             rows: 10
         };

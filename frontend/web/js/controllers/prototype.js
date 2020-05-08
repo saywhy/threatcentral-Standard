@@ -23,7 +23,34 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
         $scope.full_cyberhunt_data = [];
         $scope.detail_if = false;
         $scope.get_data();
+        $scope.model_select()
     };
+    // 告警类型选择框
+    $scope.model_select = function (data) {
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#model_select').selectPage({
+            showField: 'num',
+            keyField: 'type',
+            data: [{
+                    num: "1",
+                    type: "商业情报"
+                },
+                {
+                    num: "2",
+                    type: "开源情报"
+                }
+            ],
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            dropButton: false,
+            multiple: false
+        });
+    }
+
     $scope.get_data = function () {
         $scope.loading = zeroModal.loading(4);
         $http.get("/proxy/config/full").then(

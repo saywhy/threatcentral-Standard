@@ -22,6 +22,14 @@ $this->title = '审计日志';
     text-overflow: ellipsis;
     text-align: center;
   }
+
+  .sp_result_area {
+    width: 210px;
+  }
+
+  .selectPage_box {
+    width: 210px;
+  }
 </style>
 <link rel="stylesheet" href="/css/set/log.css">
 <section class="log_container" ng-app="myApp" ng-controller="logCtrl">
@@ -33,8 +41,9 @@ $this->title = '审计日志';
           <input class="time_picker" autocomplete="off" id="picker_search" type="text" placeholder="时间">
         </div>
         <input type="text" class="log_input" placeholder="用户名" ng-model="parmas_data.username">
-        <select class="log_input" ng-model="select_name" style="width:190px;"
-          ng-options="x.num as x.type for x in select_type"></select>
+        <!-- <select class="log_input" ng-model="select_name" style="width:190px;"
+          ng-options="x.num as x.type for x in select_type"></select> -->
+        <input type="text" class="selectPage_box" placeholder='请选择角色' id="role_select">
         <button class="top_btn" ng-click="get_page_list()">搜索</button>
       </div>
     </div>
