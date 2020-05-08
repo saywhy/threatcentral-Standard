@@ -3,11 +3,15 @@ myApp.controller('LicenseCtrl', function ($scope, $http, $filter) {
     $scope.init = function () {
         $scope.get_license_version();
 
+        $scope.get_version();
+
     }
     $scope.License = {
         listt: {},
-        sensorNowCount: 0
+        sensorNowCount: 0,
     };
+
+    $scope.version = '';
 
     $http.get('/license/get').then(function success(rsp) {
         if (rsp.data.status == 'success') {
@@ -21,8 +25,12 @@ myApp.controller('LicenseCtrl', function ($scope, $http, $filter) {
     });
     $scope.get_license_version = function () {
         $http.get('/site/license-version').then(function success(rsp) {
-            console.log(rsp);
+        }, function err(rsp) {});
+    }
 
+    $scope.get_version = function () {
+        $http.get('/site/version').then(function success(rsp) {
+            $scope.version = rsp.data.version;
         }, function err(rsp) {});
     }
 

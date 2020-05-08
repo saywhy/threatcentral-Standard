@@ -5,6 +5,8 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
         $scope.listObj = {};
         $scope.list = [];
         $scope.listCount = 0;
+        $scope.offset = 0;
+        $scope.limit = 2;
         $scope.btn_show = true;
         $scope.btn_text = "加载更多";
         $scope.wds = [];
@@ -27,18 +29,18 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
     };
     $scope.get_list = function () {
         var postData = {
-            // wds: $scope.wds,
-            // offSet: Object.keys($scope.listObj).length
+             limit: $scope.limit,
+             offSet: $scope.offset
         };
-        console.log(postData);
-        // if ($scope.listCount != 0 && $scope.listCount <= postData.offSet) {
-        //     $scope.btn_show = false;
-        //     $scope.btn_text = "加载完成";
-        //     return;
-        // }
         $http.post("/share/list", postData).then(
             function success(rsp) {
+                console.log('*****')
                 console.log(rsp);
+                if (($scope.offset + 1) * $scope.limit >= rsp.count) {
+                    $scope.btn_show = false;
+                    //$scope.btn_text = "加载完成";
+                }
+
                 if (rsp.data.status == "success") {
                     $scope.listCount = rsp.data.count;
                     angular.forEach(rsp.data.data, function (item) {
@@ -51,7 +53,8 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
     };
 
     $scope.add_more = function () {
-        console.log($scope.list);
+       // console.log($scope.list);
+        $scope.offset += 1;
         $scope.get_list();
     };
     //   共享情报提交

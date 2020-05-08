@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = '情报共享1111';
+$this->title = '情报共享';
 ?>
 <link rel="stylesheet" href="/css/share/share.css">
 <section class="share_box" ng-app="myApp" ng-controller="shareCtrl" ng-cloak>
@@ -44,7 +44,7 @@ $this->title = '情报共享1111';
                         <img src="/images/share/del_icon.png"
                          ng-click="del(item,$index);$event.stopPropagation();" class="img_icon" alt="">
                     </span>
-                        <span class="tag_box_comment" ng-click="goto_comment(item);$event.stopPropagation();">
+                        <span class="tag_box_comment" >
                         <img src="/images/share/comment.png" class="img_icon" alt="">
                         <span>{{item.cq}}</span>
                     </span>
@@ -56,7 +56,7 @@ $this->title = '情报共享1111';
             </div>
         </div>
     </div>
-  <div ng-if="list.length!=0">
+  <div ng-if="list.length!=0 && btn_show">
     <button class="btn_more" ng-click="add_more()" ng-if="btn_show" ng-bind="btn_text">加载更多</button>
     </div>
 </section>
