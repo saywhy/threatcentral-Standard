@@ -364,20 +364,13 @@ $this->title = '暗网预警';
 <section ng-app="myApp" class="darknet_content" ng-controller="AlertDarknetCtrl" ng-cloak>
     <div class="row darknet_row">
         <div class="darknet_top">
-            <!-- <div class="search_input_box">
+            <div class="search_input_box">
                 <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-                <input type="text" class="search_input" placeholder="请输入预警描述" ng-model="searchData.theme"
-                    ng-focus="get_loophole_name_focus()" ng-blur="get_loophole_name_blur();$event.stopPropagation();"
-                    ng-keyup="myKeyup_loophole_name()">
-                <ul class="container_ul" ng-show="select_loophole_name_if">
-                    <li ng-repeat="item in theme_list" class="li_hover"
-                        ng-mousedown="select_loophole_name_item(item.theme);$event.stopPropagation();">
-                        {{item.theme}}
-                    </li>
-                </ul>
-            </div> -->
+                <input type="text" class="search_input" placeholder="请输入预警描述" ng-model="searchData.theme">
+
+            </div>
              <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-              <input type="text" class="selectPage_box darknet_input_box" placeholder='请输入预警描述' id="darknet_input">
+              <!-- <input type="text" class="selectPage_box darknet_input_box" placeholder='请输入预警描述' id="darknet_input"> -->
             <button class="search_btn" ng-click="get_dark_list(1)">搜索</button>
         </div>
         <div class="darknet_table">

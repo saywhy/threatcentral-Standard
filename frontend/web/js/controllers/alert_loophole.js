@@ -75,15 +75,16 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
     };
     // 所属选择框
     $scope.company_input = function (data) {
+        console.log(data);
         $('#company_input').selectPage({
-            showField: 'id',
-            keyField: 'company',
+            showField: 'num',
+            keyField: 'index',
             data: data,
             //仅选择模式，不允许输入查询关键字
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
+            // dropButton: false,
             multiple: false
         });
         console.log(11212);
@@ -109,7 +110,6 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
             multiple: false
         });
     }
@@ -158,14 +158,16 @@ myApp.controller("AlertLoopholeCtrl", function ($scope, $http, $filter, $sce) {
             function (data) {
                 if (data.data.status == "success") {
                     $scope.company_select_loophole = []
-                    angular.forEach(data.data.data, function (item) {
+                    angular.forEach(data.data.data, function (item, index) {
                         if (item.company != null && item.company != "") {
                             var obj_loop_company = {};
+                            obj_loop_company.index = index;
                             obj_loop_company.num = item.company;
                             obj_loop_company.type = item.company;
                             $scope.company_select_loophole.push(obj_loop_company);
                         }
                     });
+                    console.log(data.data);
                     $scope.company_input($scope.company_select_loophole)
                 }
             },

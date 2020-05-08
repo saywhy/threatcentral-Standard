@@ -38,7 +38,7 @@ myApp.controller("AlertDarknetCtrl", function ($scope, $http, $filter, $sce) {
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
+            // dropButton: false,
             multiple: false
         });
         console.log(11212);

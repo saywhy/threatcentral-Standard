@@ -30,7 +30,7 @@ myApp.controller("logCtrl", function ($scope, $http, $filter) {
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
+            // dropButton: false,
             multiple: false
         });
         console.log(11212);

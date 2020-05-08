@@ -409,6 +409,18 @@ $this->title = '概览';
     .item_low{
         background-color:#7ACE4C
     }
+    .title_box{
+      position:relative;
+    }
+    .title_box .sp_container{
+          position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    }
+     .title_box div.sp_clear_btn {
+      display:none;
+    }
 </style>
 
 <!-- Main content -->
@@ -606,9 +618,7 @@ $this->title = '概览';
                 <div class="title_box" style="padding-left:24px;margin-bottom: 14px;">
                     <p>
                         <span class="float_left box_title_text">最新情报</span>
-                        <select class="slect_input" style="background-color: #fff;" ng-model="select_model"
-                            ng-options="x.num as x.type for x in select_list"
-                            ng-change="select_change(select_model)"></select>
+                     <input type="text" data-init="信誉情报" class="selectPage_box" id="model_select">
                     </p>
                 </div>
                 <table class="table table-striped table_th">

@@ -52,23 +52,7 @@ myApp.controller("vehicleAlertCtrl", function ($scope, $http, $filter) {
         };
 
         //漏洞级别
-        $scope.search_level = [{
-                num: '',
-                status: '漏洞级别'
-            },
-            {
-                num: '高',
-                status: '高'
-            },
-            {
-                num: '中',
-                status: '中'
-            },
-            {
-                num: '低',
-                status: '低'
-            }
-        ];
+
 
         $scope.status_str = [{
                 css: "success",
@@ -142,6 +126,7 @@ myApp.controller("vehicleAlertCtrl", function ($scope, $http, $filter) {
 
         $scope.echarts_bar(params);
         //$scope.get_page();
+        $scope.loop_select()
     }
 
     //初始化时间
@@ -214,6 +199,39 @@ myApp.controller("vehicleAlertCtrl", function ($scope, $http, $filter) {
             $scope.seach_data.endDate = ''
         });
     };
+
+    // 告警类型选择框
+    $scope.loop_select = function (data) {
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#loop_select').selectPage({
+            showField: 'num',
+            keyField: 'status',
+            data: [{
+                    num: '高',
+                    status: '高'
+                },
+                {
+                    num: '中',
+                    status: '中'
+                },
+                {
+                    num: '低',
+                    status: '低'
+                }
+            ],
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            // dropButton: false,
+            multiple: false
+        });
+        console.log(11212);
+    }
+
+
     // 漏洞来源
     $scope.get_loophole_source = function () {
         $http({
@@ -590,7 +608,7 @@ myApp.controller("vehicleAlertCtrl", function ($scope, $http, $filter) {
                 etime: $scope.seach_data.endDate,
                 sourse: params_data.source,
                 status: '0',
-                level: $scope.seach_data.level,
+                level: $('#loop_select').selectPageText(),
                 label_id: params_data.label_id_str,
                 key_word: $scope.seach_data.key_word,
                 page: pageNow,

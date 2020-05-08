@@ -3,6 +3,12 @@
 $this->title = '车联网预警';
 ?>
 <link rel="stylesheet" href="/css/vehiclealert/index.css">
+<style>
+.vehicle_echarts .sp_container{
+margin-bottom: 10px;
+
+}
+</style>
 
 <section class="vehicle_alert_container" ng-app="myApp" ng-controller="vehicleAlertCtrl" ng-cloak>
         <div class="vehicle_echarts">
@@ -40,9 +46,12 @@ $this->title = '车联网预警';
         <input  class="time_picker" autocomplete="off" id="picker_search" type="text" placeholder="时间">
       </div>
             <!-- 处理状态 -->
-            <select class="vehicle_alert_select" ng-model="seach_data.level"
+              <input type="text" class="selectPage_box" placeholder='请选择漏洞级别' id="loop_select">
+
+
+            <!-- <select class="vehicle_alert_select" ng-model="seach_data.level"
                 ng-options="x.num as x.status for x in search_level">
-            </select>
+            </select> -->
 
             <!-- 搜索 -->
             <button class="button_search" ng-click="get_page()" ng-keyup="label_keyup($event)">搜索</button>

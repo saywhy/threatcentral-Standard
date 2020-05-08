@@ -161,13 +161,14 @@ $this->title = '情报源管理';
     .form-control:focus{
           border-color: #0070ff;
     }
+   .select_container div.sp_clear_btn {
+      display:none;
+    }
 </style>
 <!-- Main content -->
 <section ng-app="myApp" ng-controller="PrototypeCtrl" style="padding-bottom:34px;" ng-cloak>
     <div class="select_container">
-          <!-- <input type="text" class="selectPage_box"  id="model_select"> -->
-        <select class="alert_search_input" style="background-color: #fff;" ng-model="select.model"
-            ng-options="x.num as x.type for x in select_model"></select>
+          <input type="text" data-init="1" class="selectPage_box" id="model_select">
     </div>
     <div class="manage_container">
         <div ng-if="select.model=='1'">

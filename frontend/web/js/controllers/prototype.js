@@ -3,8 +3,8 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
     var loading = null;
     $scope.init = function () {
         $scope.select = {
-            model: "1"
-        };
+            model: '1'
+        }
         $scope.select_model = [{
                 num: "1",
                 type: "商业情报"
@@ -31,8 +31,8 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
         //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
         //data：数据源，可以是JSON数据格式，也可以是URL
         $('#model_select').selectPage({
-            showField: 'num',
-            keyField: 'type',
+            showField: 'type',
+            keyField: 'num',
             data: [{
                     num: "1",
                     type: "商业情报"
@@ -46,10 +46,30 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
-            multiple: false
+            // dropButton: false,
+            multiple: false,
+            eSelect: function (data) {
+                console.log(data);
+                $scope.$apply(function () {
+                    $scope.select.model = data.num
+                })
+            }
         });
     }
+    // $scope.chkchange = function () {
+    //     console.log($('#model_select').selectPageText());
+    // }
+    $scope.dianji = function () {
+        console.log($scope.select.model);
+        console.log($('#model_select').selectPageText());
+    }
+    // $scope.$watch('select.model', function (newValue, oldValue) {
+    //     console.log($scope.select.model);
+    //     console.log(newValue);
+    //     console.log(oldValue);
+    //     //当value改变时执行的代码
+    // });
+
 
     $scope.get_data = function () {
         $scope.loading = zeroModal.loading(4);

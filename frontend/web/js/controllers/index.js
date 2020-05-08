@@ -22,28 +22,16 @@ myApp.controller("indexCtrl", function ($scope, $http, $filter) {
         $scope.showpop = false; //  弹窗
         $scope.select_model = "信誉情报";
         $scope.title_list = [{
-                name: "名称"
+                name: "指标"
             },
             {
-                name: "漏洞等级"
+                name: "威胁类型"
             },
             {
-                name: "POC"
+                name: "最近活跃时间"
             }
         ];
-        $scope.select_list = [{
-                num: "漏洞情报",
-                type: "漏洞情报"
-            },
-            {
-                num: "信誉情报",
-                type: "信誉情报"
-            },
-            {
-                num: "暗网情报",
-                type: "暗网情报"
-            }
-        ];
+
         $scope.selected = 0;
         $scope.site_top();
         $scope.alert_list();
@@ -58,7 +46,43 @@ myApp.controller("indexCtrl", function ($scope, $http, $filter) {
         //   最新情报-漏洞情报
         $scope.loophole_intelligence();
         $scope.check_alert_num = -1;
+        $scope.model_select()
     };
+
+    $scope.model_select = function (data) {
+        //showField：设置下拉列表中显示文本的列
+        //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
+        //data：数据源，可以是JSON数据格式，也可以是URL
+        $('#model_select').selectPage({
+            showField: 'type',
+            keyField: 'num',
+            data: [{
+                    num: "信誉情报",
+                    type: "信誉情报"
+                }, {
+                    num: "漏洞情报",
+                    type: "漏洞情报"
+                },
+                {
+                    num: "暗网情报",
+                    type: "暗网情报"
+                },
+            ],
+            //仅选择模式，不允许输入查询关键字
+            selectOnly: true,
+            listSize: 5,
+            pagination: false,
+            // dropButton: false,
+            multiple: false,
+            eSelect: function (data) {
+                console.log(data);
+                $scope.$apply(function () {
+                    $scope.select_change(data.num)
+                    $scope.select_model = data.num
+                })
+            }
+        });
+    }
     $scope.site_top = function () {
         $http.get("/alert/top").then(
             function success(rsp) {

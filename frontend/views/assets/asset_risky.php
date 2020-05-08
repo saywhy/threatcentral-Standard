@@ -220,26 +220,18 @@ $this->title = '受影响资产';
             <div class="myAsset_box_top_box">
                 <div class="input_item">
                     <input type="text" class="input_box" placeholder="输入资产名称" ng-model="search.asset_ip"
-                        ng-focus="get_assets_name_focus()" ng-blur="get_domain_name_blur()"
-                        ng-keyup="myKeyup_assets_name(search.asset_ip)">
-                    <ul class="container_ul" ng-show="assets_name_list_if">
+                     >
+                    <!-- <ul class="container_ul" ng-show="assets_name_list_if">
                         <li ng-repeat="item in assets_name" class="li_hover"
                             ng-click="assets_name_list_click(item.asset_ip)">
                             {{item.asset_ip}}
                         </li>
-                    </ul>
+                    </ul> -->
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 </div>
                 <div class="input_item">
                     <input type="text" class="input_box" placeholder="输入资产分组名称" ng-model="search.company"
-                        ng-focus="get_company_list_focus()" ng-blur="get_domain_name_blur()"
-                        ng-keyup="myKeyup_company_list(search.company)">
-                    <ul class="container_ul" ng-show="company_list_if">
-                        <li ng-repeat="item in company_list" class="li_hover"
-                            ng-click="company_list_click(item.company)">
-                            {{item.company}}
-                        </li>
-                    </ul>
+                      >
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 </div>
                 <div class="input_item">

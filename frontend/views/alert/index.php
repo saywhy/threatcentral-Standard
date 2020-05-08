@@ -475,16 +475,9 @@ $this->title = '威胁预警';
   </div>
   <div class="alert_box" ng-click="alert_box()">
     <div class="alert_box_top">
-          <input type="text" autocomplete="off" class="selectPage_box" placeholder='请输入受影响资产' ng-model="searchData.client_ip" id="client_ip_input">
-      <span class="search_icon_box">
+        <span class="search_icon_box">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-        <input type="text" class="alert_search_input" ng-focus="get_client_ip_focus()" ng-blur="get_client_ip_blur()"
-          ng-keyup="myKeyup_client_ip(searchData.client_ip)" placeholder="请输入受影响资产" ng-model="searchData.client_ip">
-        <ul class="container_ul" ng-show="select_client_ip_if">
-          <li ng-repeat="item in select_client_ip" class="li_hover" ng-click="select_client_ip_item(item.client_ip)">
-            {{item.client_ip}}
-          </li>
-        </ul>
+        <input type="text" class="alert_search_input"  placeholder="请输入受影响资产" ng-model="searchData.client_ip">
       </span>
       <!-- <select class="alert_search_input_select" style="background-color: #fff;" ng-model="searchData.category"
         ng-options="x.num as x.type for x in category_select"></select> -->
@@ -493,14 +486,8 @@ $this->title = '威胁预警';
 
       <span class="search_icon_box">
         <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-        <input type="text" class="alert_search_input" ng-focus="get_indicator_focus()" ng-blur="get_indicator_blur()"
-          ng-keyup="myKeyup_indicator(searchData.indicator)" placeholder="请输入威胁指标" ng-model="searchData.indicator">
-        <ul class="container_ul" ng-show="select_indicator_if">
-          <li ng-repeat="item in select_indicator" class="li_hover"
-            ng-mousedown="select_indicator_item(item.indicator)">
-            {{item.indicator}}
-          </li>
-        </ul>
+        <input type="text" class="alert_search_input" placeholder="请输入威胁指标" ng-model="searchData.indicator">
+
       </span>
       <input type="text" class="selectPage_box" placeholder='请选择资产分组'  id="company_input">
       <button class="button_search" ng-click="search()">搜索</button>

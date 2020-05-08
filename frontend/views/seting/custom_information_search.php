@@ -72,8 +72,8 @@ $this->title = '漏洞关联';
     <div class="loop_connect_box">
         <div class="loop_connect_box_top">
             <div class="position_box">
-                <input  autocomplete="off" type="text" placeholder="请输入漏洞日志名称" class="input_box" ng-model="search_data.risk_name">
-                <input  autocomplete="off" type="text" placeholder="请输入漏洞情报名称" class="input_box" ng-model="search_data.title">
+                <input  autocomplete="off" type="text" placeholder="请输入漏洞日志名称" class="input_box" ng-model="search_data.risk_name" style="padding-left: 15px;">
+                <input  autocomplete="off" type="text" placeholder="请输入漏洞情报名称" class="input_box" ng-model="search_data.title" style="padding-left: 15px;">
                 <button class="search_btn" ng-click="get_loop_list()">搜索规则</button>
                 <button class="add_btn" ng-click="add_loop()">新建规则</button>
             </div>

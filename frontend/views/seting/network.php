@@ -11,8 +11,14 @@ $this->title = '网络配置';
         <div style="overflow: auto;">
             <div class="net_set_title">网络设置</div>
             <div class="net_set_right">
+
+              <input type="text" data-init="1" class="selectPage_box" id="model_select">
+
                 <select class="select_box" ng-model="select_net_name"
                     ng-options="x.num as x.type for x in select_model" ng-change="select_net_name_change(select_net_name)"></select>
+
+
+
                 <div class="net_set_item_box">
                     <span class="net_set_item_title">状态：</span>
                     <span ng-click="net_choose('open')" ng-disabled="network_type.disabled" class="choose_box">

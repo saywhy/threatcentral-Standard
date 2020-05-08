@@ -211,51 +211,43 @@ $this->title = '资产管理';
                 <!-- 网站资产 -->
                 <span class="input_box_item" ng-if="domain_search_if">
                     <input class="input_box" placeholder="输入资产名称" ng-model="search.domain_asset_name"
-                        ng-focus="get_domain_name_focus()" ng-blur="get_domain_name_blur()"
-                        ng-keyup="myKeyup_domain_name(search.domain_asset_name)" type="text">
-                    <ul class="container_ul" ng-show="domain_name_list_if">
+                       type="text">
+                    <!-- <ul class="container_ul" ng-show="domain_name_list_if">
                         <li ng-repeat="item in domain_name_list" class="li_hover"
                             ng-click="domain_name_list_click(item.asset_name)">
                             {{item.asset_name}}
                         </li>
-                    </ul>
+                    </ul> -->
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 </span>
                 <span class="input_box_item" ng-if="domain_search_if">
                     <input class="input_box" type="text" placeholder="输入资产分组名称" ng-model="search.domain_group_name"
-                        ng-focus="get_group_name_focus()" ng-keyup="myKeyup_domain_group(search.domain_group_name)">
-                    <ul class="container_ul" ng-show="domain_group_list_if">
+                      >
+                    <!-- <ul class="container_ul" ng-show="domain_group_list_if">
                         <li ng-repeat="item in domain_group_list" class="li_hover"
                             ng-click="group_name_list_click(item.group_name)">
                             {{item.group_name}}
                         </li>
-                    </ul>
+                    </ul> -->
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 </span>
                 <!-- 主机资产 -->
                 <span class="input_box_item" ng-if="host_search_if">
                     <input class="input_box" placeholder="输入资产名称"
-                    ng-model="search.host_asset_name" ng-focus="get_host_name_focus()" ng-blur="get_host_name_blur()"
-                    ng-keyup="myKeyup_host_name(search.host_asset_name)" type="text">
+              type="text">
 
-                 <ul class="container_ul" ng-show="host_name_list_if">
+                 <!-- <ul class="container_ul" ng-show="host_name_list_if">
                     <li ng-repeat="item in host_name_list" class="li_hover"
                         ng-click="host_name_list_click(item.asset_name)">
                         {{item.asset_name}}
                     </li>
-                </ul>
+                </ul> -->
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 </span>
                 <span class="input_box_item" ng-if="host_search_if">
                     <input class="input_box" type="text" placeholder="输入资产分组名称"
-                    ng-model="search.host_group_name" ng-focus="get_host_group_focus()"
-                    ng-keyup="myKeyup_host_group(search.host_group_name)">
-                     <ul class="container_ul" ng-show="host_group_list_if">
-                    <li ng-repeat="item in host_group_list" class="li_hover"
-                        ng-click="host_group_list_click(item.group_name)">
-                        {{item.group_name}}
-                    </li>
-                </ul>
+                    ng-model="search.host_group_name">
+
                     <img src="/images/alert/search_icon.png" class="search_icon" alt="">
                 </span>
                 <button class="btn_search" ng-click="search_res()">搜索</button>

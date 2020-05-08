@@ -587,30 +587,16 @@ $this->title = '漏洞预警';
       <div class="alert_box_top">
         <span class="search_icon_box">
           <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-          <input type="text" class="alert_search_input" ng-focus="get_device_ip_focus()" ng-blur="get_device_ip_blur();"
-            ng-keyup="myKeyup_device_ip(loop_serch_data.device_ip)" placeholder="请输入受影响资产"
+          <input type="text" class="alert_search_input"  placeholder="请输入受影响资产"
             ng-model="loop_serch_data.device_ip">
-          <ul class="container_ul" ng-show="select_device_ip_if" style="top:58px;">
-            <li ng-repeat="item in select_device_ip" class="li_hover"
-              ng-mousedown="select_device_ip_item(item.device_ip)">
-              {{item.device_ip}}
-            </li>
-          </ul>
+
         </span>
-        <input type="text" class="selectPage_box" placeholder='请选择所属' id="company_select">
-
-
+        <input type="text" class="selectPage_box" placeholder='请选择所属分组' id="company_input">
         <span class="search_icon_box">
           <img src="/images/alert/search_icon.png" class="search_icon" alt="">
-          <input type="text" class="alert_search_input" ng-focus="get_loophole_name_focus()"
-            ng-blur="get_loophole_name_blur()" ng-keyup="myKeyup_loophole_name(loop_serch_data.loophole_name)"
+          <input type="text" class="alert_search_input"
             placeholder="请输入受影响资产" ng-model="loop_serch_data.loophole_name">
-          <ul class="container_ul" ng-show="select_loophole_name_if" style="top:58px;">
-            <li ng-repeat="item in select_loophole_name" class="li_hover"
-              ng-mousedown="select_loophole_name_item(item.loophole_name)">
-              {{item.loophole_name}}
-            </li>
-          </ul>
+
         </span>
         <input type="text" class="selectPage_box"  placeholder='请选择有无POC' id="poc_select">
 

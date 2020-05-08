@@ -109,7 +109,6 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
             multiple: false
         });
         console.log(11212);
@@ -127,7 +126,6 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
             selectOnly: true,
             listSize: 5,
             pagination: false,
-            dropButton: false,
             multiple: false
         });
         console.log(11212);
@@ -258,6 +256,7 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
                             $scope.company_select.push(obj_company);
                         }
                     });
+                    console.log($scope.company_select);
                     $scope.company_input($scope.company_select);
                 }
             },
@@ -297,6 +296,7 @@ myApp.controller("myCtrl", function ($scope, $http, $filter, $sce) {
         $scope.select_indicator_if = false;
         $scope.select_client_ip_if = false;
     };
+
 
     $scope.search = function () {
         $scope.select_client_ip_if = false;
