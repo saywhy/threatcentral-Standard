@@ -5,8 +5,8 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
         $scope.listObj = {};
         $scope.list = [];
         $scope.listCount = 0;
-        $scope.offset = 0;
-        $scope.limit = 2;
+        $scope.offset = 1;
+        $scope.limit = 5;
         $scope.btn_show = true;
         $scope.btn_text = "加载更多";
         $scope.wds = [];
@@ -36,7 +36,7 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
             function success(rsp) {
                 console.log('*****')
                 console.log(rsp);
-                if (($scope.offset + 1) * $scope.limit >= rsp.count) {
+                if ($scope.offset * $scope.limit >= rsp.data.count) {
                     $scope.btn_show = false;
                     //$scope.btn_text = "加载完成";
                 }
