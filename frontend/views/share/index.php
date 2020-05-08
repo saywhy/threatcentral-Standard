@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = '情报共享';
+$this->title = '情报共享1';
 ?>
 <link rel="stylesheet" href="/css/share/share.css">
 <section class="share_box" ng-app="myApp" ng-controller="shareCtrl" ng-cloak>
