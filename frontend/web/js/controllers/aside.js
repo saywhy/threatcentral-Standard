@@ -121,13 +121,6 @@ myApp.controller("asideCtrl", function ($scope, $http) {
     $scope.init_aside_flag = function () {
         let per_id = JSON.parse(localStorage.getItem('pemission_id'));
         let icd = $scope.indexCode;
-        console.log(per_id);
-
-
-
-
-
-
         if (icd == 1) {
             if (per_id.includes('16') ||
                 per_id.includes('24') ||
@@ -389,8 +382,6 @@ myApp.controller("asideCtrl", function ($scope, $http) {
                 $scope.menu_list.set_log = true;
             }
             if (per_id.includes('229')) {
-                console.log('syslog');
-
                 $scope.menu_list.set_syslog = true;
             }
             if (per_id.includes('151')) {
@@ -416,7 +407,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
 
     $scope.init = function () {
         $http.get('/site/menu').then(function (resp) {
-            console.log(resp.data);
+            // console.log(resp.data);
             var permission = resp.data;
             if (permission.status == "success") {
                 var per_id = []

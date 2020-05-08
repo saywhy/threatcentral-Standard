@@ -27,14 +27,15 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
     };
     $scope.get_list = function () {
         var postData = {
-            wds: $scope.wds,
-            offSet: Object.keys($scope.listObj).length
+            // wds: $scope.wds,
+            // offSet: Object.keys($scope.listObj).length
         };
-        if ($scope.listCount != 0 && $scope.listCount <= postData.offSet) {
-            $scope.btn_show = false;
-            $scope.btn_text = "加载完成";
-            return;
-        }
+        console.log(postData);
+        // if ($scope.listCount != 0 && $scope.listCount <= postData.offSet) {
+        //     $scope.btn_show = false;
+        //     $scope.btn_text = "加载完成";
+        //     return;
+        // }
         $http.post("/share/list", postData).then(
             function success(rsp) {
                 console.log(rsp);
@@ -50,6 +51,7 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
     };
 
     $scope.add_more = function () {
+        console.log($scope.list);
         $scope.get_list();
     };
     //   共享情报提交
