@@ -18,6 +18,8 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
             item.timeString = moment(item.created_at, "X").fromNow();
             $scope.list.push(item);
             $scope.listObj[item.id] = item;
+
+            console.log($scope.list)
         }
     };
     $scope.search = function () {
@@ -84,6 +86,8 @@ myApp.controller("shareCtrl", function ($scope, $http, $filter) {
                         if (rsp.data.status == "success") {
                             $scope.list.splice(index, 1);
                             delete $scope.listObj["" + item.id];
+
+                            $scope.get_list();
                         }
                         zeroModal.close(loading);
                     },

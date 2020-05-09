@@ -816,6 +816,10 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
 
     //纵向操作
     $scope.drag_category = function (args) {
+
+        args = args.filter(item => {return item != ''});
+
+        //console.log(args)
         //传递category_id数组
         $http({
             method: "put",
@@ -895,7 +899,7 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
                         }
                     });
                     $scope.label_data = labelAttr;
-                    console.log($scope.label_data);
+                   // console.log($scope.label_data);
                     angular.forEach($scope.label_data, function (item) {
                         //console.log(item.name);
                         item.name = $scope.escape2Html(item.name)
@@ -930,10 +934,8 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
 
     //拖拽与置顶初始化
     $scope.initDrag = function () {
-
         angular.element(document).ready(function () {
 
-            //纵向拖动
             $(".label-lists").sortable({
                 handle: ".tog_img_drag",
                 opacity: 0.7,
@@ -945,12 +947,12 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
                     var category_id_attr = $(".label-lists").sortable('toArray', {
                         attribute: 'value'
                     });
-
                     //纵向拖拽
                     $scope.drag_category(category_id_attr);
-
                 }
             });
+
+
 
             //横向拖动
             angular.forEach($scope.label_data, function (key, index) {

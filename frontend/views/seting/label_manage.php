@@ -30,7 +30,8 @@ $this->title = '标签管理';
                           title="编辑标签类别" ng-click="category_edit($event,item);"/>
                     </div>
                     <div class="tog_edit_seat">
-                        <img ng-if="item.name != ''" class="tog_img tog_img_top" ng-value="$idx" src="/images/set/is_top.png" title="置顶"/>
+                        <img ng-if="item.name != ''" class="tog_img tog_img_top" ng-value="$idx" src="/images/set/is_top.png"
+                        title="置顶"/>
                     </div>
                     <div class="tog_edit_seat">
                        <img ng-if="item.name != ''" class="tog_img tog_img_drag" src="/images/set/label_drag_h.png" title="拖动"/>
