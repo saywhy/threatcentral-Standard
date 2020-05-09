@@ -595,7 +595,7 @@ $this->title = '漏洞预警';
         <span class="search_icon_box">
           <img src="/images/alert/search_icon.png" class="search_icon" alt="">
           <input type="text" class="alert_search_input"
-            placeholder="请输入受影响资产" ng-model="loop_serch_data.loophole_name">
+            placeholder="请输入漏洞名称" ng-model="loop_serch_data.loophole_name">
 
         </span>
         <input type="text" class="selectPage_box"  placeholder='请选择有无POC' id="poc_select">

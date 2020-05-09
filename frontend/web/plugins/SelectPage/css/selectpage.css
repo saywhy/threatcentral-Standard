@@ -191,14 +191,15 @@ div.sp_result_area.shadowUp {
 }
 
 ul.sp_results>li.sp_over {
-  background-color: #EEF6FF !important;
-  /* color: #fff !important; */
+  background-color: #0070ff !important;
+  color: #fff !important;
   cursor: pointer;
 }
 
 ul.sp_results>li.sp_selected {
-  color: #EEF6FF;
+  color: #fff;
   cursor: default;
+  background-color: #0070ff !important;
 }
 
 .sp_control_box {

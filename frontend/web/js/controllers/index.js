@@ -29,6 +29,7 @@ myApp.controller("indexCtrl", function ($scope, $http, $filter) {
             },
             {
                 name: "最近活跃时间"
+
             }
         ];
 

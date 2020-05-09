@@ -11,36 +11,7 @@ myApp.controller("netCtrl", function ($scope, $http) {
         $scope.get_net("init");
         // 分割线
         $scope.select_model = [];
-        $scope.$scope.model_select = function (data) {
-            //showField：设置下拉列表中显示文本的列
-            //keyField：设置下拉列表项目中项目的KEY值，用于提交表单
-            //data：数据源，可以是JSON数据格式，也可以是URL
-            $('#model_select').selectPage({
-                showField: 'type',
-                keyField: 'num',
-                data: [{
-                        num: "1",
-                        type: "商业情报"
-                    },
-                    {
-                        num: "2",
-                        type: "开源情报"
-                    }
-                ],
-                //仅选择模式，不允许输入查询关键字
-                selectOnly: true,
-                listSize: 5,
-                pagination: false,
-                // dropButton: false,
-                multiple: false,
-                eSelect: function (data) {
-                    console.log(data);
-                    $scope.$apply(function () {
-                        $scope.select.model = data.num
-                    })
-                }
-            });
-        } = [{
+        $scope.gain_type = [{
                 num: "static",
                 type: "手动设置"
             },
@@ -50,7 +21,7 @@ myApp.controller("netCtrl", function ($scope, $http) {
             }
         ];
         $scope.select_net_name = "";
-        $scope.select_ = "";
+        $scope.select_gain_type = "";
         $scope.set_true = true;
         $scope.network = {
             IPADDR: "192.168.1.11",
