@@ -1025,14 +1025,18 @@
         }, function () {
             $(this).removeClass(css.select);
         }).click(function (e) {
+            console.log(e);
+            console.log(self.prop.key_select);
+
             if (self.prop.key_select) {
                 self.prop.key_select = false;
                 return;
             }
             e.preventDefault();
             e.stopPropagation();
-
-            if (!$(this).hasClass(css.selected)) self.selectCurrentLine(self, false);
+            console.log($(this).hasClass(css.selected));
+            self.selectCurrentLine(self, false)
+            // if (!$(this).hasClass(css.selected)) self.selectCurrentLine(self, false);
         });
     };
 
@@ -1911,6 +1915,8 @@
         self.inputResize(self);
         self.elem.combo_input.change();
         self.setCssFocusedInput(self);
+        console.log(self);
+
         if (self.prop.init_set) return;
         if (self.option.multiple) {
             if (self.option.selectToCloseList) {

@@ -198,7 +198,7 @@ ul.sp_results>li.sp_over {
 
 ul.sp_results>li.sp_selected {
   color: #fff;
-  cursor: default;
+  cursor: pointer;
   background-color: #0070ff !important;
 }
 
