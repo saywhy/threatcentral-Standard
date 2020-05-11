@@ -658,10 +658,10 @@ $this->title = '概览';
                 <table class="table table-striped table_th">
                     <tr style="height:42px;">
                           <th style="width: 150px">预警时间</th>
-                                <th style="width: 100px">预警类型</th>
+                                <th >预警类型</th>
                                 <th>威胁指标</th>
-                                <th style="width: 100px">失陷资产</th>
-                                <th>预警等级</th>
+                                <th >失陷资产</th>
+                                <th style="width: 100px">预警等级</th>
                     </tr>
                       <tr ng-repeat="item in pages.data" style="height: 42px;"
                                 ng-click="goAlarm()">

@@ -427,6 +427,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 // zeroModal.close(loading);
                 $scope.pages = data.data;
                 console.log($scope.pages);
+                $scope.pages.pageNow = $scope.pages.pageNow * 1
+                $scope.pages.maxPage = $scope.pages.maxPage * 1
                 angular.forEach($scope.pages.data, function (item) {
                     console.log(item.title);
 
