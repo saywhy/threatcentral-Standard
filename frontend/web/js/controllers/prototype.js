@@ -94,6 +94,7 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                     });
                     $http.get("/proxy/status/cyberhunt").then(
                         function success(rsp) {
+                            console.log(rsp);
                             if (rsp.data.result) {
                                 console.log("cyberhunt");
                                 console.log(rsp.data.result);

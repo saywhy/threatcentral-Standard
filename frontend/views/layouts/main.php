@@ -106,8 +106,6 @@ function getPath($path)
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/plugins/ztree/zTreeStyle.css">
   <link rel="stylesheet" href="/css/set/autocomplete.css">
-
-  <!-- <link rel="stylesheet" href="/plugins/switch/bootstrap-switch.css"> -->
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -118,10 +116,11 @@ function getPath($path)
 
       <a href="/" class="logo"
         style="background-color: #374051;height:64px;text-align: right;padding: 0 8px;text-decoration:none;">
-        <span class="logo-lg" style="line-height: 62px;">
+        <span class="logo-lg" style="line-height: 62px;text-align: center">
+        <!-- <span class="logo-lg" style="line-height: 62px;"> -->
           <img src="/images/hoohoolab-logo.png" style="height: 50px;">
-          <span style="font-weight: 500;">Threatcentral</span>
-          <!-- <span style="color: #c4d0d9;font-weight: 500;">ThreatCentral</span> -->
+          <!-- <img src="/images/kongan_logo.png" style="height: 50px;"> -->
+          <span style="color: #c4d0d9;font-weight: 500;">ThreatCentral</span>
         </span>
       </a>
       <nav class="navbar navbar-static-top" style="background-color: #374051; ">

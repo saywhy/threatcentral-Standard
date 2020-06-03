@@ -380,7 +380,7 @@ $this->title = '情报查询';
                                         <img src="/images/alert/bom_1.png" alt="">
                                         <span class="info_bom_mid_p_name">地理位置：</span>
                                         <span
-                                            class="info_bom_mid_p_value">{{reputation_res.hoohoolab_first_seen}}</span>
+                                            class="info_bom_mid_p_value">{{reputation_res.geo}}</span>
                                     </p>
                                     <p class="info_bom_mid_p">
                                         <img src="/images/alert/bom_4.png" alt="">
