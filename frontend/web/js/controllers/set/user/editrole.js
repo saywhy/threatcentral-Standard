@@ -134,6 +134,10 @@ myApp.controller("EditRoleController", [
                                     id: "151"
                                 },
                                 {
+                                    name: "更新",
+                                    id: "236"
+                                },
+                                {
                                     name: "许可证",
                                     id: "223"
                                 },
@@ -276,6 +280,10 @@ myApp.controller("EditRoleController", [
                                 {
                                     name: "情报API",
                                     id: "151"
+                                },
+                                {
+                                    name: "更新",
+                                    id: "236"
                                 },
                                 {
                                     name: "许可证",

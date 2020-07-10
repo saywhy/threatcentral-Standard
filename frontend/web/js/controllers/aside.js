@@ -112,6 +112,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
         set_special: false,
         set_loophole: false,
         set_base: false,
+        offline_update: false,
         license: false
     };
 
@@ -161,6 +162,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
                 per_id.includes('104') ||
                 per_id.includes('110') ||
                 per_id.includes('126') ||
+                per_id.includes('236') ||
                 per_id.includes('130') ||
                 per_id.includes('229') ||
                 per_id.includes('223') ||
@@ -234,6 +236,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
             case '/seting/log':
             case '/seting/syslog':
             case '/api/index':
+            case '/offline-update/index':
             case '/seting/license':
                 $scope.menu_aside.seting.system = true;
                 break;
@@ -279,7 +282,7 @@ myApp.controller("asideCtrl", function ($scope, $http) {
             $scope.indexCode = 3;
         } else if (names === 'report') {
             $scope.indexCode = 4;
-        } else if (names === 'seting' || names === 'api') {
+        } else if (names === 'seting' || names === 'api' || names === 'offline-update') {
             $scope.indexCode = 5;
         }
 
@@ -401,6 +404,9 @@ myApp.controller("asideCtrl", function ($scope, $http) {
             }
             if (per_id.includes('209')) {
                 $scope.menu_list.set_base = true;
+            }
+            if (per_id.includes('236')) {
+                $scope.menu_list.offline_update = true;
             }
         }
     };

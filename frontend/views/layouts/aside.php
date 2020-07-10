@@ -270,6 +270,11 @@
                        <span>情报API</span>
                    </a>
                </li>
+               <li class="aside-item-second  <?=isActive(['/offline-update/index'])?>" ng-if="menu_list.offline_update">
+                     <a class="aside-item-second-a" href="<?=getPath('/offline-update/index')?>" >
+                       <span>更新</span>
+                   </a>
+                </li>
                <li class="aside-item-second <?=isActive(['/seting/license'])?>" ng-if="menu_list.license">
                    <a class="aside-item-second-a" href="<?=getPath('/seting/license')?>" >
                        <span>许可证</span>

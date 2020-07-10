@@ -41,7 +41,6 @@ myApp.controller("loginCtrl", function ($scope, $http, $filter, $sce) {
             }
         };
     };
-
     $scope.verCode = function () {
         var nums = [
             "2",
@@ -360,5 +359,9 @@ myApp.controller("loginCtrl", function ($scope, $http, $filter, $sce) {
         console.log(num);
         $scope.select_if = !$scope.select_if;
     };
+
+
+
+
     $scope.init();
 });

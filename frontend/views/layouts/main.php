@@ -106,6 +106,7 @@ function getPath($path)
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/plugins/ztree/zTreeStyle.css">
   <link rel="stylesheet" href="/css/set/autocomplete.css">
+      <link rel="stylesheet" href="/css/webuploader.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -242,7 +243,9 @@ function getPath($path)
             <?php if (isActive(['/seting/base-intelligence']) == 'active') {?>
             <li><a href="/seting/base-intelligence"><i class="fa fa-cog"></i>配置</a></li>
             <?php }?>
-
+ <?php if (isActive(['/offline-update/index']) == 'active') {?>
+        <li><a href="/offline-update/index"><i class="fa fa-cog"></i>配置</a></li>
+        <?php }?>
             <li class="active"><?=$this->title?></li>
           </ol>
         </section>
@@ -319,7 +322,7 @@ function getPath($path)
     <script src="/plugins/ztree/jquery.ztree.exhide.js"></script>
   <script type="text/javascript" src="/plugins/SelectPage/js/selectpage.js"></script>
 
-
+<script src="/js/webuploader.js"></script>
     <!-- <script src="/plugins/pdf/html2canvas.js"></script> -->
     <!-- <script src="/plugins/pdf/jspdf_debug.js"></script> -->
     <!-- <script src="/plugins/switch/bootstrap-switch.min.js"></script> -->

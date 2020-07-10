@@ -14,7 +14,7 @@ $this->context->layout = false;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>虎特威胁情报系统</title>
+  <title>ThreatCentral威胁情报系统</title>
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" media="screen" href="/css/common.css">
   <link rel="stylesheet" media="screen" href="/css/family/pingfang.css">
@@ -33,7 +33,7 @@ $this->context->layout = false;
           <img class="logo_img" src="/images/hoohoolab-logo.png" alt="">
         </div>
         <div class="login_box_content">
-          <p class="login_box_content_tilte">威胁情报系统</p>
+          <p class="login_box_content_tilte">ThreatCentral威胁情报系统</p>
           <div class="input_box">
             <label for="username">用户名</label>
             <img src="/images/login/user.png" class="user_img" alt="">
@@ -41,7 +41,7 @@ $this->context->layout = false;
               ng-focus="username_focus()">
             <div class="error_msg">
               <p class="errorMessage_color">
-                <span>{{errorMessage.username}}</span>
+               <span ng-bind="errorMessage.username"></span>
               </p>
             </div>
           </div>
@@ -52,7 +52,7 @@ $this->context->layout = false;
               ng-model="user.password">
             <div class="error_msg">
               <p class="errorMessage_color">
-                <span>{{errorMessage.password}}</span>
+                 <span ng-bind="errorMessage.password"></span>
               </p>
             </div>
           </div>
@@ -69,7 +69,7 @@ $this->context->layout = false;
             </div>
             <div class="error_msg">
               <p class="errorMessage_color">
-                <span>{{errorMessage.code}}</span>
+               <span ng-bind="errorMessage.code"></span>
               </p>
             </div>
           </div>
